@@ -1,0 +1,16 @@
+.project
+.cproject
+.settings/
+Disk.img
+ImageMaker
+ImageMaker.exe
+**/*.o
+**/*.elf
+**/*.dep
+**/*.bin
+/TODO
+Temp/
+**/*.DS_Store
+.DS_Store
+CMakeLists.txt
+.idea/
