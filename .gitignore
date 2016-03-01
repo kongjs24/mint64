@@ -12,5 +12,4 @@ ImageMaker.exe
 Temp/
 **/*.DS_Store
 .DS_Store
-CMakeLists.txt
 .idea/

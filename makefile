@@ -12,7 +12,6 @@ BootLoader:
 	@echo
 	
 Kernel32:
-	nasm -version
 	@echo
 	@echo ========== Build 32bit Kernel ==========
 	@echo
