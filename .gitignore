@@ -1,9 +1,6 @@
 .project
 .cproject
 .settings/
-Disk.img
-ImageMaker
-ImageMaker.exe
 **/*.o
 **/*.elf
 **/*.dep
