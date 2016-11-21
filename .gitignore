@@ -5,8 +5,7 @@
 **/*.elf
 **/*.dep
 **/*.bin
-/TODO
+**/Temp
 Temp/
 **/*.DS_Store
 .DS_Store
-.idea/
