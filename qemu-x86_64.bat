@@ -1,13 +1,3 @@
-REM ==================================================================================
-REM 
-REM 이 파일은 C:/MINT64 디렉터리에 있는 Disk.img 파일이나 DiskWithPackage.img 파일을
-REM 로딩하도록 되어 있습니다. 
-REM
-REM 실행할 디렉터리나 파일명을 바꾸고 싶다면 가장 아래에 있는 qemu-system-x86_64.exe 
-REM 라인을 수정하면 됩니다.
-REM 
-REM ==================================================================================
-
 REM Start qemu on windows.
 @ECHO OFF
 
@@ -27,8 +17,8 @@ REM PCI-based PC(default): -M pc
 REM ISA-based PC         : -M isapc
 REM -M isapc is added for NE2000 ISA card.
 
-set PROJECT_HOME="C:\Development\workspace\mint64"
-set QEMU_HOME="c:\Development\qemu-0.10.4"
+set PROJECT_HOME="C:\Users\devjin\workspace\mint64"
+set QEMU_HOME="C:\Users\devjin\devenv\qemu-0.10.4"
 chdir /d %QEMU_HOME%
 qemu-system-x86_64.exe -L . -m 64 -fda %PROJECT_HOME%/Disk.img -boot a -localtime -M pc -serial tcp::4444,server,nowait -smp 2
 #pause > nul
