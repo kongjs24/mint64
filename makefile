@@ -1,4 +1,4 @@
-all: BootLoader Disk.img
+all: BootLoader Kernel32 Disk.img
 
 BootLoader:
 	@echo
@@ -8,7 +8,7 @@ BootLoader:
 	make -C 00.BootLoader
 	
 	@echo
-	@echo  ====================== Build Boot Loader ======================
+	@echo  ================ Success Build Boot Loader ===================
 	@echo
 
 Kernel32:
@@ -19,18 +19,18 @@ Kernel32:
 	make -C 01.Kernel32
 	
 	@echo
-	@echo ====================== Build 32bit kernel ======================
+	@echo ================ Success Build 32bit kernel ======================
 	@echo
 
-Disk.img: BootLoader Kernel32
+Disk.img: 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin
 	@echo
-	@echo  ====================== Build Boot Loader ======================
+	@echo  ====================== make Disk image ======================
 	@echo
 	
-	cat 00.BootLoader/BootLoader.bin 01.Kernel32/VirtualOS.bin > Disk.img
+	cat $^ > Disk.img
 	
 	@echo
-	@echo  ====================== Build Boot Loader ======================
+	@echo  ================ Success make Disk image ======================
 	@echo
 
 clean:
