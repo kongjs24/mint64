@@ -9,3 +9,6 @@
 Temp/
 **/*.DS_Store
 .DS_Store
+Disk.img
+.idea/
+cmake-build-debug/
