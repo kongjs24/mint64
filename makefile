@@ -27,7 +27,7 @@ Disk.img: 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin
 	@echo  ====================== make Disk image ======================
 	@echo
 
-	cat $^ > Disk.img
+	./ImageMaker.exe $^
 
 	@echo
 	@echo  ================ Success make Disk image ======================
@@ -36,4 +36,5 @@ Disk.img: 00.BootLoader/BootLoader.bin 01.Kernel32/Kernel32.bin
 clean:
 	make -C 00.BootLoader clean
 	make -C 01.Kernel32 clean
+	make -C 04.Utility clean
 	rm -f Disk.img
