@@ -10,7 +10,7 @@ Temp/
 **/*.DS_Store
 .DS_Store
 Disk.img
-ImageMaker.exe
+**/*.exe
 .idea/
 cmake-build-debug/
-Disk.img
+**/*.img
