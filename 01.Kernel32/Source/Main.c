@@ -1,4 +1,5 @@
 #include "Types.h"
+#include "Page.h"
 
 void kPrintMessageAndStatus(int ix, int iy, const char *success, const char *failure, BOOL status);
 
@@ -26,11 +27,20 @@ void Main(void) {
                            "Kernel Area Initialization Fail~!!",
                            kInitializeKernel64Area()
     );
+    kPrintMessageAndStatus(0, 6,
+                           "IA-32e Page Tables Initialize.",
+                           "",
+                           kInitializePageTables()
+    );
 
     while (1);
 }
 
-void kPrintMessageAndStatus(int iX, int iY, const char *success, const char *failure, BOOL status) {
+void kPrintMessageAndStatus(int iX,
+                            int iY,
+                            const char *success,
+                            const char *failure,
+                            BOOL status) {
     DWORD maxWidth = 80;
     int i;
     int successSize;
