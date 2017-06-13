@@ -27,7 +27,7 @@
 typedef struct kPageTableEntryStruct {
     DWORD dwAttributeAndLowerBaseAddress;
     DWORD dwUpperBaseAddressAndEXB;
-} PML4ENTRY, PDPTENTRY, PDENTRY, PTENTRY;
+} PML4TENTRY, PDPTENTRY, PDENTRY, PTENTRY;
 
 #pragma pack( pop )
 

@@ -3,8 +3,8 @@
  *  date    2008/12/16
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   ºÎÆ® ·Î´õ¿Í Ä¿³Î ÀÌ¹ÌÁö¸¦ ¿¬°áÇÏ°í, ¼½ÅÍ ´ÜÀ§·Î Á¤·ÄÇØ ÁÖ´Â ImageMakerÀÇ 
- *          ¼Ò½º ÆÄÀÏ
+ *  brief   ï¿½ï¿½Æ® ï¿½Î´ï¿½ï¿½ï¿½ Ä¿ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ImageMakerï¿½ï¿½ 
+ *          ï¿½Ò½ï¿½ ï¿½ï¿½ï¿½ï¿½
  */
 
 #include <stdio.h>
@@ -17,111 +17,106 @@
 
 #define BYTESOFSECTOR  512
 
-// ÇÔ¼ö ¼±¾ð
-int AdjustInSectorSize( int iFd, int iSourceSize );
-void WriteKernelInformation( int iTargetFd, int iTotalKernelSectorCount, 
-        int iKernel32SectorCount );
-int CopyFile( int iSourceFd, int iTargetFd );
+// ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ï¿½
+int AdjustInSectorSize(int iFd, int iSourceSize);
+
+void WriteKernelInformation(int iTargetFd, int iTotalKernelSectorCount,
+                            int iKernel32SectorCount);
+
+int CopyFile(int iSourceFd, int iTargetFd);
 
 /**
- *  Main ÇÔ¼ö
+ *  Main ï¿½Ô¼ï¿½
 */
-int main(int argc, char* argv[])
-{
+int main(int argc, char *argv[]) {
     int iSourceFd;
     int iTargetFd;
     int iBootLoaderSize;
     int iKernel32SectorCount;
     int iKernel64SectorCount;
     int iSourceSize;
-        
-    // Ä¿¸Çµå ¶óÀÎ ¿É¼Ç °Ë»ç
-    if( argc < 4 )
-    {
-        fprintf( stderr, "[ERROR] ImageMaker.exe BootLoader.bin Kernel32.bin Kernel64.bin\n" );
-        exit( -1 );
+
+    // Ä¿ï¿½Çµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½É¼ï¿½ ï¿½Ë»ï¿½
+    if (argc < 4) {
+        fprintf(stderr, "[ERROR] ImageMaker.exe BootLoader.bin Kernel32.bin Kernel64.bin\n");
+        exit(-1);
     }
-    
-    // Disk.img ÆÄÀÏÀ» »ý¼º
-    if( ( iTargetFd = open( "Disk.img", O_RDWR | O_CREAT |  O_TRUNC |
-            O_BINARY, S_IREAD | S_IWRITE ) ) == -1 )
-    {
-        fprintf( stderr , "[ERROR] Disk.img open fail.\n" );
-        exit( -1 );
+
+    // Disk.img ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    if ((iTargetFd = open("Disk.img", O_RDWR | O_CREAT | O_TRUNC |
+                                      O_BINARY, S_IREAD | S_IWRITE)) == -1) {
+        fprintf(stderr, "[ERROR] Disk.img open fail.\n");
+        exit(-1);
     }
 
     //--------------------------------------------------------------------------
-    // ºÎÆ® ·Î´õ ÆÄÀÏÀ» ¿­¾î¼­ ¸ðµç ³»¿ëÀ» µð½ºÅ© ÀÌ¹ÌÁö ÆÄÀÏ·Î º¹»ç
+    // ï¿½ï¿½Æ® ï¿½Î´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î¼­ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å© ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï·ï¿½ ï¿½ï¿½ï¿½ï¿½
     //--------------------------------------------------------------------------
-    printf( "[INFO] Copy boot loader to image file\n" );
-    if( ( iSourceFd = open( argv[ 1 ], O_RDONLY | O_BINARY ) ) == -1 )
-    {
-        fprintf( stderr, "[ERROR] %s open fail\n", argv[ 1 ] );
-        exit( -1 );
+    printf("[INFO] Copy boot loader to image file\n");
+    if ((iSourceFd = open(argv[1], O_RDONLY | O_BINARY)) == -1) {
+        fprintf(stderr, "[ERROR] %s open fail\n", argv[1]);
+        exit(-1);
     }
 
-    iSourceSize = CopyFile( iSourceFd, iTargetFd );
-    close( iSourceFd );
-    
-    // ÆÄÀÏ Å©±â¸¦ ¼½ÅÍ Å©±âÀÎ 512¹ÙÀÌÆ®·Î ¸ÂÃß±â À§ÇØ ³ª¸ÓÁö ºÎºÐÀ» 0x00 À¸·Î Ã¤¿ò
-    iBootLoaderSize = AdjustInSectorSize( iTargetFd , iSourceSize );
-    printf( "[INFO] %s size = [%d] and sector count = [%d]\n",
-            argv[ 1 ], iSourceSize, iBootLoaderSize );
+    iSourceSize = CopyFile(iSourceFd, iTargetFd);
+    close(iSourceFd);
+
+    // ï¿½ï¿½ï¿½ï¿½ Å©ï¿½â¸¦ ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ï¿½ï¿½ 512ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ß±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ï¿½ 0x00 ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½
+    iBootLoaderSize = AdjustInSectorSize(iTargetFd, iSourceSize);
+    printf("[INFO] %s size = [%d] and sector count = [%d]\n",
+           argv[1], iSourceSize, iBootLoaderSize);
 
     //--------------------------------------------------------------------------
-    // 32ºñÆ® Ä¿³Î ÆÄÀÏÀ» ¿­¾î¼­ ¸ðµç ³»¿ëÀ» µð½ºÅ© ÀÌ¹ÌÁö ÆÄÀÏ·Î º¹»ç
+    // 32ï¿½ï¿½Æ® Ä¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î¼­ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å© ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï·ï¿½ ï¿½ï¿½ï¿½ï¿½
     //--------------------------------------------------------------------------
-    printf( "[INFO] Copy protected mode kernel to image file\n" );
-    if( ( iSourceFd = open( argv[ 2 ], O_RDONLY | O_BINARY ) ) == -1 )
-    {
-        fprintf( stderr, "[ERROR] %s open fail\n", argv[ 2 ] );
-        exit( -1 );
+    printf("[INFO] Copy protected mode kernel to image file\n");
+    if ((iSourceFd = open(argv[2], O_RDONLY | O_BINARY)) == -1) {
+        fprintf(stderr, "[ERROR] %s open fail\n", argv[2]);
+        exit(-1);
     }
 
-    iSourceSize = CopyFile( iSourceFd, iTargetFd );
-    close( iSourceFd );
-    
-    // ÆÄÀÏ Å©±â¸¦ ¼½ÅÍ Å©±âÀÎ 512¹ÙÀÌÆ®·Î ¸ÂÃß±â À§ÇØ ³ª¸ÓÁö ºÎºÐÀ» 0x00 À¸·Î Ã¤¿ò
-    iKernel32SectorCount = AdjustInSectorSize( iTargetFd, iSourceSize );
-    printf( "[INFO] %s size = [%d] and sector Count = [%d]\n",
-                argv[ 2 ], iSourceSize, iKernel32SectorCount );
+    iSourceSize = CopyFile(iSourceFd, iTargetFd);
+    close(iSourceFd);
+
+    // ï¿½ï¿½ï¿½ï¿½ Å©ï¿½â¸¦ ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ï¿½ï¿½ 512ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ß±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ï¿½ 0x00 ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½
+    iKernel32SectorCount = AdjustInSectorSize(iTargetFd, iSourceSize);
+    printf("[INFO] %s size = [%d] and sector Count = [%d]\n",
+           argv[2], iSourceSize, iKernel32SectorCount);
 
     //--------------------------------------------------------------------------
-    // 64ºñÆ® Ä¿³Î ÆÄÀÏÀ» ¿­¾î¼­ ¸ðµç ³»¿ëÀ» µð½ºÅ© ÀÌ¹ÌÁö ÆÄÀÏ·Î º¹»ç
+    // 64ï¿½ï¿½Æ® Ä¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î¼­ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å© ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï·ï¿½ ï¿½ï¿½ï¿½ï¿½
     //--------------------------------------------------------------------------
-    printf( "[INFO] Copy IA-32e mode kernel to image file\n" );
-    if( ( iSourceFd = open( argv[ 3 ], O_RDONLY | O_BINARY ) ) == -1 )
-    {
-        fprintf( stderr, "[ERROR] %s open fail\n", argv[ 3 ] );
-        exit( -1 );
+    printf("[INFO] Copy IA-32e mode kernel to image file\n");
+    if ((iSourceFd = open(argv[3], O_RDONLY | O_BINARY)) == -1) {
+        fprintf(stderr, "[ERROR] %s open fail\n", argv[3]);
+        exit(-1);
     }
 
-    iSourceSize = CopyFile( iSourceFd, iTargetFd );
-    close( iSourceFd );
-    
-    // ÆÄÀÏ Å©±â¸¦ ¼½ÅÍ Å©±âÀÎ 512¹ÙÀÌÆ®·Î ¸ÂÃß±â À§ÇØ ³ª¸ÓÁö ºÎºÐÀ» 0x00 À¸·Î Ã¤¿ò
-    iKernel64SectorCount = AdjustInSectorSize( iTargetFd, iSourceSize );
-    printf( "[INFO] %s size = [%d] and sector count = [%d]\n",
-                argv[ 3 ], iSourceSize, iKernel64SectorCount );
-    
-    //--------------------------------------------------------------------------
-    // µð½ºÅ© ÀÌ¹ÌÁö¿¡ Ä¿³Î Á¤º¸¸¦ °»½Å
-    //--------------------------------------------------------------------------
-    printf( "[INFO] Start to write kernel information\n" );
-    // ºÎÆ®¼½ÅÍÀÇ 5¹øÂ° ¹ÙÀÌÆ®ºÎÅÍ Ä¿³Î¿¡ ´ëÇÑ Á¤º¸¸¦ ³ÖÀ½
-    WriteKernelInformation( iTargetFd, iKernel32SectorCount + iKernel64SectorCount,
-            iKernel32SectorCount );
-    printf( "[INFO] Image file create complete\n" );
+    iSourceSize = CopyFile(iSourceFd, iTargetFd);
+    close(iSourceFd);
 
-    close( iTargetFd );
+    // ï¿½ï¿½ï¿½ï¿½ Å©ï¿½â¸¦ ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ï¿½ï¿½ 512ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ß±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ï¿½ 0x00 ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½
+    iKernel64SectorCount = AdjustInSectorSize(iTargetFd, iSourceSize);
+    printf("[INFO] %s size = [%d] and sector count = [%d]\n",
+           argv[3], iSourceSize, iKernel64SectorCount);
+
+    //--------------------------------------------------------------------------
+    // ï¿½ï¿½Å© ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ Ä¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    //--------------------------------------------------------------------------
+    printf("[INFO] Start to write kernel information\n");
+    // ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 5ï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ Ä¿ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    WriteKernelInformation(iTargetFd, iKernel32SectorCount + iKernel64SectorCount,
+                           iKernel32SectorCount);
+    printf("[INFO] Image file create complete\n");
+
+    close(iTargetFd);
     return 0;
 }
 
 /**
- *  ÇöÀç À§Ä¡ºÎÅÍ 512¹ÙÀÌÆ® ¹è¼ö À§Ä¡±îÁö ¸ÂÃß¾î 0x00À¸·Î Ã¤¿ò
+ *  ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ 512ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß¾ï¿½ 0x00ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½
 */
-int AdjustInSectorSize( int iFd, int iSourceSize )
-{
+int AdjustInSectorSize(int iFd, int iSourceSize) {
     int i;
     int iAdjustSizeToSector;
     char cCh;
@@ -129,82 +124,72 @@ int AdjustInSectorSize( int iFd, int iSourceSize )
 
     iAdjustSizeToSector = iSourceSize % BYTESOFSECTOR;
     cCh = 0x00;
-    
-    if( iAdjustSizeToSector != 0 )
-    {
+
+    if (iAdjustSizeToSector != 0) {
         iAdjustSizeToSector = 512 - iAdjustSizeToSector;
-        printf( "[INFO] File size [%lu] and fill [%u] byte\n", iSourceSize, 
-            iAdjustSizeToSector );
-        for( i = 0 ; i < iAdjustSizeToSector ; i++ )
-        {
-            write( iFd , &cCh , 1 );
+        printf("[INFO] File size [%lu] and fill [%u] byte\n", iSourceSize,
+               iAdjustSizeToSector);
+        for (i = 0; i < iAdjustSizeToSector; i++) {
+            write(iFd, &cCh, 1);
         }
+    } else {
+        printf("[INFO] File size is aligned 512 byte\n");
     }
-    else
-    {
-        printf( "[INFO] File size is aligned 512 byte\n" );
-    }
-    
-    // ¼½ÅÍ ¼ö¸¦ µÇµ¹·ÁÁÜ
-    iSectorCount = ( iSourceSize + iAdjustSizeToSector ) / BYTESOFSECTOR;
+
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½
+    iSectorCount = (iSourceSize + iAdjustSizeToSector) / BYTESOFSECTOR;
     return iSectorCount;
 }
 
 /**
- *  ºÎÆ® ·Î´õ¿¡ Ä¿³Î¿¡ ´ëÇÑ Á¤º¸¸¦ »ðÀÔ
+ *  ï¿½ï¿½Æ® ï¿½Î´ï¿½ï¿½ï¿½ Ä¿ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 */
-void WriteKernelInformation( int iTargetFd, int iTotalKernelSectorCount, 
-        int iKernel32SectorCount )
-{
+void WriteKernelInformation(int iTargetFd, int iTotalKernelSectorCount,
+                            int iKernel32SectorCount) {
     unsigned short usData;
     long lPosition;
-    
-    // ÆÄÀÏÀÇ ½ÃÀÛ¿¡¼­ 5¹ÙÀÌÆ® ¶³¾îÁø À§Ä¡°¡ Ä¿³ÎÀÇ ÃÑ ¼½ÅÍ ¼ö Á¤º¸¸¦ ³ªÅ¸³¿
-    lPosition = lseek( iTargetFd, 5, SEEK_SET );
-    if( lPosition == -1 )
-    {
-        fprintf( stderr, "lseek fail. Return value = %d, errno = %d, %d\n", 
-            lPosition, errno, SEEK_SET );
-        exit( -1 );
-    }
-    
-    // ºÎÆ® ·Î´õ¸¦ Á¦¿ÜÇÑ ÃÑ ¼½ÅÍ ¼ö ¹× º¸È£ ¸ðµå Ä¿³ÎÀÇ ¼½ÅÍ ¼ö ÀúÀå
-    usData = ( unsigned short ) iTotalKernelSectorCount;
-    write( iTargetFd, &usData, 2 );
-    usData = ( unsigned short ) iKernel32SectorCount;
-    write( iTargetFd, &usData, 2 );
 
-    printf( "[INFO] Total sector count except boot loader [%d]\n", 
-        iTotalKernelSectorCount );
-    printf( "[INFO] Total sector count of protected mode kernel [%d]\n", 
-        iKernel32SectorCount );
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Û¿ï¿½ï¿½ï¿½ 5ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ Ä¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½
+    lPosition = lseek(iTargetFd, 5, SEEK_SET);
+    if (lPosition == -1) {
+        fprintf(stderr, "lseek fail. Return value = %d, errno = %d, %d\n",
+                lPosition, errno, SEEK_SET);
+        exit(-1);
+    }
+
+    // ï¿½ï¿½Æ® ï¿½Î´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½ Ä¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    usData = (unsigned short) iTotalKernelSectorCount;
+    write(iTargetFd, &usData, 2);
+    usData = (unsigned short) iKernel32SectorCount;
+    write(iTargetFd, &usData, 2);
+
+    printf("[INFO] Total sector count except boot loader [%d]\n",
+           iTotalKernelSectorCount);
+    printf("[INFO] Total sector count of protected mode kernel [%d]\n",
+           iKernel32SectorCount);
 }
 
 /**
- *  ¼Ò½º ÆÄÀÏ(Source FD)ÀÇ ³»¿ëÀ» ¸ñÇ¥ ÆÄÀÏ(Target FD)¿¡ º¹»çÇÏ°í ±× Å©±â¸¦ µÇµ¹·ÁÁÜ
+ *  ï¿½Ò½ï¿½ ï¿½ï¿½ï¿½ï¿½(Source FD)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½(Target FD)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ Å©ï¿½â¸¦ ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½
 */
-int CopyFile( int iSourceFd, int iTargetFd )
-{
+int CopyFile(int iSourceFd, int iTargetFd) {
     int iSourceFileSize;
     int iRead;
     int iWrite;
-    char vcBuffer[ BYTESOFSECTOR ];
+    char vcBuffer[BYTESOFSECTOR];
 
     iSourceFileSize = 0;
-    while( 1 )
-    {
-        iRead   = read( iSourceFd, vcBuffer, sizeof( vcBuffer ) );
-        iWrite  = write( iTargetFd, vcBuffer, iRead );
+    while (1) {
+        iRead = read(iSourceFd, vcBuffer, sizeof(vcBuffer));
+        iWrite = write(iTargetFd, vcBuffer, iRead);
 
-        if( iRead != iWrite )
-        {
-            fprintf( stderr, "[ERROR] iRead != iWrite.. \n" );
+        if (iRead != iWrite) {
+            fprintf(stderr, "[ERROR] iRead != iWrite.. \n");
             exit(-1);
         }
         iSourceFileSize += iRead;
-        
-        if( iRead != sizeof( vcBuffer ) )
-        {
+
+        if (iRead != sizeof(vcBuffer)) {
             break;
         }
     }
