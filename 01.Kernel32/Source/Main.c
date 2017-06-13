@@ -1,5 +1,6 @@
 #include "Types.h"
 #include "Page.h"
+#include "ModeSwitch.h"
 
 void kPrintMessageAndStatus(int ix, int iy, const char *success, const char *failure, BOOL status);
 
@@ -9,11 +10,15 @@ BOOL kInitializeKernel64Area(void);
 
 BOOL kIsMemoryEnough(void);
 
+void kCopyKernel64ImageTo2Mbyte(void);
+
 void Main(void) {
     DWORD i;
+    DWORD dwEAX, dwEBX, dwECX, dwEDX;
+    char vcVendorString[13] = {0,};
 
     kPrintMessageAndStatus(0, 3,
-                           "C Language Kernel Start",
+                           "Protected Mode C Language Kernel Start",
                            "",
                            TRUE
     );
@@ -32,6 +37,31 @@ void Main(void) {
                            "",
                            kInitializePageTables()
     );
+    kReadCPUID(0x00, &dwEAX, &dwEBX, &dwECX, &dwEDX);
+    *(DWORD *) vcVendorString = dwEBX;
+    *((DWORD *) vcVendorString + 1) = dwEDX;
+    *((DWORD *) vcVendorString + 2) = dwECX;
+    kPrintMessageAndStatus(0, 7,
+                           "Processor Vendor String.",
+                           "",
+                           TRUE
+    );
+    kPrintString(68,7,vcVendorString);
+
+    kReadCPUID( 0x80000001, &dwEAX, &dwEBX, &dwECX, &dwEDX );
+    kPrintMessageAndStatus(0, 8,
+                           "64bit Mode Support Check.",
+                           "This processor does not support 64bit mode~!!",
+                           (dwEDX & ( 1 << 29 )) >> 29
+    );
+    kCopyKernel64ImageTo2Mbyte();
+    kPrintMessageAndStatus(0,9,
+                           "Copy IA-32e Kernel To 2M Address",
+                           "",
+                           TRUE
+    );
+    kPrintString( 0, 9, "Switch To IA-32e Mode" );
+    kSwitchAndExecute64bitKernel();
 
     while (1);
 }
@@ -55,12 +85,12 @@ void kPrintMessageAndStatus(int iX,
         dots[i] = '.';
     }
     dots[i + 1] = '\0';
-    kPrintString(successSize +1, iY, dots);
-    if (status == TRUE) {
+    kPrintString(successSize + 1, iY, dots);
+    if (status) {
         kPrintString(maxWidth - 6, iY, "[PASS]");
     } else {
         kPrintString(maxWidth - 6, iY, "[FAIL]");
-        kPrintString(0, iY+1, failure);
+        kPrintString(0, iY + 1, failure);
         while (1);
     }
 
@@ -78,16 +108,16 @@ void kPrintString(int iX, int iY, const char *pcString) {
 }
 
 BOOL kIsMemoryEnough(void) {
-    DWORD* pdwCurrentAddress;
+    DWORD *pdwCurrentAddress;
 
-    pdwCurrentAddress = (DWORD*) 0x100000;
+    pdwCurrentAddress = (DWORD *) 0x100000;
 
-    while((DWORD) pdwCurrentAddress < 0x4000000) {
+    while ((DWORD) pdwCurrentAddress < 0x4000000) {
         *pdwCurrentAddress = 0x12345678;
         if (*pdwCurrentAddress != 0x12345678) {
             return FALSE;
         }
-        pdwCurrentAddress +=(0x100000 / 4);
+        pdwCurrentAddress += (0x100000 / 4);
     }
     return TRUE;
 }
@@ -110,3 +140,20 @@ BOOL kInitializeKernel64Area(void) {
     return TRUE;
 }
 
+void kCopyKernel64ImageTo2Mbyte(void) {
+    WORD wKernel32SectorCount, wTotalKernelSectorCount;
+    DWORD* pdwSourceAddress,* pdwDestinationAddress;
+    int i;
+
+    wTotalKernelSectorCount = *((WORD*) 0x7C05);
+    wKernel32SectorCount = *((WORD*) 0x7C07);
+
+    pdwSourceAddress = (DWORD*) (0x10000 + (wKernel32SectorCount * 512));
+    pdwDestinationAddress = (DWORD*) 0x200000;
+
+    for (i = 0; i < 512 * (wTotalKernelSectorCount - wKernel32SectorCount) / 4; i++) {
+        *pdwDestinationAddress = *pdwSourceAddress;
+        pdwDestinationAddress++;
+        pdwSourceAddress++;
+    }
+}

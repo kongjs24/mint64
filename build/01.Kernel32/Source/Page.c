@@ -1,7 +1,7 @@
 #include "Page.h"
 
 BOOL kInitializePageTables(void) {
-    PML4TENTRY* pstPML4TEntry;
+    PML4TENTRY* pstPMLT4Entry;
     PDPTENTRY* pstPDPTEntry;
     PDENTRY* pstPDEntry;
     DWORD dwMappingAddress;
@@ -30,7 +30,6 @@ BOOL kInitializePageTables(void) {
                            dwMappingAddress,
                            PAGE_FLAGS_DEFAULT | PAGE_FLAGS_PS,
                            0);
-        dwMappingAddress += PAGE_DEFAULTSIZE;
     }
     return TRUE;
 }
