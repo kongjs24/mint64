@@ -2,7 +2,7 @@
 
 SECTION .text
 
-global kInPortByte, kOutPortByte
+global kInPortByte, kOutPortByte, kLoadGDTR, kLoadTR, kLoadIDTR
 
 kInPortByte:
     push rdx
@@ -25,3 +25,16 @@ kOutPortByte:
     pop rax
     pop rdx
     ret
+
+kLoadGDTR:
+    lgdt [rdi]
+    ret
+
+kLoadTR:
+    ltr di
+    ret
+
+kLoadIDTR:
+    lidt [rdi]
+    ret
+
