@@ -22,7 +22,7 @@ Kernel32:
 	@echo ================ Success Build 32bit kernel ======================
 	@echo
 
-Kernel32:
+Kernel64:
 	@echo
 	@echo ====================== Build 64bit kernel ======================
 	@echo
