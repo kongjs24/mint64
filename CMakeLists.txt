@@ -3,12 +3,7 @@ project(mint64)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES
-        00.BootLoader/BootLoader.asm
-        00.BootLoader/makefile
-        01.Kernel32/Source/EntryPoint.s
-        01.Kernel32/makefile
-        makefile)
+set(SOURCE_FILES)
 
 add_custom_target(make-clean COMMAND make clean WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 add_custom_target(make-utility COMMAND make -C 04.Utility WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} DEPENDS make-clean)
@@ -18,4 +13,4 @@ add_custom_target(make-kernel64 COMMAND make -C 02.Kernel64 WORKING_DIRECTORY ${
 add_custom_target(make-Disk.img COMMAND make Disk.img WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} DEPENDS make-kernel64)
 add_custom_target(run COMMAND ./qemu-x86_64.bat WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} DEPENDS make-Disk.img)
 
-add_executable(mint64 build/Build.c 02.Kernel64/Source/Descriptor.c 02.Kernel64/Source/Descriptor.h 02.Kernel64/Source/Utility.c 02.Kernel64/Source/Utility.h)
+add_executable(mint64 build/Build.c)
