@@ -21,6 +21,7 @@
 	libmpc-devel - 1.0.3-1, 바이너리만 설치
 	libncurses-devel - 5.9-20150516-1, 바이너리만 설치
 ```
+소스 경로 /usr/src/
 ## binutils 설치
 ```commandline
 export TARGET=x86_64-pc-linux
@@ -30,7 +31,7 @@ make configure-host
 make LDFLAGS="-static"
 make install
 
-// 아래는 테스트를 위한 부분 커맨드를 실행했을 때 x86_64 관련 항목이 보이면 제대로 된 것입니다. 
+// 아래는 테스트를 위한 부분 커맨드를 실행했을 때 x86_64 관련 항목이 보이면 제대로 된 것입니다.
 /usr/cross/bin/x86_64-pc-linux-ld --help | grep "supported "
 /usr/cross/bin/x86_64-pc-linux-ld: supported targets: elf64-x86-64 elf32-i386 a.
 out-i386-linux efi-app-ia32 efi-bsdrv-ia32 efi-rtdrv-ia32 efi-app-x86_64 efi-bsd
@@ -45,6 +46,7 @@ mbolsrec tekhex binary ihex
 export TARGET=x86_64-pc-linux
 export PREFIX=/usr/cross
 export PATH=$PREFIX/bin:$PATH
+patch -p1 < ../0001
 ./contrib/download_prerequisites
 ./configure --target=$TARGET --prefix=$PREFIX --disable-nls --enable-languages=c --without-headers --disable-shared --enable-multilib
 make configure-host
