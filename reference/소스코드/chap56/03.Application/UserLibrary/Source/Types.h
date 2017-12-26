@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    Types.h
  *  date    2008/12/13
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   À¯Àú ·¹º§¿¡¼­ »ç¿ëÇÏ´Â °¢Á¾ Å¸ÀÔÀÌ³ª ÀÚ·á±¸Á¶¸¦ Á¤ÀÇÇÑ Çì´õ ÆÄÀÏ
+ *  brief   ìœ ì € ë ˆë²¨ì—ì„œ ì‚¬ìš©í•˜ëŠ” ê°ì¢… íƒ€ìž…ì´ë‚˜ ìžë£Œêµ¬ì¡°ë¥¼ ì •ì˜í•œ í—¤ë” íŒŒì¼
  */
 
 #ifndef __TYPES_H__
@@ -11,11 +11,11 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ¸ÅÅ©·Î
+// ë§¤í¬ë¡œ
 //
 ////////////////////////////////////////////////////////////////////////////////
 //==============================================================================
-//  ±âº» Å¸ÀÔ °ü·Ã ¸ÅÅ©·Î
+//  ê¸°ë³¸ íƒ€ìž… ê´€ë ¨ ë§¤í¬ë¡œ
 //==============================================================================
 #define BYTE    unsigned char
 #define WORD    unsigned short
@@ -28,22 +28,22 @@
 #define NULL    0
 
 //==============================================================================
-//  ÄÜ¼Ö °ü·Ã ¸ÅÅ©·Î
+//  ì½˜ì†” ê´€ë ¨ ë§¤í¬ë¡œ
 //==============================================================================
-// ÄÜ¼ÖÀÇ ³Êºñ(Width)¿Í ³ôÀÌ(Height),±×¸®°í ºñµð¿À ¸Þ¸ð¸®ÀÇ ½ÃÀÛ ¾îµå·¹½º ¼³Á¤
+// ì½˜ì†”ì˜ ë„ˆë¹„(Width)ì™€ ë†’ì´(Height),ê·¸ë¦¬ê³  ë¹„ë””ì˜¤ ë©”ëª¨ë¦¬ì˜ ì‹œìž‘ ì–´ë“œë ˆìŠ¤ ì„¤ì •
 #define CONSOLE_WIDTH                       80
 #define CONSOLE_HEIGHT                      25
 
 
 //==============================================================================
-//  Å°º¸µå¿¡ °ü·ÃµÈ ¸ÅÅ©·Î
+//  í‚¤ë³´ë“œì— ê´€ë ¨ëœ ë§¤í¬ë¡œ
 //==============================================================================
-// Å° »óÅÂ¿¡ ´ëÇÑ ÇÃ·¡±×
+// í‚¤ ìƒíƒœì— ëŒ€í•œ í”Œëž˜ê·¸
 #define KEY_FLAGS_UP             0x00
 #define KEY_FLAGS_DOWN           0x01
 #define KEY_FLAGS_EXTENDEDKEY    0x02
 
-// ½ºÄµ ÄÚµå ¸ÅÇÎ Å×ÀÌºí¿¡ ´ëÇÑ ¸ÅÅ©·Î
+// ìŠ¤ìº” ì½”ë“œ ë§¤í•‘ í…Œì´ë¸”ì— ëŒ€í•œ ë§¤í¬ë¡œ
 #define KEY_NONE        0x00
 #define KEY_ENTER       '\n'
 #define KEY_TAB         '\t'
@@ -84,9 +84,9 @@
 #define KEY_PAUSE       0xA0
 
 //==============================================================================
-//  ÅÂ½ºÅ©¿Í ½ºÄÉÁÙ·¯ °ü·Ã ¸ÅÅ©·Î
+//  íƒœìŠ¤í¬ì™€ ìŠ¤ì¼€ì¤„ëŸ¬ ê´€ë ¨ ë§¤í¬ë¡œ
 //==============================================================================
-// ÅÂ½ºÅ©ÀÇ ¿ì¼± ¼øÀ§
+// íƒœìŠ¤í¬ì˜ ìš°ì„  ìˆœìœ„
 #define TASK_FLAGS_HIGHEST            0
 #define TASK_FLAGS_HIGH               1
 #define TASK_FLAGS_MEDIUM             2
@@ -94,7 +94,7 @@
 #define TASK_FLAGS_LOWEST             4
 #define TASK_FLAGS_WAIT               0xFF          
 
-// ÅÂ½ºÅ©ÀÇ ÇÃ·¡±×
+// íƒœìŠ¤í¬ì˜ í”Œëž˜ê·¸
 #define TASK_FLAGS_ENDTASK            0x8000000000000000
 #define TASK_FLAGS_SYSTEM             0x4000000000000000
 #define TASK_FLAGS_PROCESS            0x2000000000000000
@@ -102,77 +102,77 @@
 #define TASK_FLAGS_IDLE               0x0800000000000000
 #define TASK_FLAGS_USERLEVEL          0x0400000000000000
 
-// ÇÔ¼ö ¸ÅÅ©·Î
+// í•¨ìˆ˜ ë§¤í¬ë¡œ
 #define GETPRIORITY( x )            ( ( x ) & 0xFF )
 #define SETPRIORITY( x, priority )  ( ( x ) = ( ( x ) & 0xFFFFFFFFFFFFFF00 ) | \
         ( priority ) )
 #define GETTCBOFFSET( x )           ( ( x ) & 0xFFFFFFFF )
 
-// À¯È¿ÇÏÁö ¾ÊÀº ÅÂ½ºÅ© ID
+// ìœ íš¨í•˜ì§€ ì•Šì€ íƒœìŠ¤í¬ ID
 #define TASK_INVALIDID              0xFFFFFFFFFFFFFFFF
 
-// ÇÁ·Î¼¼¼­ Ä£È­µµ ÇÊµå¿¡ ¾Æ·¡ÀÇ °ªÀÌ ¼³Á¤µÇ¸é, ÇØ´ç ÅÂ½ºÅ©´Â Æ¯º°ÇÑ ¿ä±¸»çÇ×ÀÌ ¾ø´Â 
-// °ÍÀ¸·Î ÆÇ´ÜÇÏ°í ÅÂ½ºÅ© ºÎÇÏ ºÐ»ê ¼öÇà
+// í”„ë¡œì„¸ì„œ ì¹œí™”ë„ í•„ë“œì— ì•„ëž˜ì˜ ê°’ì´ ì„¤ì •ë˜ë©´, í•´ë‹¹ íƒœìŠ¤í¬ëŠ” íŠ¹ë³„í•œ ìš”êµ¬ì‚¬í•­ì´ ì—†ëŠ” 
+// ê²ƒìœ¼ë¡œ íŒë‹¨í•˜ê³  íƒœìŠ¤í¬ ë¶€í•˜ ë¶„ì‚° ìˆ˜í–‰
 #define TASK_LOADBALANCINGID        0xFF
 
 //==============================================================================
-//  ÆÄÀÏ ½Ã½ºÅÛ °ü·Ã ¸ÅÅ©·Î
+//  íŒŒì¼ ì‹œìŠ¤í…œ ê´€ë ¨ ë§¤í¬ë¡œ
 //==============================================================================
-// ÆÄÀÏ ÀÌ¸§ÀÇ ÃÖ´ë ±æÀÌ
+// íŒŒì¼ ì´ë¦„ì˜ ìµœëŒ€ ê¸¸ì´
 #define FILESYSTEM_MAXFILENAMELENGTH        24
 
-// SEEK ¿É¼Ç Á¤ÀÇ
+// SEEK ì˜µì…˜ ì •ì˜
 #define SEEK_SET                            0
 #define SEEK_CUR                            1
 #define SEEK_END                            2
 
-// MINT ÆÄÀÏ ½Ã½ºÅÛ Å¸ÀÔ°ú ÇÊµå¸¦ Ç¥ÁØ ÀÔÃâ·ÂÀÇ Å¸ÀÔÀ¸·Î ÀçÁ¤ÀÇ
+// MINT íŒŒì¼ ì‹œìŠ¤í…œ íƒ€ìž…ê³¼ í•„ë“œë¥¼ í‘œì¤€ ìž…ì¶œë ¥ì˜ íƒ€ìž…ìœ¼ë¡œ ìž¬ì •ì˜
 #define size_t      DWORD       
 #define dirent      DirectoryEntryStruct
 #define d_name      vcFileName
 
 
 //==============================================================================
-//  GUI ½Ã½ºÅÛ °ü·Ã ¸ÅÅ©·Î
+//  GUI ì‹œìŠ¤í…œ ê´€ë ¨ ë§¤í¬ë¡œ
 //==============================================================================
-// »öÀ» ÀúÀåÇÏ´Âµ¥ »ç¿ëÇÒ ÀÚ·á±¸Á¶, 16ºñÆ® »öÀ» »ç¿ëÇÏ¹Ç·Î WORD·Î Á¤ÀÇ
+// ìƒ‰ì„ ì €ìž¥í•˜ëŠ”ë° ì‚¬ìš©í•  ìžë£Œêµ¬ì¡°, 16ë¹„íŠ¸ ìƒ‰ì„ ì‚¬ìš©í•˜ë¯€ë¡œ WORDë¡œ ì •ì˜
 typedef WORD    COLOR;
 
-// 0~255 ¹üÀ§ÀÇ R, G, B¸¦ 16ºñÆ® »ö Çü½ÄÀ¸·Î º¯È¯ÇÏ´Â ¸ÅÅ©·Î
-// 0~255ÀÇ ¹üÀ§¸¦ 0~31, 0~63À¸·Î Ãà¼ÒÇÏ¿© »ç¿ëÇÏ¹Ç·Î °¢°¢ 8°ú 4·Î ³ª´©¾îÁà¾ß ÇÔ
-// ³ª´©±â 8°ú ³ª´©±â 4´Â >> 3°ú >> 2·Î ´ëÃ¼
+// 0~255 ë²”ìœ„ì˜ R, G, Bë¥¼ 16ë¹„íŠ¸ ìƒ‰ í˜•ì‹ìœ¼ë¡œ ë³€í™˜í•˜ëŠ” ë§¤í¬ë¡œ
+// 0~255ì˜ ë²”ìœ„ë¥¼ 0~31, 0~63ìœ¼ë¡œ ì¶•ì†Œí•˜ì—¬ ì‚¬ìš©í•˜ë¯€ë¡œ ê°ê° 8ê³¼ 4ë¡œ ë‚˜ëˆ„ì–´ì¤˜ì•¼ í•¨
+// ë‚˜ëˆ„ê¸° 8ê³¼ ë‚˜ëˆ„ê¸° 4ëŠ” >> 3ê³¼ >> 2ë¡œ ëŒ€ì²´
 #define RGB( r, g, b )      ( ( ( BYTE )( r ) >> 3 ) << 11 | \
                 ( ( ( BYTE )( g ) >> 2 ) ) << 5 |  ( ( BYTE )( b ) >> 3 ) )
 
-// À©µµ¿ì Á¦¸ñÀÇ ÃÖ´ë ±æÀÌ
+// ìœˆë„ìš° ì œëª©ì˜ ìµœëŒ€ ê¸¸ì´
 #define WINDOW_TITLEMAXLENGTH       40
 
-// À¯È¿ÇÏÁö ¾ÊÀº À©µµ¿ì ID
+// ìœ íš¨í•˜ì§€ ì•Šì€ ìœˆë„ìš° ID
 #define WINDOW_INVALIDID            0xFFFFFFFFFFFFFFFF
 
-// À©µµ¿ìÀÇ ¼Ó¼º
-// À©µµ¿ì¸¦ È­¸é¿¡ ³ªÅ¸³¿
+// ìœˆë„ìš°ì˜ ì†ì„±
+// ìœˆë„ìš°ë¥¼ í™”ë©´ì— ë‚˜íƒ€ëƒ„
 #define WINDOW_FLAGS_SHOW               0x00000001
-// À©µµ¿ì Å×µÎ¸® ±×¸²
+// ìœˆë„ìš° í…Œë‘ë¦¬ ê·¸ë¦¼
 #define WINDOW_FLAGS_DRAWFRAME          0x00000002
-// À©µµ¿ì Á¦¸ñ Ç¥½ÃÁÙ ±×¸²
+// ìœˆë„ìš° ì œëª© í‘œì‹œì¤„ ê·¸ë¦¼
 #define WINDOW_FLAGS_DRAWTITLE          0x00000004
-// À©µµ¿ì Å©±â º¯°æ ¹öÆ°À» ±×¸²
+// ìœˆë„ìš° í¬ê¸° ë³€ê²½ ë²„íŠ¼ì„ ê·¸ë¦¼
 #define WINDOW_FLAGS_RESIZABLE          0x00000008
-// À©µµ¿ì ±âº» ¼Ó¼º, Á¦¸ñ Ç¥½ÃÁÙ°ú ÇÁ·¹ÀÓÀ» ¸ðµÎ ±×¸®°í È­¸é¿¡ À©µµ¿ì¸¦ º¸ÀÌ°Ô ¼³Á¤
+// ìœˆë„ìš° ê¸°ë³¸ ì†ì„±, ì œëª© í‘œì‹œì¤„ê³¼ í”„ë ˆìž„ì„ ëª¨ë‘ ê·¸ë¦¬ê³  í™”ë©´ì— ìœˆë„ìš°ë¥¼ ë³´ì´ê²Œ ì„¤ì •
 #define WINDOW_FLAGS_DEFAULT        ( WINDOW_FLAGS_SHOW | WINDOW_FLAGS_DRAWFRAME | \
                                       WINDOW_FLAGS_DRAWTITLE )
 
-// Á¦¸ñ Ç¥½ÃÁÙÀÇ ³ôÀÌ
+// ì œëª© í‘œì‹œì¤„ì˜ ë†’ì´
 #define WINDOW_TITLEBAR_HEIGHT      21
-// À©µµ¿ìÀÇ ´Ý±â ¹öÆ°ÀÇ Å©±â
+// ìœˆë„ìš°ì˜ ë‹«ê¸° ë²„íŠ¼ì˜ í¬ê¸°
 #define WINDOW_XBUTTON_SIZE         19
-// À©µµ¿ìÀÇ ÃÖ¼Ò ³Êºñ, ¹öÆ° 2°³ÀÇ ³Êºñ¿¡ 30ÇÈ¼¿ÀÇ ¿©À¯ °ø°£ È®º¸
+// ìœˆë„ìš°ì˜ ìµœì†Œ ë„ˆë¹„, ë²„íŠ¼ 2ê°œì˜ ë„ˆë¹„ì— 30í”½ì…€ì˜ ì—¬ìœ  ê³µê°„ í™•ë³´
 #define WINDOW_WIDTH_MIN            ( WINDOW_XBUTTON_SIZE * 2 + 30 )
-// À©µµ¿ìÀÇ ÃÖ¼Ò ³ôÀÌ, Á¦¸ñ Ç¥½ÃÁÙÀÇ ³ôÀÌ¿¡ 30ÇÈ¼¿ÀÇ ¿©À¯ °ø°£ È®º¸
+// ìœˆë„ìš°ì˜ ìµœì†Œ ë†’ì´, ì œëª© í‘œì‹œì¤„ì˜ ë†’ì´ì— 30í”½ì…€ì˜ ì—¬ìœ  ê³µê°„ í™•ë³´
 #define WINDOW_HEIGHT_MIN           ( WINDOW_TITLEBAR_HEIGHT + 30 )
 
-// À©µµ¿ìÀÇ »ö±ò
+// ìœˆë„ìš°ì˜ ìƒ‰ê¹”
 #define WINDOW_COLOR_FRAME                      RGB( 109, 218, 22 )
 #define WINDOW_COLOR_BACKGROUND                 RGB( 255, 255, 255 )
 #define WINDOW_COLOR_TITLEBARTEXT               RGB( 255, 255, 255 )
@@ -186,11 +186,11 @@ typedef WORD    COLOR;
 #define WINDOW_COLOR_SYSTEMBACKGROUND           RGB( 232, 255, 232 )
 #define WINDOW_COLOR_XBUTTONLINECOLOR           RGB( 71, 199, 21 )
 
-// ¹è°æ À©µµ¿ìÀÇ Á¦¸ñ
+// ë°°ê²½ ìœˆë„ìš°ì˜ ì œëª©
 #define WINDOW_BACKGROUNDWINDOWTITLE            "SYS_BACKGROUND"
 
-// À©µµ¿ì¿Í À©µµ¿ì ¸Å´ÏÀú ÅÂ½ºÅ© »çÀÌ¿¡¼­ Àü´ÞµÇ´Â ÀÌº¥Æ®ÀÇ Á¾·ù
-// ¸¶¿ì½º ÀÌº¥Æ®
+// ìœˆë„ìš°ì™€ ìœˆë„ìš° ë§¤ë‹ˆì € íƒœìŠ¤í¬ ì‚¬ì´ì—ì„œ ì „ë‹¬ë˜ëŠ” ì´ë²¤íŠ¸ì˜ ì¢…ë¥˜
+// ë§ˆìš°ìŠ¤ ì´ë²¤íŠ¸
 #define EVENT_UNKNOWN                                   0
 #define EVENT_MOUSE_MOVE                                1
 #define EVENT_MOUSE_LBUTTONDOWN                         2
@@ -199,201 +199,201 @@ typedef WORD    COLOR;
 #define EVENT_MOUSE_RBUTTONUP                           5
 #define EVENT_MOUSE_MBUTTONDOWN                         6
 #define EVENT_MOUSE_MBUTTONUP                           7
-// À©µµ¿ì ÀÌº¥Æ®
+// ìœˆë„ìš° ì´ë²¤íŠ¸
 #define EVENT_WINDOW_SELECT                             8
 #define EVENT_WINDOW_DESELECT                           9
 #define EVENT_WINDOW_MOVE                               10
 #define EVENT_WINDOW_RESIZE                             11
 #define EVENT_WINDOW_CLOSE                              12
-// Å° ÀÌº¥Æ®
+// í‚¤ ì´ë²¤íŠ¸
 #define EVENT_KEY_DOWN                                  13
 #define EVENT_KEY_UP                                    14
 
-// ¿µ¹® ÆùÆ®ÀÇ ³Êºñ¿Í ±æÀÌ
+// ì˜ë¬¸ í°íŠ¸ì˜ ë„ˆë¹„ì™€ ê¸¸ì´
 #define FONT_ENGLISHWIDTH   8
 #define FONT_ENGLISHHEIGHT  16
 
 //==============================================================================
-//  ±âÅ¸ ¸ÅÅ©·Î
+//  ê¸°íƒ€ ë§¤í¬ë¡œ
 //==============================================================================
 #define MIN( x, y )     ( ( ( x ) < ( y ) ) ? ( x ) : ( y ) )
 #define MAX( x, y )     ( ( ( x ) > ( y ) ) ? ( x ) : ( y ) )
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ±¸Á¶Ã¼
+// êµ¬ì¡°ì²´
 //
 ////////////////////////////////////////////////////////////////////////////////
 #pragma pack( push, 1 )
 
 //==============================================================================
-//  Å°º¸µå¿¡ °ü·ÃµÈ ÀÚ·á±¸Á¶
+//  í‚¤ë³´ë“œì— ê´€ë ¨ëœ ìžë£Œêµ¬ì¡°
 //==============================================================================
-// Å° Å¥¿¡ »ðÀÔÇÒ µ¥ÀÌÅÍ ±¸Á¶Ã¼
+// í‚¤ íì— ì‚½ìž…í•  ë°ì´í„° êµ¬ì¡°ì²´
 typedef struct KeyDataStruct
 {
-    // Å°º¸µå¿¡¼­ Àü´ÞµÈ ½ºÄµ ÄÚµå
+    // í‚¤ë³´ë“œì—ì„œ ì „ë‹¬ëœ ìŠ¤ìº” ì½”ë“œ
     BYTE bScanCode;
-    // ½ºÄµ ÄÚµå¸¦ º¯È¯ÇÑ ASCII ÄÚµå
+    // ìŠ¤ìº” ì½”ë“œë¥¼ ë³€í™˜í•œ ASCII ì½”ë“œ
     BYTE bASCIICode;
-    // Å° »óÅÂ¸¦ ÀúÀåÇÏ´Â ÇÃ·¡±×(´­¸²/¶³¾îÁü/È®Àå Å° ¿©ºÎ)
+    // í‚¤ ìƒíƒœë¥¼ ì €ìž¥í•˜ëŠ” í”Œëž˜ê·¸(ëˆŒë¦¼/ë–¨ì–´ì§/í™•ìž¥ í‚¤ ì—¬ë¶€)
     BYTE bFlags;
 } KEYDATA;
 
 //==============================================================================
-//  ÆÄÀÏ ½Ã½ºÅÛ¿¡ °ü·ÃµÈ ÀÚ·á±¸Á¶
+//  íŒŒì¼ ì‹œìŠ¤í…œì— ê´€ë ¨ëœ ìžë£Œêµ¬ì¡°
 //==============================================================================
-// µð·ºÅÍ¸® ¿£Æ®¸® ÀÚ·á±¸Á¶
+// ë””ë ‰í„°ë¦¬ ì—”íŠ¸ë¦¬ ìžë£Œêµ¬ì¡°
 typedef struct DirectoryEntryStruct
 {
-    // ÆÄÀÏ ÀÌ¸§
+    // íŒŒì¼ ì´ë¦„
     char vcFileName[ FILESYSTEM_MAXFILENAMELENGTH ];
-    // ÆÄÀÏÀÇ ½ÇÁ¦ Å©±â
+    // íŒŒì¼ì˜ ì‹¤ì œ í¬ê¸°
     DWORD dwFileSize;
-    // ÆÄÀÏÀÌ ½ÃÀÛÇÏ´Â Å¬·¯½ºÅÍ ÀÎµ¦½º
+    // íŒŒì¼ì´ ì‹œìž‘í•˜ëŠ” í´ëŸ¬ìŠ¤í„° ì¸ë±ìŠ¤
     DWORD dwStartClusterIndex;
 } DIRECTORYENTRY;
 
 #pragma pack( pop )
 
-// ÆÄÀÏÀ» °ü¸®ÇÏ´Â ÆÄÀÏ ÇÚµé ÀÚ·á±¸Á¶
+// íŒŒì¼ì„ ê´€ë¦¬í•˜ëŠ” íŒŒì¼ í•¸ë“¤ ìžë£Œêµ¬ì¡°
 typedef struct kFileHandleStruct
 {
-    // ÆÄÀÏÀÌ Á¸ÀçÇÏ´Â µð·ºÅÍ¸® ¿£Æ®¸®ÀÇ ¿ÀÇÁ¼Â
+    // íŒŒì¼ì´ ì¡´ìž¬í•˜ëŠ” ë””ë ‰í„°ë¦¬ ì—”íŠ¸ë¦¬ì˜ ì˜¤í”„ì…‹
     int iDirectoryEntryOffset;
-    // ÆÄÀÏ Å©±â
+    // íŒŒì¼ í¬ê¸°
     DWORD dwFileSize;
-    // ÆÄÀÏÀÇ ½ÃÀÛ Å¬·¯½ºÅÍ ÀÎµ¦½º
+    // íŒŒì¼ì˜ ì‹œìž‘ í´ëŸ¬ìŠ¤í„° ì¸ë±ìŠ¤
     DWORD dwStartClusterIndex;
-    // ÇöÀç I/O°¡ ¼öÇàÁßÀÎ Å¬·¯½ºÅÍÀÇ ÀÎµ¦½º
+    // í˜„ìž¬ I/Oê°€ ìˆ˜í–‰ì¤‘ì¸ í´ëŸ¬ìŠ¤í„°ì˜ ì¸ë±ìŠ¤
     DWORD dwCurrentClusterIndex;
-    // ÇöÀç Å¬·¯½ºÅÍÀÇ ¹Ù·Î ÀÌÀü Å¬·¯½ºÅÍÀÇ ÀÎµ¦½º
+    // í˜„ìž¬ í´ëŸ¬ìŠ¤í„°ì˜ ë°”ë¡œ ì´ì „ í´ëŸ¬ìŠ¤í„°ì˜ ì¸ë±ìŠ¤
     DWORD dwPreviousClusterIndex;
-    // ÆÄÀÏ Æ÷ÀÎÅÍÀÇ ÇöÀç À§Ä¡
+    // íŒŒì¼ í¬ì¸í„°ì˜ í˜„ìž¬ ìœ„ì¹˜
     DWORD dwCurrentOffset;
 } FILEHANDLE;
 
-// µð·ºÅÍ¸®¸¦ °ü¸®ÇÏ´Â µð·ºÅÍ¸® ÇÚµé ÀÚ·á±¸Á¶
+// ë””ë ‰í„°ë¦¬ë¥¼ ê´€ë¦¬í•˜ëŠ” ë””ë ‰í„°ë¦¬ í•¸ë“¤ ìžë£Œêµ¬ì¡°
 typedef struct kDirectoryHandleStruct
 {
-    // ·çÆ® µð·ºÅÍ¸®¸¦ ÀúÀåÇØµÐ ¹öÆÛ
+    // ë£¨íŠ¸ ë””ë ‰í„°ë¦¬ë¥¼ ì €ìž¥í•´ë‘” ë²„í¼
     DIRECTORYENTRY* pstDirectoryBuffer;
     
-    // µð·ºÅÍ¸® Æ÷ÀÎÅÍÀÇ ÇöÀç À§Ä¡
+    // ë””ë ‰í„°ë¦¬ í¬ì¸í„°ì˜ í˜„ìž¬ ìœ„ì¹˜
     int iCurrentOffset;
 } DIRECTORYHANDLE;
 
-// ÆÄÀÏ°ú µð·ºÅÍ¸®¿¡ ´ëÇÑ Á¤º¸°¡ µé¾îÀÖ´Â ÀÚ·á±¸Á¶
+// íŒŒì¼ê³¼ ë””ë ‰í„°ë¦¬ì— ëŒ€í•œ ì •ë³´ê°€ ë“¤ì–´ìžˆëŠ” ìžë£Œêµ¬ì¡°
 typedef struct kFileDirectoryHandleStruct
 {
-    // ÀÚ·á±¸Á¶ÀÇ Å¸ÀÔ ¼³Á¤. ÆÄÀÏ ÇÚµéÀÌ³ª µð·ºÅÍ¸® ÇÚµé, ¶Ç´Â ºó ÇÚµé Å¸ÀÔ ÁöÁ¤ °¡´É
+    // ìžë£Œêµ¬ì¡°ì˜ íƒ€ìž… ì„¤ì •. íŒŒì¼ í•¸ë“¤ì´ë‚˜ ë””ë ‰í„°ë¦¬ í•¸ë“¤, ë˜ëŠ” ë¹ˆ í•¸ë“¤ íƒ€ìž… ì§€ì • ê°€ëŠ¥
     BYTE bType;
 
-    // bTypeÀÇ °ª¿¡ µû¶ó ÆÄÀÏ ¶Ç´Â µð·ºÅÍ¸®·Î »ç¿ë
+    // bTypeì˜ ê°’ì— ë”°ë¼ íŒŒì¼ ë˜ëŠ” ë””ë ‰í„°ë¦¬ë¡œ ì‚¬ìš©
     union
     {
-        // ÆÄÀÏ ÇÚµé
+        // íŒŒì¼ í•¸ë“¤
         FILEHANDLE stFileHandle;
-        // µð·ºÅÍ¸® ÇÚµé
+        // ë””ë ‰í„°ë¦¬ í•¸ë“¤
         DIRECTORYHANDLE stDirectoryHandle;
     };    
 } FILE, DIR;
 
 //==============================================================================
-//  GUI ½Ã½ºÅÛ¿¡ °ü·ÃµÈ ÀÚ·á±¸Á¶
+//  GUI ì‹œìŠ¤í…œì— ê´€ë ¨ëœ ìžë£Œêµ¬ì¡°
 //==============================================================================
-// »ç°¢ÇüÀÇ Á¤º¸¸¦ ´ã´Â ÀÚ·á±¸Á¶
+// ì‚¬ê°í˜•ì˜ ì •ë³´ë¥¼ ë‹´ëŠ” ìžë£Œêµ¬ì¡°
 typedef struct kRectangleStruct
 {
-    // ¿ÞÂÊ À§(½ÃÀÛÁ¡)ÀÇ X ÁÂÇ¥
+    // ì™¼ìª½ ìœ„(ì‹œìž‘ì )ì˜ X ì¢Œí‘œ
     int iX1;
-    // ¿ÞÂÊ À§(½ÃÀÛÁ¡)ÀÇ Y ÁÂÇ¥
+    // ì™¼ìª½ ìœ„(ì‹œìž‘ì )ì˜ Y ì¢Œí‘œ
     int iY1;
     
-    // ¿À¸¥ÂÊ ¾Æ·¡(³¡Á¡)ÀÇ X ÁÂÇ¥
+    // ì˜¤ë¥¸ìª½ ì•„ëž˜(ëì )ì˜ X ì¢Œí‘œ
     int iX2;
-    // ¿À¸¥ÂÊ ¾Æ·¡(³¡Á¡)ÀÇ YÁÂÇ¥
+    // ì˜¤ë¥¸ìª½ ì•„ëž˜(ëì )ì˜ Yì¢Œí‘œ
     int iY2;
 } RECT;
 
-// Á¡ÀÇ Á¤º¸¸¦ ´ã´Â ÀÚ·á±¸Á¶
+// ì ì˜ ì •ë³´ë¥¼ ë‹´ëŠ” ìžë£Œêµ¬ì¡°
 typedef struct kPointStruct
 {
-    // X¿Í YÀÇ ÁÂÇ¥
+    // Xì™€ Yì˜ ì¢Œí‘œ
     int iX;
     int iY;
 } POINT;
 
-// ¸¶¿ì½º ÀÌº¥Æ® ÀÚ·á±¸Á¶
+// ë§ˆìš°ìŠ¤ ì´ë²¤íŠ¸ ìžë£Œêµ¬ì¡°
 typedef struct kMouseEventStruct
 {
-    // À©µµ¿ì ID
+    // ìœˆë„ìš° ID
     QWORD qwWindowID;
 
-    // ¸¶¿ì½º X,YÁÂÇ¥¿Í ¹öÆ°ÀÇ »óÅÂ
+    // ë§ˆìš°ìŠ¤ X,Yì¢Œí‘œì™€ ë²„íŠ¼ì˜ ìƒíƒœ
     POINT stPoint;
     BYTE bButtonStatus;
 } MOUSEEVENT;
 
-// Å° ÀÌº¥Æ® ÀÚ·á±¸Á¶
+// í‚¤ ì´ë²¤íŠ¸ ìžë£Œêµ¬ì¡°
 typedef struct kKeyEventStruct
 {
-    // À©µµ¿ì ID
+    // ìœˆë„ìš° ID
     QWORD qwWindowID;
     
-    // Å°ÀÇ ASCII ÄÚµå¿Í ½ºÄµ ÄÚµå
+    // í‚¤ì˜ ASCII ì½”ë“œì™€ ìŠ¤ìº” ì½”ë“œ
     BYTE bASCIICode;
     BYTE bScanCode;    
     
-    // Å° ÇÃ·¡±×
+    // í‚¤ í”Œëž˜ê·¸
     BYTE bFlags;
 } KEYEVENT;
 
-// À©µµ¿ì ÀÌº¥Æ® ÀÚ·á±¸Á¶
+// ìœˆë„ìš° ì´ë²¤íŠ¸ ìžë£Œêµ¬ì¡°
 typedef struct kWindowEventStruct
 {
-    // À©µµ¿ì ID
+    // ìœˆë„ìš° ID
     QWORD qwWindowID;
     
-    // ¿µ¿ª Á¤º¸
+    // ì˜ì—­ ì •ë³´
     RECT stArea;
 } WINDOWEVENT;
 
-// ÀÌº¥Æ® ÀÚ·á±¸Á¶
+// ì´ë²¤íŠ¸ ìžë£Œêµ¬ì¡°
 typedef struct kEventStruct
 {
-    // ÀÌº¥Æ® Å¸ÀÔ
+    // ì´ë²¤íŠ¸ íƒ€ìž…
     QWORD qwType;
     
-    // ÀÌº¥Æ® µ¥ÀÌÅÍ ¿µ¿ªÀ» Á¤ÀÇÇÑ °ø¿ëÃ¼
+    // ì´ë²¤íŠ¸ ë°ì´í„° ì˜ì—­ì„ ì •ì˜í•œ ê³µìš©ì²´
     union
     {
-        // ¸¶¿ì½º ÀÌº¥Æ® °ü·Ã µ¥ÀÌÅÍ
+        // ë§ˆìš°ìŠ¤ ì´ë²¤íŠ¸ ê´€ë ¨ ë°ì´í„°
         MOUSEEVENT stMouseEvent;
 
-        // Å° ÀÌº¥Æ® °ü·Ã µ¥ÀÌÅÍ
+        // í‚¤ ì´ë²¤íŠ¸ ê´€ë ¨ ë°ì´í„°
         KEYEVENT stKeyEvent;
 
-        // À©µµ¿ì ÀÌº¥Æ® °ü·Ã µ¥ÀÌÅÍ
+        // ìœˆë„ìš° ì´ë²¤íŠ¸ ê´€ë ¨ ë°ì´í„°
         WINDOWEVENT stWindowEvent;
 
-        // À§ÀÇ ÀÌº¥Æ® ¿Ü¿¡ À¯Àú ÀÌº¥Æ®¸¦ À§ÇÑ µ¥ÀÌÅÍ
+        // ìœ„ì˜ ì´ë²¤íŠ¸ ì™¸ì— ìœ ì € ì´ë²¤íŠ¸ë¥¼ ìœ„í•œ ë°ì´í„°
         QWORD vqwData[ 3 ];
     };
 } EVENT;
 
 //==============================================================================
-//  JPEG µðÄÚ´õ¿¡ °ü·ÃµÈ ÀÚ·á±¸Á¶
+//  JPEG ë””ì½”ë”ì— ê´€ë ¨ëœ ìžë£Œêµ¬ì¡°
 //==============================================================================
-// ÇãÇÁ¸¸ Å×ÀÌºí
+// í—ˆí”„ë§Œ í…Œì´ë¸”
 typedef struct{
-    int elem; // ¿ä¼Ò °³¼ö
+    int elem; // ìš”ì†Œ ê°œìˆ˜
     unsigned short code[256];
     unsigned char  size[256];
     unsigned char  value[256];
 }HUFF;
 
-// JPEG µðÄÚµùÀ» À§ÇÑ ÀÚ·á±¸Á¶
+// JPEG ë””ì½”ë”©ì„ ìœ„í•œ ìžë£Œêµ¬ì¡°
 typedef struct{
     // SOF
     int width;
@@ -415,14 +415,14 @@ typedef struct{
     int scan_id[3];
     int scan_ac[3];
     int scan_dc[3];
-    int scan_h[3];  // »ùÇÃ¸µ ¿ä¼Ò ¼ö
-    int scan_v[3];  // »ùÇÃ¸µ ¿ä¼Ò ¼ö
-    int scan_qt[3]; // ¾çÀÚÈ­ Å×ÀÌºí ÀÎµ¦½º
+    int scan_h[3];  // ìƒ˜í”Œë§ ìš”ì†Œ ìˆ˜
+    int scan_v[3];  // ìƒ˜í”Œë§ ìš”ì†Œ ìˆ˜
+    int scan_qt[3]; // ì–‘ìží™” í…Œì´ë¸” ì¸ë±ìŠ¤
     
     // DRI
     int interval;
 
-    int mcu_buf[32*32*4]; // ¹öÆÛ
+    int mcu_buf[32*32*4]; // ë²„í¼
     int *mcu_yuv[4];
     int mcu_preDC[3];
     

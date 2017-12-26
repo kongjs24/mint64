@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    Main.c
  *  date    2009/01/02
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   C ¾ð¾î·Î ÀÛ¼ºµÈ Ä¿³ÎÀÇ ¿£Æ®¸® Æ÷ÀÎÆ® ÆÄÀÏ
+ *  brief   C ì–¸ì–´ë¡œ ìž‘ì„±ëœ ì»¤ë„ì˜ ì—”íŠ¸ë¦¬ í¬ì¸íŠ¸ íŒŒì¼
  */
 
 #include "Types.h"
@@ -11,11 +11,11 @@
 #include "Descriptor.h"
 #include "PIC.h"
 
-// ÇÔ¼ö ¼±¾ð
+// í•¨ìˆ˜ ì„ ì–¸
 void kPrintString( int iX, int iY, const char* pcString );
 
 /**
- *  ¾Æ·¡ ÇÔ¼ö´Â C ¾ð¾î Ä¿³ÎÀÇ ½ÃÀÛ ºÎºÐÀÓ
+ *  ì•„ëž˜ í•¨ìˆ˜ëŠ” C ì–¸ì–´ ì»¤ë„ì˜ ì‹œìž‘ ë¶€ë¶„ìž„
  */
 void Main( void )
 {
@@ -43,7 +43,7 @@ void Main( void )
     
     kPrintString( 0, 15, "Keyboard Activate...........................[    ]" );
     
-    // Å°º¸µå¸¦ È°¼ºÈ­
+    // í‚¤ë³´ë“œë¥¼ í™œì„±í™”
     if( kActivateKeyboard() == TRUE )
     {
         kPrintString( 45, 15, "Pass" );
@@ -56,7 +56,7 @@ void Main( void )
     }
 
     kPrintString( 0, 16, "PIC Controller And Interrupt Initialize.....[    ]" );
-    // PIC ÄÁÆ®·Ñ·¯ ÃÊ±âÈ­ ¹× ¸ðµç ÀÎÅÍ·´Æ® È°¼ºÈ­
+    // PIC ì»¨íŠ¸ë¡¤ëŸ¬ ì´ˆê¸°í™” ë° ëª¨ë“  ì¸í„°ëŸ½íŠ¸ í™œì„±í™”
     kInitializePIC();
     kMaskPICInterrupt( 0 );
     kEnableInterrupt();
@@ -64,26 +64,26 @@ void Main( void )
     
     while( 1 )
     {
-        // Ãâ·Â ¹öÆÛ(Æ÷Æ® 0x60)°¡ Â÷ ÀÖÀ¸¸é ½ºÄµ ÄÚµå¸¦ ÀÐÀ» ¼ö ÀÖÀ½
+        // ì¶œë ¥ ë²„í¼(í¬íŠ¸ 0x60)ê°€ ì°¨ ìžˆìœ¼ë©´ ìŠ¤ìº” ì½”ë“œë¥¼ ì½ì„ ìˆ˜ ìžˆìŒ
         if( kIsOutputBufferFull() == TRUE )
         {
-            // Ãâ·Â ¹öÆÛ(Æ÷Æ® 0x60)¿¡¼­ ½ºÄµ ÄÚµå¸¦ ÀÐ¾î¼­ ÀúÀå
+            // ì¶œë ¥ ë²„í¼(í¬íŠ¸ 0x60)ì—ì„œ ìŠ¤ìº” ì½”ë“œë¥¼ ì½ì–´ì„œ ì €ìž¥
             bTemp = kGetKeyboardScanCode();
             
-            // ½ºÄµ ÄÚµå¸¦ ASCII ÄÚµå·Î º¯È¯ÇÏ´Â ÇÔ¼ö¸¦ È£ÃâÇÏ¿© ASCII ÄÚµå¿Í
-            // ´­¸² ¶Ç´Â ¶³¾îÁü Á¤º¸¸¦ ¹ÝÈ¯
+            // ìŠ¤ìº” ì½”ë“œë¥¼ ASCII ì½”ë“œë¡œ ë³€í™˜í•˜ëŠ” í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•˜ì—¬ ASCII ì½”ë“œì™€
+            // ëˆŒë¦¼ ë˜ëŠ” ë–¨ì–´ì§ ì •ë³´ë¥¼ ë°˜í™˜
             if( kConvertScanCodeToASCIICode( bTemp, &( vcTemp[ 0 ] ), &bFlags ) == TRUE )
             {
-                // Å°°¡ ´­·¯Á³À¸¸é Å°ÀÇ ASCII ÄÚµå °ªÀ» È­¸é¿¡ Ãâ·Â
+                // í‚¤ê°€ ëˆŒëŸ¬ì¡Œìœ¼ë©´ í‚¤ì˜ ASCII ì½”ë“œ ê°’ì„ í™”ë©´ì— ì¶œë ¥
                 if( bFlags & KEY_FLAGS_DOWN )
                 {
                     kPrintString( i++, 17, vcTemp );
-                    // 0ÀÌ ÀÔ·ÂµÇ¸é º¯¼ö¸¦ 0À¸·Î ³ª´©¾î Divide Error ¿¹¿Ü(º¤ÅÍ 0¹ø)À»
-                    // ¹ß»ý½ÃÅ´
+                    // 0ì´ ìž…ë ¥ë˜ë©´ ë³€ìˆ˜ë¥¼ 0ìœ¼ë¡œ ë‚˜ëˆ„ì–´ Divide Error ì˜ˆì™¸(ë²¡í„° 0ë²ˆ)ì„
+                    // ë°œìƒì‹œí‚´
                     if( vcTemp[ 0 ] == '0' )
                     {
-                        // ¾Æ·¡ ÄÚµå¸¦ ¼öÇàÇÏ¸é Divide Error ¿¹¿Ü°¡ ¹ß»ýÇÏ¿©
-                        // Ä¿³ÎÀÇ ÀÓ½Ã ÇÚµé·¯°¡ ¼öÇàµÊ
+                        // ì•„ëž˜ ì½”ë“œë¥¼ ìˆ˜í–‰í•˜ë©´ Divide Error ì˜ˆì™¸ê°€ ë°œìƒí•˜ì—¬
+                        // ì»¤ë„ì˜ ìž„ì‹œ í•¸ë“¤ëŸ¬ê°€ ìˆ˜í–‰ë¨
                         bTemp = bTemp / 0;
                     }
                 }
@@ -93,17 +93,17 @@ void Main( void )
 }
 
 /**
- *  ¹®ÀÚ¿­À» X, Y À§Ä¡¿¡ Ãâ·Â
+ *  ë¬¸ìžì—´ì„ X, Y ìœ„ì¹˜ì— ì¶œë ¥
  */
 void kPrintString( int iX, int iY, const char* pcString )
 {
     CHARACTER* pstScreen = ( CHARACTER* ) 0xB8000;
     int i;
     
-    // X, Y ÁÂÇ¥¸¦ ÀÌ¿ëÇØ¼­ ¹®ÀÚ¿­À» Ãâ·ÂÇÒ ¾îµå·¹½º¸¦ °è»ê
+    // X, Y ì¢Œí‘œë¥¼ ì´ìš©í•´ì„œ ë¬¸ìžì—´ì„ ì¶œë ¥í•  ì–´ë“œë ˆìŠ¤ë¥¼ ê³„ì‚°
     pstScreen += ( iY * 80 ) + iX;
 
-    // NULLÀÌ ³ª¿Ã ¶§±îÁö ¹®ÀÚ¿­ Ãâ·Â
+    // NULLì´ ë‚˜ì˜¬ ë•Œê¹Œì§€ ë¬¸ìžì—´ ì¶œë ¥
     for( i = 0 ; pcString[ i ] != 0 ; i++ )
     {
         pstScreen[ i ].bCharactor = pcString[ i ];

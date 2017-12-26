@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    ApplicationLoader.h
  *  date    2009/12/26
  *  author  kkamagui
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   ÀÀ¿ëÇÁ·Î±×·¥À» ·ÎµåÇÏ¿© ½ÇÇàÇÏ´Â ·Î´õ(Loader)¿¡ °ü·ÃµÈ ÇÔ¼ö¸¦ Á¤ÀÇÇÑ Çì´õ ÆÄÀÏ
+ *  brief   ì‘ìš©í”„ë¡œê·¸ë¨ì„ ë¡œë“œí•˜ì—¬ ì‹¤í–‰í•˜ëŠ” ë¡œë”(Loader)ì— ê´€ë ¨ëœ í•¨ìˆ˜ë¥¼ ì •ì˜í•œ í—¤ë” íŒŒì¼
  */
 
 #ifndef __LOADER_H__
@@ -14,10 +14,10 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ¸ÅÅ©·Î
+// ë§¤í¬ë¡œ
 //
 ////////////////////////////////////////////////////////////////////////////////
-// ±âº» µ¥ÀÌÅÍ Å¸ÀÔÀ» Á¤ÀÇÇÑ ¸ÅÅ©·Î
+// ê¸°ë³¸ ë°ì´í„° íƒ€ì…ì„ ì •ì˜í•œ ë§¤í¬ë¡œ
 #define Elf64_Addr      unsigned long
 #define Elf64_Off       unsigned long
 #define Elf64_Half      unsigned short int
@@ -26,7 +26,7 @@
 #define Elf64_Xword     unsigned long
 #define Elf64_Sxword    long
 
-// e_ident[]ÀÇ index ÀÇ¹Ì
+// e_ident[]ì˜ index ì˜ë¯¸
 #define EI_MAG0         0 
 #define EI_MAG1         1
 #define EI_MAG2         2
@@ -89,7 +89,7 @@
 #define EM_AVR32        185
 #define EM_CUDA         190
 
-// Æ¯º°ÇÑ ¼½¼Ç ÀÎµ¦½º(Special Section Index)
+// íŠ¹ë³„í•œ ì„¹ì…˜ ì¸ë±ìŠ¤(Special Section Index)
 #define SHN_UNDEF       0
 #define SHN_LOERSERVE   0xFF00
 #define SHN_LOPROC      0xFF00
@@ -168,83 +168,83 @@
 #define R_X86_64_SIZE32     32      // word32   Z + A
 #define R_X86_64_SIZE64     33      // word64   Z + A
 
-// »óÀ§ 32ºñÆ®¿Í ÇÏÀ§ 32ºñÆ® °ªÀ» ÃßÃâÇÏ´Â ¸ÅÅ©·Î
+// ìƒìœ„ 32ë¹„íŠ¸ì™€ í•˜ìœ„ 32ë¹„íŠ¸ ê°’ì„ ì¶”ì¶œí•˜ëŠ” ë§¤í¬ë¡œ
 #define RELOCATION_UPPER32( x )     ( ( x ) >> 32 )
 #define RELOCATION_LOWER32( x )     ( ( x ) & 0xFFFFFFFF )
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ±¸Á¶Ã¼
+// êµ¬ì¡°ì²´
 //
 ////////////////////////////////////////////////////////////////////////////////
-// 1¹ÙÀÌÆ®·Î Á¤·Ä
+// 1ë°”ì´íŠ¸ë¡œ ì •ë ¬
 #pragma pack( push, 1 )
 
-// ELF64 ÆÄÀÏ Æ÷¸ËÀÇ ELF Çì´õ ÀÚ·á±¸Á¶
+// ELF64 íŒŒì¼ í¬ë§·ì˜ ELF í—¤ë” ìë£Œêµ¬ì¡°
 typedef struct
 {
-    unsigned char e_ident[16];      // ELF ½Äº°ÀÚ(Identification)
-    Elf64_Half e_type;              // ¿ÀºêÁ§Æ® ÆÄÀÏ Çü½Ä
-    Elf64_Half e_machine;           // ¸Ó½Å(Machine) Å¸ÀÔ
-    Elf64_Word e_version;           // ¿ÀºêÁ§Æ® ÆÄÀÏ ¹öÀü
-    Elf64_Addr e_entry;             // ¿£Æ®¸® Æ÷ÀÎÆ® ¾îµå·¹½º
-    Elf64_Off e_phoff;              // ÆÄÀÏ ³»¿¡ Á¸ÀçÇÏ´Â ÇÁ·Î±×·¥ Çì´õ Å×ÀÌºíÀÇ À§Ä¡
-    Elf64_Off e_shoff;              // ÆÄÀÏ ³»¿¡ Á¸ÀçÇÏ´Â ¼½¼Ç Çì´õ Å×ÀÌºíÀÇ À§Ä¡
-    Elf64_Word e_flags;             // ÇÁ·Î¼¼¼­ ÀÇÁ¸ÀûÀÎ(Processor-specific) ÇÃ·¡±×
-    Elf64_Half e_ehsize;            // ELF Çì´õÀÇ Å©±â
-    Elf64_Half e_phentsize;         // ÇÁ·Î±×·¥ Çì´õ ¿£Æ®¸® ÇÑ °³ÀÇ Å©±â
-    Elf64_Half e_phnum;             // ÇÁ·Î±×·¥ Çì´õ ¿£Æ®¸®ÀÇ °³¼ö
-    Elf64_Half e_shentsize;         // ¼½¼Ç Çì´õ ¿£Æ®¸® ÇÑ °³ÀÇ Å©±â
-    Elf64_Half e_shnum;             // ¼½¼Ç Çì´õ ¿£Æ®¸®ÀÇ °³¼ö
-    Elf64_Half e_shstrndx;          // ¼½¼Ç ÀÌ¸§ ¹®ÀÚ¿­ÀÌ ÀúÀåµÈ ¼½¼Ç Çì´õÀÇ ÀÎµ¦½º
+    unsigned char e_ident[16];      // ELF ì‹ë³„ì(Identification)
+    Elf64_Half e_type;              // ì˜¤ë¸Œì íŠ¸ íŒŒì¼ í˜•ì‹
+    Elf64_Half e_machine;           // ë¨¸ì‹ (Machine) íƒ€ì…
+    Elf64_Word e_version;           // ì˜¤ë¸Œì íŠ¸ íŒŒì¼ ë²„ì „
+    Elf64_Addr e_entry;             // ì—”íŠ¸ë¦¬ í¬ì¸íŠ¸ ì–´ë“œë ˆìŠ¤
+    Elf64_Off e_phoff;              // íŒŒì¼ ë‚´ì— ì¡´ì¬í•˜ëŠ” í”„ë¡œê·¸ë¨ í—¤ë” í…Œì´ë¸”ì˜ ìœ„ì¹˜
+    Elf64_Off e_shoff;              // íŒŒì¼ ë‚´ì— ì¡´ì¬í•˜ëŠ” ì„¹ì…˜ í—¤ë” í…Œì´ë¸”ì˜ ìœ„ì¹˜
+    Elf64_Word e_flags;             // í”„ë¡œì„¸ì„œ ì˜ì¡´ì ì¸(Processor-specific) í”Œë˜ê·¸
+    Elf64_Half e_ehsize;            // ELF í—¤ë”ì˜ í¬ê¸°
+    Elf64_Half e_phentsize;         // í”„ë¡œê·¸ë¨ í—¤ë” ì—”íŠ¸ë¦¬ í•œ ê°œì˜ í¬ê¸°
+    Elf64_Half e_phnum;             // í”„ë¡œê·¸ë¨ í—¤ë” ì—”íŠ¸ë¦¬ì˜ ê°œìˆ˜
+    Elf64_Half e_shentsize;         // ì„¹ì…˜ í—¤ë” ì—”íŠ¸ë¦¬ í•œ ê°œì˜ í¬ê¸°
+    Elf64_Half e_shnum;             // ì„¹ì…˜ í—¤ë” ì—”íŠ¸ë¦¬ì˜ ê°œìˆ˜
+    Elf64_Half e_shstrndx;          // ì„¹ì…˜ ì´ë¦„ ë¬¸ìì—´ì´ ì €ì¥ëœ ì„¹ì…˜ í—¤ë”ì˜ ì¸ë±ìŠ¤
 } Elf64_Ehdr;
 
-// ELF64ÀÇ ¼½¼Ç Çì´õ ÀÚ·á±¸Á¶
+// ELF64ì˜ ì„¹ì…˜ í—¤ë” ìë£Œêµ¬ì¡°
 typedef struct
 {
-    Elf64_Word sh_name;             // ¼½¼Ç ÀÌ¸§ÀÌ ÀúÀåµÈ ¿ÀÇÁ¼Â
-    Elf64_Word sh_type;             // ¼½¼Ç Å¸ÀÔ
-    Elf64_Xword sh_flags;           // ¼½¼Ç ÇÃ·¡±×
-    Elf64_Addr sh_addr;             // ¸Ş¸ğ¸®¿¡ ·ÎµùÇÒ ¾îµå·¹½º
-    Elf64_Off sh_offset;            // ÆÄÀÏ ³»¿¡ Á¸ÀçÇÏ´Â ¼½¼ÇÀÇ ¿ÀÇÁ¼Â
-    Elf64_Xword sh_size;            // ¼½¼Ç Å©±â
-    Elf64_Word sh_link;             // ¿¬°áµÈ ´Ù¸¥ ¼½¼Ç
-    Elf64_Word sh_info;             // ºÎ°¡ÀûÀÎ Á¤º¸
-    Elf64_Xword sh_addralign;       // ¾îµå·¹½º Á¤·Ä
-    Elf64_Xword sh_entsize;         // ¼½¼Ç¿¡ µé¾îÀÖ´Â µ¥ÀÌÅÍ ¿£Æ®¸®ÀÇ Å©±â
+    Elf64_Word sh_name;             // ì„¹ì…˜ ì´ë¦„ì´ ì €ì¥ëœ ì˜¤í”„ì…‹
+    Elf64_Word sh_type;             // ì„¹ì…˜ íƒ€ì…
+    Elf64_Xword sh_flags;           // ì„¹ì…˜ í”Œë˜ê·¸
+    Elf64_Addr sh_addr;             // ë©”ëª¨ë¦¬ì— ë¡œë”©í•  ì–´ë“œë ˆìŠ¤
+    Elf64_Off sh_offset;            // íŒŒì¼ ë‚´ì— ì¡´ì¬í•˜ëŠ” ì„¹ì…˜ì˜ ì˜¤í”„ì…‹
+    Elf64_Xword sh_size;            // ì„¹ì…˜ í¬ê¸°
+    Elf64_Word sh_link;             // ì—°ê²°ëœ ë‹¤ë¥¸ ì„¹ì…˜
+    Elf64_Word sh_info;             // ë¶€ê°€ì ì¸ ì •ë³´
+    Elf64_Xword sh_addralign;       // ì–´ë“œë ˆìŠ¤ ì •ë ¬
+    Elf64_Xword sh_entsize;         // ì„¹ì…˜ì— ë“¤ì–´ìˆëŠ” ë°ì´í„° ì—”íŠ¸ë¦¬ì˜ í¬ê¸°
 } Elf64_Shdr;
 
-// ELF64ÀÇ ½Éº¼ Å×ÀÌºí ¿£Æ®¸® ÀÚ·á±¸Á¶
+// ELF64ì˜ ì‹¬ë³¼ í…Œì´ë¸” ì—”íŠ¸ë¦¬ ìë£Œêµ¬ì¡°
 typedef struct
 {
-    Elf64_Word st_name;             // ½Éº¼ ÀÌ¸§ÀÌ ÀúÀåµÈ ¿ÀÇÁ¼Â
-    unsigned char st_info;          // ½Éº¼ Å¸ÀÔ°ú ¹ÙÀÎµù(Binding) ¼Ó¼º
-    unsigned char st_other;         // ¿¹¾àµÊ(Reserved)
-    Elf64_Half st_shndx;            // ½Éº¼ÀÌ Á¤ÀÇµÈ ¼½¼Ç Çì´õÀÇ ÀÎµ¦½º
-    Elf64_Addr st_value;            // ½Éº¼ÀÇ °ª
-    Elf64_Xword st_size;            // ½Éº¼ÀÇ Å©±â
+    Elf64_Word st_name;             // ì‹¬ë³¼ ì´ë¦„ì´ ì €ì¥ëœ ì˜¤í”„ì…‹
+    unsigned char st_info;          // ì‹¬ë³¼ íƒ€ì…ê³¼ ë°”ì¸ë”©(Binding) ì†ì„±
+    unsigned char st_other;         // ì˜ˆì•½ë¨(Reserved)
+    Elf64_Half st_shndx;            // ì‹¬ë³¼ì´ ì •ì˜ëœ ì„¹ì…˜ í—¤ë”ì˜ ì¸ë±ìŠ¤
+    Elf64_Addr st_value;            // ì‹¬ë³¼ì˜ ê°’
+    Elf64_Xword st_size;            // ì‹¬ë³¼ì˜ í¬ê¸°
 } Elf64_Sym;
 
-// ELF64ÀÇ Àç¹èÄ¡ ¿£Æ®¸® ÀÚ·á±¸Á¶(SHT_REL ¼½¼Ç Å¸ÀÔ)
+// ELF64ì˜ ì¬ë°°ì¹˜ ì—”íŠ¸ë¦¬ ìë£Œêµ¬ì¡°(SHT_REL ì„¹ì…˜ íƒ€ì…)
 typedef struct
 {
-    Elf64_Addr r_offset;            // Àç¹èÄ¡¸¦ ¼öÇàÇÒ ¾îµå·¹½º
-    Elf64_Xword r_info;             // ½Éº¼ÀÇ ÀÎµ¦½º¿Í Àç¹èÄ¡ Å¸ÀÔ
+    Elf64_Addr r_offset;            // ì¬ë°°ì¹˜ë¥¼ ìˆ˜í–‰í•  ì–´ë“œë ˆìŠ¤
+    Elf64_Xword r_info;             // ì‹¬ë³¼ì˜ ì¸ë±ìŠ¤ì™€ ì¬ë°°ì¹˜ íƒ€ì…
 } Elf64_Rel;
 
-// ELF64ÀÇ Àç¹èÄ¡ ¿£Æ®¸® ÀÚ·á±¸Á¶(SHT_RELA ¼½¼Ç Å¸ÀÔ)
+// ELF64ì˜ ì¬ë°°ì¹˜ ì—”íŠ¸ë¦¬ ìë£Œêµ¬ì¡°(SHT_RELA ì„¹ì…˜ íƒ€ì…)
 typedef struct
 {
-    Elf64_Addr r_offset;            // Àç¹èÄ¡¸¦ ¼öÇàÇÒ ¾îµå·¹½º
-    Elf64_Xword r_info;             // ½Éº¼ÀÇ ÀÎµ¦½º¿Í Àç¹èÄ¡ Å¸ÀÔ
-    Elf64_Sxword r_addend;          // ´õÇÏ´Â ¼ö(»ó¼ö ºÎºĞ)
+    Elf64_Addr r_offset;            // ì¬ë°°ì¹˜ë¥¼ ìˆ˜í–‰í•  ì–´ë“œë ˆìŠ¤
+    Elf64_Xword r_info;             // ì‹¬ë³¼ì˜ ì¸ë±ìŠ¤ì™€ ì¬ë°°ì¹˜ íƒ€ì…
+    Elf64_Sxword r_addend;          // ë”í•˜ëŠ” ìˆ˜(ìƒìˆ˜ ë¶€ë¶„)
 } Elf64_Rela;
 
 #pragma pack( pop)
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ÇÔ¼ö
+// í•¨ìˆ˜
 //
 ////////////////////////////////////////////////////////////////////////////////
 QWORD kExecuteProgram( const char* pcFileName, const char* pcArgumentString, 

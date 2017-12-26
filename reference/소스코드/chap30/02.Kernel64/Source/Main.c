@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    Main.c
  *  date    2009/01/02
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   C ¾ğ¾î·Î ÀÛ¼ºµÈ Ä¿³ÎÀÇ ¿£Æ®¸® Æ÷ÀÎÆ® ÆÄÀÏ
+ *  brief   C ì–¸ì–´ë¡œ ì‘ì„±ëœ ì»¤ë„ì˜ ì—”íŠ¸ë¦¬ í¬ì¸íŠ¸ íŒŒì¼
  */
 
 #include "Types.h"
@@ -20,35 +20,35 @@
 #include "SerialPort.h"
 #include "MultiProcessor.h"
 
-// Application Processor¸¦ À§ÇÑ Main ÇÔ¼ö
+// Application Processorë¥¼ ìœ„í•œ Main í•¨ìˆ˜
 void MainForApplicationProcessor( void );
 
 /**
- *  Bootstrap Processor¿ë C ¾ğ¾î Ä¿³Î ¿£Æ®¸® Æ÷ÀÎÆ®
- *      ¾Æ·¡ ÇÔ¼ö´Â C ¾ğ¾î Ä¿³ÎÀÇ ½ÃÀÛ ºÎºĞÀÓ
+ *  Bootstrap Processorìš© C ì–¸ì–´ ì»¤ë„ ì—”íŠ¸ë¦¬ í¬ì¸íŠ¸
+ *      ì•„ë˜ í•¨ìˆ˜ëŠ” C ì–¸ì–´ ì»¤ë„ì˜ ì‹œì‘ ë¶€ë¶„ì„
  */
 void Main( void )
 {
     int iCursorX, iCursorY;
     
-    // ºÎÆ® ·Î´õ¿¡ ÀÖ´Â BSP ÇÃ·¡±×¸¦ ÀĞ¾î¼­ Application ProcessorÀÌ¸é 
-    // ÇØ´ç ÄÚ¾î¿ë ÃÊ±âÈ­ ÇÔ¼ö·Î ÀÌµ¿
+    // ë¶€íŠ¸ ë¡œë”ì— ìˆëŠ” BSP í”Œë˜ê·¸ë¥¼ ì½ì–´ì„œ Application Processorì´ë©´ 
+    // í•´ë‹¹ ì½”ì–´ìš© ì´ˆê¸°í™” í•¨ìˆ˜ë¡œ ì´ë™
     if( *( ( BYTE* ) BOOTSTRAPPROCESSOR_FLAGADDRESS ) == 0 )
     {
         MainForApplicationProcessor();
     }
     
-    // Bootstrap Processor°¡ ºÎÆÃÀ» ¿Ï·áÇßÀ¸¹Ç·Î, 0x7C09¿¡ ÀÖ´Â Bootstrap Processor¸¦
-    // ³ªÅ¸³»´Â ÇÃ·¡±×¸¦ 0À¸·Î ¼³Á¤ÇÏ¿© Application Processor¿ëÀ¸·Î ÄÚµå ½ÇÇà °æ·Î¸¦ º¯°æ
+    // Bootstrap Processorê°€ ë¶€íŒ…ì„ ì™„ë£Œí–ˆìœ¼ë¯€ë¡œ, 0x7C09ì— ìˆëŠ” Bootstrap Processorë¥¼
+    // ë‚˜íƒ€ë‚´ëŠ” í”Œë˜ê·¸ë¥¼ 0ìœ¼ë¡œ ì„¤ì •í•˜ì—¬ Application Processorìš©ìœ¼ë¡œ ì½”ë“œ ì‹¤í–‰ ê²½ë¡œë¥¼ ë³€ê²½
     *( ( BYTE* ) BOOTSTRAPPROCESSOR_FLAGADDRESS ) = 0;
 
-    // ÄÜ¼ÖÀ» ¸ÕÀú ÃÊ±âÈ­ÇÑ ÈÄ, ´ÙÀ½ ÀÛ¾÷À» ¼öÇà
+    // ì½˜ì†”ì„ ë¨¼ì € ì´ˆê¸°í™”í•œ í›„, ë‹¤ìŒ ì‘ì—…ì„ ìˆ˜í–‰
     kInitializeConsole( 0, 10 );    
     kPrintf( "Switch To IA-32e Mode Success~!!\n" );
     kPrintf( "IA-32e C Language Kernel Start..............[Pass]\n" );
     kPrintf( "Initialize Console..........................[Pass]\n" );
     
-    // ºÎÆÃ »óÈ²À» È­¸é¿¡ Ãâ·Â
+    // ë¶€íŒ… ìƒí™©ì„ í™”ë©´ì— ì¶œë ¥
     kGetCursor( &iCursorX, &iCursorY );
     kPrintf( "GDT Initialize And Switch For IA-32e Mode...[    ]" );
     kInitializeGDTTableAndTSS();
@@ -76,16 +76,16 @@ void Main( void )
     iCursorY++;
     kInitializeScheduler();
     
-    // µ¿Àû ¸Ş¸ğ¸® ÃÊ±âÈ­
+    // ë™ì  ë©”ëª¨ë¦¬ ì´ˆê¸°í™”
     kPrintf( "Dynamic Memory Initialize...................[Pass]\n" );
     iCursorY++;
     kInitializeDynamicMemory();
     
-    // 1ms´ç ÇÑ¹ø¾¿ ÀÎÅÍ·´Æ®°¡ ¹ß»ıÇÏµµ·Ï ¼³Á¤
+    // 1msë‹¹ í•œë²ˆì”© ì¸í„°ëŸ½íŠ¸ê°€ ë°œìƒí•˜ë„ë¡ ì„¤ì •
     kInitializePIT( MSTOCOUNT( 1 ), 1 );
     
     kPrintf( "Keyboard Activate And Queue Initialize......[    ]" );
-    // Å°º¸µå¸¦ È°¼ºÈ­
+    // í‚¤ë³´ë“œë¥¼ í™œì„±í™”
     if( kInitializeKeyboard() == TRUE )
     {
         kSetCursor( 45, iCursorY++ );
@@ -100,14 +100,14 @@ void Main( void )
     }
     
     kPrintf( "PIC Controller And Interrupt Initialize.....[    ]" );
-    // PIC ÄÁÆ®·Ñ·¯ ÃÊ±âÈ­ ¹× ¸ğµç ÀÎÅÍ·´Æ® È°¼ºÈ­
+    // PIC ì»¨íŠ¸ë¡¤ëŸ¬ ì´ˆê¸°í™” ë° ëª¨ë“  ì¸í„°ëŸ½íŠ¸ í™œì„±í™”
     kInitializePIC();
     kMaskPICInterrupt( 0 );
     kEnableInterrupt();
     kSetCursor( 45, iCursorY++ );
     kPrintf( "Pass\n" );
     
-    // ÆÄÀÏ ½Ã½ºÅÛÀ» ÃÊ±âÈ­
+    // íŒŒì¼ ì‹œìŠ¤í…œì„ ì´ˆê¸°í™”
     kPrintf( "File System Initialize......................[    ]" );
     if( kInitializeFileSystem() == TRUE )
     {
@@ -120,37 +120,37 @@ void Main( void )
         kPrintf( "Fail\n" );
     }
 
-    // ½Ã¸®¾ó Æ÷Æ®¸¦ ÃÊ±âÈ­    
+    // ì‹œë¦¬ì–¼ í¬íŠ¸ë¥¼ ì´ˆê¸°í™”    
     kPrintf( "Serial Port Initialize......................[Pass]\n" );
     iCursorY++;
     kInitializeSerialPort();
 
-    // À¯ÈŞ ÅÂ½ºÅ©¸¦ ½Ã½ºÅÛ ½º·¹µå·Î »ı¼ºÇÏ°í ¼ĞÀ» ½ÃÀÛ
+    // ìœ íœ´ íƒœìŠ¤í¬ë¥¼ ì‹œìŠ¤í…œ ìŠ¤ë ˆë“œë¡œ ìƒì„±í•˜ê³  ì…¸ì„ ì‹œì‘
     kCreateTask( TASK_FLAGS_LOWEST | TASK_FLAGS_THREAD | TASK_FLAGS_SYSTEM | TASK_FLAGS_IDLE, 0, 0, 
             ( QWORD ) kIdleTask );
     kStartConsoleShell();
 }
 
 /**
- *  Application Processor¿ë C ¾ğ¾î Ä¿³Î ¿£Æ®¸® Æ÷ÀÎÆ®
- *      ´ëºÎºĞÀÇ ÀÚ·á±¸Á¶´Â Bootstrap Processor°¡ »ı¼ºÇØ ³õ¾ÒÀ¸¹Ç·Î ÄÚ¾î¿¡ ¼³Á¤ÇÏ´Â
- *      ÀÛ¾÷¸¸ ÇÔ
+ *  Application Processorìš© C ì–¸ì–´ ì»¤ë„ ì—”íŠ¸ë¦¬ í¬ì¸íŠ¸
+ *      ëŒ€ë¶€ë¶„ì˜ ìë£Œêµ¬ì¡°ëŠ” Bootstrap Processorê°€ ìƒì„±í•´ ë†“ì•˜ìœ¼ë¯€ë¡œ ì½”ì–´ì— ì„¤ì •í•˜ëŠ”
+ *      ì‘ì—…ë§Œ í•¨
  */
 void MainForApplicationProcessor( void )
 {
     QWORD qwTickCount;
 
-    // GDT Å×ÀÌºíÀ» ¼³Á¤
+    // GDT í…Œì´ë¸”ì„ ì„¤ì •
     kLoadGDTR( GDTR_STARTADDRESS );
 
-    // TSS µğ½ºÅ©¸³ÅÍ¸¦ ¼³Á¤. TSS ¼¼±×¸ÕÆ®¿Í µğ½ºÅ©¸³ÅÍ¸¦ Application ProcessorÀÇ 
-    // ¼ö¸¸Å­ »ı¼ºÇßÀ¸¹Ç·Î, APIC ID¸¦ ÀÌ¿ëÇÏ¿© TSS µğ½ºÅ©¸³ÅÍ¸¦ ÇÒ´ç
+    // TSS ë””ìŠ¤í¬ë¦½í„°ë¥¼ ì„¤ì •. TSS ì„¸ê·¸ë¨¼íŠ¸ì™€ ë””ìŠ¤í¬ë¦½í„°ë¥¼ Application Processorì˜ 
+    // ìˆ˜ë§Œí¼ ìƒì„±í–ˆìœ¼ë¯€ë¡œ, APIC IDë¥¼ ì´ìš©í•˜ì—¬ TSS ë””ìŠ¤í¬ë¦½í„°ë¥¼ í• ë‹¹
     kLoadTR( GDT_TSSSEGMENT + ( kGetAPICID() * sizeof( GDTENTRY16 ) ) );
 
-    // IDT Å×ÀÌºíÀ» ¼³Á¤
+    // IDT í…Œì´ë¸”ì„ ì„¤ì •
     kLoadIDTR( IDTR_STARTADDRESS );
 
-    // 1ÃÊ¸¶´Ù ÇÑ¹ø¾¿ ¸Ş½ÃÁö¸¦ Ãâ·Â
+    // 1ì´ˆë§ˆë‹¤ í•œë²ˆì”© ë©”ì‹œì§€ë¥¼ ì¶œë ¥
     qwTickCount = kGetTickCount();
     while( 1 )
     {

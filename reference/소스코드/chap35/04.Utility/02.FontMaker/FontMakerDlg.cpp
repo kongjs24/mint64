@@ -1,9 +1,9 @@
-/**
+﻿/**
  *  file    FontMakerDlg.cpp
  *  date    2009/09/09
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   ��Ʈ�� �����ϴ� Font Maker�� �ٽ� �ҽ� ����
+ *  brief   占쏙옙트占쏙옙 占쏙옙占쏙옙占싹댐옙 Font Maker占쏙옙 占쌕쏙옙 占쌀쏙옙 占쏙옙占쏙옙
  */
 // FontMakerDlg.cpp : implementation file
 //
@@ -171,7 +171,7 @@ void CFontMakerDlg::OnPaint()
 		// Draw the icon
 		dc.DrawIcon(x, y, m_hIcon);
 	}
-	// �����츦 �׸� �� �����ڿ� �ѱ��� ����Ͽ� ������ ������
+	// 占쏙옙占쏙옙占쎌를 占쌓몌옙 占쏙옙 占쏙옙占쏙옙占쌘울옙 占싼깍옙占쏙옙 占쏙옙占쏙옙臼占?占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙
 	else
 	{
         CPaintDC dc( this );
@@ -182,41 +182,41 @@ void CFontMakerDlg::OnPaint()
 		CPen clPen( PS_DOT, 1, RGB( 255, 0, 0 ) );
 		CPen* pclOldPen;
 
-		// ������ �����ϰ� �����Ͽ� ���ڸ� ǥ���� �� ������ ����� ������ �ʵ��� ��
+		// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占싹곤옙 占쏙옙占쏙옙占싹울옙 占쏙옙占쌘몌옙 표占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占?占쏙옙占쏙옙占쏙옙 占십듸옙占쏙옙 占쏙옙
 		dc.SetBkMode( TRANSPARENT );
 
-		// ������ ��Ʈ ����
+		// 占쏙옙占쏙옙占쏙옙 占쏙옙트 占쏙옙占쏙옙
         dc.SelectObject( &m_clFont );
 
-		// ���� ����
+		// 占쏙옙占쏙옙 占쏙옙占쏙옙
 		pclOldPen = dc.SelectObject( &clPen );
 
-		// ��Ʈ ũ�� ����
+		// 占쏙옙트 크占쏙옙 占쏙옙占쏙옙
 		GetTextExtentPoint32( dc.m_hDC, "A", 1, &stEnglishSize );
-        GetTextExtentPoint32( dc.m_hDC, "��", 2, &stHangulSize );
+        GetTextExtentPoint32( dc.m_hDC, "占쏙옙", 2, &stHangulSize );
 
-		// �Ʒ� �� ���ؼ� ���
+		// 占싣뤄옙 占쏙옙 占쏙옙占쌔쇽옙 占쏙옙占?
 		dc.MoveTo( 0, 5 );
 		dc.LineTo( 1000, 5 );
 		dc.MoveTo( 0, 5 + stEnglishSize.cy - 1 );
 		dc.LineTo( 1000, 5 + stEnglishSize.cy - 1 );
-		// ������ ���
+		// 占쏙옙占쏙옙占쏙옙 占쏙옙占?
         dc.TextOut( 0, 5, "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ" );
 		
-		// �Ʒ� �� ���ؼ� ���
+		// 占싣뤄옙 占쏙옙 占쏙옙占쌔쇽옙 占쏙옙占?
 		dc.MoveTo( 0, 30 );
 		dc.LineTo( 1000, 30 );
 		dc.MoveTo( 0, 30 + stHangulSize.cy - 1 );
 		dc.LineTo( 1000, 30 + stHangulSize.cy - 1 );
-		// �ѱ� ���
-        dc.TextOut( 0, 30, "���������������������������� �����ٶ󸶹ٻ������īŸ����" );
+		// 占싼깍옙 占쏙옙占?
+        dc.TextOut( 0, 30, "占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쌕라마바삼옙占쏙옙占쏙옙占식ヅ몌옙占쏙옙占? );
 
-		// ��Ʈ�� ũ�⸦ ���
+		// 占쏙옙트占쏙옙 크占썩를 占쏙옙占?
         clsData.Format( "English Font Pixel %dx%d, Hangul Font Pixel %dx%d", 
 			stEnglishSize.cx, stEnglishSize.cy, stHangulSize.cx, stHangulSize.cy );
         dc.TextOut( 0, 60, clsData );
 
-		// Pen�� ����
+		// Pen占쏙옙 占쏙옙占쏙옙
 		dc.SelectObject( pclOldPen );
     }
 }
@@ -239,14 +239,14 @@ void CFontMakerDlg::OnButtonFontselect()
         return ;
     }
 
-    // ���õ� ��Ʈ�� ��ȯ
+    // 占쏙옙占시듸옙 占쏙옙트占쏙옙 占쏙옙환
     dlg.GetCurrentFont( &stLogFont );
 
-	// ��Ʈ ����� 16 �̸� 160���� ����
+	// 占쏙옙트 占쏙옙占쏙옙占쏘가 16 占싱몌옙 160占쏙옙占쏙옙 占쏙옙占쏙옙
 	stLogFont.lfHeight = dlg.GetSize() / 10;
 	if( stLogFont.lfHeight > 16 )
 	{
-		AfxMessageBox( "��Ʈ ũ��� 16 ũ�� �̻� ������ �� �����ϴ�" );
+		AfxMessageBox( "占쏙옙트 크占쏙옙占?16 크占쏙옙 占싱삼옙 占쏙옙占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙占싹댐옙" );
 		return ;
 	}
 
@@ -255,15 +255,15 @@ void CFontMakerDlg::OnButtonFontselect()
     m_clFont.DeleteObject();
     if( m_clFont.CreateFontIndirect( &stLogFont ) == FALSE )
     {
-        TRACE( "��Ʈ ���� ����\n" );
+        TRACE( "占쏙옙트 占쏙옙占쏙옙 占쏙옙占쏙옙\n" );
     }
 
-    // �����츦 ���� �׸�
+    // 占쏙옙占쏙옙占쎌를 占쏙옙占쏙옙 占쌓몌옙
     Invalidate( TRUE );
 }
 
 /**
-    �����ڿ� �ϼ��� �ѱ��� ��� �� ����Ͽ� ��Ʈ ���� ���� 
+    占쏙옙占쏙옙占쌘울옙 占싹쇽옙占쏙옙 占싼깍옙占쏙옙 占쏙옙占?占쏙옙 占쏙옙占쏙옙臼占?占쏙옙트 占쏙옙占쏙옙 占쏙옙占쏙옙 
 */
 void CFontMakerDlg::OnButtonFontmake() 
 {
@@ -271,22 +271,22 @@ void CFontMakerDlg::OnButtonFontmake()
     CDC clTempDc;
     CBitmap clBitmap;
 
-    // DC�� �����ؼ� bitmap�� ����
+    // DC占쏙옙 占쏙옙占쏙옙占쌔쇽옙 bitmap占쏙옙 占쏙옙占쏙옙
     clTempDc.CreateCompatibleDC( &dc );
     clBitmap.CreateCompatibleBitmap( &clTempDc, 100, 100 );
     clTempDc.SelectObject( &clBitmap );
     clTempDc.SelectObject( &m_clFont );
     
-    // �ѱ� ��Ʈ������ ����
+    // 占싼깍옙 占쏙옙트占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
     SaveHangulFont( &clTempDc );
-    // ���� ��Ʈ������ ����
+    // 占쏙옙占쏙옙 占쏙옙트占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
     SaveEnglishFont( &clTempDc );
 
-    AfxMessageBox( "��Ʈ ������ �������ϴ�." );
+    AfxMessageBox( "占쏙옙트 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占싹댐옙." );
 }
 
 /**
-    �ѱ� ��Ʈ ������ ����
+    占싼깍옙 占쏙옙트 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
 */
 void CFontMakerDlg::SaveHangulFont( CDC* pclTempDC )
 {
@@ -295,28 +295,28 @@ void CFontMakerDlg::SaveHangulFont( CDC* pclTempDC )
     int iCount;
     char vcBuffer[ 2 ];
 
-    // ��Ʈ ������ ����
+    // 占쏙옙트 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
     if( CreateHangulFontFile() == FALSE )
     {
         return ;
     }
 
 	//=========================================================================
-	// ��Ʈ �����͸� ������ ���Ͽ� ����
+	// 占쏙옙트 占쏙옙占쏙옙占싶몌옙 占쏙옙占쏙옙占쏙옙 占쏙옙占싹울옙 占쏙옙占쏙옙
 	//=========================================================================
-    //����/���� ���� 0xA4A1 ~ 0xA4D3 ����
+    //占쏙옙占쏙옙/占쏙옙占쏙옙 占쏙옙占쏙옙 0xA4A1 ~ 0xA4D3 占쏙옙占쏙옙
     vcBuffer[ 0 ] = ( char )0xA4;
     for( i = 0xA1 ; i <= 0xD3 ; i++ )
     {
         vcBuffer[ 1 ] = i;
         pclTempDC->TextOut( 0, 0, vcBuffer, 2 );
 
-        // ��� �ȼ��� ���ؼ� ��Ʈ����ũ�� ����
+        // 占쏙옙占?占싫쇽옙占쏙옙 占쏙옙占쌔쇽옙 占쏙옙트占쏙옙占쏙옙크占쏙옙 占쏙옙占쏙옙
         SaveBitMask( pclTempDC, TRUE );
     }
 
     iCount = 0;
-    // �ϼ��� �ѱ� 0xB0A1���� 0xC8FE ����
+    // 占싹쇽옙占쏙옙 占싼깍옙 0xB0A1占쏙옙占쏙옙 0xC8FE 占쏙옙占쏙옙
     for( j = 0xB0 ; j <= 0xC8 ; j++ )
     {
         vcBuffer[ 0 ] = j;
@@ -325,7 +325,7 @@ void CFontMakerDlg::SaveHangulFont( CDC* pclTempDC )
             vcBuffer[ 1 ] = i;
             pclTempDC->TextOut( 0, 0, vcBuffer, 2 );
 
-            // ��� �ȼ��� ���ؼ� ��Ʈ����ũ�� ����
+            // 占쏙옙占?占싫쇽옙占쏙옙 占쏙옙占쌔쇽옙 占쏙옙트占쏙옙占쏙옙크占쏙옙 占쏙옙占쏙옙
             SaveBitMask( pclTempDC, TRUE );
             iCount++;
         }
@@ -333,14 +333,14 @@ void CFontMakerDlg::SaveHangulFont( CDC* pclTempDC )
 
     TRACE( "Total Count = %d\n", iCount );
 
-    // �ڷ� 3ĭ �̵��Ͽ� ,\r\n�� ����
+    // 占쌘뤄옙 3칸 占싱듸옙占싹울옙 ,\r\n占쏙옙 占쏙옙占쏙옙
     m_clFile.Seek( -3, SEEK_CUR );
     WriteFontData( "};\r\n" );
     CloseFontFile();
 }
 
 /**
-    ���� ��Ʈ ������ ����
+    占쏙옙占쏙옙 占쏙옙트 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
 */
 void CFontMakerDlg::SaveEnglishFont( CDC* pclTempDC )
 {
@@ -349,37 +349,37 @@ void CFontMakerDlg::SaveEnglishFont( CDC* pclTempDC )
     char cBuffer;
 
 	//=========================================================================
-	// ��Ʈ �����͸� ������ ���Ͽ� ����
+	// 占쏙옙트 占쏙옙占쏙옙占싶몌옙 占쏙옙占쏙옙占쏙옙 占쏙옙占싹울옙 占쏙옙占쏙옙
 	//=========================================================================
-    // ��Ʈ ������ ����
+    // 占쏙옙트 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
     if( CreateEnglishFontFile() == FALSE )
     {
         return ;
     }
 
     iCount = 0;
-	// 0~255 ���� ����
+	// 0~255 占쏙옙占쏙옙 占쏙옙占쏙옙
     for( i = 0 ; i <= 0xFF ; i++ )
     {
         cBuffer = i;
 		pclTempDC->FillSolidRect( 0, 0, 20, 20, RGB( 255, 255, 255 ) );
         pclTempDC->TextOut( 0, 0, &cBuffer, 1 );
 
-        // ��� �ȼ��� ���ؼ� ��Ʈ����ũ�� ����
+        // 占쏙옙占?占싫쇽옙占쏙옙 占쏙옙占쌔쇽옙 占쏙옙트占쏙옙占쏙옙크占쏙옙 占쏙옙占쏙옙
         SaveBitMask( pclTempDC, FALSE );
         iCount++;
     }
 
     TRACE( "Total Count = %d\n", iCount );
 
-    // �ڷ� 3ĭ �̵��Ͽ� ,\r\n�� ����
+    // 占쌘뤄옙 3칸 占싱듸옙占싹울옙 ,\r\n占쏙옙 占쏙옙占쏙옙
     m_clFile.Seek( -3, SEEK_CUR );
     WriteFontData( "};\r\n" );
     CloseFontFile();
 }
 
 /**
-    ��Ʈ ����ũ�� ����
+    占쏙옙트 占쏙옙占쏙옙크占쏙옙 占쏙옙占쏙옙
 */
 void CFontMakerDlg::SaveBitMask( CDC* clTempDc, BOOL bHangul )
 {
@@ -389,8 +389,8 @@ void CFontMakerDlg::SaveBitMask( CDC* clTempDc, BOOL bHangul )
     unsigned short usBitMask;
 	int iFontWidth;
 
-	// �ѱ��̸� ��Ʈ �ʺ� ��ŭ�� ��� �˻��ϰ� �������̸� �ʺ� �ѱ��� ���̹Ƿ�
-	// ������ ������
+	// 占싼깍옙占싱몌옙 占쏙옙트 占십븝옙 占쏙옙큼占쏙옙 占쏙옙占?占싯삼옙占싹곤옙 占쏙옙占쏙옙占쏙옙占싱몌옙 占십븝옙 占싼깍옙占쏙옙 占쏙옙占싱므뤄옙
+	// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙
 	if( bHangul == TRUE )
 	{
 		iFontWidth = m_iFontSize;
@@ -400,7 +400,7 @@ void CFontMakerDlg::SaveBitMask( CDC* clTempDc, BOOL bHangul )
 		iFontWidth = m_iFontSize / 2;
 	}
 
-    // ��Ʈ ��Ʈ���� �����Ͽ� ���Ͽ� ����
+    // 占쏙옙트 占쏙옙트占쏙옙占쏙옙 占쏙옙占쏙옙占싹울옙 占쏙옙占싹울옙 占쏙옙占쏙옙
     for( j = 0 ; j < m_iFontSize ; j++ )
     {
         usBitMask = 0;
@@ -412,7 +412,7 @@ void CFontMakerDlg::SaveBitMask( CDC* clTempDc, BOOL bHangul )
                 usBitMask |= ( 0x01 << ( iFontWidth - 1 - i ) );
             }
         }
-        // BitMask�� ����.
+        // BitMask占쏙옙 占쏙옙占쏙옙.
         WriteFontData( usBitMask, bHangul );
         WriteFontData( "," );
     }
@@ -420,21 +420,21 @@ void CFontMakerDlg::SaveBitMask( CDC* clTempDc, BOOL bHangul )
 }
 
 /**
-    �ѱ� ��Ʈ ������ ����
-        ������ ������ ��, C��� �迭�� ����� �߰�
+    占싼깍옙 占쏙옙트 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
+        占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙, C占쏙옙占?占썼열占쏙옙 占쏙옙占쏙옙占?占쌩곤옙
 */
 BOOL CFontMakerDlg::CreateHangulFontFile()
 {
-    char* pcHeader = "// �ڸ� 51�� + �ϼ��� 2350�� ��Ʈ ������, %dx%d pixel \r\n"
+    char* pcHeader = "// 占쌘몌옙 51占쏙옙 + 占싹쇽옙占쏙옙 2350占쏙옙 占쏙옙트 占쏙옙占쏙옙占쏙옙, %dx%d pixel \r\n"
         "unsigned short g_vusHangulFont[] = { \r\n";
     char vcBuffer[ 1024 ];
 
 	sprintf( vcBuffer, pcHeader, m_iFontSize, m_iFontSize );
-	// ���� ����
+	// 占쏙옙占쏙옙 占쏙옙占쏙옙
     if( m_clFile.Open( "HangulFont.c", CFile::modeCreate | 
         CFile::modeReadWrite ) == FALSE )
     {
-        AfxMessageBox( "���� ������ �����߽��ϴ�." );
+        AfxMessageBox( "占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쌩쏙옙占싹댐옙." );
         return FALSE;
     }
     m_clFile.Write( vcBuffer, strlen( vcBuffer ) );
@@ -442,21 +442,21 @@ BOOL CFontMakerDlg::CreateHangulFontFile()
 }
 
 /**
-    ���� ��Ʈ ������ ����
-        ������ ������ ��, C��� �迭�� ����� �߰�
+    占쏙옙占쏙옙 占쏙옙트 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
+        占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙, C占쏙옙占?占썼열占쏙옙 占쏙옙占쏙옙占?占쌩곤옙
 */
 BOOL CFontMakerDlg::CreateEnglishFontFile()
 {
-    char* pcHeader = "// ������ 256�� ��Ʈ ������, %dx%d pixel \r\n"
+    char* pcHeader = "// 占쏙옙占쏙옙占쏙옙 256占쏙옙 占쏙옙트 占쏙옙占쏙옙占쏙옙, %dx%d pixel \r\n"
         "unsigned char g_vucEnglishFont[] = { \r\n";
     char vcBuffer[ 1024 ];
 
 	sprintf( vcBuffer, pcHeader, m_iFontSize / 2, m_iFontSize );
-	// ���� ����
+	// 占쏙옙占쏙옙 占쏙옙占쏙옙
     if( m_clFile.Open( "EnglishFont.c", CFile::modeCreate | 
         CFile::modeReadWrite ) == FALSE )
     {
-        AfxMessageBox( "���� ������ �����߽��ϴ�." );
+        AfxMessageBox( "占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쌩쏙옙占싹댐옙." );
         return FALSE;
     }
     m_clFile.Write( vcBuffer, strlen( vcBuffer ) );
@@ -465,13 +465,13 @@ BOOL CFontMakerDlg::CreateEnglishFontFile()
 
 
 /**
-    Font ���Ͽ� ������ ����
+    Font 占쏙옙占싹울옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
 */
 void CFontMakerDlg::WriteFontData( unsigned short usData, BOOL bHangul )
 {
     char vcBuffer[ 20 ];
 
-    // �ѱ��� ���� 2byte�� ����� ������ ���� 1byte�� ����
+    // 占싼깍옙占쏙옙 占쏙옙占쏙옙 2byte占쏙옙 占쏙옙占쏙옙占?占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 1byte占쏙옙 占쏙옙占쏙옙
 	if( bHangul == TRUE )
 	{
 		sprintf( vcBuffer, "0x%04X", usData );
@@ -485,7 +485,7 @@ void CFontMakerDlg::WriteFontData( unsigned short usData, BOOL bHangul )
 }
 
 /**
-    Font ���Ͽ� �����͸� ��
+    Font 占쏙옙占싹울옙 占쏙옙占쏙옙占싶몌옙 占쏙옙
 */
 void CFontMakerDlg::WriteFontData( char* pcData )
 {
@@ -493,7 +493,7 @@ void CFontMakerDlg::WriteFontData( char* pcData )
 }
 
 /**
-    Font ������ ����
+    Font 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
 */
 void CFontMakerDlg::CloseFontFile()
 {

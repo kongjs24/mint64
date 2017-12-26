@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    SystemCallLibrary.h
  *  date    2009/12/13
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   MINT64 OS¿¡¼­ Áö¿øÇÏ´Â ½Ã½ºÅÛ Äİ¿¡ °ü·ÃµÈ Çì´õ ÆÄÀÏ
+ *  brief   MINT64 OSì—ì„œ ì§€ì›í•˜ëŠ” ì‹œìŠ¤í…œ ì½œì— ê´€ë ¨ëœ í—¤ë” íŒŒì¼
  */
 
 #ifndef __SYSTEMCALLLIBRARY_H__
@@ -14,24 +14,24 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ¸ÅÅ©·Î
+// ë§¤í¬ë¡œ
 //
 ////////////////////////////////////////////////////////////////////////////////
-// ÆÄ¶ó¹ÌÅÍ·Î Àü´ŞÇÒ ¼ö ÀÖ´Â ÃÖ´ë °³¼ö
+// íŒŒë¼ë¯¸í„°ë¡œ ì „ë‹¬í•  ìˆ˜ ìˆëŠ” ìµœëŒ€ ê°œìˆ˜
 #define SYSTEMCALL_MAXPARAMETERCOUNT    20
 
-// ÆÄ¶ó¹ÌÅÍ ÀÚ·á±¸Á¶¿¡¼­ N ¹øÂ°¸¦ °¡¸®Å°´Â ¸ÅÅ©·Î
+// íŒŒë¼ë¯¸í„° ìë£Œêµ¬ì¡°ì—ì„œ N ë²ˆì§¸ë¥¼ ê°€ë¦¬í‚¤ëŠ” ë§¤í¬ë¡œ
 #define PARAM( x )   ( stParameter.vqwValue[ ( x ) ] )
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ±¸Á¶Ã¼
+// êµ¬ì¡°ì²´
 //
 ////////////////////////////////////////////////////////////////////////////////
-// 1¹ÙÀÌÆ®·Î Á¤·Ä
+// 1ë°”ì´íŠ¸ë¡œ ì •ë ¬
 #pragma pack( push, 1 )
 
-// ½Ã½ºÅÛ ÄİÀ» È£ÃâÇÒ ¶§ Àü´ŞÇÏ´Â ÆÄ¶ó¹ÌÅÍ¸¦ °ü¸®ÇÏ´Â ÀÚ·á±¸Á¶
+// ì‹œìŠ¤í…œ ì½œì„ í˜¸ì¶œí•  ë•Œ ì „ë‹¬í•˜ëŠ” íŒŒë¼ë¯¸í„°ë¥¼ ê´€ë¦¬í•˜ëŠ” ìë£Œêµ¬ì¡°
 typedef struct kSystemCallParameterTableStruct
 {
     QWORD vqwValue[ SYSTEMCALL_MAXPARAMETERCOUNT ];
@@ -41,14 +41,14 @@ typedef struct kSystemCallParameterTableStruct
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ÇÔ¼ö
+// í•¨ìˆ˜
 //
 ////////////////////////////////////////////////////////////////////////////////
-// ½Ã½ºÅÛ ÄİÀ» Á÷Á¢ ½ÇÇàÇÏ´Â ÇÔ¼ö
+// ì‹œìŠ¤í…œ ì½œì„ ì§ì ‘ ì‹¤í–‰í•˜ëŠ” í•¨ìˆ˜
 QWORD ExecuteSystemCall( QWORD qwServiceNumber, PARAMETERTABLE* pstParameter );
 
 //==============================================================================
-// ÄÜ¼Ö I/O °ü·Ã
+// ì½˜ì†” I/O ê´€ë ¨
 //==============================================================================
 int ConsolePrintString( const char* pcBuffer );
 BOOL SetCursor( int iX, int iY );
@@ -57,13 +57,13 @@ BOOL ClearScreen( void );
 BYTE getch( void );
 
 //==============================================================================
-// µ¿Àû ¸Ş¸ğ¸® °ü·Ã
+// ë™ì  ë©”ëª¨ë¦¬ ê´€ë ¨
 //==============================================================================
 void* malloc( QWORD qwSize );
 BOOL free( void* pvAddress );
 
 //==============================================================================
-// ÆÄÀÏ°ú µğ·ºÅÍ¸® I/O °ü·Ã
+// íŒŒì¼ê³¼ ë””ë ‰í„°ë¦¬ I/O ê´€ë ¨
 //==============================================================================
 FILE* fopen( const char* pcFileName, const char* pcMode );
 DWORD fread( void* pvBuffer, DWORD dwSize, DWORD dwCount, FILE* pstFile );
@@ -78,7 +78,7 @@ int closedir( DIR* pstDirectory );
 BOOL IsFileOpened( const struct dirent* pstEntry );
 
 //==============================================================================
-// ÇÏµå µğ½ºÅ© I/O °ü·Ã
+// í•˜ë“œ ë””ìŠ¤í¬ I/O ê´€ë ¨
 //==============================================================================
 int ReadHDDSector( BOOL bPrimary, BOOL bMaster, DWORD dwLBA, int iSectorCount, 
         char* pcBuffer );
@@ -86,7 +86,7 @@ int WriteHDDSector( BOOL bPrimary, BOOL bMaster, DWORD dwLBA, int iSectorCount,
         char* pcBuffer );
 
 //==============================================================================
-// ÅÂ½ºÅ©¿Í ½ºÄÉÁÙ·¯ °ü·Ã
+// íƒœìŠ¤í¬ì™€ ìŠ¤ì¼€ì¤„ëŸ¬ ê´€ë ¨
 //==============================================================================
 QWORD CreateTask( QWORD qwFlags, void* pvMemoryAddress, QWORD qwMemorySize, 
                   QWORD qwEntryPointAddress, BYTE bAffinity );
@@ -100,7 +100,7 @@ QWORD GetProcessorLoad( BYTE bAPICID );
 BOOL ChangeProcessorAffinity( QWORD qwTaskID, BYTE bAffinity );
 
 //==============================================================================
-// GUI ½Ã½ºÅÛ °ü·Ã
+// GUI ì‹œìŠ¤í…œ ê´€ë ¨
 //==============================================================================
 QWORD GetBackgroundWindowID( void );
 void GetScreenArea( RECT* pstScreenArea );
@@ -142,27 +142,27 @@ BOOL BitBlt( QWORD qwWindowID, int iX, int iY, COLOR* pstBuffer, int iWidth,
         int iHeight );
 
 //==============================================================================
-// JPEG ¸ğµâ °ü·Ã
+// JPEG ëª¨ë“ˆ ê´€ë ¨
 //==============================================================================
 BOOL JPEGInit(JPEG *jpeg, BYTE* pbFileBuffer, DWORD dwFileSize);
 BOOL JPEGDecode(JPEG *jpeg, COLOR* rgb);
 
 //==============================================================================
-// RTC °ü·Ã
+// RTC ê´€ë ¨
 //==============================================================================
 BOOL ReadRTCTime( BYTE* pbHour, BYTE* pbMinute, BYTE* pbSecond );
 BOOL ReadRTCDate( WORD* pwYear, BYTE* pbMonth, BYTE* pbDayOfMonth, 
                   BYTE* pbDayOfWeek );
 
 //==============================================================================
-// ½Ã¸®¾ó Åë½Å °ü·Ã
+// ì‹œë¦¬ì–¼ í†µì‹  ê´€ë ¨
 //==============================================================================
 void SendSerialData( BYTE* pbBuffer, int iSize );
 int ReceiveSerialData( BYTE* pbBuffer, int iSize );
 void ClearSerialFIFO( void );
 
 //==============================================================================
-// ±âÅ¸
+// ê¸°íƒ€
 //==============================================================================
 QWORD GetTotalRAMSize( void );
 QWORD GetTickCount( void );

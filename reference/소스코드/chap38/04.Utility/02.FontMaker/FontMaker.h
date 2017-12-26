@@ -1,4 +1,4 @@
-// FontMaker.h : main header file for the FONTMAKER application
+﻿// FontMaker.h : main header file for the FONTMAKER application
 //
 
 #if !defined(AFX_FONTMAKER_H__0E4F1EC4_8518_4879_8756_3C96DBE22332__INCLUDED_)

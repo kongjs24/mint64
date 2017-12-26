@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    Main.c
  *  date    2009/01/02
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   C ¾ğ¾î·Î ÀÛ¼ºµÈ Ä¿³ÎÀÇ ¿£Æ®¸® Æ÷ÀÎÆ® ÆÄÀÏ
+ *  brief   C ì–¸ì–´ë¡œ ì‘ì„±ëœ ì»¤ë„ì˜ ì—”íŠ¸ë¦¬ í¬ì¸íŠ¸ íŒŒì¼
  */
 
 #include "Types.h"
@@ -11,11 +11,11 @@
 #include "Descriptor.h"
 #include "PIC.h"
 
-// ÇÔ¼ö ¼±¾ğ
+// í•¨ìˆ˜ ì„ ì–¸
 void kPrintString( int iX, int iY, const char* pcString );
 
 /**
- *  ¾Æ·¡ ÇÔ¼ö´Â C ¾ğ¾î Ä¿³ÎÀÇ ½ÃÀÛ ºÎºĞÀÓ
+ *  ì•„ë˜ í•¨ìˆ˜ëŠ” C ì–¸ì–´ ì»¤ë„ì˜ ì‹œì‘ ë¶€ë¶„ì„
  */
 void Main( void )
 {
@@ -42,7 +42,7 @@ void Main( void )
     kPrintString( 45, 14, "Pass" );
 
     kPrintString( 0, 15, "Keyboard Activate And Queue Initialize......[    ]" );
-    // Å°º¸µå¸¦ È°¼ºÈ­
+    // í‚¤ë³´ë“œë¥¼ í™œì„±í™”
     if( kInitializeKeyboard() == TRUE )
     {
         kPrintString( 45, 15, "Pass" );
@@ -55,7 +55,7 @@ void Main( void )
     }
 
     kPrintString( 0, 16, "PIC Controller And Interrupt Initialize.....[    ]" );
-    // PIC ÄÁÆ®·Ñ·¯ ÃÊ±âÈ­ ¹× ¸ğµç ÀÎÅÍ·´Æ® È°¼ºÈ­
+    // PIC ì»¨íŠ¸ë¡¤ëŸ¬ ì´ˆê¸°í™” ë° ëª¨ë“  ì¸í„°ëŸ½íŠ¸ í™œì„±í™”
     kInitializePIC();
     kMaskPICInterrupt( 0 );
     kEnableInterrupt();
@@ -63,22 +63,22 @@ void Main( void )
 
     while( 1 )
     {
-        // Å° Å¥¿¡ µ¥ÀÌÅÍ°¡ ÀÖÀ¸¸é Å°¸¦ Ã³¸®ÇÔ
+        // í‚¤ íì— ë°ì´í„°ê°€ ìˆìœ¼ë©´ í‚¤ë¥¼ ì²˜ë¦¬í•¨
         if( kGetKeyFromKeyQueue( &stData ) == TRUE )
         {
-            // Å°°¡ ´­·¯Á³À¸¸é Å°ÀÇ ASCII ÄÚµå °ªÀ» È­¸é¿¡ Ãâ·Â
+            // í‚¤ê°€ ëˆŒëŸ¬ì¡Œìœ¼ë©´ í‚¤ì˜ ASCII ì½”ë“œ ê°’ì„ í™”ë©´ì— ì¶œë ¥
             if( stData.bFlags & KEY_FLAGS_DOWN )
             {
-                // Å° µ¥ÀÌÅÍÀÇ ACII ÄÚµå °ªÀ» ÀúÀå
+                // í‚¤ ë°ì´í„°ì˜ ACII ì½”ë“œ ê°’ì„ ì €ì¥
                 vcTemp[ 0 ] = stData.bASCIICode;
                 kPrintString( i++, 17, vcTemp );
 
-                // 0ÀÌ ÀÔ·ÂµÇ¸é º¯¼ö¸¦ 0À¸·Î ³ª´©¾î Divide Error ¿¹¿Ü(º¤ÅÍ 0¹ø)À»
-                // ¹ß»ı½ÃÅ´
+                // 0ì´ ì…ë ¥ë˜ë©´ ë³€ìˆ˜ë¥¼ 0ìœ¼ë¡œ ë‚˜ëˆ„ì–´ Divide Error ì˜ˆì™¸(ë²¡í„° 0ë²ˆ)ì„
+                // ë°œìƒì‹œí‚´
                 if( vcTemp[ 0 ] == '0' )
                 {
-                    // ¾Æ·¡ ÄÚµå¸¦ ¼öÇàÇÏ¸é Divide Error ¿¹¿Ü°¡ ¹ß»ıÇÏ¿©
-                    // Ä¿³ÎÀÇ ÀÓ½Ã ÇÚµé·¯°¡ ¼öÇàµÊ
+                    // ì•„ë˜ ì½”ë“œë¥¼ ìˆ˜í–‰í•˜ë©´ Divide Error ì˜ˆì™¸ê°€ ë°œìƒí•˜ì—¬
+                    // ì»¤ë„ì˜ ì„ì‹œ í•¸ë“¤ëŸ¬ê°€ ìˆ˜í–‰ë¨
                     bTemp = bTemp / 0;
                 }
             }
@@ -87,17 +87,17 @@ void Main( void )
 }
 
 /**
- *  ¹®ÀÚ¿­À» X, Y À§Ä¡¿¡ Ãâ·Â
+ *  ë¬¸ìì—´ì„ X, Y ìœ„ì¹˜ì— ì¶œë ¥
  */
 void kPrintString( int iX, int iY, const char* pcString )
 {
     CHARACTER* pstScreen = ( CHARACTER* ) 0xB8000;
     int i;
 
-    // X, Y ÁÂÇ¥¸¦ ÀÌ¿ëÇØ¼­ ¹®ÀÚ¿­À» Ãâ·ÂÇÒ ¾îµå·¹½º¸¦ °è»ê
+    // X, Y ì¢Œí‘œë¥¼ ì´ìš©í•´ì„œ ë¬¸ìì—´ì„ ì¶œë ¥í•  ì–´ë“œë ˆìŠ¤ë¥¼ ê³„ì‚°
     pstScreen += ( iY * 80 ) + iX;
 
-    // NULLÀÌ ³ª¿Ã ¶§±îÁö ¹®ÀÚ¿­ Ãâ·Â
+    // NULLì´ ë‚˜ì˜¬ ë•Œê¹Œì§€ ë¬¸ìì—´ ì¶œë ¥
     for( i = 0 ; pcString[ i ] != 0 ; i++ )
     {
         pstScreen[ i ].bCharactor = pcString[ i ];

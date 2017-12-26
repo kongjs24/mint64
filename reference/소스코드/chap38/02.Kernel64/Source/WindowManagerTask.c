@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    WindowManager.c
  *  date    2009/10/04
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   À©µµ¿ì ¸Å´ÏÀú¿¡ °ü·ÃµÈ ÇÔ¼ö¸¦ Á¤ÀÇÇÑ ¼Ò½º ÆÄÀÏ
+ *  brief   ìœˆë„ìš° ë§¤ë‹ˆì €ì— ê´€ë ¨ëœ í•¨ìˆ˜ë¥¼ ì •ì˜í•œ ì†ŒìŠ¤ íŒŒì¼
  */
  
 #include "Types.h"
@@ -14,7 +14,7 @@
 #include "Task.h"
 
 /**
- *  À©µµ¿ì ¸Å´ÏÀú ÅÂ½ºÅ©
+ *  ìœˆë„ìš° ë§¤ë‹ˆì € íƒœìŠ¤í¬
  */
 void kStartWindowManager( void )
 {
@@ -27,22 +27,22 @@ void kStartWindowManager( void )
     char vcTempTitle[ WINDOW_TITLEMAXLENGTH ];
     int iWindowCount = 0;
 
-    // À©µµ¿ì ¸Å´ÏÀúÀÇ TCB¸¦ ¹İÈ¯
+    // ìœˆë„ìš° ë§¤ë‹ˆì €ì˜ TCBë¥¼ ë°˜í™˜
     pstTask = kGetRunningTask( kGetAPICID() );
     
-    // GUI ½Ã½ºÅÛÀ» ÃÊ±âÈ­
+    // GUI ì‹œìŠ¤í…œì„ ì´ˆê¸°í™”
     kInitializeGUISystem();
     
-    // ÇöÀç ¸¶¿ì½º À§Ä¡¿¡ Ä¿¼­¸¦ Ãâ·Â
+    // í˜„ì¬ ë§ˆìš°ìŠ¤ ìœ„ì¹˜ì— ì»¤ì„œë¥¼ ì¶œë ¥
     kGetCursorPosition( &iMouseX, &iMouseY );
     kMoveCursor( iMouseX, iMouseY );
     
     //==========================================================================
-    // ¸¶¿ì½º ÀÌµ¿À» Ã³¸®ÇÏ°í ¸¶¿ì½º ¹öÆ°¿¡ µû¶ó À©µµ¿ì »ı¼º°ú »èÁ¦ ¼öÇà
+    // ë§ˆìš°ìŠ¤ ì´ë™ì„ ì²˜ë¦¬í•˜ê³  ë§ˆìš°ìŠ¤ ë²„íŠ¼ì— ë”°ë¼ ìœˆë„ìš° ìƒì„±ê³¼ ì‚­ì œ ìˆ˜í–‰
     //==========================================================================
     while( 1 )
     {
-        // ¸¶¿ì½º µ¥ÀÌÅÍ°¡ ¼ö½ÅµÇ±â¸¦ ±â´Ù¸²
+        // ë§ˆìš°ìŠ¤ ë°ì´í„°ê°€ ìˆ˜ì‹ ë˜ê¸°ë¥¼ ê¸°ë‹¤ë¦¼
         if( kGetMouseDataFromMouseQueue( &bButton, &iRelativeX, &iRelativeY ) ==
             FALSE )
         {
@@ -50,39 +50,39 @@ void kStartWindowManager( void )
             continue;
         }
         
-        // ÇöÀç ¸¶¿ì½º Ä¿¼­ À§Ä¡¸¦ ¹İÈ¯
+        // í˜„ì¬ ë§ˆìš°ìŠ¤ ì»¤ì„œ ìœ„ì¹˜ë¥¼ ë°˜í™˜
         kGetCursorPosition( &iMouseX, &iMouseY );
         
-        // ¸¶¿ì½º°¡ ¿òÁ÷ÀÎ °Å¸®¸¦ ÀÌÀü Ä¿¼­ À§Ä¡¿¡ ´õÇØ¼­ ÇöÀç ÁÂÇ¥¸¦ °è»ê
+        // ë§ˆìš°ìŠ¤ê°€ ì›€ì§ì¸ ê±°ë¦¬ë¥¼ ì´ì „ ì»¤ì„œ ìœ„ì¹˜ì— ë”í•´ì„œ í˜„ì¬ ì¢Œí‘œë¥¼ ê³„ì‚°
         iMouseX += iRelativeX;
         iMouseY += iRelativeY;
         
-        // ¿ŞÂÊ ¹öÆ°ÀÌ ´­·¯Áö¸é À©µµ¿ì »ı¼º
+        // ì™¼ìª½ ë²„íŠ¼ì´ ëˆŒëŸ¬ì§€ë©´ ìœˆë„ìš° ìƒì„±
         if( bButton & MOUSE_LBUTTONDOWN )
         {
-            // ÇöÀç ¸¶¿ì½º Ä¿¼­°¡ ÀÖ´Â À§Ä¡¿¡ À©µµ¿ì¸¦ »ı¼º. ¾Æ·¡ ÄÚµå¿¡¼­ À©µµ¿ì ³»ºÎ¿¡ 
-            // ¹®ÀÚ¸¦ Ãâ·ÂÇÑ µÚ À©µµ¿ì¸¦ Ç¥½ÃÇÏ·Á°í À©µµ¿ì ¼Ó¼º¿¡¼­ WINDOW_FLAGS_SHOW¸¦
-            // Á¦¿ÜÇÔ
+            // í˜„ì¬ ë§ˆìš°ìŠ¤ ì»¤ì„œê°€ ìˆëŠ” ìœ„ì¹˜ì— ìœˆë„ìš°ë¥¼ ìƒì„±. ì•„ë˜ ì½”ë“œì—ì„œ ìœˆë„ìš° ë‚´ë¶€ì— 
+            // ë¬¸ìë¥¼ ì¶œë ¥í•œ ë’¤ ìœˆë„ìš°ë¥¼ í‘œì‹œí•˜ë ¤ê³  ìœˆë„ìš° ì†ì„±ì—ì„œ WINDOW_FLAGS_SHOWë¥¼
+            // ì œì™¸í•¨
             kSPrintf( vcTempTitle, "MINT64 OS Test Window %d", iWindowCount++ );
             qwWindowID = kCreateWindow( iMouseX - 10, iMouseY - WINDOW_TITLEBAR_HEIGHT / 2,
                  400, 200, WINDOW_FLAGS_DRAWFRAME | WINDOW_FLAGS_DRAWTITLE, vcTempTitle );
             
-            // À©µµ¿ì ³»ºÎ¿¡ ÅØ½ºÆ® Ãâ·ÂÇÏ°í À©µµ¿ì¸¦ È­¸é¿¡ ³ªÅ¸³¿
+            // ìœˆë„ìš° ë‚´ë¶€ì— í…ìŠ¤íŠ¸ ì¶œë ¥í•˜ê³  ìœˆë„ìš°ë¥¼ í™”ë©´ì— ë‚˜íƒ€ëƒ„
             kDrawText( qwWindowID, 10, WINDOW_TITLEBAR_HEIGHT + 10, RGB( 0, 0, 0 ), 
                     WINDOW_COLOR_BACKGROUND, "This is real window~!!", 22 );
             kDrawText( qwWindowID, 10, WINDOW_TITLEBAR_HEIGHT + 30, RGB( 0, 0, 0 ), 
                     WINDOW_COLOR_BACKGROUND, "No more prototype~!!", 18 );
             kShowWindow( qwWindowID, TRUE );
         }
-        // ¿À¸¥ÂÊ ¹öÆ°ÀÌ ´­·¯Áö¸é À©µµ¿ì ¸Å´ÏÀú ÅÂ½ºÅ©°¡ »ı¼ºÇÑ ¸ğµç À©µµ¿ì¸¦ »èÁ¦
+        // ì˜¤ë¥¸ìª½ ë²„íŠ¼ì´ ëˆŒëŸ¬ì§€ë©´ ìœˆë„ìš° ë§¤ë‹ˆì € íƒœìŠ¤í¬ê°€ ìƒì„±í•œ ëª¨ë“  ìœˆë„ìš°ë¥¼ ì‚­ì œ
         else if( bButton & MOUSE_RBUTTONDOWN )
         {
-            // ÅÂ½ºÅ©°¡ »ı¼ºÇÑ ¸ğµç À©µµ¿ì¸¦ »èÁ¦
+            // íƒœìŠ¤í¬ê°€ ìƒì„±í•œ ëª¨ë“  ìœˆë„ìš°ë¥¼ ì‚­ì œ
             kDeleteAllWindowInTaskID( pstTask->stLink.qwID );
             iWindowCount = 0;
         }
         
-        // »õ·Î¿î À§Ä¡·Î ¸¶¿ì½º Ä¿¼­¸¦ ÀÌµ¿
+        // ìƒˆë¡œìš´ ìœ„ì¹˜ë¡œ ë§ˆìš°ìŠ¤ ì»¤ì„œë¥¼ ì´ë™
         kMoveCursor( iMouseX, iMouseY );
     }
 }

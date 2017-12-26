@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    MINTLibrary.h
  *  date    2008/12/13
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   À¯Àú ·¹º§ ÀÀ¿ëÇÁ·Î±×·¥À» ±¸ÇöÇÏ´Âµ¥ ÇÊ¿äÇÑ Çì´õ ÆÄÀÏ
+ *  brief   ìœ ì € ë ˆë²¨ ì‘ìš©í”„ë¡œê·¸ë¨ì„ êµ¬í˜„í•˜ëŠ”ë° í•„ìš”í•œ í—¤ë” íŒŒì¼
  */
 
 #ifndef __MINTLIBRARY_H__

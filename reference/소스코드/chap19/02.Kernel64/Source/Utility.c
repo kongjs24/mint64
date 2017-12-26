@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    Utility.h
  *  date    2009/01/17
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   OS¿¡¼­ »ç¿ëÇÒ À¯Æ¿¸®Æ¼ ÇÔ¼ö¿¡ °ü·ÃµÈ ÆÄÀÏ
+ *  brief   OSì—ì„œ ì‚¬ìš©í•  ìœ í‹¸ë¦¬í‹° í•¨ìˆ˜ì— ê´€ë ¨ëœ íŒŒì¼
  */
 
 #include "Utility.h"
@@ -11,11 +11,11 @@
 #include <stdarg.h>
 
 
-// PIT ÄÁÆ®·Ñ·¯°¡ ¹ß»ıÇÑ È½¼ö¸¦ ÀúÀåÇÒ Ä«¿îÅÍ
+// PIT ì»¨íŠ¸ë¡¤ëŸ¬ê°€ ë°œìƒí•œ íšŸìˆ˜ë¥¼ ì €ì¥í•  ì¹´ìš´í„°
 volatile QWORD g_qwTickCount = 0;
 
 /**
- *  ¸Ş¸ğ¸®¸¦ Æ¯Á¤ °ªÀ¸·Î Ã¤¿ò
+ *  ë©”ëª¨ë¦¬ë¥¼ íŠ¹ì • ê°’ìœ¼ë¡œ ì±„ì›€
  */
 void kMemSet( void* pvDestination, BYTE bData, int iSize )
 {
@@ -28,7 +28,7 @@ void kMemSet( void* pvDestination, BYTE bData, int iSize )
 }
 
 /**
- *  ¸Ş¸ğ¸® º¹»ç
+ *  ë©”ëª¨ë¦¬ ë³µì‚¬
  */
 int kMemCpy( void* pvDestination, const void* pvSource, int iSize )
 {
@@ -43,7 +43,7 @@ int kMemCpy( void* pvDestination, const void* pvSource, int iSize )
 }
 
 /**
- *  ¸Ş¸ğ¸® ºñ±³
+ *  ë©”ëª¨ë¦¬ ë¹„êµ
  */
 int kMemCmp( const void* pvDestination, const void* pvSource, int iSize )
 {
@@ -62,13 +62,13 @@ int kMemCmp( const void* pvDestination, const void* pvSource, int iSize )
 }
 
 /**
- *  RFLAGS ·¹Áö½ºÅÍÀÇ ÀÎÅÍ·´Æ® ÇÃ·¡±×¸¦ º¯°æÇÏ°í ÀÌÀü ÀÎÅÍ·´Æ® ÇÃ·¡±×ÀÇ »óÅÂ¸¦ ¹İÈ¯
+ *  RFLAGS ë ˆì§€ìŠ¤í„°ì˜ ì¸í„°ëŸ½íŠ¸ í”Œë˜ê·¸ë¥¼ ë³€ê²½í•˜ê³  ì´ì „ ì¸í„°ëŸ½íŠ¸ í”Œë˜ê·¸ì˜ ìƒíƒœë¥¼ ë°˜í™˜
  */
 BOOL kSetInterruptFlag( BOOL bEnableInterrupt )
 {
     QWORD qwRFLAGS;
     
-    // ÀÌÀüÀÇ RFLAGS ·¹Áö½ºÅÍ °ªÀ» ÀĞÀº µÚ¿¡ ÀÎÅÍ·´Æ® °¡´É/ºÒ°¡ Ã³¸®
+    // ì´ì „ì˜ RFLAGS ë ˆì§€ìŠ¤í„° ê°’ì„ ì½ì€ ë’¤ì— ì¸í„°ëŸ½íŠ¸ ê°€ëŠ¥/ë¶ˆê°€ ì²˜ë¦¬
     qwRFLAGS = kReadRFLAGS();    
     if( bEnableInterrupt == TRUE )
     {
@@ -79,7 +79,7 @@ BOOL kSetInterruptFlag( BOOL bEnableInterrupt )
         kDisableInterrupt();
     }
     
-    // ÀÌÀü RFLAGS ·¹Áö½ºÅÍÀÇ IF ºñÆ®(ºñÆ® 9)¸¦ È®ÀÎÇÏ¿© ÀÌÀüÀÇ ÀÎÅÍ·´Æ® »óÅÂ¸¦ ¹İÈ¯
+    // ì´ì „ RFLAGS ë ˆì§€ìŠ¤í„°ì˜ IF ë¹„íŠ¸(ë¹„íŠ¸ 9)ë¥¼ í™•ì¸í•˜ì—¬ ì´ì „ì˜ ì¸í„°ëŸ½íŠ¸ ìƒíƒœë¥¼ ë°˜í™˜
     if( qwRFLAGS & 0x0200 )
     {
         return TRUE;
@@ -88,7 +88,7 @@ BOOL kSetInterruptFlag( BOOL bEnableInterrupt )
 }
 
 /**
- *  ¹®ÀÚ¿­ÀÇ ±æÀÌ¸¦ ¹İÈ¯
+ *  ë¬¸ìì—´ì˜ ê¸¸ì´ë¥¼ ë°˜í™˜
  */
 int kStrLen( const char* pcBuffer )
 {
@@ -104,42 +104,42 @@ int kStrLen( const char* pcBuffer )
     return i;
 }
 
-// ·¥ÀÇ ÃÑ Å©±â(Mbyte ´ÜÀ§)
+// ë¨ì˜ ì´ í¬ê¸°(Mbyte ë‹¨ìœ„)
 static gs_qwTotalRAMMBSize = 0;
 
 /**
- *  64Mbyte ÀÌ»óÀÇ À§Ä¡ºÎÅÍ ·¥ Å©±â¸¦ Ã¼Å©
- *      ÃÖÃÊ ºÎÆÃ °úÁ¤¿¡¼­ ÇÑ¹ø¸¸ È£ÃâÇØ¾ß ÇÔ
+ *  64Mbyte ì´ìƒì˜ ìœ„ì¹˜ë¶€í„° ë¨ í¬ê¸°ë¥¼ ì²´í¬
+ *      ìµœì´ˆ ë¶€íŒ… ê³¼ì •ì—ì„œ í•œë²ˆë§Œ í˜¸ì¶œí•´ì•¼ í•¨
  */
 void kCheckTotalRAMSize( void )
 {
     DWORD* pdwCurrentAddress;
     DWORD dwPreviousValue;
     
-    // 64Mbyte(0x4000000)ºÎÅÍ 4Mbyte´ÜÀ§·Î °Ë»ç ½ÃÀÛ
+    // 64Mbyte(0x4000000)ë¶€í„° 4Mbyteë‹¨ìœ„ë¡œ ê²€ì‚¬ ì‹œì‘
     pdwCurrentAddress = ( DWORD* ) 0x4000000;
     while( 1 )
     {
-        // ÀÌÀü¿¡ ¸Ş¸ğ¸®¿¡ ÀÖ´ø °ªÀ» ÀúÀå
+        // ì´ì „ì— ë©”ëª¨ë¦¬ì— ìˆë˜ ê°’ì„ ì €ì¥
         dwPreviousValue = *pdwCurrentAddress;
-        // 0x12345678À» ½á¼­ ÀĞ¾úÀ» ¶§ ¹®Á¦°¡ ¾ø´Â °÷±îÁö¸¦ À¯È¿ÇÑ ¸Ş¸ğ¸® 
-        // ¿µ¿ªÀ¸·Î ÀÎÁ¤
+        // 0x12345678ì„ ì¨ì„œ ì½ì—ˆì„ ë•Œ ë¬¸ì œê°€ ì—†ëŠ” ê³³ê¹Œì§€ë¥¼ ìœ íš¨í•œ ë©”ëª¨ë¦¬ 
+        // ì˜ì—­ìœ¼ë¡œ ì¸ì •
         *pdwCurrentAddress = 0x12345678;
         if( *pdwCurrentAddress != 0x12345678 )
         {
             break;
         }
-        // ÀÌÀü ¸Ş¸ğ¸® °ªÀ¸·Î º¹¿ø
+        // ì´ì „ ë©”ëª¨ë¦¬ ê°’ìœ¼ë¡œ ë³µì›
         *pdwCurrentAddress = dwPreviousValue;
-        // ´ÙÀ½ 4Mbyte À§Ä¡·Î ÀÌµ¿
+        // ë‹¤ìŒ 4Mbyte ìœ„ì¹˜ë¡œ ì´ë™
         pdwCurrentAddress += ( 0x400000 / 4 );
     }
-    // Ã¼Å©°¡ ¼º°øÇÑ ¾îµå·¹½º¸¦ 1Mbyte·Î ³ª´©¾î Mbyte ´ÜÀ§·Î °è»ê
+    // ì²´í¬ê°€ ì„±ê³µí•œ ì–´ë“œë ˆìŠ¤ë¥¼ 1Mbyteë¡œ ë‚˜ëˆ„ì–´ Mbyte ë‹¨ìœ„ë¡œ ê³„ì‚°
     gs_qwTotalRAMMBSize = ( QWORD ) pdwCurrentAddress / 0x100000;
 }   
 
 /**
- *  RAM Å©±â¸¦ ¹İÈ¯
+ *  RAM í¬ê¸°ë¥¼ ë°˜í™˜
  */
 QWORD kGetTotalRAMSize( void )
 {
@@ -147,7 +147,7 @@ QWORD kGetTotalRAMSize( void )
 }
 
 /**
- *  atoi() ÇÔ¼öÀÇ ³»ºÎ ±¸Çö
+ *  atoi() í•¨ìˆ˜ì˜ ë‚´ë¶€ êµ¬í˜„
  */
 long kAToI( const char* pcBuffer, int iRadix )
 {
@@ -155,12 +155,12 @@ long kAToI( const char* pcBuffer, int iRadix )
     
     switch( iRadix )
     {
-        // 16Áø¼ö
+        // 16ì§„ìˆ˜
     case 16:
         lReturn = kHexStringToQword( pcBuffer );
         break;
         
-        // 10Áø¼ö ¶Ç´Â ±âÅ¸
+        // 10ì§„ìˆ˜ ë˜ëŠ” ê¸°íƒ€
     case 10:
     default:
         lReturn = kDecimalStringToLong( pcBuffer );
@@ -170,14 +170,14 @@ long kAToI( const char* pcBuffer, int iRadix )
 }
 
 /**
- *  16Áø¼ö ¹®ÀÚ¿­À» QWORD·Î º¯È¯ 
+ *  16ì§„ìˆ˜ ë¬¸ìì—´ì„ QWORDë¡œ ë³€í™˜ 
  */
 QWORD kHexStringToQword( const char* pcBuffer )
 {
     QWORD qwValue = 0;
     int i;
     
-    // ¹®ÀÚ¿­À» µ¹¸é¼­ Â÷·Ê·Î º¯È¯
+    // ë¬¸ìì—´ì„ ëŒë©´ì„œ ì°¨ë¡€ë¡œ ë³€í™˜
     for( i = 0 ; pcBuffer[ i ] != '\0' ; i++ )
     {
         qwValue *= 16;
@@ -198,14 +198,14 @@ QWORD kHexStringToQword( const char* pcBuffer )
 }
 
 /**
- *  10Áø¼ö ¹®ÀÚ¿­À» longÀ¸·Î º¯È¯
+ *  10ì§„ìˆ˜ ë¬¸ìì—´ì„ longìœ¼ë¡œ ë³€í™˜
  */
 long kDecimalStringToLong( const char* pcBuffer )
 {
     long lValue = 0;
     int i;
     
-    // À½¼öÀÌ¸é -¸¦ Á¦¿ÜÇÏ°í ³ª¸ÓÁö¸¦ ¸ÕÀú longÀ¸·Î º¯È¯
+    // ìŒìˆ˜ì´ë©´ -ë¥¼ ì œì™¸í•˜ê³  ë‚˜ë¨¸ì§€ë¥¼ ë¨¼ì € longìœ¼ë¡œ ë³€í™˜
     if( pcBuffer[ 0 ] == '-' )
     {
         i = 1;
@@ -215,14 +215,14 @@ long kDecimalStringToLong( const char* pcBuffer )
         i = 0;
     }
     
-    // ¹®ÀÚ¿­À» µ¹¸é¼­ Â÷·Ê·Î º¯È¯
+    // ë¬¸ìì—´ì„ ëŒë©´ì„œ ì°¨ë¡€ë¡œ ë³€í™˜
     for( ; pcBuffer[ i ] != '\0' ; i++ )
     {
         lValue *= 10;
         lValue += pcBuffer[ i ] - '0';
     }
     
-    // À½¼öÀÌ¸é - Ãß°¡
+    // ìŒìˆ˜ì´ë©´ - ì¶”ê°€
     if( pcBuffer[ 0 ] == '-' )
     {
         lValue = -lValue;
@@ -231,7 +231,7 @@ long kDecimalStringToLong( const char* pcBuffer )
 }
 
 /**
- *  itoa() ÇÔ¼öÀÇ ³»ºÎ ±¸Çö
+ *  itoa() í•¨ìˆ˜ì˜ ë‚´ë¶€ êµ¬í˜„
  */
 int kIToA( long lValue, char* pcBuffer, int iRadix )
 {
@@ -239,12 +239,12 @@ int kIToA( long lValue, char* pcBuffer, int iRadix )
     
     switch( iRadix )
     {
-        // 16Áø¼ö
+        // 16ì§„ìˆ˜
     case 16:
         iReturn = kHexToString( lValue, pcBuffer );
         break;
         
-        // 10Áø¼ö ¶Ç´Â ±âÅ¸
+        // 10ì§„ìˆ˜ ë˜ëŠ” ê¸°íƒ€
     case 10:
     default:
         iReturn = kDecimalToString( lValue, pcBuffer );
@@ -255,14 +255,14 @@ int kIToA( long lValue, char* pcBuffer, int iRadix )
 }
 
 /**
- *  16Áø¼ö °ªÀ» ¹®ÀÚ¿­·Î º¯È¯
+ *  16ì§„ìˆ˜ ê°’ì„ ë¬¸ìì—´ë¡œ ë³€í™˜
  */
 int kHexToString( QWORD qwValue, char* pcBuffer )
 {
     QWORD i;
     QWORD qwCurrentValue;
 
-    // 0ÀÌ µé¾î¿À¸é ¹Ù·Î Ã³¸®
+    // 0ì´ ë“¤ì–´ì˜¤ë©´ ë°”ë¡œ ì²˜ë¦¬
     if( qwValue == 0 )
     {
         pcBuffer[ 0 ] = '0';
@@ -270,7 +270,7 @@ int kHexToString( QWORD qwValue, char* pcBuffer )
         return 1;
     }
     
-    // ¹öÆÛ¿¡ 1ÀÇ ÀÚ¸®ºÎÅÍ 16, 256, ...ÀÇ ÀÚ¸® ¼ø¼­·Î ¼ıÀÚ »ğÀÔ
+    // ë²„í¼ì— 1ì˜ ìë¦¬ë¶€í„° 16, 256, ...ì˜ ìë¦¬ ìˆœì„œë¡œ ìˆ«ì ì‚½ì…
     for( i = 0 ; qwValue > 0 ; i++ )
     {
         qwCurrentValue = qwValue % 16;
@@ -287,19 +287,19 @@ int kHexToString( QWORD qwValue, char* pcBuffer )
     }
     pcBuffer[ i ] = '\0';
     
-    // ¹öÆÛ¿¡ µé¾îÀÖ´Â ¹®ÀÚ¿­À» µÚÁı¾î¼­ ... 256, 16, 1ÀÇ ÀÚ¸® ¼ø¼­·Î º¯°æ
+    // ë²„í¼ì— ë“¤ì–´ìˆëŠ” ë¬¸ìì—´ì„ ë’¤ì§‘ì–´ì„œ ... 256, 16, 1ì˜ ìë¦¬ ìˆœì„œë¡œ ë³€ê²½
     kReverseString( pcBuffer );
     return i;
 }
 
 /**
- *  10Áø¼ö °ªÀ» ¹®ÀÚ¿­·Î º¯È¯
+ *  10ì§„ìˆ˜ ê°’ì„ ë¬¸ìì—´ë¡œ ë³€í™˜
  */
 int kDecimalToString( long lValue, char* pcBuffer )
 {
     long i;
 
-    // 0ÀÌ µé¾î¿À¸é ¹Ù·Î Ã³¸®
+    // 0ì´ ë“¤ì–´ì˜¤ë©´ ë°”ë¡œ ì²˜ë¦¬
     if( lValue == 0 )
     {
         pcBuffer[ 0 ] = '0';
@@ -307,7 +307,7 @@ int kDecimalToString( long lValue, char* pcBuffer )
         return 1;
     }
     
-    // ¸¸¾à À½¼öÀÌ¸é Ãâ·Â ¹öÆÛ¿¡ '-'¸¦ Ãß°¡ÇÏ°í ¾ç¼ö·Î º¯È¯
+    // ë§Œì•½ ìŒìˆ˜ì´ë©´ ì¶œë ¥ ë²„í¼ì— '-'ë¥¼ ì¶”ê°€í•˜ê³  ì–‘ìˆ˜ë¡œ ë³€í™˜
     if( lValue < 0 )
     {
         i = 1;
@@ -319,7 +319,7 @@ int kDecimalToString( long lValue, char* pcBuffer )
         i = 0;
     }
 
-    // ¹öÆÛ¿¡ 1ÀÇ ÀÚ¸®ºÎÅÍ 10, 100, 1000 ...ÀÇ ÀÚ¸® ¼ø¼­·Î ¼ıÀÚ »ğÀÔ
+    // ë²„í¼ì— 1ì˜ ìë¦¬ë¶€í„° 10, 100, 1000 ...ì˜ ìë¦¬ ìˆœì„œë¡œ ìˆ«ì ì‚½ì…
     for( ; lValue > 0 ; i++ )
     {
         pcBuffer[ i ] = '0' + lValue % 10;        
@@ -327,10 +327,10 @@ int kDecimalToString( long lValue, char* pcBuffer )
     }
     pcBuffer[ i ] = '\0';
     
-    // ¹öÆÛ¿¡ µé¾îÀÖ´Â ¹®ÀÚ¿­À» µÚÁı¾î¼­ ... 1000, 100, 10, 1ÀÇ ÀÚ¸® ¼ø¼­·Î º¯°æ
+    // ë²„í¼ì— ë“¤ì–´ìˆëŠ” ë¬¸ìì—´ì„ ë’¤ì§‘ì–´ì„œ ... 1000, 100, 10, 1ì˜ ìë¦¬ ìˆœì„œë¡œ ë³€ê²½
     if( pcBuffer[ 0 ] == '-' )
     {
-        // À½¼öÀÎ °æ¿ì´Â ºÎÈ£¸¦ Á¦¿ÜÇÏ°í ¹®ÀÚ¿­À» µÚÁıÀ½
+        // ìŒìˆ˜ì¸ ê²½ìš°ëŠ” ë¶€í˜¸ë¥¼ ì œì™¸í•˜ê³  ë¬¸ìì—´ì„ ë’¤ì§‘ìŒ
         kReverseString( &( pcBuffer[ 1 ] ) );
     }
     else
@@ -342,7 +342,7 @@ int kDecimalToString( long lValue, char* pcBuffer )
 }
 
 /**
- *  ¹®ÀÚ¿­ÀÇ ¼ø¼­¸¦ µÚÁıÀ½
+ *  ë¬¸ìì—´ì˜ ìˆœì„œë¥¼ ë’¤ì§‘ìŒ
  */
 void kReverseString( char* pcBuffer )
 {
@@ -351,7 +351,7 @@ void kReverseString( char* pcBuffer )
    char cTemp;
    
    
-   // ¹®ÀÚ¿­ÀÇ °¡¿îµ¥¸¦ Áß½ÉÀ¸·Î ÁÂ/¿ì¸¦ ¹Ù²ã¼­ ¼ø¼­¸¦ µÚÁıÀ½
+   // ë¬¸ìì—´ì˜ ê°€ìš´ë°ë¥¼ ì¤‘ì‹¬ìœ¼ë¡œ ì¢Œ/ìš°ë¥¼ ë°”ê¿”ì„œ ìˆœì„œë¥¼ ë’¤ì§‘ìŒ
    iLength = kStrLen( pcBuffer );
    for( i = 0 ; i < iLength / 2 ; i++ )
    {
@@ -362,14 +362,14 @@ void kReverseString( char* pcBuffer )
 }
 
 /**
- *  sprintf() ÇÔ¼öÀÇ ³»ºÎ ±¸Çö
+ *  sprintf() í•¨ìˆ˜ì˜ ë‚´ë¶€ êµ¬í˜„
  */
 int kSPrintf( char* pcBuffer, const char* pcFormatString, ... )
 {
     va_list ap;
     int iReturn;
     
-    // °¡º¯ ÀÎÀÚ¸¦ ²¨³»¼­ vsprintf() ÇÔ¼ö¿¡ ³Ñ°ÜÁÜ
+    // ê°€ë³€ ì¸ìë¥¼ êº¼ë‚´ì„œ vsprintf() í•¨ìˆ˜ì— ë„˜ê²¨ì¤Œ
     va_start( ap, pcFormatString );
     iReturn = kVSPrintf( pcBuffer, pcFormatString, ap );
     va_end( ap );
@@ -378,8 +378,8 @@ int kSPrintf( char* pcBuffer, const char* pcFormatString, ... )
 }
 
 /**
- *  vsprintf() ÇÔ¼öÀÇ ³»ºÎ ±¸Çö
- *      ¹öÆÛ¿¡ Æ÷¸Ë ¹®ÀÚ¿­¿¡ µû¶ó µ¥ÀÌÅÍ¸¦ º¹»ç
+ *  vsprintf() í•¨ìˆ˜ì˜ ë‚´ë¶€ êµ¬í˜„
+ *      ë²„í¼ì— í¬ë§· ë¬¸ìì—´ì— ë”°ë¼ ë°ì´í„°ë¥¼ ë³µì‚¬
  */
 int kVSPrintf( char* pcBuffer, const char* pcFormatString, va_list ap )
 {
@@ -390,88 +390,88 @@ int kVSPrintf( char* pcBuffer, const char* pcFormatString, va_list ap )
     QWORD qwValue;
     int iValue;
     
-    // Æ÷¸Ë ¹®ÀÚ¿­ÀÇ ±æÀÌ¸¦ ÀĞ¾î¼­ ¹®ÀÚ¿­ÀÇ ±æÀÌ¸¸Å­ µ¥ÀÌÅÍ¸¦ Ãâ·Â ¹öÆÛ¿¡ Ãâ·Â
+    // í¬ë§· ë¬¸ìì—´ì˜ ê¸¸ì´ë¥¼ ì½ì–´ì„œ ë¬¸ìì—´ì˜ ê¸¸ì´ë§Œí¼ ë°ì´í„°ë¥¼ ì¶œë ¥ ë²„í¼ì— ì¶œë ¥
     iFormatLength = kStrLen( pcFormatString );
     for( i = 0 ; i < iFormatLength ; i++ ) 
     {
-        // %·Î ½ÃÀÛÇÏ¸é µ¥ÀÌÅÍ Å¸ÀÔ ¹®ÀÚ·Î Ã³¸®
+        // %ë¡œ ì‹œì‘í•˜ë©´ ë°ì´í„° íƒ€ì… ë¬¸ìë¡œ ì²˜ë¦¬
         if( pcFormatString[ i ] == '%' ) 
         {
-            // % ´ÙÀ½ÀÇ ¹®ÀÚ·Î ÀÌµ¿
+            // % ë‹¤ìŒì˜ ë¬¸ìë¡œ ì´ë™
             i++;
             switch( pcFormatString[ i ] ) 
             {
-                // ¹®ÀÚ¿­ Ãâ·Â  
+                // ë¬¸ìì—´ ì¶œë ¥  
             case 's':
-                // °¡º¯ ÀÎÀÚ¿¡ µé¾îÀÖ´Â ÆÄ¶ó¹ÌÅÍ¸¦ ¹®ÀÚ¿­ Å¸ÀÔÀ¸·Î º¯È¯
+                // ê°€ë³€ ì¸ìì— ë“¤ì–´ìˆëŠ” íŒŒë¼ë¯¸í„°ë¥¼ ë¬¸ìì—´ íƒ€ì…ìœ¼ë¡œ ë³€í™˜
                 pcCopyString = ( char* ) ( va_arg(ap, char* ));
                 iCopyLength = kStrLen( pcCopyString );
-                // ¹®ÀÚ¿­ÀÇ ±æÀÌ¸¸Å­À» Ãâ·Â ¹öÆÛ·Î º¹»çÇÏ°í Ãâ·ÂÇÑ ±æÀÌ¸¸Å­ 
-                // ¹öÆÛÀÇ ÀÎµ¦½º¸¦ ÀÌµ¿
+                // ë¬¸ìì—´ì˜ ê¸¸ì´ë§Œí¼ì„ ì¶œë ¥ ë²„í¼ë¡œ ë³µì‚¬í•˜ê³  ì¶œë ¥í•œ ê¸¸ì´ë§Œí¼ 
+                // ë²„í¼ì˜ ì¸ë±ìŠ¤ë¥¼ ì´ë™
                 kMemCpy( pcBuffer + iBufferIndex, pcCopyString, iCopyLength );
                 iBufferIndex += iCopyLength;
                 break;
                 
-                // ¹®ÀÚ Ãâ·Â
+                // ë¬¸ì ì¶œë ¥
             case 'c':
-                // °¡º¯ ÀÎÀÚ¿¡ µé¾îÀÖ´Â ÆÄ¶ó¹ÌÅÍ¸¦ ¹®ÀÚ Å¸ÀÔÀ¸·Î º¯È¯ÇÏ¿© 
-                // Ãâ·Â ¹öÆÛ¿¡ º¹»çÇÏ°í ¹öÆÛÀÇ ÀÎµ¦½º¸¦ 1¸¸Å­ ÀÌµ¿
+                // ê°€ë³€ ì¸ìì— ë“¤ì–´ìˆëŠ” íŒŒë¼ë¯¸í„°ë¥¼ ë¬¸ì íƒ€ì…ìœ¼ë¡œ ë³€í™˜í•˜ì—¬ 
+                // ì¶œë ¥ ë²„í¼ì— ë³µì‚¬í•˜ê³  ë²„í¼ì˜ ì¸ë±ìŠ¤ë¥¼ 1ë§Œí¼ ì´ë™
                 pcBuffer[ iBufferIndex ] = ( char ) ( va_arg( ap, int ) );
                 iBufferIndex++;
                 break;
 
-                // Á¤¼ö Ãâ·Â
+                // ì •ìˆ˜ ì¶œë ¥
             case 'd':
             case 'i':
-                // °¡º¯ ÀÎÀÚ¿¡ µé¾îÀÖ´Â ÆÄ¶ó¹ÌÅÍ¸¦ Á¤¼ö Å¸ÀÔÀ¸·Î º¯È¯ÇÏ¿©
-                // Ãâ·Â ¹öÆÛ¿¡ º¹»çÇÏ°í Ãâ·ÂÇÑ ±æÀÌ¸¸Å­ ¹öÆÛÀÇ ÀÎµ¦½º¸¦ ÀÌµ¿
+                // ê°€ë³€ ì¸ìì— ë“¤ì–´ìˆëŠ” íŒŒë¼ë¯¸í„°ë¥¼ ì •ìˆ˜ íƒ€ì…ìœ¼ë¡œ ë³€í™˜í•˜ì—¬
+                // ì¶œë ¥ ë²„í¼ì— ë³µì‚¬í•˜ê³  ì¶œë ¥í•œ ê¸¸ì´ë§Œí¼ ë²„í¼ì˜ ì¸ë±ìŠ¤ë¥¼ ì´ë™
                 iValue = ( int ) ( va_arg( ap, int ) );
                 iBufferIndex += kIToA( iValue, pcBuffer + iBufferIndex, 10 );
                 break;
                 
-                // 4¹ÙÀÌÆ® Hex Ãâ·Â
+                // 4ë°”ì´íŠ¸ Hex ì¶œë ¥
             case 'x':
             case 'X':
-                // °¡º¯ ÀÎÀÚ¿¡ µé¾îÀÖ´Â ÆÄ¶ó¹ÌÅÍ¸¦ DWORD Å¸ÀÔÀ¸·Î º¯È¯ÇÏ¿©
-                // Ãâ·Â ¹öÆÛ¿¡ º¹»çÇÏ°í Ãâ·ÂÇÑ ±æÀÌ¸¸Å­ ¹öÆÛÀÇ ÀÎµ¦½º¸¦ ÀÌµ¿
+                // ê°€ë³€ ì¸ìì— ë“¤ì–´ìˆëŠ” íŒŒë¼ë¯¸í„°ë¥¼ DWORD íƒ€ì…ìœ¼ë¡œ ë³€í™˜í•˜ì—¬
+                // ì¶œë ¥ ë²„í¼ì— ë³µì‚¬í•˜ê³  ì¶œë ¥í•œ ê¸¸ì´ë§Œí¼ ë²„í¼ì˜ ì¸ë±ìŠ¤ë¥¼ ì´ë™
                 qwValue = ( DWORD ) ( va_arg( ap, DWORD ) ) & 0xFFFFFFFF;
                 iBufferIndex += kIToA( qwValue, pcBuffer + iBufferIndex, 16 );
                 break;
 
-                // 8¹ÙÀÌÆ® Hex Ãâ·Â
+                // 8ë°”ì´íŠ¸ Hex ì¶œë ¥
             case 'q':
             case 'Q':
             case 'p':
-                // °¡º¯ ÀÎÀÚ¿¡ µé¾îÀÖ´Â ÆÄ¶ó¹ÌÅÍ¸¦ QWORD Å¸ÀÔÀ¸·Î º¯È¯ÇÏ¿©
-                // Ãâ·Â ¹öÆÛ¿¡ º¹»çÇÏ°í Ãâ·ÂÇÑ ±æÀÌ¸¸Å­ ¹öÆÛÀÇ ÀÎµ¦½º¸¦ ÀÌµ¿
+                // ê°€ë³€ ì¸ìì— ë“¤ì–´ìˆëŠ” íŒŒë¼ë¯¸í„°ë¥¼ QWORD íƒ€ì…ìœ¼ë¡œ ë³€í™˜í•˜ì—¬
+                // ì¶œë ¥ ë²„í¼ì— ë³µì‚¬í•˜ê³  ì¶œë ¥í•œ ê¸¸ì´ë§Œí¼ ë²„í¼ì˜ ì¸ë±ìŠ¤ë¥¼ ì´ë™
                 qwValue = ( QWORD ) ( va_arg( ap, QWORD ) );
                 iBufferIndex += kIToA( qwValue, pcBuffer + iBufferIndex, 16 );
                 break;
             
-                // À§¿¡ ÇØ´çÇÏÁö ¾ÊÀ¸¸é ¹®ÀÚ¸¦ ±×´ë·Î Ãâ·ÂÇÏ°í ¹öÆÛÀÇ ÀÎµ¦½º¸¦
-                // 1¸¸Å­ ÀÌµ¿
+                // ìœ„ì— í•´ë‹¹í•˜ì§€ ì•Šìœ¼ë©´ ë¬¸ìë¥¼ ê·¸ëŒ€ë¡œ ì¶œë ¥í•˜ê³  ë²„í¼ì˜ ì¸ë±ìŠ¤ë¥¼
+                // 1ë§Œí¼ ì´ë™
             default:
                 pcBuffer[ iBufferIndex ] = pcFormatString[ i ];
                 iBufferIndex++;
                 break;
             }
         } 
-        // ÀÏ¹İ ¹®ÀÚ¿­ Ã³¸®
+        // ì¼ë°˜ ë¬¸ìì—´ ì²˜ë¦¬
         else
         {
-            // ¹®ÀÚ¸¦ ±×´ë·Î Ãâ·ÂÇÏ°í ¹öÆÛÀÇ ÀÎµ¦½º¸¦ 1¸¸Å­ ÀÌµ¿
+            // ë¬¸ìë¥¼ ê·¸ëŒ€ë¡œ ì¶œë ¥í•˜ê³  ë²„í¼ì˜ ì¸ë±ìŠ¤ë¥¼ 1ë§Œí¼ ì´ë™
             pcBuffer[ iBufferIndex ] = pcFormatString[ i ];
             iBufferIndex++;
         }
     }
     
-    // NULLÀ» Ãß°¡ÇÏ¿© ¿ÏÀüÇÑ ¹®ÀÚ¿­·Î ¸¸µé°í Ãâ·ÂÇÑ ¹®ÀÚÀÇ ±æÀÌ¸¦ ¹İÈ¯
+    // NULLì„ ì¶”ê°€í•˜ì—¬ ì™„ì „í•œ ë¬¸ìì—´ë¡œ ë§Œë“¤ê³  ì¶œë ¥í•œ ë¬¸ìì˜ ê¸¸ì´ë¥¼ ë°˜í™˜
     pcBuffer[ iBufferIndex ] = '\0';
     return iBufferIndex;
 }
 
 /**
- *  Tick Count¸¦ ¹İÈ¯
+ *  Tick Countë¥¼ ë°˜í™˜
  */
 QWORD kGetTickCount( void )
 {

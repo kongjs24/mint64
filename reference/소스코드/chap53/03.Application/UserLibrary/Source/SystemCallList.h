@@ -1,26 +1,26 @@
-/**
+ï»¿/**
  *  file    SystemCallList.h
  *  date    2009/12/13
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   MINT64 OS¿¡¼­ Áö¿øÇÏ´Â ½Ã½ºÅÛ ÄÝ ¸ñ·ÏÀ» Á¤ÀÇÇÑ Çì´õ ÆÄÀÏ
+ *  brief   MINT64 OSì—ì„œ ì§€ì›í•˜ëŠ” ì‹œìŠ¤í…œ ì½œ ëª©ë¡ì„ ì •ì˜í•œ í—¤ë” íŒŒì¼
  */
 
 #ifndef __SYSTEMCALLLIST_H__
 #define __SYSTEMCALLLIST_H__
 
-// ÄÜ¼Ö I/O °ü·Ã
+// ì½˜ì†” I/O ê´€ë ¨
 #define SYSCALL_CONSOLEPRINTSTRING          0 
 #define SYSCALL_SETCURSOR                   1 
 #define SYSCALL_GETCURSOR                   2 
 #define SYSCALL_CLEARSCREEN                 3 
 #define SYSCALL_GETCH                       4 
 
-// µ¿Àû ¸Þ¸ð¸® ÇÒ´ç/ÇØÁ¦ °ü·Ã
+// ë™ì  ë©”ëª¨ë¦¬ í• ë‹¹/í•´ì œ ê´€ë ¨
 #define SYSCALL_MALLOC                      5 
 #define SYSCALL_FREE                        6 
 
-// ÆÄÀÏ°ú µð·ºÅÍ¸® I/O °ü·Ã
+// íŒŒì¼ê³¼ ë””ë ‰í„°ë¦¬ I/O ê´€ë ¨
 #define SYSCALL_FOPEN                       7 
 #define SYSCALL_FREAD                       8 
 #define SYSCALL_FWRITE                      9 
@@ -33,11 +33,11 @@
 #define SYSCALL_CLOSEDIR                    16
 #define SYSCALL_ISFILEOPENED                17
 
-// ÇÏµå µð½ºÅ© I/O °ü·Ã
+// í•˜ë“œ ë””ìŠ¤í¬ I/O ê´€ë ¨
 #define SYSCALL_READHDDSECTOR               18
 #define SYSCALL_WRITEHDDSECTOR              19
 
-// ÅÂ½ºÅ©¿Í ½ºÄÉÁÙ·¯ °ü·Ã
+// íƒœìŠ¤í¬ì™€ ìŠ¤ì¼€ì¤„ëŸ¬ ê´€ë ¨
 #define SYSCALL_CREATETASK                  20
 #define SYSCALL_SCHEDULE                    21
 #define SYSCALL_CHANGEPRIORITY              22
@@ -50,7 +50,7 @@
 #define SYSCALL_EXECUTEPROGRAM              29
 #define SYSCALL_CREATETHREAD                30
 
-// GUI ½Ã½ºÅÛ °ü·Ã
+// GUI ì‹œìŠ¤í…œ ê´€ë ¨
 #define SYSCALL_GETBACKGROUNDWINDOWID       31
 #define SYSCALL_GETSCREENAREA               32
 #define SYSCALL_CREATEWINDOW                33
@@ -84,20 +84,20 @@
 #define SYSCALL_GETCURSORPOSITION           61
 #define SYSCALL_BITBLT                      62
 
-// JPEG µðÄÚ´õ °ü·Ã
+// JPEG ë””ì½”ë” ê´€ë ¨
 #define SYSCALL_JPEGINIT                    63
 #define SYSCALL_JPEGDECODE                  64
 
-// RTC °ü·Ã
+// RTC ê´€ë ¨
 #define SYSCALL_READRTCTIME                 65
 #define SYSCALL_READRTCDATE                 66
 
-// ½Ã¸®¾ó I/O °ü·Ã
+// ì‹œë¦¬ì–¼ I/O ê´€ë ¨
 #define SYSCALL_SENDSERIALDATA              67
 #define SYSCALL_RECEIVESERIALDATA           68
 #define SYSCALL_CLEARSERIALFIFO             69
 
-// ±âÅ¸
+// ê¸°íƒ€
 #define SYSCALL_GETTOTALRAMSIZE             70
 #define SYSCALL_GETTICKCOUNT                71
 #define SYSCALL_SLEEP                       72

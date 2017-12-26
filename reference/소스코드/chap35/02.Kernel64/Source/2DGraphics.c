@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    2DGraphics.h
  *  date    2009/09/5
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   2D Graphic¿¡ ´ëÇÑ ¼Ò½º ÆÄÀÏ
+ *  brief   2D Graphicì— ëŒ€í•œ ì†ŒìŠ¤ íŒŒì¼
  */
 
 #include "2DGraphics.h"
@@ -12,22 +12,22 @@
 #include "Utility.h"
 
 /**
- *  Á¡ ±×¸®±â
+ *  ì  ê·¸ë¦¬ê¸°
  */
 inline void kDrawPixel( int iX, int iY, COLOR stColor )
 {
     VBEMODEINFOBLOCK* pstModeInfo;
     
-    // ¸ðµå Á¤º¸ ºí·Ï ¹ÝÈ¯
+    // ëª¨ë“œ ì •ë³´ ë¸”ë¡ ë°˜í™˜
     pstModeInfo = kGetVBEModeInfoBlock();
     
-    // Physical Address¸¦ COLOR Å¸ÀÔÀ¸·Î ÇÏ¸é ÇÈ¼¿ ¿ÀÇÁ¼ÂÀ¸·Î °è»ê °¡´É
+    // Physical Addressë¥¼ COLOR íƒ€ìž…ìœ¼ë¡œ í•˜ë©´ í”½ì…€ ì˜¤í”„ì…‹ìœ¼ë¡œ ê³„ì‚° ê°€ëŠ¥
     *( ( ( COLOR* ) ( QWORD ) pstModeInfo->dwPhysicalBasePointer ) + 
             pstModeInfo->wXResolution * iY + iX ) = stColor;
 }
 
 /**
- *  Á÷¼± ±×¸®±â
+ *  ì§ì„  ê·¸ë¦¬ê¸°
  */
 void kDrawLine( int iX1, int iY1, int iX2, int iY2, COLOR stColor )
 {
@@ -37,11 +37,11 @@ void kDrawLine( int iX1, int iY1, int iX2, int iY2, COLOR stColor )
     int iX, iY;
     int iStepX, iStepY;
     
-    // º¯È­·® °è»ê
+    // ë³€í™”ëŸ‰ ê³„ì‚°
     iDeltaX = iX2 - iX1;
     iDeltaY = iY2 - iY1;
 
-    // XÃà º¯È­·®¿¡ µû¶ó XÃà Áõ°¨ ¹æÇâ °è»ê
+    // Xì¶• ë³€í™”ëŸ‰ì— ë”°ë¼ Xì¶• ì¦ê° ë°©í–¥ ê³„ì‚°
     if( iDeltaX < 0 ) 
     {
         iDeltaX = -iDeltaX; 
@@ -52,7 +52,7 @@ void kDrawLine( int iX1, int iY1, int iX2, int iY2, COLOR stColor )
         iStepX = 1; 
     }
 
-    // YÃà º¯È­·®¿¡ µû¶ó YÃà Áõ°¨ ¹æÇâ °è»ê 
+    // Yì¶• ë³€í™”ëŸ‰ì— ë”°ë¼ Yì¶• ì¦ê° ë°©í–¥ ê³„ì‚° 
     if( iDeltaY < 0 ) 
     {
         iDeltaY = -iDeltaY; 
@@ -63,67 +63,67 @@ void kDrawLine( int iX1, int iY1, int iX2, int iY2, COLOR stColor )
         iStepY = 1; 
     }
 
-    // XÃà º¯È­·®ÀÌ YÃà º¯È­·®º¸´Ù Å©´Ù¸é XÃàÀ» Áß½ÉÀ¸·Î Á÷¼±À» ±×¸²
+    // Xì¶• ë³€í™”ëŸ‰ì´ Yì¶• ë³€í™”ëŸ‰ë³´ë‹¤ í¬ë‹¤ë©´ Xì¶•ì„ ì¤‘ì‹¬ìœ¼ë¡œ ì§ì„ ì„ ê·¸ë¦¼
     if( iDeltaX > iDeltaY )
     {
-        // ±â¿ï±â·Î ¸Å ÇÈ¼¿¸¶´Ù ´õÇØÁÙ ¿ÀÂ÷, YÃà º¯È­·®ÀÇ 2¹è
-        // ½ÃÇÁÆ® ¿¬»êÀ¸·Î * 2¸¦ ´ëÃ¼
+        // ê¸°ìš¸ê¸°ë¡œ ë§¤ í”½ì…€ë§ˆë‹¤ ë”í•´ì¤„ ì˜¤ì°¨, Yì¶• ë³€í™”ëŸ‰ì˜ 2ë°°
+        // ì‹œí”„íŠ¸ ì—°ì‚°ìœ¼ë¡œ * 2ë¥¼ ëŒ€ì²´
         iDeltaError = iDeltaY << 1;
         iY = iY1;
         for( iX = iX1 ; iX != iX2 ; iX += iStepX )
         {
-            // Á¡ ±×¸®±â
+            // ì  ê·¸ë¦¬ê¸°
             kDrawPixel( iX, iY, stColor );
 
-            // ¿ÀÂ÷ ´©Àû
+            // ì˜¤ì°¨ ëˆ„ì 
             iError += iDeltaError;
 
-            // ´©ÀûµÈ ¿ÀÂ÷°¡ XÃà º¯È­·®º¸´Ù Å©¸é À§¿¡ Á¡À» ¼±ÅÃÇÏ°í ¿ÀÂ÷¸¦ À§¿¡ Á¡À»
-            // ±âÁØÀ¸·Î °»½Å
+            // ëˆ„ì ëœ ì˜¤ì°¨ê°€ Xì¶• ë³€í™”ëŸ‰ë³´ë‹¤ í¬ë©´ ìœ„ì— ì ì„ ì„ íƒí•˜ê³  ì˜¤ì°¨ë¥¼ ìœ„ì— ì ì„
+            // ê¸°ì¤€ìœ¼ë¡œ ê°±ì‹ 
             if( iError >= iDeltaX )
             {
                 iY += iStepY;
-                // XÃàÀÇ º¯È­·®ÀÇ 2¹è¸¦ »©ÁÜ
-                // ½ÃÇÁÆ® ¿¬»êÀ¸·Î *2¸¦ ´ëÃ¼
+                // Xì¶•ì˜ ë³€í™”ëŸ‰ì˜ 2ë°°ë¥¼ ë¹¼ì¤Œ
+                // ì‹œí”„íŠ¸ ì—°ì‚°ìœ¼ë¡œ *2ë¥¼ ëŒ€ì²´
                 iError -= iDeltaX << 1;
             }
         }
-        // iX == iX2ÀÎ ÃÖÁ¾ À§Ä¡¿¡ Á¡ ±×¸®±â
+        // iX == iX2ì¸ ìµœì¢… ìœ„ì¹˜ì— ì  ê·¸ë¦¬ê¸°
         kDrawPixel( iX, iY, stColor );
     }
-    // YÃà º¯È­·®ÀÌ XÃà º¯È­·®º¸´Ù Å©°Å³ª °°´Ù¸é YÃàÀ» Áß½ÉÀ¸·Î Á÷¼±À» ±×¸²
+    // Yì¶• ë³€í™”ëŸ‰ì´ Xì¶• ë³€í™”ëŸ‰ë³´ë‹¤ í¬ê±°ë‚˜ ê°™ë‹¤ë©´ Yì¶•ì„ ì¤‘ì‹¬ìœ¼ë¡œ ì§ì„ ì„ ê·¸ë¦¼
     else
     {
-        // ±â¿ï±â·Î ¸Å ÇÈ¼¿¸¶´Ù ´õÇØÁÙ ¿ÀÂ÷, XÃà º¯È­·®ÀÇ 2¹è
-        // ½ÃÇÁÆ® ¿¬»êÀ¸·Î * 2¸¦ ´ëÃ¼
+        // ê¸°ìš¸ê¸°ë¡œ ë§¤ í”½ì…€ë§ˆë‹¤ ë”í•´ì¤„ ì˜¤ì°¨, Xì¶• ë³€í™”ëŸ‰ì˜ 2ë°°
+        // ì‹œí”„íŠ¸ ì—°ì‚°ìœ¼ë¡œ * 2ë¥¼ ëŒ€ì²´
         iDeltaError = iDeltaX << 1;
         iX = iX1;
         for( iY = iY1 ; iY != iY2 ; iY += iStepY )
         {
-            // Á¡ ±×¸®±â
+            // ì  ê·¸ë¦¬ê¸°
             kDrawPixel( iX, iY, stColor );
 
-            // ¿ÀÂ÷ ´©Àû
+            // ì˜¤ì°¨ ëˆ„ì 
             iError += iDeltaError;
 
-            // ´©ÀûµÈ ¿ÀÂ÷°¡ YÃà º¯È­·®º¸´Ù Å©¸é À§¿¡ Á¡À» ¼±ÅÃÇÏ°í ¿ÀÂ÷¸¦ À§¿¡ Á¡À»
-            // ±âÁØÀ¸·Î °»½Å
+            // ëˆ„ì ëœ ì˜¤ì°¨ê°€ Yì¶• ë³€í™”ëŸ‰ë³´ë‹¤ í¬ë©´ ìœ„ì— ì ì„ ì„ íƒí•˜ê³  ì˜¤ì°¨ë¥¼ ìœ„ì— ì ì„
+            // ê¸°ì¤€ìœ¼ë¡œ ê°±ì‹ 
             if( iError >= iDeltaY )
             {
                 iX += iStepX;
-                // YÃàÀÇ º¯È­·®ÀÇ 2¹è¸¦ »©ÁÜ
-                // ½ÃÇÁÆ® ¿¬»êÀ¸·Î *2¸¦ ´ëÃ¼
+                // Yì¶•ì˜ ë³€í™”ëŸ‰ì˜ 2ë°°ë¥¼ ë¹¼ì¤Œ
+                // ì‹œí”„íŠ¸ ì—°ì‚°ìœ¼ë¡œ *2ë¥¼ ëŒ€ì²´
                 iError -= iDeltaY << 1;
             }
         }
 
-        // iY == iY2ÀÎ ÃÖÁ¾ À§Ä¡¿¡ Á¡ ±×¸®±â
+        // iY == iY2ì¸ ìµœì¢… ìœ„ì¹˜ì— ì  ê·¸ë¦¬ê¸°
         kDrawPixel( iX, iY, stColor );
     }
 }
 
 /**
- *  »ç°¢Çü ±×¸®±â
+ *  ì‚¬ê°í˜• ê·¸ë¦¬ê¸°
  */
 void kDrawRect( int iX1, int iY1, int iX2, int iY2, COLOR stColor, BOOL bFill )
 {
@@ -134,10 +134,10 @@ void kDrawRect( int iX1, int iY1, int iX2, int iY2, COLOR stColor, BOOL bFill )
     COLOR* pstVideoMemoryAddress;
     VBEMODEINFOBLOCK* pstModeInfo;
 
-    // Ã¤¿ò ¿©ºÎ¿¡ µû¶ó ÄÚµå¸¦ ºÐ¸®
+    // ì±„ì›€ ì—¬ë¶€ì— ë”°ë¼ ì½”ë“œë¥¼ ë¶„ë¦¬
     if( bFill == FALSE )
     {
-        // ³× Á¡À» ÀÌ¿ôÇÑ °Í³¢¸® Á÷¼±À¸·Î ¿¬°á
+        // ë„¤ ì ì„ ì´ì›ƒí•œ ê²ƒë¼ë¦¬ ì§ì„ ìœ¼ë¡œ ì—°ê²°
         kDrawLine( iX1, iY1, iX2, iY1, stColor );
         kDrawLine( iX1, iY1, iX1, iY2, stColor );
         kDrawLine( iX2, iY1, iX2, iY2, stColor );
@@ -145,15 +145,15 @@ void kDrawRect( int iX1, int iY1, int iX2, int iY2, COLOR stColor, BOOL bFill )
     }
     else
     {
-        // VBE ¸ðµå Á¤º¸ ºí·ÏÀ» ¹ÝÈ¯
+        // VBE ëª¨ë“œ ì •ë³´ ë¸”ë¡ì„ ë°˜í™˜
         pstModeInfo = kGetVBEModeInfoBlock();
         
-        // ºñµð¿À ¸Þ¸ð¸® ¾îµå·¹½º °è»ê
+        // ë¹„ë””ì˜¤ ë©”ëª¨ë¦¬ ì–´ë“œë ˆìŠ¤ ê³„ì‚°
         pstVideoMemoryAddress = 
             ( COLOR* ) ( ( QWORD ) pstModeInfo->dwPhysicalBasePointer );
         
-        // kMemSetWord() ÇÔ¼ö´Â XÀÇ °ªÀÌ Áõ°¡ÇÏ´Â ¹æÇâÀ¸·Î µ¥ÀÌÅÍ¸¦ Ã¤¿ì¹Ç·Î
-        // x1°ú x2¸¦ ºñ±³ÇÏ¿© µÎ Á¡À» ±³È¯
+        // kMemSetWord() í•¨ìˆ˜ëŠ” Xì˜ ê°’ì´ ì¦ê°€í•˜ëŠ” ë°©í–¥ìœ¼ë¡œ ë°ì´í„°ë¥¼ ì±„ìš°ë¯€ë¡œ
+        // x1ê³¼ x2ë¥¼ ë¹„êµí•˜ì—¬ ë‘ ì ì„ êµí™˜
         if( iX2 < iX1 )
         {
             iTemp = iX1;
@@ -165,10 +165,10 @@ void kDrawRect( int iX1, int iY1, int iX2, int iY2, COLOR stColor, BOOL bFill )
             iY2 = iTemp;
         }
         
-        // »ç°¢ÇüÀÇ XÃà ±æÀÌ¸¦ °è»ê
+        // ì‚¬ê°í˜•ì˜ Xì¶• ê¸¸ì´ë¥¼ ê³„ì‚°
         iWidth = iX2 - iX1 + 1;
         
-        // y1°ú y2¸¦ ºñ±³ÇÏ¿© ¸Å È¸¸¶´Ù Áõ°¡½ÃÅ³ Y °ªÀ» ÀúÀå
+        // y1ê³¼ y2ë¥¼ ë¹„êµí•˜ì—¬ ë§¤ íšŒë§ˆë‹¤ ì¦ê°€ì‹œí‚¬ Y ê°’ì„ ì €ìž¥
         if( iY1 <= iY2 )
         {
             iStepY = 1;         
@@ -178,18 +178,18 @@ void kDrawRect( int iX1, int iY1, int iX2, int iY2, COLOR stColor, BOOL bFill )
             iStepY = -1;
         }
         
-        // Ãâ·ÂÀ» ½ÃÀÛÇÒ ºñµð¿À ¸Þ¸ð¸® ¾îµå·¹½º¸¦ °è»ê
+        // ì¶œë ¥ì„ ì‹œìž‘í•  ë¹„ë””ì˜¤ ë©”ëª¨ë¦¬ ì–´ë“œë ˆìŠ¤ë¥¼ ê³„ì‚°
         pstVideoMemoryAddress += iY1 * pstModeInfo->wXResolution + iX1;
         
-        // ·çÇÁ¸¦ µ¹¸é¼­ °¢ YÃà¸¶´Ù °ªÀ» Ã¤¿ò
+        // ë£¨í”„ë¥¼ ëŒë©´ì„œ ê° Yì¶•ë§ˆë‹¤ ê°’ì„ ì±„ì›€
         for( iY = iY1 ; iY != iY2 ; iY += iStepY )
         {
-            // ºñµð¿À ¸Þ¸ð¸®¿¡ »ç°¢ÇüÀÇ ³Êºñ¸¸Å­ Ãâ·Â
+            // ë¹„ë””ì˜¤ ë©”ëª¨ë¦¬ì— ì‚¬ê°í˜•ì˜ ë„ˆë¹„ë§Œí¼ ì¶œë ¥
             kMemSetWord( pstVideoMemoryAddress, stColor, iWidth );
             
-            // Ãâ·ÂÇÒ ºñµð¿À ¸Þ¸ð¸® ¾îµå·¹½º °»½Å
-            // x, y ÁÂÇ¥·Î ¸Å¹ø ºñµð¿À ¸Þ¸ð¸® ¾îµå·¹½º¸¦ °è»êÇÏ´Â °ÍÀ» ÇÇÇÏ·Á°í
-            // XÃà ÇØ»óµµ¸¦ ÀÌ¿ëÇÏ¿© ´ÙÀ½ YÀÇ ¾îµå·¹½º¸¦ °è»ê 
+            // ì¶œë ¥í•  ë¹„ë””ì˜¤ ë©”ëª¨ë¦¬ ì–´ë“œë ˆìŠ¤ ê°±ì‹ 
+            // x, y ì¢Œí‘œë¡œ ë§¤ë²ˆ ë¹„ë””ì˜¤ ë©”ëª¨ë¦¬ ì–´ë“œë ˆìŠ¤ë¥¼ ê³„ì‚°í•˜ëŠ” ê²ƒì„ í”¼í•˜ë ¤ê³ 
+            // Xì¶• í•´ìƒë„ë¥¼ ì´ìš©í•˜ì—¬ ë‹¤ìŒ Yì˜ ì–´ë“œë ˆìŠ¤ë¥¼ ê³„ì‚° 
             if( iStepY >= 0 )
             {
                 pstVideoMemoryAddress += pstModeInfo->wXResolution;
@@ -200,32 +200,32 @@ void kDrawRect( int iX1, int iY1, int iX2, int iY2, COLOR stColor, BOOL bFill )
             }
         }
         
-        // ºñµð¿À ¸Þ¸ð¸®¿¡ »ç°¢ÇüÀÇ ³Êºñ¸¸Å­ Ãâ·Â, ¸¶Áö¸· ÁÙ Ãâ·Â
+        // ë¹„ë””ì˜¤ ë©”ëª¨ë¦¬ì— ì‚¬ê°í˜•ì˜ ë„ˆë¹„ë§Œí¼ ì¶œë ¥, ë§ˆì§€ë§‰ ì¤„ ì¶œë ¥
         kMemSetWord( pstVideoMemoryAddress, stColor, iWidth );
     }
 }
 
 /**
- *  ¿ø ±×¸®±â
+ *  ì› ê·¸ë¦¬ê¸°
  */
 void kDrawCircle( int iX, int iY, int iRadius, COLOR stColor, BOOL bFill )
 {
     int iCircleX, iCircleY;
     int iDistance;
     
-    // ¹ÝÁö¸§ÀÌ 0º¸´Ù ÀÛ´Ù¸é ±×¸± ÇÊ¿ä ¾øÀ½
+    // ë°˜ì§€ë¦„ì´ 0ë³´ë‹¤ ìž‘ë‹¤ë©´ ê·¸ë¦´ í•„ìš” ì—†ìŒ
     if( iRadius < 0 )
     {
         return ;
     }
     
-    // (0, R)ÀÎ ÁÂÇ¥¿¡¼­ ½ÃÀÛ
+    // (0, R)ì¸ ì¢Œí‘œì—ì„œ ì‹œìž‘
     iCircleY = iRadius;
 
-    // Ã¤¿ò ¿©ºÎ¿¡ µû¶ó ½ÃÀÛÁ¡À» ±×¸²
+    // ì±„ì›€ ì—¬ë¶€ì— ë”°ë¼ ì‹œìž‘ì ì„ ê·¸ë¦¼
     if( bFill == FALSE )
     {
-        // ½ÃÀÛÁ¡Àº ³× Á¢Á¡ ¸ðµÎ ±×¸²
+        // ì‹œìž‘ì ì€ ë„¤ ì ‘ì  ëª¨ë‘ ê·¸ë¦¼
         kDrawPixel( 0 + iX, iRadius + iY, stColor );
         kDrawPixel( 0 + iX, -iRadius + iY, stColor );
         kDrawPixel( iRadius + iX, 0 + iY, stColor );
@@ -233,35 +233,35 @@ void kDrawCircle( int iX, int iY, int iRadius, COLOR stColor, BOOL bFill )
     }
     else
     {
-        // ½ÃÀÛ Á÷¼±Àº XÃà°ú YÃà ¸ðµÎ ±×¸²
+        // ì‹œìž‘ ì§ì„ ì€ Xì¶•ê³¼ Yì¶• ëª¨ë‘ ê·¸ë¦¼
         kDrawLine( 0 + iX, iRadius + iY, 0 + iX, -iRadius + iY, stColor );
         kDrawLine( iRadius + iX, 0 + iY, -iRadius + iX, 0 + iY, stColor );
     }
     
-    // ÃÖÃÊ ½ÃÀÛÁ¡ÀÇ Áß½ÉÁ¡°ú ¿øÀÇ °Å¸®
+    // ìµœì´ˆ ì‹œìž‘ì ì˜ ì¤‘ì‹¬ì ê³¼ ì›ì˜ ê±°ë¦¬
     iDistance = -iRadius;
 
-    // ¿ø ±×¸®±â
+    // ì› ê·¸ë¦¬ê¸°
     for( iCircleX = 1 ; iCircleX <= iCircleY ; iCircleX++ )
     {
-        // ¿ø¿¡¼­ ¶³¾îÁø °Å¸® °è»ê
-        // ½ÃÇÁÆ® ¿¬»êÀ¸·Î * 2¸¦ ´ëÃ¼
+        // ì›ì—ì„œ ë–¨ì–´ì§„ ê±°ë¦¬ ê³„ì‚°
+        // ì‹œí”„íŠ¸ ì—°ì‚°ìœ¼ë¡œ * 2ë¥¼ ëŒ€ì²´
         iDistance += ( iCircleX << 1 ) - 1;  //2 * iCircleX - 1;
                     
-        // Áß½ÉÁ¡ÀÌ ¿øÀÇ ¿ÜºÎ¿¡ ÀÖÀ¸¸é ¾Æ·¡¿¡ ÀÖ´Â Á¡ ¼±ÅÃ
+        // ì¤‘ì‹¬ì ì´ ì›ì˜ ì™¸ë¶€ì— ìžˆìœ¼ë©´ ì•„ëž˜ì— ìžˆëŠ” ì  ì„ íƒ
         if( iDistance >= 0 )
         {
             iCircleY--;
             
-            // »õ·Î¿î Á¡¿¡¼­ ´Ù½Ã ¿ø°ú °Å¸® °è»ê
-            // ½ÃÇÁÆ® ¿¬»êÀ¸·Î * 2¸¦ ´ëÃ¼
+            // ìƒˆë¡œìš´ ì ì—ì„œ ë‹¤ì‹œ ì›ê³¼ ê±°ë¦¬ ê³„ì‚°
+            // ì‹œí”„íŠ¸ ì—°ì‚°ìœ¼ë¡œ * 2ë¥¼ ëŒ€ì²´
             iDistance += ( -iCircleY << 1 ) + 2; //-2 * iCircleY + 2;
         }
         
-        // Ã¤¿ò ¿©ºÎ¿¡ µû¶ó ±×¸²
+        // ì±„ì›€ ì—¬ë¶€ì— ë”°ë¼ ê·¸ë¦¼
         if( bFill == FALSE )
         {
-            // 8 ¹æÇâ ¸ðµÎ Á¡ ±×¸²
+            // 8 ë°©í–¥ ëª¨ë‘ ì  ê·¸ë¦¼
             kDrawPixel( iCircleX + iX, iCircleY + iY, stColor );
             kDrawPixel( iCircleX + iX, -iCircleY + iY, stColor );
             kDrawPixel( -iCircleX + iX, iCircleY + iY, stColor );
@@ -273,8 +273,8 @@ void kDrawCircle( int iX, int iY, int iRadius, COLOR stColor, BOOL bFill )
         }
         else
         {
-            // ´ëÄªµÇ´Â Á¡À» Ã£¾Æ XÃà¿¡ ÆòÇàÇÑ Á÷¼±À» ±×¾î Ã¤¿öÁø ¿øÀ» ±×¸²
-            // ÆòÇà¼±À» ±×¸®´Â °ÍÀº »ç°¢Çü ±×¸®±â ÇÔ¼ö·Î ºü¸£°Ô Ã³¸®ÇÒ ¼ö ÀÖÀ½
+            // ëŒ€ì¹­ë˜ëŠ” ì ì„ ì°¾ì•„ Xì¶•ì— í‰í–‰í•œ ì§ì„ ì„ ê·¸ì–´ ì±„ì›Œì§„ ì›ì„ ê·¸ë¦¼
+            // í‰í–‰ì„ ì„ ê·¸ë¦¬ëŠ” ê²ƒì€ ì‚¬ê°í˜• ê·¸ë¦¬ê¸° í•¨ìˆ˜ë¡œ ë¹ ë¥´ê²Œ ì²˜ë¦¬í•  ìˆ˜ ìžˆìŒ
             kDrawRect( -iCircleX + iX, iCircleY + iY, 
                 iCircleX + iX, iCircleY + iY, stColor, TRUE );
             kDrawRect( -iCircleX + iX, -iCircleY + iY, 
@@ -288,7 +288,7 @@ void kDrawCircle( int iX, int iY, int iRadius, COLOR stColor, BOOL bFill )
 }
 
 /**
- *  ¹®ÀÚ Ãâ·Â
+ *  ë¬¸ìž ì¶œë ¥
  */
 void kDrawText( int iX, int iY, COLOR stTextColor, COLOR stBackgroundColor, 
         const char* pcString, int iLength )
@@ -300,53 +300,53 @@ void kDrawText( int iX, int iY, COLOR stTextColor, COLOR stBackgroundColor,
     VBEMODEINFOBLOCK* pstModeInfo;
     COLOR* pstVideoMemoryAddress;
 
-    // VBE ¸ðµå Á¤º¸ ºí·ÏÀ» ¹ÝÈ¯
+    // VBE ëª¨ë“œ ì •ë³´ ë¸”ë¡ì„ ë°˜í™˜
     pstModeInfo = kGetVBEModeInfoBlock();
     
-    // ºñµð¿À ¸Þ¸ð¸® ¾îµå·¹½º °è»ê
+    // ë¹„ë””ì˜¤ ë©”ëª¨ë¦¬ ì–´ë“œë ˆìŠ¤ ê³„ì‚°
     pstVideoMemoryAddress = 
         ( COLOR* ) ( ( QWORD ) pstModeInfo->dwPhysicalBasePointer );
     
-    // ¹®ÀÚ¸¦ Ãâ·ÂÇÏ´Â XÁÂÇ¥
+    // ë¬¸ìžë¥¼ ì¶œë ¥í•˜ëŠ” Xì¢Œí‘œ
     iCurrentX = iX;
     
-    // ¹®ÀÚÀÇ °³¼ö¸¸Å­ ¹Ýº¹
+    // ë¬¸ìžì˜ ê°œìˆ˜ë§Œí¼ ë°˜ë³µ
     for( k = 0 ; k < iLength ; k++ )
     {
-        // ¹®ÀÚ¸¦ Ãâ·ÂÇÒ À§Ä¡ÀÇ YÁÂÇ¥¸¦ ±¸ÇÔ
+        // ë¬¸ìžë¥¼ ì¶œë ¥í•  ìœ„ì¹˜ì˜ Yì¢Œí‘œë¥¼ êµ¬í•¨
         iCurrentY = iY * pstModeInfo->wXResolution;
 
-        // ºñÆ®¸Ê ÆùÆ® µ¥ÀÌÅÍ¿¡¼­ ¹®ÀÚ ºñÆ®¸ÊÀÌ ½ÃÀÛÇÏ´Â À§Ä¡¸¦ °è»ê
-        // 1¹ÙÀÌÆ® * FONT_HEIGHT·Î ±¸¼ºµÇ¾î ÀÖÀ¸¹Ç·Î ¹®ÀÚÀÇ ºñÆ®¸Ê À§Ä¡´Â
-        // ¾Æ·¡¿Í °°ÀÌ °è»ê °¡´É
+        // ë¹„íŠ¸ë§µ í°íŠ¸ ë°ì´í„°ì—ì„œ ë¬¸ìž ë¹„íŠ¸ë§µì´ ì‹œìž‘í•˜ëŠ” ìœ„ì¹˜ë¥¼ ê³„ì‚°
+        // 1ë°”ì´íŠ¸ * FONT_HEIGHTë¡œ êµ¬ì„±ë˜ì–´ ìžˆìœ¼ë¯€ë¡œ ë¬¸ìžì˜ ë¹„íŠ¸ë§µ ìœ„ì¹˜ëŠ”
+        // ì•„ëž˜ì™€ ê°™ì´ ê³„ì‚° ê°€ëŠ¥
         iBitmaskStartIndex = pcString[ k ] * FONT_ENGLISHHEIGHT;
         
-        // ¹®ÀÚ Ãâ·Â
+        // ë¬¸ìž ì¶œë ¥
         for( j = 0 ; j < FONT_ENGLISHHEIGHT ; j++ )
         {
-            // ÀÌ¹ø ¶óÀÎ¿¡¼­ Ãâ·ÂÇÒ ÆùÆ® ºñÆ®¸Ê 
+            // ì´ë²ˆ ë¼ì¸ì—ì„œ ì¶œë ¥í•  í°íŠ¸ ë¹„íŠ¸ë§µ 
             bBitmask = g_vucEnglishFont[ iBitmaskStartIndex++ ];
             
-            // ÇöÀç ¶óÀÎ Ãâ·Â
+            // í˜„ìž¬ ë¼ì¸ ì¶œë ¥
             for( i = 0 ; i < FONT_ENGLISHWIDTH ; i++ )
             {
-                // ºñÆ®°¡ ¼³Á¤µÇ¾îÀÖÀ¸¸é È­¸é¿¡ ¹®ÀÚ»öÀ» Ç¥½Ã
+                // ë¹„íŠ¸ê°€ ì„¤ì •ë˜ì–´ìžˆìœ¼ë©´ í™”ë©´ì— ë¬¸ìžìƒ‰ì„ í‘œì‹œ
                 if( bBitmask & ( 0x01 << ( FONT_ENGLISHWIDTH - i - 1 ) ) )
                 {
                     pstVideoMemoryAddress[ iCurrentY + iCurrentX + i ] = stTextColor;
                 }
-                // ºñÆ®°¡ ¼³Á¤µÇ¾îÀÖÁö ¾ÊÀ¸¸é È­¸é¿¡ ¹è°æ»öÀ» Ç¥½Ã
+                // ë¹„íŠ¸ê°€ ì„¤ì •ë˜ì–´ìžˆì§€ ì•Šìœ¼ë©´ í™”ë©´ì— ë°°ê²½ìƒ‰ì„ í‘œì‹œ
                 else
                 {
                     pstVideoMemoryAddress[ iCurrentY + iCurrentX + i ] = stBackgroundColor;
                 }
             }
             
-            // ´ÙÀ½ ¶óÀÎÀ¸·Î ÀÌµ¿ÇØ¾ß ÇÏ¹Ç·Î, ÇöÀç YÁÂÇ¥¿¡ È­¸éÀÇ ³Êºñ¸¸Å­ ´õÇØÁÜ
+            // ë‹¤ìŒ ë¼ì¸ìœ¼ë¡œ ì´ë™í•´ì•¼ í•˜ë¯€ë¡œ, í˜„ìž¬ Yì¢Œí‘œì— í™”ë©´ì˜ ë„ˆë¹„ë§Œí¼ ë”í•´ì¤Œ
             iCurrentY += pstModeInfo->wXResolution;
         }
         
-        // ¹®ÀÚ ÇÏ³ª¸¦ ´Ù Ãâ·ÂÇßÀ¸¸é ÆùÆ®ÀÇ ³Êºñ¸¸Å­ X ÁÂÇ¥¸¦ ÀÌµ¿ÇÏ¿© ´ÙÀ½ ¹®ÀÚ¸¦ Ãâ·Â
+        // ë¬¸ìž í•˜ë‚˜ë¥¼ ë‹¤ ì¶œë ¥í–ˆìœ¼ë©´ í°íŠ¸ì˜ ë„ˆë¹„ë§Œí¼ X ì¢Œí‘œë¥¼ ì´ë™í•˜ì—¬ ë‹¤ìŒ ë¬¸ìžë¥¼ ì¶œë ¥
         iCurrentX += FONT_ENGLISHWIDTH;
     }
 }

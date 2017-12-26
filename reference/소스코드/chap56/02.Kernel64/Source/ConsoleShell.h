@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    ConsoleShell.h
  *  date    2009/01/31
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   ÄÜ¼Ö ¼Ð¿¡ °ü·ÃµÈ Çì´õ ÆÄÀÏ
+ *  brief   ì½˜ì†” ì…¸ì— ê´€ë ¨ëœ í—¤ë” íŒŒì¼
  */
 
 #ifndef __CONSOLESHELL_H__
@@ -13,71 +13,71 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ¸ÅÅ©·Î
+// ë§¤í¬ë¡œ
 //
 ////////////////////////////////////////////////////////////////////////////////
 #define CONSOLESHELL_MAXCOMMANDBUFFERCOUNT  300
 #define CONSOLESHELL_PROMPTMESSAGE          "MINT64>"
 
-// ¹®ÀÚ¿­ Æ÷ÀÎÅÍ¸¦ ÆÄ¶ó¹ÌÅÍ·Î ¹Þ´Â ÇÔ¼ö Æ÷ÀÎÅÍ Å¸ÀÔ Á¤ÀÇ
+// ë¬¸ìžì—´ í¬ì¸í„°ë¥¼ íŒŒë¼ë¯¸í„°ë¡œ ë°›ëŠ” í•¨ìˆ˜ í¬ì¸í„° íƒ€ìž… ì •ì˜
 typedef void ( * CommandFunction ) ( const char* pcParameter );
 
-// ÆÐÅ°ÁöÀÇ ½Ã±×³ÊÃ³
+// íŒ¨í‚¤ì§€ì˜ ì‹œê·¸ë„ˆì²˜
 #define PACKAGESIGNATURE    "MINT64OSPACKAGE "
 
-// ÆÄÀÏ ÀÌ¸§ÀÇ ÃÖ´ë ±æÀÌ, Ä¿³ÎÀÇ FILESYSTEM_MAXFILENAMELENGTH¿Í °°À½
+// íŒŒì¼ ì´ë¦„ì˜ ìµœëŒ€ ê¸¸ì´, ì»¤ë„ì˜ FILESYSTEM_MAXFILENAMELENGTHì™€ ê°™ìŒ
 #define MAXFILENAMELENGTH   24
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ±¸Á¶Ã¼
+// êµ¬ì¡°ì²´
 //
 ////////////////////////////////////////////////////////////////////////////////
-// 1¹ÙÀÌÆ®·Î Á¤·Ä
+// 1ë°”ì´íŠ¸ë¡œ ì •ë ¬
 #pragma pack( push, 1 )
 
-// ¼ÐÀÇ Ä¿¸Çµå¸¦ ÀúÀåÇÏ´Â ÀÚ·á±¸Á¶
+// ì…¸ì˜ ì»¤ë§¨ë“œë¥¼ ì €ìž¥í•˜ëŠ” ìžë£Œêµ¬ì¡°
 typedef struct kShellCommandEntryStruct
 {
-    // Ä¿¸Çµå ¹®ÀÚ¿­
+    // ì»¤ë§¨ë“œ ë¬¸ìžì—´
     char* pcCommand;
-    // Ä¿¸ÇµåÀÇ µµ¿ò¸»
+    // ì»¤ë§¨ë“œì˜ ë„ì›€ë§
     char* pcHelp;
-    // Ä¿¸Çµå¸¦ ¼öÇàÇÏ´Â ÇÔ¼öÀÇ Æ÷ÀÎÅÍ
+    // ì»¤ë§¨ë“œë¥¼ ìˆ˜í–‰í•˜ëŠ” í•¨ìˆ˜ì˜ í¬ì¸í„°
     CommandFunction pfFunction;
 } SHELLCOMMANDENTRY;
 
-// ÆÄ¶ó¹ÌÅÍ¸¦ Ã³¸®ÇÏ±âÀ§ÇØ Á¤º¸¸¦ ÀúÀåÇÏ´Â ÀÚ·á±¸Á¶
+// íŒŒë¼ë¯¸í„°ë¥¼ ì²˜ë¦¬í•˜ê¸°ìœ„í•´ ì •ë³´ë¥¼ ì €ìž¥í•˜ëŠ” ìžë£Œêµ¬ì¡°
 typedef struct kParameterListStruct
 {
-    // ÆÄ¶ó¹ÌÅÍ ¹öÆÛÀÇ ¾îµå·¹½º
+    // íŒŒë¼ë¯¸í„° ë²„í¼ì˜ ì–´ë“œë ˆìŠ¤
     const char* pcBuffer;
-    // ÆÄ¶ó¹ÌÅÍÀÇ ±æÀÌ
+    // íŒŒë¼ë¯¸í„°ì˜ ê¸¸ì´
     int iLength;
-    // ÇöÀç Ã³¸®ÇÒ ÆÄ¶ó¹ÌÅÍ°¡ ½ÃÀÛÇÏ´Â À§Ä¡
+    // í˜„ìž¬ ì²˜ë¦¬í•  íŒŒë¼ë¯¸í„°ê°€ ì‹œìž‘í•˜ëŠ” ìœ„ì¹˜
     int iCurrentPosition;
 } PARAMETERLIST;
 
-// ÆÐÅ°Áö Çì´õ ³»ºÎÀÇ °¢ ÆÄÀÏ Á¤º¸¸¦ ±¸¼ºÇÏ´Â ÀÚ·á±¸Á¶
+// íŒ¨í‚¤ì§€ í—¤ë” ë‚´ë¶€ì˜ ê° íŒŒì¼ ì •ë³´ë¥¼ êµ¬ì„±í•˜ëŠ” ìžë£Œêµ¬ì¡°
 typedef struct PackageItemStruct
 {
-    // ÆÄÀÏ ÀÌ¸§
+    // íŒŒì¼ ì´ë¦„
     char vcFileName[ MAXFILENAMELENGTH ];
 
-    // ÆÄÀÏÀÇ Å©±â
+    // íŒŒì¼ì˜ í¬ê¸°
     DWORD dwFileLength;
 } PACKAGEITEM;
 
-// ÆÐÅ°Áö Çì´õ ÀÚ·á±¸Á¶
+// íŒ¨í‚¤ì§€ í—¤ë” ìžë£Œêµ¬ì¡°
 typedef struct PackageHeaderStruct
 {
-    // MINT64 OSÀÇ ÆÐÅ°Áö ÆÄÀÏÀ» ³ªÅ¸³»´Â ½Ã±×³ÊÃ³
+    // MINT64 OSì˜ íŒ¨í‚¤ì§€ íŒŒì¼ì„ ë‚˜íƒ€ë‚´ëŠ” ì‹œê·¸ë„ˆì²˜
     char vcSignature[ 16 ];
 
-    // ÆÐÅ°Áö Çì´õÀÇ ÀüÃ¼ Å©±â
+    // íŒ¨í‚¤ì§€ í—¤ë”ì˜ ì „ì²´ í¬ê¸°
     DWORD dwHeaderSize;
 
-    // ÆÐÅ°Áö ¾ÆÀÌÅÛÀÇ ½ÃÀÛ À§Ä¡
+    // íŒ¨í‚¤ì§€ ì•„ì´í…œì˜ ì‹œìž‘ ìœ„ì¹˜
     PACKAGEITEM vstItem[ 0 ];
 } PACKAGEHEADER;
 
@@ -85,16 +85,16 @@ typedef struct PackageHeaderStruct
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ÇÔ¼ö
+// í•¨ìˆ˜
 //
 ////////////////////////////////////////////////////////////////////////////////
-// ½ÇÁ¦ ¼Ð ÄÚµå
+// ì‹¤ì œ ì…¸ ì½”ë“œ
 void kStartConsoleShell( void );
 void kExecuteCommand( const char* pcCommandBuffer );
 void kInitializeParameter( PARAMETERLIST* pstList, const char* pcParameter );
 int kGetNextParameter( PARAMETERLIST* pstList, char* pcParameter );
 
-// Ä¿¸Çµå¸¦ Ã³¸®ÇÏ´Â ÇÔ¼ö
+// ì»¤ë§¨ë“œë¥¼ ì²˜ë¦¬í•˜ëŠ” í•¨ìˆ˜
 static void kHelp( const char* pcParameterBuffer );
 static void kCls( const char* pcParameterBuffer );
 static void kShowTotalRAMSize( const char* pcParameterBuffer );

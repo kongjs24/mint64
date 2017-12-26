@@ -1,4 +1,4 @@
-//Microsoft Developer Studio generated resource script.
+Ôªø//Microsoft Developer Studio generated resource script.
 //
 #include "resource.h"
 
@@ -75,23 +75,23 @@ IDR_MAINFRAME           ICON    DISCARDABLE     "res\\FontMaker.ico"
 
 IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 235, 55
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "FontMaker ¡§∫∏"
-FONT 9, "±º∏≤"
+CAPTION "FontMaker Ï†ïÎ≥¥"
+FONT 9, "Íµ¥Î¶º"
 BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
-    LTEXT           "FontMaker πˆ¿¸ 1.0",IDC_STATIC,40,10,119,8,SS_NOPREFIX
+    LTEXT           "FontMaker Î≤ÑÏ†Ñ 1.0",IDC_STATIC,40,10,119,8,SS_NOPREFIX
     LTEXT           "Copyright (C) 2007",IDC_STATIC,40,25,119,8
-    DEFPUSHBUTTON   "»Æ¿Œ",IDOK,178,7,50,14,WS_GROUP
+    DEFPUSHBUTTON   "ÌôïÏù∏",IDOK,178,7,50,14,WS_GROUP
 END
 
 IDD_FONTMAKER_DIALOG DIALOGEX 0, 0, 283, 92
 STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_APPWINDOW
 CAPTION "FontMaker"
-FONT 9, "±º∏≤"
+FONT 9, "Íµ¥Î¶º"
 BEGIN
-    PUSHBUTTON      "∆˘∆Æ º±≈√",IDC_BUTTON_FONTSELECT,7,59,129,26
-    PUSHBUTTON      "∆˘∆Æ ª˝º∫",IDC_BUTTON_FONTMAKE,147,59,129,26
+    PUSHBUTTON      "Ìè∞Ìä∏ ÏÑ†ÌÉù",IDC_BUTTON_FONTSELECT,7,59,129,26
+    PUSHBUTTON      "Ìè∞Ìä∏ ÏÉùÏÑ±",IDC_BUTTON_FONTMAKE,147,59,129,26
 END
 
 
@@ -119,13 +119,13 @@ BEGIN
         BLOCK "041204B0"
         BEGIN
             VALUE "CompanyName", "\0"
-            VALUE "FileDescription", "FontMaker MFC ¿¿øÎ «¡∑Œ±◊∑•\0"
+            VALUE "FileDescription", "FontMaker MFC ÏùëÏö© ÌîÑÎ°úÍ∑∏Îû®\0"
             VALUE "FileVersion", "1, 0, 0, 1\0"
             VALUE "InternalName", "FontMaker\0"
             VALUE "LegalCopyright", "Copyright (C) 2007\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "FontMaker.EXE\0"
-            VALUE "ProductName", "FontMaker ¿¿øÎ «¡∑Œ±◊∑•\0"
+            VALUE "ProductName", "FontMaker ÏùëÏö© ÌîÑÎ°úÍ∑∏Îû®\0"
             VALUE "ProductVersion", "1, 0, 0, 1\0"
         END
     END
@@ -172,7 +172,7 @@ END
 
 STRINGTABLE DISCARDABLE 
 BEGIN
-    IDS_ABOUTBOX            "FontMaker ¡§∫∏(&A)..."
+    IDS_ABOUTBOX            "FontMaker Ï†ïÎ≥¥(&A)..."
 END
 
 #endif    // Korean resources

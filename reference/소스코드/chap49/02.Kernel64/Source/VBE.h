@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    VBE.h
  *  date    2009/08/29
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   VBE¿¡ °ü·ÃµÈ ÇÔ¼ö¸¦ Á¤ÀÇÇÑ Çì´õ ÆÄÀÏ
+ *  brief   VBEì— ê´€ë ¨ëœ í•¨ìˆ˜ë¥¼ ì •ì˜í•œ í—¤ë” íŒŒì¼
  */
 
 #ifndef __VBE_H__
@@ -13,96 +13,96 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ¸ÅÅ©·Î
+// ë§¤í¬ë¡œ
 //
 ////////////////////////////////////////////////////////////////////////////////
-// ¸ðµå Á¤º¸ ºí·ÏÀÌ ÀúÀåµÈ ¾îµå·¹½º
+// ëª¨ë“œ ì •ë³´ ë¸”ë¡ì´ ì €ìž¥ëœ ì–´ë“œë ˆìŠ¤
 #define VBE_MODEINFOBLOCKADDRESS            0x7E00
-// ±×·¡ÇÈ ¸ðµå·Î ½ÃÀÛÇÏ´Â ÇÃ·¡±×°¡ ÀúÀåµÈ ¾îµå·¹½º
+// ê·¸ëž˜í”½ ëª¨ë“œë¡œ ì‹œìž‘í•˜ëŠ” í”Œëž˜ê·¸ê°€ ì €ìž¥ëœ ì–´ë“œë ˆìŠ¤
 #define VBE_STARTGRAPHICMODEFLAGADDRESS     0x7C0A
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ±¸Á¶Ã¼
+// êµ¬ì¡°ì²´
 //
 ////////////////////////////////////////////////////////////////////////////////
 #pragma pack( push, 1 )
 
-// VBE¿¡¼­ Á¤ÀÇÇÑ ¸ðµå Á¤º¸ ºí·Ï(ModeInfoBlock) ÀÚ·á±¸Á¶, 256¹ÙÀÌÆ®
+// VBEì—ì„œ ì •ì˜í•œ ëª¨ë“œ ì •ë³´ ë¸”ë¡(ModeInfoBlock) ìžë£Œêµ¬ì¡°, 256ë°”ì´íŠ¸
 typedef struct kVBEInfoBlockStruct
 {
     //==========================================================================
-    // ¸ðµç VBE ¹öÀü¿¡ °øÅëÀÎ ºÎºÐ
+    // ëª¨ë“  VBE ë²„ì „ì— ê³µí†µì¸ ë¶€ë¶„
     //==========================================================================
-    WORD wModeAttribute;        // ¸ðµåÀÇ ¼Ó¼º
-    BYTE bWinAAttribute;        // À©µµ¿ì AÀÇ ¼Ó¼º
-    BYTE bWinBAttribute;        // À©µµ¿ì BÀÇ ¼Ó¼º
-    WORD wWinGranulity;         // À©µµ¿ìÀÇ °¡ÁßÄ¡(Granularity)
-    WORD wWinSize;              // À©µµ¿ìÀÇ Å©±â
-    WORD wWinASegment;          // À©µµ¿ì A°¡ ½ÃÀÛÇÏ´Â ¼¼±×¸ÕÆ® ¾îµå·¹½º
-    WORD wWinBSegment;          // À©µµ¿ì B°¡ ½ÃÀÛÇÏ´Â ¼¼±×¸ÕÆ® ¾îµå·¹½º
-    DWORD dwWinFuncPtr;         // À©µµ¿ì °ü·Ã ÇÔ¼öÀÇ Æ÷ÀÎÅÍ(¸®¾ó ¸ðµå ¿ë)
-    WORD wBytesPerScanLine;     // È­¸é ½ºÄµ ¶óÀÎ(Scan Line) ´ç ¹ÙÀÌÆ® ¼ö
+    WORD wModeAttribute;        // ëª¨ë“œì˜ ì†ì„±
+    BYTE bWinAAttribute;        // ìœˆë„ìš° Aì˜ ì†ì„±
+    BYTE bWinBAttribute;        // ìœˆë„ìš° Bì˜ ì†ì„±
+    WORD wWinGranulity;         // ìœˆë„ìš°ì˜ ê°€ì¤‘ì¹˜(Granularity)
+    WORD wWinSize;              // ìœˆë„ìš°ì˜ í¬ê¸°
+    WORD wWinASegment;          // ìœˆë„ìš° Aê°€ ì‹œìž‘í•˜ëŠ” ì„¸ê·¸ë¨¼íŠ¸ ì–´ë“œë ˆìŠ¤
+    WORD wWinBSegment;          // ìœˆë„ìš° Bê°€ ì‹œìž‘í•˜ëŠ” ì„¸ê·¸ë¨¼íŠ¸ ì–´ë“œë ˆìŠ¤
+    DWORD dwWinFuncPtr;         // ìœˆë„ìš° ê´€ë ¨ í•¨ìˆ˜ì˜ í¬ì¸í„°(ë¦¬ì–¼ ëª¨ë“œ ìš©)
+    WORD wBytesPerScanLine;     // í™”ë©´ ìŠ¤ìº” ë¼ì¸(Scan Line) ë‹¹ ë°”ì´íŠ¸ ìˆ˜
     
     //==========================================================================
-    // VBE ¹öÀü 1.2 ÀÌ»ó °øÅëÀÎ ºÎºÐ
+    // VBE ë²„ì „ 1.2 ì´ìƒ ê³µí†µì¸ ë¶€ë¶„
     //==========================================================================
-    WORD wXResolution;          // XÃà ÇÈ¼¿ ¼ö ¶Ç´Â ¹®ÀÚ ¼ö
-    WORD wYResolution;          // YÃà ÇÈ¼¿ ¼ö ¶Ç´Â ¹®ÀÚ ¼ö
-    BYTE bXCharSize;            // ÇÑ ¹®ÀÚÀÇ XÃà ÇÈ¼¿ ¼ö
-    BYTE bYCharSize;            // ÇÑ ¹®ÀÚÀÇ YÃà ÇÈ¼¿ ¼ö
-    BYTE bNumberOfPlane;        // ¸Þ¸ð¸® ÇÃ·¹ÀÎ(Memory Plane) ¼ö
-    BYTE bBitsPerPixel;         // ÇÑ ÇÈ¼¿À» ±¸¼ºÇÏ´Â ºñÆ® ¼ö
-    BYTE bNumberOfBanks;        // ¹ðÅ©(Bank) ¼ö
-    BYTE bMemoryModel;          // ºñµð¿À ¸Þ¸ð¸® ±¸¼º
-    BYTE bBankSize;             // ¹ðÅ©ÀÇ Å©±â(Kbyte)
-    BYTE bNumberOfImagePages;   // ÀÌ¹ÌÁö ÆäÀÌÁö °³¼ö
-    BYTE bReserved;             // ÆäÀÌÁö ±â´ÉÀ» À§ÇØ ¿¹¾àµÈ ¿µ¿ª
+    WORD wXResolution;          // Xì¶• í”½ì…€ ìˆ˜ ë˜ëŠ” ë¬¸ìž ìˆ˜
+    WORD wYResolution;          // Yì¶• í”½ì…€ ìˆ˜ ë˜ëŠ” ë¬¸ìž ìˆ˜
+    BYTE bXCharSize;            // í•œ ë¬¸ìžì˜ Xì¶• í”½ì…€ ìˆ˜
+    BYTE bYCharSize;            // í•œ ë¬¸ìžì˜ Yì¶• í”½ì…€ ìˆ˜
+    BYTE bNumberOfPlane;        // ë©”ëª¨ë¦¬ í”Œë ˆì¸(Memory Plane) ìˆ˜
+    BYTE bBitsPerPixel;         // í•œ í”½ì…€ì„ êµ¬ì„±í•˜ëŠ” ë¹„íŠ¸ ìˆ˜
+    BYTE bNumberOfBanks;        // ë±…í¬(Bank) ìˆ˜
+    BYTE bMemoryModel;          // ë¹„ë””ì˜¤ ë©”ëª¨ë¦¬ êµ¬ì„±
+    BYTE bBankSize;             // ë±…í¬ì˜ í¬ê¸°(Kbyte)
+    BYTE bNumberOfImagePages;   // ì´ë¯¸ì§€ íŽ˜ì´ì§€ ê°œìˆ˜
+    BYTE bReserved;             // íŽ˜ì´ì§€ ê¸°ëŠ¥ì„ ìœ„í•´ ì˜ˆì•½ëœ ì˜ì—­
     
-    // ´ÙÀÌ·ºÆ® ÄÃ·¯(Direct Color)¿¡ °ü·ÃµÈ ÇÊµå
-    BYTE bRedMaskSize;              // »¡°£»ö(Red) ÇÊµå°¡ Â÷ÁöÇÏ´Â Å©±â
-    BYTE bRedFieldPosition;         // »¡°£»ö ÇÊµåÀÇ À§Ä¡
-    BYTE bGreenMaskSize;            // ³ì»ö(Green) ÇÊµå°¡ Â÷ÁöÇÏ´Â Å©±â
-    BYTE bGreenFieldPosition;       // ³ì»ö ÇÊµåÀÇ À§Ä¡
-    BYTE bBlueMaskSize;             // ÆÄ¶õ»ö(Blue) ÇÊµå°¡ Â÷ÁöÇÏ´Â Å©±â
-    BYTE bBlueFieldPosition;        // ÆÄ¶õ»ö ÇÊµåÀÇ À§Ä¡
-    BYTE bReservedMaskSize;         // ¿¹¾àµÈ ÇÊµåÀÇ Å©±â
-    BYTE bReservedFieldPosition;    // ¿¹¾àµÈ ÇÊµåÀÇ À§Ä¡
-    BYTE bDirectColorModeInfo;      // ´ÙÀÌ·ºÆ® ÄÃ·¯ ¸ðµåÀÇ Á¤º¸
+    // ë‹¤ì´ë ‰íŠ¸ ì»¬ëŸ¬(Direct Color)ì— ê´€ë ¨ëœ í•„ë“œ
+    BYTE bRedMaskSize;              // ë¹¨ê°„ìƒ‰(Red) í•„ë“œê°€ ì°¨ì§€í•˜ëŠ” í¬ê¸°
+    BYTE bRedFieldPosition;         // ë¹¨ê°„ìƒ‰ í•„ë“œì˜ ìœ„ì¹˜
+    BYTE bGreenMaskSize;            // ë…¹ìƒ‰(Green) í•„ë“œê°€ ì°¨ì§€í•˜ëŠ” í¬ê¸°
+    BYTE bGreenFieldPosition;       // ë…¹ìƒ‰ í•„ë“œì˜ ìœ„ì¹˜
+    BYTE bBlueMaskSize;             // íŒŒëž€ìƒ‰(Blue) í•„ë“œê°€ ì°¨ì§€í•˜ëŠ” í¬ê¸°
+    BYTE bBlueFieldPosition;        // íŒŒëž€ìƒ‰ í•„ë“œì˜ ìœ„ì¹˜
+    BYTE bReservedMaskSize;         // ì˜ˆì•½ëœ í•„ë“œì˜ í¬ê¸°
+    BYTE bReservedFieldPosition;    // ì˜ˆì•½ëœ í•„ë“œì˜ ìœ„ì¹˜
+    BYTE bDirectColorModeInfo;      // ë‹¤ì´ë ‰íŠ¸ ì»¬ëŸ¬ ëª¨ë“œì˜ ì •ë³´
     
     //==========================================================================
-    // VBE ¹öÀü 2.0 ÀÌ»ó °øÅëÀÎ ºÎºÐ
+    // VBE ë²„ì „ 2.0 ì´ìƒ ê³µí†µì¸ ë¶€ë¶„
     //==========================================================================
-    DWORD dwPhysicalBasePointer;    // ¼±Çü ÇÁ·¹ÀÓ ¹öÆÛ ¸Þ¸ð¸®ÀÇ ½ÃÀÛ ¾îµå·¹½º
-    DWORD dwReserved1;              // ¿¹¾àµÈ ÇÊµå
+    DWORD dwPhysicalBasePointer;    // ì„ í˜• í”„ë ˆìž„ ë²„í¼ ë©”ëª¨ë¦¬ì˜ ì‹œìž‘ ì–´ë“œë ˆìŠ¤
+    DWORD dwReserved1;              // ì˜ˆì•½ëœ í•„ë“œ
     DWORD dwReserved2;
     
     //==========================================================================
-    // VBE ¹öÀü 3.0 ÀÌ»ó °øÅëÀÎ ºÎºÐ
+    // VBE ë²„ì „ 3.0 ì´ìƒ ê³µí†µì¸ ë¶€ë¶„
     //==========================================================================
-    WORD wLinearBytesPerScanLine;       // ¼±Çü ÇÁ·¹ÀÓ ¹öÆÛ ¸ðµåÀÇ 
-                                        // È­¸é ½ºÄµ ¶óÀÎ(Scan Line) ´ç ¹ÙÀÌÆ® ¼ö
-    BYTE bBankNumberOfImagePages;       // ¹ðÅ© ¸ðµåÀÏ ¶§ ÀÌ¹ÌÁö ÆäÀÌÁö ¼ö
-    BYTE bLinearNumberOfImagePages;     // ¼±Çü ÇÁ·¹ÀÓ ¹öÆÛ ¸ðµåÀÏ ¶§ ÀÌ¹ÌÁö ÆäÀÌÁö ¼ö
-    // ¼±Çü ÇÁ·¹ÀÓ ¹öÆÛ ¸ðµåÀÏ ¶§ ´ÙÀÌ·ºÆ® ÄÃ·¯(Direct Color)¿¡ °ü·ÃµÈ ÇÊµå
-    BYTE bLinearRedMaskSize;            // »¡°£»ö(Red) ÇÊµå°¡ Â÷ÁöÇÏ´Â Å©±â 
-    BYTE bLinearRedFieldPosition;       // »¡°£»ö ÇÊµåÀÇ À§Ä¡
-    BYTE bLinearGreenMaskSize;          // ³ì»ö(Green) ÇÊµå°¡ Â÷ÁöÇÏ´Â Å©±â
-    BYTE bLinearGreenFieldPosition;     // ³ì»ö ÇÊµåÀÇ À§Ä¡
-    BYTE bLinearBlueMaskSize;           // ÆÄ¶õ»ö(Blue) ÇÊµå°¡ Â÷ÁöÇÏ´Â Å©±â
-    BYTE bLinearBlueFieldPosition;      // ÆÄ¶õ»ö ÇÊµåÀÇ À§Ä¡
-    BYTE bLinearReservedMaskSize;       // ¿¹¾àµÈ ÇÊµåÀÇ Å©±â
-    BYTE bLinearReservedFieldPosition;  // ¿¹¾àµÈ ÇÊµåÀÇ À§Ä¡
-    DWORD dwMaxPixelClock;              // ÇÈ¼¿ Å¬·ÏÀÇ ÃÖ´ë °ª(Hz)
+    WORD wLinearBytesPerScanLine;       // ì„ í˜• í”„ë ˆìž„ ë²„í¼ ëª¨ë“œì˜ 
+                                        // í™”ë©´ ìŠ¤ìº” ë¼ì¸(Scan Line) ë‹¹ ë°”ì´íŠ¸ ìˆ˜
+    BYTE bBankNumberOfImagePages;       // ë±…í¬ ëª¨ë“œì¼ ë•Œ ì´ë¯¸ì§€ íŽ˜ì´ì§€ ìˆ˜
+    BYTE bLinearNumberOfImagePages;     // ì„ í˜• í”„ë ˆìž„ ë²„í¼ ëª¨ë“œì¼ ë•Œ ì´ë¯¸ì§€ íŽ˜ì´ì§€ ìˆ˜
+    // ì„ í˜• í”„ë ˆìž„ ë²„í¼ ëª¨ë“œì¼ ë•Œ ë‹¤ì´ë ‰íŠ¸ ì»¬ëŸ¬(Direct Color)ì— ê´€ë ¨ëœ í•„ë“œ
+    BYTE bLinearRedMaskSize;            // ë¹¨ê°„ìƒ‰(Red) í•„ë“œê°€ ì°¨ì§€í•˜ëŠ” í¬ê¸° 
+    BYTE bLinearRedFieldPosition;       // ë¹¨ê°„ìƒ‰ í•„ë“œì˜ ìœ„ì¹˜
+    BYTE bLinearGreenMaskSize;          // ë…¹ìƒ‰(Green) í•„ë“œê°€ ì°¨ì§€í•˜ëŠ” í¬ê¸°
+    BYTE bLinearGreenFieldPosition;     // ë…¹ìƒ‰ í•„ë“œì˜ ìœ„ì¹˜
+    BYTE bLinearBlueMaskSize;           // íŒŒëž€ìƒ‰(Blue) í•„ë“œê°€ ì°¨ì§€í•˜ëŠ” í¬ê¸°
+    BYTE bLinearBlueFieldPosition;      // íŒŒëž€ìƒ‰ í•„ë“œì˜ ìœ„ì¹˜
+    BYTE bLinearReservedMaskSize;       // ì˜ˆì•½ëœ í•„ë“œì˜ í¬ê¸°
+    BYTE bLinearReservedFieldPosition;  // ì˜ˆì•½ëœ í•„ë“œì˜ ìœ„ì¹˜
+    DWORD dwMaxPixelClock;              // í”½ì…€ í´ë¡ì˜ ìµœëŒ€ ê°’(Hz)
 
-    BYTE vbReserved[ 189 ];             // ³ª¸ÓÁö ¿µ¿ª
+    BYTE vbReserved[ 189 ];             // ë‚˜ë¨¸ì§€ ì˜ì—­
 } VBEMODEINFOBLOCK;
 
 #pragma pack( pop )
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ÇÔ¼ö
+// í•¨ìˆ˜
 //
 ////////////////////////////////////////////////////////////////////////////////
 VBEMODEINFOBLOCK* kGetVBEModeInfoBlock( void );

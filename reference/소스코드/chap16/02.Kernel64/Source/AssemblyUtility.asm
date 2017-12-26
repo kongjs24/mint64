@@ -1,99 +1,99 @@
-# file      Assembly Utility
+ï»¿# file      Assembly Utility
 # date      2009/01/07
 # author    kkamagui 
 #           Copyright(c)2008 All rights reserved by kkamagui
-# brief     ¾î¼Àºí¸®¾î À¯Æ¿¸®Æ¼ ÇÔ¼ö¿¡ °ü·ÃµÈ ¼Ò½º ÆÄÀÏ
+# brief     ì–´ì…ˆë¸”ë¦¬ì–´ ìœ í‹¸ë¦¬í‹° í•¨ìˆ˜ì— ê´€ë ¨ëœ ì†ŒìŠ¤ íŒŒì¼
 
-[BITS 64]           ; ÀÌÇÏÀÇ ÄÚµå´Â 64ºñÆ® ÄÚµå·Î ¼³Á¤
+[BITS 64]           ; ì´í•˜ì˜ ì½”ë“œëŠ” 64ë¹„íŠ¸ ì½”ë“œë¡œ ì„¤ì •
 
-SECTION .text       ; text ¼½¼Ç(¼¼±×¸ÕÆ®)À» Á¤ÀÇ
+SECTION .text       ; text ì„¹ì…˜(ì„¸ê·¸ë¨¼íŠ¸)ì„ ì •ì˜
 
-; C ¾ð¾î¿¡¼­ È£ÃâÇÒ ¼ö ÀÖµµ·Ï ÀÌ¸§À» ³ëÃâÇÔ(Export)
+; C ì–¸ì–´ì—ì„œ í˜¸ì¶œí•  ìˆ˜ ìžˆë„ë¡ ì´ë¦„ì„ ë…¸ì¶œí•¨(Export)
 global kInPortByte, kOutPortByte, kLoadGDTR, kLoadTR, kLoadIDTR
 global kEnableInterrupt, kDisableInterrupt, kReadRFLAGS
 global kReadTSC
 
-; Æ÷Æ®·ÎºÎÅÍ 1¹ÙÀÌÆ®¸¦ ÀÐÀ½
-;   PARAM: Æ÷Æ® ¹øÈ£
+; í¬íŠ¸ë¡œë¶€í„° 1ë°”ì´íŠ¸ë¥¼ ì½ìŒ
+;   PARAM: í¬íŠ¸ ë²ˆí˜¸
 kInPortByte:
-    push rdx        ; ÇÔ¼ö¿¡¼­ ÀÓ½Ã·Î »ç¿ëÇÏ´Â ·¹Áö½ºÅÍ¸¦ ½ºÅÃ¿¡ ÀúÀå
-                    ; ÇÔ¼öÀÇ ¸¶Áö¸· ºÎºÐ¿¡¼­ ½ºÅÃ¿¡ »ðÀÔµÈ °ªÀ» ²¨³» º¹¿ø
+    push rdx        ; í•¨ìˆ˜ì—ì„œ ìž„ì‹œë¡œ ì‚¬ìš©í•˜ëŠ” ë ˆì§€ìŠ¤í„°ë¥¼ ìŠ¤íƒì— ì €ìž¥
+                    ; í•¨ìˆ˜ì˜ ë§ˆì§€ë§‰ ë¶€ë¶„ì—ì„œ ìŠ¤íƒì— ì‚½ìž…ëœ ê°’ì„ êº¼ë‚´ ë³µì›
 
-    mov rdx, rdi    ; RDX ·¹Áö½ºÅÍ¿¡ ÆÄ¶ó¹ÌÅÍ 1(Æ÷Æ® ¹øÈ£)¸¦ ÀúÀå
-    mov rax, 0      ; RAX ·¹Áö½ºÅÍ¸¦ ÃÊ±âÈ­
-    in al, dx       ; DX ·¹Áö½ºÅÍ¿¡ ÀúÀåµÈ Æ÷Æ® ¾îµå·¹½º¿¡¼­ ÇÑ ¹ÙÀÌÆ®¸¦ ÀÐ¾î
-                    ; AL ·¹Áö½ºÅÍ¿¡ ÀúÀå, AL ·¹Áö½ºÅÍ´Â ÇÔ¼öÀÇ ¹ÝÈ¯ °ªÀ¸·Î »ç¿ëµÊ
+    mov rdx, rdi    ; RDX ë ˆì§€ìŠ¤í„°ì— íŒŒë¼ë¯¸í„° 1(í¬íŠ¸ ë²ˆí˜¸)ë¥¼ ì €ìž¥
+    mov rax, 0      ; RAX ë ˆì§€ìŠ¤í„°ë¥¼ ì´ˆê¸°í™”
+    in al, dx       ; DX ë ˆì§€ìŠ¤í„°ì— ì €ìž¥ëœ í¬íŠ¸ ì–´ë“œë ˆìŠ¤ì—ì„œ í•œ ë°”ì´íŠ¸ë¥¼ ì½ì–´
+                    ; AL ë ˆì§€ìŠ¤í„°ì— ì €ìž¥, AL ë ˆì§€ìŠ¤í„°ëŠ” í•¨ìˆ˜ì˜ ë°˜í™˜ ê°’ìœ¼ë¡œ ì‚¬ìš©ë¨
 
-    pop rdx         ; ÇÔ¼ö¿¡¼­ »ç¿ëÀÌ ³¡³­ ·¹Áö½ºÅÍ¸¦ º¹¿ø
-    ret             ; ÇÔ¼ö¸¦ È£ÃâÇÑ ´ÙÀ½ ÄÚµåÀÇ À§Ä¡·Î º¹±Í
+    pop rdx         ; í•¨ìˆ˜ì—ì„œ ì‚¬ìš©ì´ ëë‚œ ë ˆì§€ìŠ¤í„°ë¥¼ ë³µì›
+    ret             ; í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•œ ë‹¤ìŒ ì½”ë“œì˜ ìœ„ì¹˜ë¡œ ë³µê·€
 
-; Æ÷Æ®¿¡ 1¹ÙÀÌÆ®¸¦ ¾¸
-;   PARAM: Æ÷Æ® ¹øÈ£, µ¥ÀÌÅÍ
+; í¬íŠ¸ì— 1ë°”ì´íŠ¸ë¥¼ ì”€
+;   PARAM: í¬íŠ¸ ë²ˆí˜¸, ë°ì´í„°
 kOutPortByte:
-    push rdx        ; ÇÔ¼ö¿¡¼­ ÀÓ½Ã·Î »ç¿ëÇÏ´Â ·¹Áö½ºÅÍ¸¦ ½ºÅÃ¿¡ ÀúÀå
-    push rax        ; ÇÔ¼öÀÇ ¸¶Áö¸· ºÎºÐ¿¡¼­ ½ºÅÃ¿¡ »ðÀÔµÈ °ªÀ» ²¨³» º¹¿ø
+    push rdx        ; í•¨ìˆ˜ì—ì„œ ìž„ì‹œë¡œ ì‚¬ìš©í•˜ëŠ” ë ˆì§€ìŠ¤í„°ë¥¼ ìŠ¤íƒì— ì €ìž¥
+    push rax        ; í•¨ìˆ˜ì˜ ë§ˆì§€ë§‰ ë¶€ë¶„ì—ì„œ ìŠ¤íƒì— ì‚½ìž…ëœ ê°’ì„ êº¼ë‚´ ë³µì›
 
-    mov rdx, rdi    ; RDX ·¹Áö½ºÅÍ¿¡ ÆÄ¶ó¹ÌÅÍ 1(Æ÷Æ® ¹øÈ£)¸¦ ÀúÀå
-    mov rax, rsi    ; RAX ·¹Áö½ºÅÍ¿¡ ÆÄ¶ó¹ÌÅÍ 2(µ¥ÀÌÅÍ)¸¦ ÀúÀå
-    out dx, al      ; DX ·¹Áö½ºÅÍ¿¡ ÀúÀåµÈ Æ÷Æ® ¾îµå·¹½º¿¡ AL ·¹Áö½ºÅÍ¿¡ ÀúÀåµÈ
-                    ; ÇÑ ¹ÙÀÌÆ®¸¦ ¾¸
+    mov rdx, rdi    ; RDX ë ˆì§€ìŠ¤í„°ì— íŒŒë¼ë¯¸í„° 1(í¬íŠ¸ ë²ˆí˜¸)ë¥¼ ì €ìž¥
+    mov rax, rsi    ; RAX ë ˆì§€ìŠ¤í„°ì— íŒŒë¼ë¯¸í„° 2(ë°ì´í„°)ë¥¼ ì €ìž¥
+    out dx, al      ; DX ë ˆì§€ìŠ¤í„°ì— ì €ìž¥ëœ í¬íŠ¸ ì–´ë“œë ˆìŠ¤ì— AL ë ˆì§€ìŠ¤í„°ì— ì €ìž¥ëœ
+                    ; í•œ ë°”ì´íŠ¸ë¥¼ ì”€
 
-    pop rax         ; ÇÔ¼ö¿¡¼­ »ç¿ëÀÌ ³¡³­ ·¹Áö½ºÅÍ¸¦ º¹¿ø
+    pop rax         ; í•¨ìˆ˜ì—ì„œ ì‚¬ìš©ì´ ëë‚œ ë ˆì§€ìŠ¤í„°ë¥¼ ë³µì›
     pop rdx
-    ret             ; ÇÔ¼ö¸¦ È£ÃâÇÑ ´ÙÀ½ ÄÚµåÀÇ À§Ä¡·Î º¹±Í
+    ret             ; í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•œ ë‹¤ìŒ ì½”ë“œì˜ ìœ„ì¹˜ë¡œ ë³µê·€
 
 
-; GDTR ·¹Áö½ºÅÍ¿¡ GDT Å×ÀÌºíÀ» ¼³Á¤
-;   PARAM: GDT Å×ÀÌºíÀÇ Á¤º¸¸¦ ÀúÀåÇÏ´Â ÀÚ·á±¸Á¶ÀÇ ¾îµå·¹½º
+; GDTR ë ˆì§€ìŠ¤í„°ì— GDT í…Œì´ë¸”ì„ ì„¤ì •
+;   PARAM: GDT í…Œì´ë¸”ì˜ ì •ë³´ë¥¼ ì €ìž¥í•˜ëŠ” ìžë£Œêµ¬ì¡°ì˜ ì–´ë“œë ˆìŠ¤
 kLoadGDTR:
-    lgdt [ rdi ]    ; ÆÄ¶ó¹ÌÅÍ 1(GDTRÀÇ ¾îµå·¹½º)¸¦ ÇÁ·Î¼¼¼­¿¡ ·ÎµåÇÏ¿©
-                    ; GDT Å×ÀÌºíÀ» ¼³Á¤
+    lgdt [ rdi ]    ; íŒŒë¼ë¯¸í„° 1(GDTRì˜ ì–´ë“œë ˆìŠ¤)ë¥¼ í”„ë¡œì„¸ì„œì— ë¡œë“œí•˜ì—¬
+                    ; GDT í…Œì´ë¸”ì„ ì„¤ì •
     ret
 
-; TR ·¹Áö½ºÅÍ¿¡ TSS ¼¼±×¸ÕÆ® µð½ºÅ©¸³ÅÍ ¼³Á¤
-;   PARAM: TSS ¼¼±×¸ÕÆ® µð½ºÅ©¸³ÅÍÀÇ ¿ÀÇÁ¼Â
+; TR ë ˆì§€ìŠ¤í„°ì— TSS ì„¸ê·¸ë¨¼íŠ¸ ë””ìŠ¤í¬ë¦½í„° ì„¤ì •
+;   PARAM: TSS ì„¸ê·¸ë¨¼íŠ¸ ë””ìŠ¤í¬ë¦½í„°ì˜ ì˜¤í”„ì…‹
 kLoadTR:
-    ltr di          ; ÆÄ¶ó¹ÌÅÍ 1(TSS ¼¼±×¸ÕÆ® µð½ºÅ©¸³ÅÍÀÇ ¿ÀÇÁ¼Â)À» ÇÁ·Î¼¼¼­¿¡
-                    ; ¼³Á¤ÇÏ¿© TSS ¼¼±×¸ÕÆ®¸¦ ·Îµå
+    ltr di          ; íŒŒë¼ë¯¸í„° 1(TSS ì„¸ê·¸ë¨¼íŠ¸ ë””ìŠ¤í¬ë¦½í„°ì˜ ì˜¤í”„ì…‹)ì„ í”„ë¡œì„¸ì„œì—
+                    ; ì„¤ì •í•˜ì—¬ TSS ì„¸ê·¸ë¨¼íŠ¸ë¥¼ ë¡œë“œ
     ret
 
-; IDTR ·¹Áö½ºÅÍ¿¡ IDT Å×ÀÌºíÀ» ¼³Á¤
-;   PARAM: IDT Å×ÀÌºíÀÇ Á¤º¸¸¦ ÀúÀåÇÏ´Â ÀÚ·á±¸Á¶ÀÇ ¾îµå·¹½º
+; IDTR ë ˆì§€ìŠ¤í„°ì— IDT í…Œì´ë¸”ì„ ì„¤ì •
+;   PARAM: IDT í…Œì´ë¸”ì˜ ì •ë³´ë¥¼ ì €ìž¥í•˜ëŠ” ìžë£Œêµ¬ì¡°ì˜ ì–´ë“œë ˆìŠ¤
 kLoadIDTR:
-    lidt [ rdi ]    ; ÆÄ¶ó¹ÌÅÍ 1(IDTRÀÇ ¾îµå·¹½º)À» ÇÁ·Î¼¼¼­¿¡ ·ÎµåÇÏ¿©
-                    ; IDT Å×ÀÌºíÀ» ¼³Á¤
+    lidt [ rdi ]    ; íŒŒë¼ë¯¸í„° 1(IDTRì˜ ì–´ë“œë ˆìŠ¤)ì„ í”„ë¡œì„¸ì„œì— ë¡œë“œí•˜ì—¬
+                    ; IDT í…Œì´ë¸”ì„ ì„¤ì •
     ret
 
-; ÀÎÅÍ·´Æ®¸¦ È°¼ºÈ­
-;   PARAM: ¾øÀ½
+; ì¸í„°ëŸ½íŠ¸ë¥¼ í™œì„±í™”
+;   PARAM: ì—†ìŒ
 kEnableInterrupt:
-    sti             ; ÀÎÅÍ·´Æ®¸¦ È°¼ºÈ­
+    sti             ; ì¸í„°ëŸ½íŠ¸ë¥¼ í™œì„±í™”
     ret
 
-; ÀÎÅÍ·´Æ®¸¦ ºñÈ°¼ºÈ­
-;   PARAM: ¾øÀ½
+; ì¸í„°ëŸ½íŠ¸ë¥¼ ë¹„í™œì„±í™”
+;   PARAM: ì—†ìŒ
 kDisableInterrupt:
-    cli             ; ÀÎÅÍ·´Æ®¸¦ ºñÈ°¼ºÈ­
+    cli             ; ì¸í„°ëŸ½íŠ¸ë¥¼ ë¹„í™œì„±í™”
     ret
 
-; RFLAGS ·¹Áö½ºÅÍ¸¦ ÀÐ¾î¼­ µÇµ¹·ÁÁÜ
-;   PARAM: ¾øÀ½
+; RFLAGS ë ˆì§€ìŠ¤í„°ë¥¼ ì½ì–´ì„œ ë˜ëŒë ¤ì¤Œ
+;   PARAM: ì—†ìŒ
 kReadRFLAGS:
-    pushfq                  ; RFLAGS ·¹Áö½ºÅÍ¸¦ ½ºÅÃ¿¡ ÀúÀå
-    pop rax                 ; ½ºÅÃ¿¡ ÀúÀåµÈ RFLAGS ·¹Áö½ºÅÍ¸¦ RAX ·¹Áö½ºÅÍ¿¡ ÀúÀåÇÏ¿©
-                            ; ÇÔ¼öÀÇ ¹ÝÈ¯ °ªÀ¸·Î ¼³Á¤
+    pushfq                  ; RFLAGS ë ˆì§€ìŠ¤í„°ë¥¼ ìŠ¤íƒì— ì €ìž¥
+    pop rax                 ; ìŠ¤íƒì— ì €ìž¥ëœ RFLAGS ë ˆì§€ìŠ¤í„°ë¥¼ RAX ë ˆì§€ìŠ¤í„°ì— ì €ìž¥í•˜ì—¬
+                            ; í•¨ìˆ˜ì˜ ë°˜í™˜ ê°’ìœ¼ë¡œ ì„¤ì •
     ret
 
-; Å¸ÀÓ ½ºÅÆÇÁ Ä«¿îÅÍ¸¦ ÀÐ¾î¼­ ¹ÝÈ¯ 
-;   PARAM: ¾øÀ½    
+; íƒ€ìž„ ìŠ¤íƒ¬í”„ ì¹´ìš´í„°ë¥¼ ì½ì–´ì„œ ë°˜í™˜ 
+;   PARAM: ì—†ìŒ    
 kReadTSC:
-    push rdx                ; RDX ·¹Áö½ºÅÍ¸¦ ½ºÅÃ¿¡ ÀúÀå
+    push rdx                ; RDX ë ˆì§€ìŠ¤í„°ë¥¼ ìŠ¤íƒì— ì €ìž¥
     
-    rdtsc                   ; Å¸ÀÓ ½ºÅÆÇÁ Ä«¿îÅÍ¸¦ ÀÐ¾î¼­ RDX:RAX¿¡ ÀúÀå
+    rdtsc                   ; íƒ€ìž„ ìŠ¤íƒ¬í”„ ì¹´ìš´í„°ë¥¼ ì½ì–´ì„œ RDX:RAXì— ì €ìž¥
     
-    shl rdx, 32             ; RDX ·¹Áö½ºÅÍ¿¡ ÀÖ´Â »óÀ§ 32ºñÆ® TSC °ª°ú RAX ·¹Áö½ºÅÍ¿¡
-    or rax, rdx             ; ÀÖ´Â ÇÏÀ§ 32ºñÆ® TSC °ªÀ» ORÇÏ¿© RAX ·¹Áö½ºÅÍ¿¡ 64ºñÆ® 
-                            ; TSC °ªÀ» ÀúÀå
+    shl rdx, 32             ; RDX ë ˆì§€ìŠ¤í„°ì— ìžˆëŠ” ìƒìœ„ 32ë¹„íŠ¸ TSC ê°’ê³¼ RAX ë ˆì§€ìŠ¤í„°ì—
+    or rax, rdx             ; ìžˆëŠ” í•˜ìœ„ 32ë¹„íŠ¸ TSC ê°’ì„ ORí•˜ì—¬ RAX ë ˆì§€ìŠ¤í„°ì— 64ë¹„íŠ¸ 
+                            ; TSC ê°’ì„ ì €ìž¥
     
     pop rdx
     ret

@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    MPConfigurationTable.h
  *  date    2009/06/20
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   MP ¼³Á¤ Å×ÀÌºí(MP Configuration Table)¿¡ °ü·ÃµÈ Çì´õ ÆÄÀÏ
+ *  brief   MP ì„¤ì • í…Œì´ë¸”(MP Configuration Table)ì— ê´€ë ¨ëœ í—¤ë” íŒŒì¼
  */
 
 #ifndef __MPCONFIGURATIONTABLE__
@@ -13,37 +13,37 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ¸ÅÅ©·Î
+// ë§¤í¬ë¡œ
 //
 ////////////////////////////////////////////////////////////////////////////////
-// MP ÇÃ·ÎÆÃ Æ÷ÀÎÅÍÀÇ Æ¯¼º ¹ÙÀÌÆ®(Feature Byte)
+// MP í”Œë¡œíŒ… í¬ì¸í„°ì˜ íŠ¹ì„± ë°”ì´íŠ¸(Feature Byte)
 #define MP_FLOATINGPOINTER_FEATUREBYTE1_USEMPTABLE  0x00
 #define MP_FLOATINGPOINTER_FEATUREBYTE2_PICMODE     0x80
 
-// ¿£Æ®¸® Å¸ÀÔ(Entry Type)
+// ì—”íŠ¸ë¦¬ íƒ€ì…(Entry Type)
 #define MP_ENTRYTYPE_PROCESSOR                  0
 #define MP_ENTRYTYPE_BUS                        1
 #define MP_ENTRYTYPE_IOAPIC                     2
 #define MP_ENTRYTYPE_IOINTERRUPTASSIGNMENT      3
 #define MP_ENTRYTYPE_LOCALINTERRUPTASSIGNMENT   4
 
-// ÇÁ·Î¼¼¼­ CPU ÇÃ·¡±×
+// í”„ë¡œì„¸ì„œ CPU í”Œë˜ê·¸
 #define MP_PROCESSOR_CPUFLAGS_ENABLE            0x01
 #define MP_PROCESSOR_CPUFLAGS_BSP               0x02
 
-// ¹ö½º Å¸ÀÔ ½ºÆ®¸µ(Bus Type String)
+// ë²„ìŠ¤ íƒ€ì… ìŠ¤íŠ¸ë§(Bus Type String)
 #define MP_BUS_TYPESTRING_ISA                   "ISA"
 #define MP_BUS_TYPESTRING_PCI                   "PCI"
 #define MP_BUS_TYPESTRING_PCMCIA                "PCMCIA"
 #define MP_BUS_TYPESTRING_VESALOCALBUS          "VL"
 
-// ÀÎÅÍ·´Æ® Å¸ÀÔ(Interrupt Type)
+// ì¸í„°ëŸ½íŠ¸ íƒ€ì…(Interrupt Type)
 #define MP_INTERRUPTTYPE_INT                    0
 #define MP_INTERRUPTTYPE_NMI                    1
 #define MP_INTERRUPTTYPE_SMI                    2
 #define MP_INTERRUPTTYPE_EXTINT                 3
 
-// ÀÎÅÍ·´Æ® ÇÃ·¡±×(Interrupt Flags)
+// ì¸í„°ëŸ½íŠ¸ í”Œë˜ê·¸(Interrupt Flags)
 #define MP_INTERRUPT_FLAGS_CONFORMPOLARITY      0x00
 #define MP_INTERRUPT_FLAGS_ACTIVEHIGH           0x01
 #define MP_INTERRUPT_FLAGS_ACTIVELOW            0x03
@@ -53,166 +53,166 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ±¸Á¶Ã¼
+// êµ¬ì¡°ì²´
 //
 ////////////////////////////////////////////////////////////////////////////////
-// 1¹ÙÀÌÆ®·Î Á¤·Ä
+// 1ë°”ì´íŠ¸ë¡œ ì •ë ¬
 #pragma pack( push, 1 )
 
-// MP ÇÃ·ÎÆÃ Æ÷ÀÎÅÍ ÀÚ·á±¸Á¶(MP Floating Pointer Data Structure)
+// MP í”Œë¡œíŒ… í¬ì¸í„° ìë£Œêµ¬ì¡°(MP Floating Pointer Data Structure)
 typedef struct kMPFloatingPointerStruct
 {
-    // ½Ã±×³ÊÃ³, _MP_
+    // ì‹œê·¸ë„ˆì²˜, _MP_
     char vcSignature[ 4 ]; 
-    // MP ¼³Á¤ Å×ÀÌºíÀÌ À§Ä¡ÇÏ´Â ¾îµå·¹½º
+    // MP ì„¤ì • í…Œì´ë¸”ì´ ìœ„ì¹˜í•˜ëŠ” ì–´ë“œë ˆìŠ¤
     DWORD dwMPConfigurationTableAddress;
-    // MP ÇÃ·ÎÆÃ Æ÷ÀÎÅÍ ÀÚ·á±¸Á¶ÀÇ ±æÀÌ, 16 ¹ÙÀÌÆ®
+    // MP í”Œë¡œíŒ… í¬ì¸í„° ìë£Œêµ¬ì¡°ì˜ ê¸¸ì´, 16 ë°”ì´íŠ¸
     BYTE bLength;
-    // MultiProcessor SpecificationÀÇ ¹öÀü
+    // MultiProcessor Specificationì˜ ë²„ì „
     BYTE bRevision;
-    // Ã¼Å©¼¶
+    // ì²´í¬ì„¬
     BYTE bCheckSum;
-    // MP Æ¯¼º ¹ÙÀÌÆ® 1~5
+    // MP íŠ¹ì„± ë°”ì´íŠ¸ 1~5
     BYTE vbMPFeatureByte[ 5 ];
 } MPFLOATINGPOINTER;
 
-// MP ¼³Á¤ Å×ÀÌºí Çì´õ(MP Configuration Table Header) ÀÚ·á±¸Á¶
+// MP ì„¤ì • í…Œì´ë¸” í—¤ë”(MP Configuration Table Header) ìë£Œêµ¬ì¡°
 typedef struct kMPConfigurationTableHeaderStruct
 {
-    // ½Ã±×³ÊÃ³, PCMP
+    // ì‹œê·¸ë„ˆì²˜, PCMP
     char vcSignature[ 4 ];
-    // ±âº» Å×ÀÌºí ±æÀÌ
+    // ê¸°ë³¸ í…Œì´ë¸” ê¸¸ì´
     WORD wBaseTableLength;
-    // MultiProcessor SpecificationÀÇ ¹öÀü
+    // MultiProcessor Specificationì˜ ë²„ì „
     BYTE bRevision;
-    // Ã¼Å©¼¶
+    // ì²´í¬ì„¬
     BYTE bCheckSum;
-    // OEM ID ¹®ÀÚ¿­
+    // OEM ID ë¬¸ìì—´
     char vcOEMIDString[ 8 ];
-    // PRODUCT ID ¹®ÀÚ¿­
+    // PRODUCT ID ë¬¸ìì—´
     char vcProductIDString[ 12 ];
-    // OEMÀÌ Á¤ÀÇÇÑ Å×ÀÌºíÀÇ ¾îµå·¹½º
+    // OEMì´ ì •ì˜í•œ í…Œì´ë¸”ì˜ ì–´ë“œë ˆìŠ¤
     DWORD dwOEMTablePointerAddress;
-    // OEMÀÌ Á¤ÀÇÇÑ Å×ÀÌºíÀÇ Å©±â
+    // OEMì´ ì •ì˜í•œ í…Œì´ë¸”ì˜ í¬ê¸°
     WORD wOEMTableSize;
-    // ±âº» MP ¼³Á¤ Å×ÀÌºí ¿£Æ®¸®ÀÇ °³¼ö
+    // ê¸°ë³¸ MP ì„¤ì • í…Œì´ë¸” ì—”íŠ¸ë¦¬ì˜ ê°œìˆ˜
     WORD wEntryCount;
-    // ·ÎÄÃ APICÀÇ ¸Ş¸ğ¸® ¸Ê I/O ¾îµå·¹½º
+    // ë¡œì»¬ APICì˜ ë©”ëª¨ë¦¬ ë§µ I/O ì–´ë“œë ˆìŠ¤
     DWORD dwMemoryMapIOAddressOfLocalAPIC;
-    // È®Àå Å×ÀÌºíÀÇ ±æÀÌ
+    // í™•ì¥ í…Œì´ë¸”ì˜ ê¸¸ì´
     WORD wExtendedTableLength;
-    // È®Àå Å×ÀÌºíÀÇ Ã¼Å©¼¶
+    // í™•ì¥ í…Œì´ë¸”ì˜ ì²´í¬ì„¬
     BYTE bExtendedTableChecksum;
-    // ¿¹¾àµÊ
+    // ì˜ˆì•½ë¨
     BYTE bReserved;
 } MPCONFIGURATIONTABLEHEADER;
 
-// ÇÁ·Î¼¼¼­ ¿£Æ®¸® ÀÚ·á±¸Á¶(Processor Entry)
+// í”„ë¡œì„¸ì„œ ì—”íŠ¸ë¦¬ ìë£Œêµ¬ì¡°(Processor Entry)
 typedef struct kProcessorEntryStruct
 {
-    // ¿£Æ®¸® Å¸ÀÔ ÄÚµå, 0
+    // ì—”íŠ¸ë¦¬ íƒ€ì… ì½”ë“œ, 0
     BYTE bEntryType;
-    // ÇÁ·Î¼¼¼­¿¡ Æ÷ÇÔµÈ ·ÎÄÃ APICÀÇ ID
+    // í”„ë¡œì„¸ì„œì— í¬í•¨ëœ ë¡œì»¬ APICì˜ ID
     BYTE bLocalAPICID;
-    // ·ÎÄÃ APICÀÇ ¹öÀü
+    // ë¡œì»¬ APICì˜ ë²„ì „
     BYTE bLocalAPICVersion;
-    // CPU ÇÃ·¡±×
+    // CPU í”Œë˜ê·¸
     BYTE bCPUFlags;
-    // CPU ½Ã±×³ÊÃ³
+    // CPU ì‹œê·¸ë„ˆì²˜
     BYTE vbCPUSignature[ 4 ];
-    // Æ¯¼º ÇÃ·¡±×
+    // íŠ¹ì„± í”Œë˜ê·¸
     DWORD dwFeatureFlags;
-    // ¿¹¾àµÊ
+    // ì˜ˆì•½ë¨
     DWORD vdwReserved[ 2 ];
 } PROCESSORENTRY;
 
-// ¹ö½º ¿£Æ®¸® ÀÚ·á±¸Á¶(Bus Entry)
+// ë²„ìŠ¤ ì—”íŠ¸ë¦¬ ìë£Œêµ¬ì¡°(Bus Entry)
 typedef struct kBusEntryStruct
 {
-    // ¿£Æ®¸® Å¸ÀÔ ÄÚµå, 1
+    // ì—”íŠ¸ë¦¬ íƒ€ì… ì½”ë“œ, 1
     BYTE bEntryType;
-    // ¹ö½º ID
+    // ë²„ìŠ¤ ID
     BYTE bBusID;
-    // ¹ö½º Å¸ÀÔ ¹®ÀÚ¿­
+    // ë²„ìŠ¤ íƒ€ì… ë¬¸ìì—´
     char vcBusTypeString[ 6 ];
 } BUSENTRY;
 
-// I/O APIC ¿£Æ®¸® ÀÚ·á±¸Á¶(I/O APIC Entry)
+// I/O APIC ì—”íŠ¸ë¦¬ ìë£Œêµ¬ì¡°(I/O APIC Entry)
 typedef struct kIOAPICEntryStruct
 {
-    // ¿£Æ®¸® Å¸ÀÔ ÄÚµå, 2
+    // ì—”íŠ¸ë¦¬ íƒ€ì… ì½”ë“œ, 2
     BYTE bEntryType;
     // I/O APIC ID
     BYTE bIOAPICID;
-    // I/O APIC ¹öÀü
+    // I/O APIC ë²„ì „
     BYTE bIOAPICVersion;
-    // I/O APIC ÇÃ·¡±×
+    // I/O APIC í”Œë˜ê·¸
     BYTE bIOAPICFlags;
-    // ¸Ş¸ğ¸® ¸Ê I/O ¾îµå·¹½º
+    // ë©”ëª¨ë¦¬ ë§µ I/O ì–´ë“œë ˆìŠ¤
     DWORD dwMemoryMapAddress;
 } IOAPICENTRY;
 
-// I/O ÀÎÅÍ·´Æ® ÁöÁ¤ ¿£Æ®¸® ÀÚ·á±¸Á¶(I/O Interrupt Assignment Entry)
+// I/O ì¸í„°ëŸ½íŠ¸ ì§€ì • ì—”íŠ¸ë¦¬ ìë£Œêµ¬ì¡°(I/O Interrupt Assignment Entry)
 typedef struct kIOInterruptAssignmentEntryStruct
 {
-    // ¿£Æ®¸® Å¸ÀÔ ÄÚµå, 3
+    // ì—”íŠ¸ë¦¬ íƒ€ì… ì½”ë“œ, 3
     BYTE bEntryType;
-    // ÀÎÅÍ·´Æ® Å¸ÀÔ
+    // ì¸í„°ëŸ½íŠ¸ íƒ€ì…
     BYTE bInterruptType;
-    // I/O ÀÎÅÍ·´Æ® ÇÃ·¡±×
+    // I/O ì¸í„°ëŸ½íŠ¸ í”Œë˜ê·¸
     WORD wInterruptFlags;
-    // ¹ß»ıÇÑ ¹ö½º ID
+    // ë°œìƒí•œ ë²„ìŠ¤ ID
     BYTE bSourceBUSID;
-    // ¹ß»ıÇÑ ¹ö½º IRQ
+    // ë°œìƒí•œ ë²„ìŠ¤ IRQ
     BYTE bSourceBUSIRQ;
-    // Àü´ŞÇÒ I/O APIC ID
+    // ì „ë‹¬í•  I/O APIC ID
     BYTE bDestinationIOAPICID;
-    // Àü´ŞÇÒ I/O APIC INTIN
+    // ì „ë‹¬í•  I/O APIC INTIN
     BYTE bDestinationIOAPICINTIN;
 } IOINTERRUPTASSIGNMENTENTRY;
 
-// ·ÎÄÃ ÀÎÅÍ·´Æ® ÁöÁ¤ ¿£Æ®¸® ÀÚ·á±¸Á¶(Local Interrupt Assignment Entry)
+// ë¡œì»¬ ì¸í„°ëŸ½íŠ¸ ì§€ì • ì—”íŠ¸ë¦¬ ìë£Œêµ¬ì¡°(Local Interrupt Assignment Entry)
 typedef struct kLocalInterruptEntryStruct
 {
-    // ¿£Æ®¸® Å¸ÀÔ ÄÚµå, 4
+    // ì—”íŠ¸ë¦¬ íƒ€ì… ì½”ë“œ, 4
     BYTE bEntryType;
-    // ÀÎÅÍ·´Æ® Å¸ÀÔ
+    // ì¸í„°ëŸ½íŠ¸ íƒ€ì…
     BYTE bInterruptType;
-    // ·ÎÄÃ ÀÎÅÍ·´Æ® ÇÃ·¡±×
+    // ë¡œì»¬ ì¸í„°ëŸ½íŠ¸ í”Œë˜ê·¸
     WORD wInterruptFlags;
-    // ¹ß»ıÇÑ ¹ö½º ID
+    // ë°œìƒí•œ ë²„ìŠ¤ ID
     BYTE bSourceBUSID;
-    // ¹ß»ıÇÑ ¹ö½º IRQ
+    // ë°œìƒí•œ ë²„ìŠ¤ IRQ
     BYTE bSourceBUSIRQ;
-    // Àü´ŞÇÒ ·ÎÄÃ APIC ID
+    // ì „ë‹¬í•  ë¡œì»¬ APIC ID
     BYTE bDestinationLocalAPICID;
-    // Àü´ŞÇÒ ·ÎÄÃ APIC INTIN
+    // ì „ë‹¬í•  ë¡œì»¬ APIC INTIN
     BYTE bDestinationLocalAPICLINTIN;
 } LOCALINTERRUPTASSIGNMENTENTRY;
 
 #pragma pack( pop)
 
-// MP ¼³Á¤ Å×ÀÌºíÀ» °ü¸®ÇÏ´Â ÀÚ·á±¸Á¶
+// MP ì„¤ì • í…Œì´ë¸”ì„ ê´€ë¦¬í•˜ëŠ” ìë£Œêµ¬ì¡°
 typedef struct kMPConfigurationManagerStruct
 {
-    // MP ÇÃ·ÎÆÃ Å×ÀÌºí
+    // MP í”Œë¡œíŒ… í…Œì´ë¸”
     MPFLOATINGPOINTER* pstMPFloatingPointer;
-    // MP ¼³Á¤ Å×ÀÌºí Çì´õ
+    // MP ì„¤ì • í…Œì´ë¸” í—¤ë”
     MPCONFIGURATIONTABLEHEADER* pstMPConfigurationTableHeader;
-    // ±âº» MP ¼³Á¤ Å×ÀÌºí ¿£Æ®¸®ÀÇ ½ÃÀÛ ¾îµå·¹½º
+    // ê¸°ë³¸ MP ì„¤ì • í…Œì´ë¸” ì—”íŠ¸ë¦¬ì˜ ì‹œì‘ ì–´ë“œë ˆìŠ¤
     QWORD qwBaseEntryStartAddress;
-    // ÇÁ·Î¼¼¼­ ¶Ç´Â ÄÚ¾îÀÇ ¼ö
+    // í”„ë¡œì„¸ì„œ ë˜ëŠ” ì½”ì–´ì˜ ìˆ˜
     int iProcessorCount;
-    // PIC ¸ğµå Áö¿ø ¿©ºÎ
+    // PIC ëª¨ë“œ ì§€ì› ì—¬ë¶€
     BOOL bUsePICMode;
-    // ISA ¹ö½ºÀÇ ID
+    // ISA ë²„ìŠ¤ì˜ ID
     BYTE bISABusID;
 } MPCONFIGRUATIONMANAGER;
 
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ÇÔ¼ö
+// í•¨ìˆ˜
 //
 ////////////////////////////////////////////////////////////////////////////////
 BOOL kFindMPFloatingPointerAddress( QWORD* pstAddress );

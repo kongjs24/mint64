@@ -1,15 +1,15 @@
-/**
+ï»¿/**
  *  file    Utility.h
  *  date    2009/01/17
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   OS¿¡¼­ »ç¿ëÇÒ À¯Æ¿¸®Æ¼ ÇÔ¼ö¿¡ °ü·ÃµÈ ÆÄÀÏ
+ *  brief   OSì—ì„œ ì‚¬ìš©í•  ìœ í‹¸ë¦¬í‹° í•¨ìˆ˜ì— ê´€ë ¨ëœ íŒŒì¼
  */
 
 #include "Utility.h"
 
 /**
- *  ¸Ş¸ğ¸®¸¦ Æ¯Á¤ °ªÀ¸·Î Ã¤¿ò
+ *  ë©”ëª¨ë¦¬ë¥¼ íŠ¹ì • ê°’ìœ¼ë¡œ ì±„ì›€
  */
 void kMemSet( void* pvDestination, BYTE bData, int iSize )
 {
@@ -22,7 +22,7 @@ void kMemSet( void* pvDestination, BYTE bData, int iSize )
 }
 
 /**
- *  ¸Ş¸ğ¸® º¹»ç
+ *  ë©”ëª¨ë¦¬ ë³µì‚¬
  */
 int kMemCpy( void* pvDestination, const void* pvSource, int iSize )
 {
@@ -37,7 +37,7 @@ int kMemCpy( void* pvDestination, const void* pvSource, int iSize )
 }
 
 /**
- *  ¸Ş¸ğ¸® ºñ±³
+ *  ë©”ëª¨ë¦¬ ë¹„êµ
  */
 int kMemCmp( const void* pvDestination, const void* pvSource, int iSize )
 {

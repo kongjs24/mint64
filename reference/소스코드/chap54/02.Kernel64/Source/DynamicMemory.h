@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    DynmaicMemory.h
  *  date    2009/04/11
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   µ¿Àû ¸Þ¸ð¸® ÇÒ´ç°ú ÇØÁ¦¿¡ °ü·ÃµÈ Çì´õ ÆÄÀÏ
+ *  brief   ë™ì  ë©”ëª¨ë¦¬ í• ë‹¹ê³¼ í•´ì œì— ê´€ë ¨ëœ í—¤ë” íŒŒì¼
  */
 
 #ifndef __DYNAMICMEMORY_H__
@@ -14,57 +14,57 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ¸ÅÅ©·Î
+// ë§¤í¬ë¡œ
 //
 ////////////////////////////////////////////////////////////////////////////////
-// µ¿Àû ¸Þ¸ð¸® ¿µ¿ªÀÇ ½ÃÀÛ ¾îµå·¹½º, 2Mbyte ´ÜÀ§·Î Á¤·Ä
-// ´õ ÀÌ»ó Ä¿³Î ¿µ¿ª¿¡ ½ºÅÃ ¿µ¿ªÀ» ÇÒ´çÇÏÁö ¾ÊÀ¸¹Ç·Î Ä¿³Î ½ºÅÃ Ç®ÀÌ ½ÃÀÛÇÏ´ø À§Ä¡ºÎÅÍ
-// µ¿Àû ¸Þ¸ð¸® ¿µ¿ªÀ» ÇÒ´ç
+// ë™ì  ë©”ëª¨ë¦¬ ì˜ì—­ì˜ ì‹œìž‘ ì–´ë“œë ˆìŠ¤, 2Mbyte ë‹¨ìœ„ë¡œ ì •ë ¬
+// ë” ì´ìƒ ì»¤ë„ ì˜ì—­ì— ìŠ¤íƒ ì˜ì—­ì„ í• ë‹¹í•˜ì§€ ì•Šìœ¼ë¯€ë¡œ ì»¤ë„ ìŠ¤íƒ í’€ì´ ì‹œìž‘í•˜ë˜ ìœ„ì¹˜ë¶€í„°
+// ë™ì  ë©”ëª¨ë¦¬ ì˜ì—­ì„ í• ë‹¹
 #define DYNAMICMEMORY_START_ADDRESS     ( ( TASK_STACKPOOLADDRESS + 0x1fffff ) & \
                                           0xffffffffffe00000 )
-// ¹öµð ºí·ÏÀÇ ÃÖ¼Ò Å©±â, 1KB
+// ë²„ë”” ë¸”ë¡ì˜ ìµœì†Œ í¬ê¸°, 1KB
 #define DYNAMICMEMORY_MIN_SIZE          ( 1 * 1024 )
 
-// ºñÆ®¸ÊÀÇ ÇÃ·¡±×
+// ë¹„íŠ¸ë§µì˜ í”Œëž˜ê·¸
 #define DYNAMICMEMORY_EXIST             0x01
 #define DYNAMICMEMORY_EMPTY             0x00
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ±¸Á¶Ã¼
+// êµ¬ì¡°ì²´
 //
 ////////////////////////////////////////////////////////////////////////////////
-// ºñÆ®¸ÊÀ» °ü¸®ÇÏ´Â ÀÚ·á±¸Á¶
+// ë¹„íŠ¸ë§µì„ ê´€ë¦¬í•˜ëŠ” ìžë£Œêµ¬ì¡°
 typedef struct kBitmapStruct
 {
     BYTE* pbBitmap;
     QWORD qwExistBitCount;
 } BITMAP;
 
-// ¹öµð ºí·ÏÀ» °ü¸®ÇÏ´Â ÀÚ·á±¸Á¶
+// ë²„ë”” ë¸”ë¡ì„ ê´€ë¦¬í•˜ëŠ” ìžë£Œêµ¬ì¡°
 typedef struct kDynamicMemoryManagerStruct
 {
-    // ÀÚ·á±¸Á¶ µ¿±âÈ­¸¦ À§ÇÑ ½ºÇÉ¶ô
+    // ìžë£Œêµ¬ì¡° ë™ê¸°í™”ë¥¼ ìœ„í•œ ìŠ¤í•€ë½
     SPINLOCK stSpinLock;
     
-    // ºí·Ï ¸®½ºÆ®ÀÇ ÃÑ °³¼ö¿Í °¡Àå Å©±â°¡ °¡Àå ÀÛÀº ºí·ÏÀÇ °³¼ö, ±×¸®°í ÇÒ´çµÈ ¸Þ¸ð¸® Å©±â
+    // ë¸”ë¡ ë¦¬ìŠ¤íŠ¸ì˜ ì´ ê°œìˆ˜ì™€ ê°€ìž¥ í¬ê¸°ê°€ ê°€ìž¥ ìž‘ì€ ë¸”ë¡ì˜ ê°œìˆ˜, ê·¸ë¦¬ê³  í• ë‹¹ëœ ë©”ëª¨ë¦¬ í¬ê¸°
     int iMaxLevelCount;
     int iBlockCountOfSmallestBlock;
     QWORD qwUsedSize;
     
-    // ºí·Ï Ç®ÀÇ ½ÃÀÛ ¾îµå·¹½º¿Í ¸¶Áö¸· ¾îµå·¹½º
+    // ë¸”ë¡ í’€ì˜ ì‹œìž‘ ì–´ë“œë ˆìŠ¤ì™€ ë§ˆì§€ë§‰ ì–´ë“œë ˆìŠ¤
     QWORD qwStartAddress;
     QWORD qwEndAddress;
     
-    // ÇÒ´çµÈ ¸Þ¸ð¸®°¡ ¼ÓÇÑ ºí·Ï ¸®½ºÆ®ÀÇ ÀÎµ¦½º¸¦ ÀúÀåÇÏ´Â ¿µ¿ª°ú ºñÆ®¸Ê ÀÚ·á±¸Á¶ÀÇ 
-    // ¾îµå·¹½º
+    // í• ë‹¹ëœ ë©”ëª¨ë¦¬ê°€ ì†í•œ ë¸”ë¡ ë¦¬ìŠ¤íŠ¸ì˜ ì¸ë±ìŠ¤ë¥¼ ì €ìž¥í•˜ëŠ” ì˜ì—­ê³¼ ë¹„íŠ¸ë§µ ìžë£Œêµ¬ì¡°ì˜ 
+    // ì–´ë“œë ˆìŠ¤
     BYTE* pbAllocatedBlockListIndex;
     BITMAP* pstBitmapOfLevel;
 } DYNAMICMEMORY;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ÇÔ¼ö
+// í•¨ìˆ˜
 //
 ////////////////////////////////////////////////////////////////////////////////
 void kInitializeDynamicMemory( void );

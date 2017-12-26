@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    Task.h
  *  date    2009/02/19
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   ÅÂ½ºÅ©¸¦ Ã³¸®ÇÏ´Â ÇÔ¼ö¿¡ °ü·ÃµÈ ÆÄÀÏ
+ *  brief   íƒœìŠ¤í¬ë¥¼ ì²˜ë¦¬í•˜ëŠ” í•¨ìˆ˜ì— ê´€ë ¨ëœ íŒŒì¼
  */
 
 #ifndef __TASK_H__
@@ -13,14 +13,14 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ¸ÅÅ©·Î
+// ë§¤í¬ë¡œ
 //
 ////////////////////////////////////////////////////////////////////////////////
-// SS, RSP, RFLAGS, CS, RIP + ISR¿¡¼­ ÀúÀåÇÏ´Â 19°³ÀÇ ·¹Áö½ºÅÍ
+// SS, RSP, RFLAGS, CS, RIP + ISRì—ì„œ ì €ì¥í•˜ëŠ” 19ê°œì˜ ë ˆì§€ìŠ¤í„°
 #define TASK_REGISTERCOUNT     ( 5 + 19 )
 #define TASK_REGISTERSIZE       8
 
-// Context ÀÚ·á±¸Á¶ÀÇ ·¹Áö½ºÅÍ ¿ÀÇÁ¼Â
+// Context ìë£Œêµ¬ì¡°ì˜ ë ˆì§€ìŠ¤í„° ì˜¤í”„ì…‹
 #define TASK_GSOFFSET           0
 #define TASK_FSOFFSET           1
 #define TASK_ESOFFSET           2
@@ -48,29 +48,29 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ±¸Á¶Ã¼
+// êµ¬ì¡°ì²´
 //
 ////////////////////////////////////////////////////////////////////////////////
-// 1¹ÙÀÌÆ®·Î Á¤·Ä
+// 1ë°”ì´íŠ¸ë¡œ ì •ë ¬
 #pragma pack( push, 1 )
 
-// ÄÜÅØ½ºÆ®¿¡ °ü·ÃµÈ ÀÚ·á±¸Á¶
+// ì½˜í…ìŠ¤íŠ¸ì— ê´€ë ¨ëœ ìë£Œêµ¬ì¡°
 typedef struct kContextStruct
 {
     QWORD vqRegister[ TASK_REGISTERCOUNT ];
 } CONTEXT;
 
-// ÅÂ½ºÅ©ÀÇ »óÅÂ¸¦ °ü¸®ÇÏ´Â ÀÚ·á±¸Á¶
+// íƒœìŠ¤í¬ì˜ ìƒíƒœë¥¼ ê´€ë¦¬í•˜ëŠ” ìë£Œêµ¬ì¡°
 typedef struct kTaskControlBlockStruct
 {
-    // ÄÜÅØ½ºÆ®
+    // ì½˜í…ìŠ¤íŠ¸
     CONTEXT stContext;
 
-    // ID ¹× ÇÃ·¡±×
+    // ID ë° í”Œë˜ê·¸
     QWORD qwID;
     QWORD qwFlags;
 
-    // ½ºÅÃÀÇ ¾îµå·¹½º¿Í Å©±â
+    // ìŠ¤íƒì˜ ì–´ë“œë ˆìŠ¤ì™€ í¬ê¸°
     void* pvStackAddress;
     QWORD qwStackSize;
 } TCB;
@@ -79,7 +79,7 @@ typedef struct kTaskControlBlockStruct
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ÇÔ¼ö
+// í•¨ìˆ˜
 //
 ////////////////////////////////////////////////////////////////////////////////
 void kSetUpTask( TCB* pstTCB, QWORD qwID, QWORD qwFlags, QWORD qwEntryPointAddress,

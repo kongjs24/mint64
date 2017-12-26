@@ -1,9 +1,9 @@
-/**
+О╩©/**
  *  file    IOAPIC.h
  *  date    2009/07/19
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   I/O APIC©║ ╟Э╥ц╣х гЛ╢У фдюо
+ *  brief   I/O APICЛ≈░ Й╢─К═╗К░° М≈╓К█■ М▄▄Л²╪
  */
 
 #ifndef __IOAPIC_H__
@@ -13,47 +13,47 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-//  ╦ее╘╥н
+//  К╖╓М│╛К║°
 //
 ////////////////////////////////////////////////////////////////////////////////
-// I/O APIC ╥╧аЖ╫╨ем ©юга╪б ╟Э╥ц ╦ее╘╥н
+// I/O APIC К═┬Л╖─Л┼╓М└╟ Л≤╓М■└Л┘▀ Й╢─К═╗ К╖╓М│╛К║°
 #define IOAPIC_REGISTER_IOREGISTERSELECTOR              0x00
 #define IOAPIC_REGISTER_IOWINDOW                        0x10
 
-// ю╖юг ╣н ╥╧аЖ╫╨ем╥н а╒╠ыгр ╤╖ ╩Г©Кго╢б ╥╧аЖ╫╨емюг юн╣╕╫╨
+// Л°└Л²≤ К▒░ К═┬Л╖─Л┼╓М└╟К║° Л═▒Й╥╪М∙═ К∙▄ Л┌╛Л ╘М∙≤К┼■ К═┬Л╖─Л┼╓М└╟Л²≤ Л²╦К█╠Л┼╓
 #define IOAPIC_REGISTERINDEX_IOAPICID                   0x00
 #define IOAPIC_REGISTERINDEX_IOAPICVERSION              0x01
 #define IOAPIC_REGISTERINDEX_IOAPICARBID                0x02
 #define IOAPIC_REGISTERINDEX_LOWIOREDIRECTIONTABLE      0x10
 #define IOAPIC_REGISTERINDEX_HIGHIOREDIRECTIONTABLE     0x11
 
-// IO ╦╝╢ыюл╥╨╪г евюл╨Мюг цж╢К ╟Ё╪Ж
+// IO К╕╛К▀╓Л²╢К═┴Л┘≤ М┘▄Л²╢К╦■Л²≤ Л╣°К▄─ Й╟°Л┬≤
 #define IOAPIC_MAXIOREDIRECTIONTABLECOUNT               24
 
-// юнем╥╢ф╝ ╦╤╫╨е╘(Interrupt Mask) ╟Э╥ц ╦ее╘╥н
+// Л²╦М└╟К÷╫М┼╦ К╖┬Л┼╓М│╛(Interrupt Mask) Й╢─К═╗ К╖╓М│╛К║°
 #define IOAPIC_INTERRUPT_MASK                           0x01
 
-// ф╝╦╝╟е ╦П╣Е(Trigger Mode) ╟Э╥ц ╦ее╘╥н
+// М┼╦К╕╛Й╠╟ К╙╗К⌠°(Trigger Mode) Й╢─К═╗ К╖╓М│╛К║°
 #define IOAPIC_TRIGGERMODE_LEVEL                        0x80
 #define IOAPIC_TRIGGERMODE_EDGE                         0x00
 
-// ╦╝╦Пф╝ IRR(Remote IRR) ╟Э╥ц ╦ее╘╥н
+// К╕╛К╙╗М┼╦ IRR(Remote IRR) Й╢─К═╗ К╖╓М│╛К║°
 #define IOAPIC_REMOTEIRR_EOI                            0x40
 #define IOAPIC_REMOTEIRR_ACCEPT                         0x00
 
-// юнем╥╢ф╝ ют╥б ги ╠ь╪╨(Interrupt Input Pin Polarity) ╟Э╥ц ╦ее╘╥н
+// Л²╦М└╟К÷╫М┼╦ Л·┘К═╔ М∙─ Й╥╧Л└╠(Interrupt Input Pin Polarity) Й╢─К═╗ К╖╓М│╛К║°
 #define IOAPIC_POLARITY_ACTIVELOW                       0x20
 #define IOAPIC_POLARITY_ACTIVEHIGH                      0x00
 
-// юЭ╢ч ╩Себ(Delivery Status) ╟Э╥ц ╦ее╘╥н
+// Л═└К▀╛ Л┐│М┐°(Delivery Status) Й╢─К═╗ К╖╓М│╛К║°
 #define IOAPIC_DELIFVERYSTATUS_SENDPENDING              0x10
 #define IOAPIC_DELIFVERYSTATUS_IDLE                     0x00
 
-// ╦ЯюШаЖ ╦П╣Е(Destination Mode) ╟Э╥ц ╦ее╘╥н
+// К╙╘Л═│Л╖─ К╙╗К⌠°(Destination Mode) Й╢─К═╗ К╖╓М│╛К║°
 #define IOAPIC_DESTINATIONMODE_LOGICALMODE              0x08
 #define IOAPIC_DESTINATIONMODE_PHYSICALMODE             0x00
 
-// юЭ╢ч ╦П╣Е(Delivery Mode) ╟Э╥ц ╦ее╘╥н
+// Л═└К▀╛ К╙╗К⌠°(Delivery Mode) Й╢─К═╗ К╖╓М│╛К║°
 #define IOAPIC_DELIVERYMODE_FIXED                       0x00
 #define IOAPIC_DELIVERYMODE_LOWESTPRIORITY              0x01
 #define IOAPIC_DELIVERYMODE_SMI                         0x02
@@ -61,53 +61,53 @@
 #define IOAPIC_DELIVERYMODE_INIT                        0x05
 #define IOAPIC_DELIVERYMODE_EXTINT                      0x07
 
-// IRQ╦╕ I/O APICюг юнем╥╢ф╝ ют╥б ги(INTIN)ю╦╥н ╢Кюю╫це╟╢б евюл╨Мюг цж╢К е╘╠Б
+// IRQК╔╪ I/O APICЛ²≤ Л²╦М└╟К÷╫М┼╦ Л·┘К═╔ М∙─(INTIN)Л°╪К║° К▄─Л²▒Л▀°М┌╓К┼■ М┘▄Л²╢К╦■Л²≤ Л╣°К▄─ М│╛Й╦╟
 #define IOAPIC_MAXIRQTOINTINMAPCOUNT                    16
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-//  ╠╦а╤ц╪
+//  Й╣╛Л║╟Л╡╢
 //
 ////////////////////////////////////////////////////////////////////////////////
-// 1╧ыюлф╝╥н а╓╥д
+// 1К╟■Л²╢М┼╦К║° Л═∙К═╛
 #pragma pack( push, 1 )
 
-// IO ╦╝╢ыюл╥╨╪г евюл╨Мюг юз╥А╠╦а╤
+// IO К╕╛К▀╓Л²╢К═┴Л┘≤ М┘▄Л²╢К╦■Л²≤ Л·░Кё▄Й╣╛Л║╟
 typedef struct kIORedirectionTableStruct
 {
-    // юнем╥╢ф╝ ╨╓ем
+    // Л²╦М└╟К÷╫М┼╦ К╡║М└╟
     BYTE bVector;  
     
-    // ф╝╦╝╟е ╦П╣Е, ╦╝╦Пф╝ IRR, юнем╥╢ф╝ ют╥б ги ╠ь╪╨, юЭ╢ч ╩Себ, ╦ЯюШаЖ ╦П╣Е, 
-    // юЭ╢ч ╦П╣Е╦╕ ╢Ц╢Гго╢б гй╣Е 
+    // М┼╦К╕╛Й╠╟ К╙╗К⌠°, К╕╛К╙╗М┼╦ IRR, Л²╦М└╟К÷╫М┼╦ Л·┘К═╔ М∙─ Й╥╧Л└╠, Л═└К▀╛ Л┐│М┐°, К╙╘Л═│Л╖─ К╙╗К⌠°, 
+    // Л═└К▀╛ К╙╗К⌠°К╔╪ К▀╢К▀╧М∙≤К┼■ М∙└К⌠° 
     BYTE bFlagsAndDeliveryMode;
     
-    // юнем╥╢ф╝ ╦╤╫╨е╘
+    // Л²╦М└╟К÷╫М┼╦ К╖┬Л┼╓М│╛
     BYTE bInterruptMask;
     
-    // ©╧╬Ю╣х ©╣©╙
+    // Л≤┬Л∙╫К░° Л≤│Л≈╜
     BYTE vbReserved[ 4 ];
     
-    // юнем╥╢ф╝╦╕ юЭ╢чгр APIC ID
+    // Л²╦М└╟К÷╫М┼╦К╔╪ Л═└К▀╛М∙═ APIC ID
     BYTE bDestination;
 } IOREDIRECTIONTABLE;
 
 #pragma pack( pop )
 
-// I/O APIC╦╕ ╟Э╦╝го╢б юз╥А╠╦а╤
+// I/O APICК╔╪ Й╢─К╕╛М∙≤К┼■ Л·░Кё▄Й╣╛Л║╟
 typedef struct kIOAPICManagerStruct
 {
-    // ISA ╧Ж╫╨╟║ ©╛╟А╣х I/O APICюг ╦ч╦П╦╝ ╦й ╬Н╣Е╥╧╫╨
+    // ISA К╡└Л┼╓Й╟─ Л≈╟Й╡╟К░° I/O APICЛ²≤ К╘■К╙╗К╕╛ К╖╣ Л√╢К⌠°К═┬Л┼╓
     QWORD qwIOAPICBaseAddressOfISA;
     
-    // IRQ©м I/O APICюг юнем╥╢ф╝ ют╥б ги(INTIN)╟ёюг ©╛╟А ╟Э╟Х╦╕ юЗюЕго╢б евюл╨М
+    // IRQЛ≥─ I/O APICЛ²≤ Л²╦М└╟К÷╫М┼╦ Л·┘К═╔ М∙─(INTIN)Й╟└Л²≤ Л≈╟Й╡╟ Й╢─ЙЁ└К╔╪ Л═─Л·╔М∙≤К┼■ М┘▄Л²╢К╦■
     BYTE vbIRQToINTINMap[ IOAPIC_MAXIRQTOINTINMAPCOUNT ];    
 } IOAPICMANAGER;
 
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-//  гт╪Ж
+//  М∙╗Л┬≤
 //
 ////////////////////////////////////////////////////////////////////////////////
 QWORD kGetIOAPICBaseAddressOfISA( void );

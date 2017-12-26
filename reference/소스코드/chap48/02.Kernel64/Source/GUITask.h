@@ -1,9 +1,9 @@
-/**
+О╩©/**
  *  file    GUITask.h
  *  date    2009/10/20
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   GUI еб╫╨е╘©║ ╟Э╥ц╣х гт╪Ж╦╕ а╓юггя гЛ╢У фдюо
+ *  brief   GUI М┐°Л┼╓М│╛Л≈░ Й╢─К═╗К░° М∙╗Л┬≤К╔╪ Л═∙Л²≤М∙° М≈╓К█■ М▄▄Л²╪
  */
 
 #ifndef __GUITASK_H__
@@ -14,46 +14,46 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ╦ее╘╥н
+// К╖╓М│╛К║°
 //
 ////////////////////////////////////////////////////////////////////////////////
-// еб╫╨е╘╟║ ╨╦Ё╩╢б ю╞юЗ юл╨╔ф╝ е╦ют а╓юг
+// М┐°Л┼╓М│╛Й╟─ КЁ╢К┌╢К┼■ Л°═Л═─ Л²╢К╡╓М┼╦ М┐─Л·┘ Л═∙Л²≤
 #define EVENT_USER_TESTMESSAGE          0x80000001
 
-// ╫ц╫╨еш ╦П╢оем еб╫╨е╘ ╦ее╘╥н
-// га╥н╪╪╪╜ а╓╨╦╦╕ г╔╫цго╢б ╦╥╢Кюг Ёй╨Я
+// Л▀°Л┼╓М┘° К╙╗К▀┬М└╟ М┐°Л┼╓М│╛ К╖╓М│╛К║°
+// М■└К║°Л└╦Л└° Л═∙КЁ╢К╔╪ М▒°Л▀°М∙≤К┼■ К╖┴К▄─Л²≤ К└┬К╧└
 #define SYSTEMMONITOR_PROCESSOR_WIDTH       150
-// га╥н╪╪╪╜ а╓╨╦╦╕ г╔╫цго╢б ©╣©╙╟З ©╣©╙ ╩Гюлюг ©╘╧И
+// М■└К║°Л└╦Л└° Л═∙КЁ╢К╔╪ М▒°Л▀°М∙≤К┼■ Л≤│Л≈╜ЙЁ╪ Л≤│Л≈╜ Л┌╛Л²╢Л²≤ Л≈╛К╟╠
 #define SYSTEMMONITOR_PROCESSOR_MARGIN      20
-// га╥н╪╪╪╜ а╓╨╦╦╕ г╔╫цго╢б ©╣©╙юг ЁТюл
+// М■└К║°Л└╦Л└° Л═∙КЁ╢К╔╪ М▒°Л▀°М∙≤К┼■ Л≤│Л≈╜Л²≤ К├▓Л²╢
 #define SYSTEMMONITOR_PROCESSOR_HEIGHT      150
-// ╫ц╫╨еш ╦П╢оем ю╘╣╣©Люг ЁТюл
+// Л▀°Л┼╓М┘° К╙╗К▀┬М└╟ Л°┬К▐└Л ╟Л²≤ К├▓Л²╢
 #define SYSTEMMONITOR_WINDOW_HEIGHT         310
-// ╦ч╦П╦╝ а╓╨╦╦╕ г╔╫цго╢б ©╣©╙юг ЁТюл
+// К╘■К╙╗К╕╛ Л═∙КЁ╢К╔╪ М▒°Л▀°М∙≤К┼■ Л≤│Л≈╜Л²≤ К├▓Л²╢
 #define SYSTEMMONITOR_MEMORY_HEIGHT         100
-// ╦╥╢Кюг ╩Ж╠Р
+// К╖┴К▄─Л²≤ Л┐┴Й╧■
 #define SYSTEMMONITOR_BAR_COLOR             RGB( 55, 215, 47 )
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-//  гт╪Ж
+//  М∙╗Л┬≤
 //
 ////////////////////////////////////////////////////////////////////////////////
-// ╠Б╨╩ GUI еб╫╨е╘©м Hello World GUI еб╫╨е╘
+// Й╦╟КЁ╦ GUI М┐°Л┼╓М│╛Л≥─ Hello World GUI М┐°Л┼╓М│╛
 void kBaseGUITask( void );
 void kHelloWorldGUITask( void );
 
-// ╫ц╫╨еш ╦П╢оем еб╫╨е╘ гт╪Ж
+// Л▀°Л┼╓М┘° К╙╗К▀┬М└╟ М┐°Л┼╓М│╛ М∙╗Л┬≤
 void kSystemMonitorTask( void );
 static void kDrawProcessorInformation( QWORD qwWindowID, int iX, int iY, 
         BYTE bAPICID );
 static void kDrawMemoryInformation( QWORD qwWindowID, int iY, int iWindowWidth );
 
-// GUI дэ╪ж ╪п еб╫╨е╘ гт╪Ж
+// GUI Л╫≤Л├■ Л┘╦ М┐°Л┼╓М│╛ М∙╗Л┬≤
 void kGUIConsoleShellTask( void );
 static void kProcessConsoleBuffer( QWORD qwWindowID );
 
-// юл╧лаЖ ╨Д╬Н еб╫╨е╘ гт╪Ж
+// Л²╢К╞╦Л╖─ К╥╟Л√╢ М┐°Л┼╓М│╛ М∙╗Л┬≤
 void kImageViewerTask( void );
 static void kDrawFileName( QWORD qwWindowID, RECT* pstArea, char *pcFileName, 
         int iNameLength );

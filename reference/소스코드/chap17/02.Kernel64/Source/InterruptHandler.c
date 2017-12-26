@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    InterruptHandler.c
  *  date    2009/01/24
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   ÀÎÅÍ·´Æ® ¹× ¿¹¿Ü ÇÚµé·¯¿¡ °ü·ÃµÈ ¼Ò½º ÆÄÀÏ
+ *  brief   ì¸í„°ëŸ½íŠ¸ ë° ì˜ˆì™¸ í•¸ë“¤ëŸ¬ì— ê´€ë ¨ëœ ì†ŒìŠ¤ íŒŒì¼
  */
 
 #include "InterruptHandler.h"
@@ -12,13 +12,13 @@
 #include "Console.h"
 
 /**
- *  °øÅëÀ¸·Î »ç¿ëÇÏ´Â ¿¹¿Ü ÇÚµé·¯
+ *  ê³µí†µìœ¼ë¡œ ì‚¬ìš©í•˜ëŠ” ì˜ˆì™¸ í•¸ë“¤ëŸ¬
  */
 void kCommonExceptionHandler( int iVectorNumber, QWORD qwErrorCode )
 {
     char vcBuffer[ 3 ] = { 0, };
 
-    // ÀÎÅÍ·´Æ® º¤ÅÍ¸¦ È­¸é ¿À¸¥ÂÊ À§¿¡ 2ÀÚ¸® Á¤¼ö·Î Ãâ·Â
+    // ì¸í„°ëŸ½íŠ¸ ë²¡í„°ë¥¼ í™”ë©´ ì˜¤ë¥¸ìª½ ìœ„ì— 2ìë¦¬ ì •ìˆ˜ë¡œ ì¶œë ¥
     vcBuffer[ 0 ] = '0' + iVectorNumber / 10;
     vcBuffer[ 1 ] = '0' + iVectorNumber % 10;
     
@@ -32,7 +32,7 @@ void kCommonExceptionHandler( int iVectorNumber, QWORD qwErrorCode )
 }
 
 /**
- *  °øÅëÀ¸·Î »ç¿ëÇÏ´Â ÀÎÅÍ·´Æ® ÇÚµé·¯ 
+ *  ê³µí†µìœ¼ë¡œ ì‚¬ìš©í•˜ëŠ” ì¸í„°ëŸ½íŠ¸ í•¸ë“¤ëŸ¬ 
  */
 void kCommonInterruptHandler( int iVectorNumber )
 {
@@ -40,22 +40,22 @@ void kCommonInterruptHandler( int iVectorNumber )
     static int g_iCommonInterruptCount = 0;
 
     //=========================================================================
-    // ÀÎÅÍ·´Æ®°¡ ¹ß»ıÇßÀ½À» ¾Ë¸®·Á°í ¸Ş½ÃÁö¸¦ Ãâ·ÂÇÏ´Â ºÎºĞ
-    // ÀÎÅÍ·´Æ® º¤ÅÍ¸¦ È­¸é ¿À¸¥ÂÊ À§¿¡ 2ÀÚ¸® Á¤¼ö·Î Ãâ·Â
+    // ì¸í„°ëŸ½íŠ¸ê°€ ë°œìƒí–ˆìŒì„ ì•Œë¦¬ë ¤ê³  ë©”ì‹œì§€ë¥¼ ì¶œë ¥í•˜ëŠ” ë¶€ë¶„
+    // ì¸í„°ëŸ½íŠ¸ ë²¡í„°ë¥¼ í™”ë©´ ì˜¤ë¥¸ìª½ ìœ„ì— 2ìë¦¬ ì •ìˆ˜ë¡œ ì¶œë ¥
     vcBuffer[ 5 ] = '0' + iVectorNumber / 10;
     vcBuffer[ 6 ] = '0' + iVectorNumber % 10;
-    // ¹ß»ıÇÑ È½¼ö Ãâ·Â
+    // ë°œìƒí•œ íšŸìˆ˜ ì¶œë ¥
     vcBuffer[ 8 ] = '0' + g_iCommonInterruptCount;
     g_iCommonInterruptCount = ( g_iCommonInterruptCount + 1 ) % 10;
     kPrintStringXY( 70, 0, vcBuffer );
     //=========================================================================
     
-    // EOI Àü¼Û
+    // EOI ì „ì†¡
     kSendEOIToPIC( iVectorNumber - PIC_IRQSTARTVECTOR );
 }
 
 /**
- *  Å°º¸µå ÀÎÅÍ·´Æ®ÀÇ ÇÚµé·¯
+ *  í‚¤ë³´ë“œ ì¸í„°ëŸ½íŠ¸ì˜ í•¸ë“¤ëŸ¬
  */
 void kKeyboardHandler( int iVectorNumber )
 {
@@ -64,23 +64,23 @@ void kKeyboardHandler( int iVectorNumber )
     BYTE bTemp;
 
     //=========================================================================
-    // ÀÎÅÍ·´Æ®°¡ ¹ß»ıÇßÀ½À» ¾Ë¸®·Á°í ¸Ş½ÃÁö¸¦ Ãâ·ÂÇÏ´Â ºÎºĞ
-    // ÀÎÅÍ·´Æ® º¤ÅÍ¸¦ È­¸é ¿ŞÂÊ À§¿¡ 2ÀÚ¸® Á¤¼ö·Î Ãâ·Â
+    // ì¸í„°ëŸ½íŠ¸ê°€ ë°œìƒí–ˆìŒì„ ì•Œë¦¬ë ¤ê³  ë©”ì‹œì§€ë¥¼ ì¶œë ¥í•˜ëŠ” ë¶€ë¶„
+    // ì¸í„°ëŸ½íŠ¸ ë²¡í„°ë¥¼ í™”ë©´ ì™¼ìª½ ìœ„ì— 2ìë¦¬ ì •ìˆ˜ë¡œ ì¶œë ¥
     vcBuffer[ 5 ] = '0' + iVectorNumber / 10;
     vcBuffer[ 6 ] = '0' + iVectorNumber % 10;
-    // ¹ß»ıÇÑ È½¼ö Ãâ·Â
+    // ë°œìƒí•œ íšŸìˆ˜ ì¶œë ¥
     vcBuffer[ 8 ] = '0' + g_iKeyboardInterruptCount;
     g_iKeyboardInterruptCount = ( g_iKeyboardInterruptCount + 1 ) % 10;
     kPrintStringXY( 0, 0, vcBuffer );
     //=========================================================================
 
-    // Å°º¸µå ÄÁÆ®·Ñ·¯¿¡¼­ µ¥ÀÌÅÍ¸¦ ÀĞ¾î¼­ ASCII·Î º¯È¯ÇÏ¿© Å¥¿¡ »ğÀÔ
+    // í‚¤ë³´ë“œ ì»¨íŠ¸ë¡¤ëŸ¬ì—ì„œ ë°ì´í„°ë¥¼ ì½ì–´ì„œ ASCIIë¡œ ë³€í™˜í•˜ì—¬ íì— ì‚½ì…
     if( kIsOutputBufferFull() == TRUE )
     {
         bTemp = kGetKeyboardScanCode();
         kConvertScanCodeAndPutQueue( bTemp );
     }
 
-    // EOI Àü¼Û
+    // EOI ì „ì†¡
     kSendEOIToPIC( iVectorNumber - PIC_IRQSTARTVECTOR );
 }

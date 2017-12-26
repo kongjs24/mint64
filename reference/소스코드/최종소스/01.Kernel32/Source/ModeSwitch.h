@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    ModeSwitch.h
  *  date    2009/01/01
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   ¸ğµå ÀüÈ¯¿¡ °ü·ÃµÈ ÇÔ¼öµéÀ» Á¤ÀÇÇÑ ÆÄÀÏ
+ *  brief   ëª¨ë“œ ì „í™˜ì— ê´€ë ¨ëœ í•¨ìˆ˜ë“¤ì„ ì •ì˜í•œ íŒŒì¼
  */
  
 #ifndef __MODESWITCH_H__
@@ -13,7 +13,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-//  ÇÔ¼ö
+//  í•¨ìˆ˜
 //
 ////////////////////////////////////////////////////////////////////////////////
 void kReadCPUID( DWORD dwEAX, DWORD* pdwEAX, DWORD* pdwEBX, DWORD* pdwECX, 

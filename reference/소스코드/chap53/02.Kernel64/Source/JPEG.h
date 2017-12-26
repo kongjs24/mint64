@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * JPEG decoding engine for DCT-baseline
  *
  *      JPEGLS - Copyright(c) 2004 by Hajime Uchimura(nikutama@gmail.com)
@@ -17,18 +17,18 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ±¸Á¶Ã¼
+// êµ¬ì¡°ì²´
 //
 ////////////////////////////////////////////////////////////////////////////////
-// ÇãÇÁ¸¸ Å×ÀÌºí
+// í—ˆí”„ë§Œ í…Œì´ë¸”
 typedef struct{
-    int elem; // ¿ä¼Ò °³¼ö
+    int elem; // ìš”ì†Œ ê°œìˆ˜
     unsigned short code[256];
     unsigned char  size[256];
     unsigned char  value[256];
 }HUFF;
 
-// JPEG µğÄÚµùÀ» À§ÇÑ ÀÚ·á±¸Á¶
+// JPEG ë””ì½”ë”©ì„ ìœ„í•œ ìë£Œêµ¬ì¡°
 typedef struct{
     // SOF
     int width;
@@ -50,14 +50,14 @@ typedef struct{
     int scan_id[3];
     int scan_ac[3];
     int scan_dc[3];
-    int scan_h[3];  // »ùÇÃ¸µ ¿ä¼Ò ¼ö
-    int scan_v[3];  // »ùÇÃ¸µ ¿ä¼Ò ¼ö
-    int scan_qt[3]; // ¾çÀÚÈ­ Å×ÀÌºí ÀÎµ¦½º
+    int scan_h[3];  // ìƒ˜í”Œë§ ìš”ì†Œ ìˆ˜
+    int scan_v[3];  // ìƒ˜í”Œë§ ìš”ì†Œ ìˆ˜
+    int scan_qt[3]; // ì–‘ìí™” í…Œì´ë¸” ì¸ë±ìŠ¤
     
     // DRI
     int interval;
 
-    int mcu_buf[32*32*4]; // ¹öÆÛ
+    int mcu_buf[32*32*4]; // ë²„í¼
     int *mcu_yuv[4];
     int mcu_preDC[3];
     
@@ -81,7 +81,7 @@ typedef struct{
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-//  ÇÔ¼ö
+//  í•¨ìˆ˜
 //
 ////////////////////////////////////////////////////////////////////////////////
 BOOL kJPEGInit(JPEG *jpeg, BYTE* pbFileBuffer, DWORD dwFileSize);

@@ -1,9 +1,9 @@
-/**
+﻿/**
  *  file    Synchronization.h
  *  date    2009/03/13
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui 
- *  brief   ����ȭ�� ó���ϴ� �Լ��� ���õ� ����
+ *  brief   동기화를 처리하는 함수에 관련된 파일
  */
 
 #ifndef __SYNCHRONIZATION_H__
@@ -13,40 +13,40 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ����ü
+// 구조체
 //
 ////////////////////////////////////////////////////////////////////////////////
-// 1����Ʈ�� ����
+// 1바이트로 정렬
 #pragma pack( push, 1 )
 
-// ���ؽ� �ڷᱸ��
+// 뮤텍스 자료구조
 typedef struct kMutexStruct
 {
-    // �½�ũ ID�� ����� ������ Ƚ��
+    // 태스크 ID와 잠금을 수행한 횟수
     volatile QWORD qwTaskID;
     volatile DWORD dwLockCount;
 
-    // ��� �÷���
+    // 잠금 플래그
     volatile BOOL bLockFlag;
     
-    // �ڷᱸ���� ũ�⸦ 8����Ʈ ������ ���߷��� �߰��� �ʵ�
+    // 자료구조의 크기를 8바이트 단위로 맞추려고 추가한 필드
     BYTE vbPadding[ 3 ];
 } MUTEX;
 
-// ���ɶ� �ڷᱸ��
+// 스핀락 자료구조
 typedef struct kSpinLockStruct
 {
-    // ���� APIC ID�� ����� ������ Ƚ��
+    // 로컬 APIC ID와 잠금을 수행한 횟수
     volatile DWORD dwLockCount;
     volatile BYTE bAPICID;
 
-    // ��� �÷���
+    // 잠금 플래그
     volatile BOOL bLockFlag;
     
-    // ���ͷ�Ʈ �÷���
+    // 인터럽트 플래그
     volatile BOOL bInterruptFlag;
     
-    // �ڷᱸ���� ũ�⸦ 8����Ʈ ������ ���߷��� �߰��� �ʵ�
+    // 자료구조의 크기를 8바이트 단위로 맞추려고 추가한 필드
     BYTE vbPadding[ 1 ];
 } SPINLOCK;
 
@@ -54,7 +54,7 @@ typedef struct kSpinLockStruct
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// �Լ�
+// 함수
 //
 ////////////////////////////////////////////////////////////////////////////////
 #if 0

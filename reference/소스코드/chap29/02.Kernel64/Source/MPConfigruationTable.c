@@ -1,20 +1,20 @@
-/**
+ï»¿/**
  *  file    MPConfigurationTable.c
  *  date    2009/06/20
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   MP ¼³Á¤ Å×ÀÌºí(MP Configuration Table)¿¡ °ü·ÃµÈ ¼Ò½º ÆÄÀÏ
+ *  brief   MP ì„¤ì • í…Œì´ë¸”(MP Configuration Table)ì— ê´€ë ¨ëœ ì†ŒìŠ¤ íŒŒì¼
  */
 
 #include "MPConfigurationTable.h"
 #include "Console.h"
 
 
-// MP ¼³Á¤ Å×ÀÌºíÀ» °ü¸®ÇÏ´Â ÀÚ·á±¸Á¶
+// MP ì„¤ì • í…Œì´ë¸”ì„ ê´€ë¦¬í•˜ëŠ” ìë£Œêµ¬ì¡°
 static MPCONFIGRUATIONMANAGER gs_stMPConfigurationManager = { 0, };
 
 /**
- *  BIOSÀÇ ¿µ¿ª¿¡¼­ MP Floating Header¸¦ Ã£¾Æ¼­ ±× ÁÖ¼Ò¸¦ ¹İÈ¯
+ *  BIOSì˜ ì˜ì—­ì—ì„œ MP Floating Headerë¥¼ ì°¾ì•„ì„œ ê·¸ ì£¼ì†Œë¥¼ ë°˜í™˜
  */
 BOOL kFindMPFloatingPointerAddress( QWORD* pstAddress )
 {
@@ -22,16 +22,16 @@ BOOL kFindMPFloatingPointerAddress( QWORD* pstAddress )
     QWORD qwEBDAAddress;
     QWORD qwSystemBaseMemory;
 
-    // È®Àå BIOS µ¥ÀÌÅÍ ¿µ¿ª°ú ½Ã½ºÅÛ ±âº» ¸Ş¸ğ¸®¸¦ Ãâ·Â
+    // í™•ì¥ BIOS ë°ì´í„° ì˜ì—­ê³¼ ì‹œìŠ¤í…œ ê¸°ë³¸ ë©”ëª¨ë¦¬ë¥¼ ì¶œë ¥
     kPrintf( "Extended BIOS Data Area = [0x%X] \n", 
             ( DWORD ) ( *( WORD* ) 0x040E ) * 16 );
     kPrintf( "System Base Address = [0x%X]\n", 
             ( DWORD ) ( *( WORD* ) 0x0413 ) * 1024 );
     
-    // È®Àå BIOS µ¥ÀÌÅÍ ¿µ¿ªÀ» °Ë»öÇÏ¿© MP ÇÃ·ÎÆÃ Æ÷ÀÎÅÍ¸¦ Ã£À½
-    // È®Àå BIOS µ¥ÀÌÅÍ ¿µ¿ªÀº 0x040E¿¡¼­ ¼¼±×¸ÕÆ®ÀÇ ½ÃÀÛ ¾îµå·¹½º¸¦ Ã£À» ¼ö ÀÖÀ½
+    // í™•ì¥ BIOS ë°ì´í„° ì˜ì—­ì„ ê²€ìƒ‰í•˜ì—¬ MP í”Œë¡œíŒ… í¬ì¸í„°ë¥¼ ì°¾ìŒ
+    // í™•ì¥ BIOS ë°ì´í„° ì˜ì—­ì€ 0x040Eì—ì„œ ì„¸ê·¸ë¨¼íŠ¸ì˜ ì‹œì‘ ì–´ë“œë ˆìŠ¤ë¥¼ ì°¾ì„ ìˆ˜ ìˆìŒ
     qwEBDAAddress = *( WORD* ) ( 0x040E );
-    // ¼¼±×¸ÕÆ®ÀÇ ½ÃÀÛ ¾îµå·¹½ºÀÌ¹Ç·Î 16À» °öÇÏ¿© ½ÇÁ¦ ¹°¸® ¾îµå·¹½º·Î º¯È¯
+    // ì„¸ê·¸ë¨¼íŠ¸ì˜ ì‹œì‘ ì–´ë“œë ˆìŠ¤ì´ë¯€ë¡œ 16ì„ ê³±í•˜ì—¬ ì‹¤ì œ ë¬¼ë¦¬ ì–´ë“œë ˆìŠ¤ë¡œ ë³€í™˜
     qwEBDAAddress *= 16;
     
     for( pcMPFloatingPointer = ( char* ) qwEBDAAddress ; 
@@ -47,11 +47,11 @@ BOOL kFindMPFloatingPointerAddress( QWORD* pstAddress )
         }
     }
 
-    // ½Ã½ºÅÛ ±âº» ¸Ş¸ğ¸®ÀÇ ³¡ºÎºĞ¿¡¼­ 1Kbyte ¹Ì¸¸ÀÎ ¿µ¿ªÀ» °Ë»öÇÏ¿© MP ÇÃ·ÎÆÃ Æ÷ÀÎÅÍ¸¦
-    // Ã£À½
-    // ½Ã½ºÅÛ ±âº» ¸Ş¸ğ¸®´Â 0x0413¿¡¼­ Kbyte ´ÜÀ§·Î Á¤·ÄµÈ °ªÀ» Ã£À» ¼ö ÀÖÀ½
+    // ì‹œìŠ¤í…œ ê¸°ë³¸ ë©”ëª¨ë¦¬ì˜ ëë¶€ë¶„ì—ì„œ 1Kbyte ë¯¸ë§Œì¸ ì˜ì—­ì„ ê²€ìƒ‰í•˜ì—¬ MP í”Œë¡œíŒ… í¬ì¸í„°ë¥¼
+    // ì°¾ìŒ
+    // ì‹œìŠ¤í…œ ê¸°ë³¸ ë©”ëª¨ë¦¬ëŠ” 0x0413ì—ì„œ Kbyte ë‹¨ìœ„ë¡œ ì •ë ¬ëœ ê°’ì„ ì°¾ì„ ìˆ˜ ìˆìŒ
     qwSystemBaseMemory = *( WORD* ) 0x0413;
-    // Kbyte ´ÜÀ§·Î ÀúÀåµÈ °ªÀÌ¹Ç·Î 1024¸¦ °öÇØ ½ÇÁ¦ ¹°¸® ¾îµå·¹½º·Î º¯È¯
+    // Kbyte ë‹¨ìœ„ë¡œ ì €ì¥ëœ ê°’ì´ë¯€ë¡œ 1024ë¥¼ ê³±í•´ ì‹¤ì œ ë¬¼ë¦¬ ì–´ë“œë ˆìŠ¤ë¡œ ë³€í™˜
     qwSystemBaseMemory *= 1024;
 
     for( pcMPFloatingPointer = ( char* ) ( qwSystemBaseMemory - 1024 ) ; 
@@ -67,7 +67,7 @@ BOOL kFindMPFloatingPointerAddress( QWORD* pstAddress )
         }
     }
     
-    // BIOSÀÇ ROM ¿µ¿ªÀ» °Ë»öÇÏ¿© MP ÇÃ·ÎÆÃ Æ÷ÀÎÅÍ¸¦ Ã£À½
+    // BIOSì˜ ROM ì˜ì—­ì„ ê²€ìƒ‰í•˜ì—¬ MP í”Œë¡œíŒ… í¬ì¸í„°ë¥¼ ì°¾ìŒ
     for( pcMPFloatingPointer = ( char* ) 0x0F0000; 
          ( QWORD) pcMPFloatingPointer < 0x0FFFFF; pcMPFloatingPointer++ )
     {
@@ -84,7 +84,7 @@ BOOL kFindMPFloatingPointerAddress( QWORD* pstAddress )
 }
 
 /**
- *  MP ¼³Á¤ Å×ÀÌºíÀ» ºĞ¼®ÇØ¼­ ÇÊ¿äÇÑ Á¤º¸¸¦ ÀúÀåÇÏ´Â ÇÔ¼ö
+ *  MP ì„¤ì • í…Œì´ë¸”ì„ ë¶„ì„í•´ì„œ í•„ìš”í•œ ì •ë³´ë¥¼ ì €ì¥í•˜ëŠ” í•¨ìˆ˜
  */
 BOOL kAnalysisMPConfigurationTable( void )
 {
@@ -97,44 +97,44 @@ BOOL kAnalysisMPConfigurationTable( void )
     PROCESSORENTRY* pstProcessorEntry;
     BUSENTRY* pstBusEntry;
     
-    // ÀÚ·á±¸Á¶ ÃÊ±âÈ­
+    // ìë£Œêµ¬ì¡° ì´ˆê¸°í™”
     kMemSet( &gs_stMPConfigurationManager, 0, sizeof( MPCONFIGRUATIONMANAGER ) );
     gs_stMPConfigurationManager.bISABusID = 0xFF;
     
-    // MP ÇÃ·ÎÆÃ Æ÷ÀÎÅÍÀÇ ¾îµå·¹½º¸¦ ±¸ÇÔ
+    // MP í”Œë¡œíŒ… í¬ì¸í„°ì˜ ì–´ë“œë ˆìŠ¤ë¥¼ êµ¬í•¨
     if( kFindMPFloatingPointerAddress( &qwMPFloatingPointerAddress ) == FALSE )
     {
         return FALSE;
     }
     
-    // MP ÇÃ·ÎÆÃ Å×ÀÌºí ¼³Á¤
+    // MP í”Œë¡œíŒ… í…Œì´ë¸” ì„¤ì •
     pstMPFloatingPointer = ( MPFLOATINGPOINTER* ) qwMPFloatingPointerAddress;
     gs_stMPConfigurationManager.pstMPFloatingPointer = pstMPFloatingPointer;
     pstMPConfigurationHeader = ( MPCONFIGURATIONTABLEHEADER* ) 
         ( ( QWORD ) pstMPFloatingPointer->dwMPConfigurationTableAddress & 0xFFFFFFFF );
     
-    // PIC ¸ğµå Áö¿ø ¿©ºÎ ÀúÀå
+    // PIC ëª¨ë“œ ì§€ì› ì—¬ë¶€ ì €ì¥
     if( pstMPFloatingPointer->vbMPFeatureByte[ 1 ] & 
             MP_FLOATINGPOINTER_FEATUREBYTE2_PICMODE )
     {
         gs_stMPConfigurationManager.bUsePICMode = TRUE;
     }    
     
-    // MP ¼³Á¤ Å×ÀÌºí Çì´õ¿Í ±âº» MP ¼³Á¤ Å×ÀÌºí ¿£Æ®¸®ÀÇ ½ÃÀÛ ¾îµå·¹½º ¼³Á¤
+    // MP ì„¤ì • í…Œì´ë¸” í—¤ë”ì™€ ê¸°ë³¸ MP ì„¤ì • í…Œì´ë¸” ì—”íŠ¸ë¦¬ì˜ ì‹œì‘ ì–´ë“œë ˆìŠ¤ ì„¤ì •
     gs_stMPConfigurationManager.pstMPConfigurationTableHeader = 
         pstMPConfigurationHeader;
     gs_stMPConfigurationManager.qwBaseEntryStartAddress = 
         pstMPFloatingPointer->dwMPConfigurationTableAddress + 
         sizeof( MPCONFIGURATIONTABLEHEADER );
     
-    // ¸ğµç ¿£Æ®¸®¸¦ µ¹¸é¼­ ÇÁ·Î¼¼¼­ÀÇ ÄÚ¾î ¼ö¸¦ °è»êÇÏ°í ISA ¹ö½º¸¦ °Ë»öÇÏ¿© ID¸¦ ÀúÀå
+    // ëª¨ë“  ì—”íŠ¸ë¦¬ë¥¼ ëŒë©´ì„œ í”„ë¡œì„¸ì„œì˜ ì½”ì–´ ìˆ˜ë¥¼ ê³„ì‚°í•˜ê³  ISA ë²„ìŠ¤ë¥¼ ê²€ìƒ‰í•˜ì—¬ IDë¥¼ ì €ì¥
     qwEntryAddress = gs_stMPConfigurationManager.qwBaseEntryStartAddress;
     for( i = 0 ; i < pstMPConfigurationHeader->wEntryCount ; i++ )
     {
         bEntryType = *( BYTE* ) qwEntryAddress;
         switch( bEntryType )
         {
-            // ÇÁ·Î¼¼¼­ ¿£Æ®¸®ÀÌ¸é ÇÁ·Î¼¼¼­ÀÇ ¼ö¸¦ ÇÏ³ª Áõ°¡½ÃÅ´
+            // í”„ë¡œì„¸ì„œ ì—”íŠ¸ë¦¬ì´ë©´ í”„ë¡œì„¸ì„œì˜ ìˆ˜ë¥¼ í•˜ë‚˜ ì¦ê°€ì‹œí‚´
         case MP_ENTRYTYPE_PROCESSOR:
             pstProcessorEntry = ( PROCESSORENTRY* ) qwEntryAddress;
             if( pstProcessorEntry->bCPUFlags & MP_PROCESSOR_CPUFLAGS_ENABLE )
@@ -144,7 +144,7 @@ BOOL kAnalysisMPConfigurationTable( void )
             qwEntryAddress += sizeof( PROCESSORENTRY );
             break;
             
-            // ¹ö½º ¿£Æ®¸®ÀÌ¸é ISA ¹ö½ºÀÎÁö È®ÀÎÇÏ¿© ÀúÀå
+            // ë²„ìŠ¤ ì—”íŠ¸ë¦¬ì´ë©´ ISA ë²„ìŠ¤ì¸ì§€ í™•ì¸í•˜ì—¬ ì €ì¥
         case MP_ENTRYTYPE_BUS:
             pstBusEntry = ( BUSENTRY* ) qwEntryAddress;
             if( kMemCmp( pstBusEntry->vcBusTypeString, MP_BUS_TYPESTRING_ISA,
@@ -155,7 +155,7 @@ BOOL kAnalysisMPConfigurationTable( void )
             qwEntryAddress += sizeof( BUSENTRY );
             break;
             
-            // ±âÅ¸ ¿£Æ®¸®´Â ¹«½ÃÇÏ°í ÀÌµ¿
+            // ê¸°íƒ€ ì—”íŠ¸ë¦¬ëŠ” ë¬´ì‹œí•˜ê³  ì´ë™
         case MP_ENTRYTYPE_IOAPIC:
         case MP_ENTRYTYPE_IOINTERRUPTASSIGNMENT:
         case MP_ENTRYTYPE_LOCALINTERRUPTASSIGNMENT:
@@ -168,7 +168,7 @@ BOOL kAnalysisMPConfigurationTable( void )
 }
 
 /**
- *  MP ¼³Á¤ Å×ÀÌºíÀ» °ü¸®ÇÏ´Â ÀÚ·á±¸Á¶¸¦ ¹İÈ¯
+ *  MP ì„¤ì • í…Œì´ë¸”ì„ ê´€ë¦¬í•˜ëŠ” ìë£Œêµ¬ì¡°ë¥¼ ë°˜í™˜
  */
 MPCONFIGRUATIONMANAGER* kGetMPConfigurationManager( void )
 {
@@ -176,7 +176,7 @@ MPCONFIGRUATIONMANAGER* kGetMPConfigurationManager( void )
 }
 
 /**
- *  MP ¼³Á¤ Å×ÀÌºíÀÇ Á¤º¸¸¦ ¸ğµÎ È­¸é¿¡ Ãâ·Â
+ *  MP ì„¤ì • í…Œì´ë¸”ì˜ ì •ë³´ë¥¼ ëª¨ë‘ í™”ë©´ì— ì¶œë ¥
  */
 void kPrintMPConfigurationTable( void )
 {
@@ -193,7 +193,7 @@ void kPrintMPConfigurationTable( void )
     char vcStringBuffer[ 20 ];
     WORD i;
     BYTE bEntryType;
-    // È­¸é¿¡ Ãâ·ÂÇÒ ¹®ÀÚ¿­
+    // í™”ë©´ì— ì¶œë ¥í•  ë¬¸ìì—´
     char* vpcInterruptType[ 4 ] = { "INT", "NMI", "SMI", "ExtINT" };
     char* vpcInterruptFlagsPO[ 4 ] = { "Conform", "Active High", 
             "Reserved", "Active Low" };
@@ -201,7 +201,7 @@ void kPrintMPConfigurationTable( void )
             "Level-Trigger"};
 
     //==========================================================================
-    // MP ¼³Á¤ Å×ÀÌºí Ã³¸® ÇÔ¼ö¸¦ ¸ÕÀú È£ÃâÇÏ¿© ½Ã½ºÅÛ Ã³¸®¿¡ ÇÊ¿äÇÑ Á¤º¸¸¦ ÀúÀå
+    // MP ì„¤ì • í…Œì´ë¸” ì²˜ë¦¬ í•¨ìˆ˜ë¥¼ ë¨¼ì € í˜¸ì¶œí•˜ì—¬ ì‹œìŠ¤í…œ ì²˜ë¦¬ì— í•„ìš”í•œ ì •ë³´ë¥¼ ì €ì¥
     //==========================================================================
     kPrintf( "================ MP Configuration Table Summary ================\n" );
     pstMPConfigurationManager = kGetMPConfigurationManager();
@@ -232,7 +232,7 @@ void kPrintMPConfigurationTable( void )
     kPrintf( "\n" );            
     
     //==========================================================================
-    // MP ÇÃ·ÎÆÃ Æ÷ÀÎÅÍ Á¤º¸¸¦ Ãâ·Â
+    // MP í”Œë¡œíŒ… í¬ì¸í„° ì •ë³´ë¥¼ ì¶œë ¥
     //==========================================================================
     kPrintf( "=================== MP Floating Pointer ===================\n" );
     pstMPFloatingPointer = pstMPConfigurationManager->pstMPFloatingPointer;
@@ -245,7 +245,7 @@ void kPrintMPConfigurationTable( void )
     kPrintf( "Version : %d\n", pstMPFloatingPointer->bRevision );
     kPrintf( "CheckSum : 0x%X\n", pstMPFloatingPointer->bCheckSum );
     kPrintf( "Feature Byte 1 : 0x%X ", pstMPFloatingPointer->vbMPFeatureByte[ 0 ] );
-    // MP ¼³Á¤ Å×ÀÌºí »ç¿ë ¿©ºÎ Ãâ·Â
+    // MP ì„¤ì • í…Œì´ë¸” ì‚¬ìš© ì—¬ë¶€ ì¶œë ¥
     if( pstMPFloatingPointer->vbMPFeatureByte[ 0 ] == 0 )
     {
         kPrintf( "(Use MP Configuration Table)\n" );
@@ -254,7 +254,7 @@ void kPrintMPConfigurationTable( void )
     {
         kPrintf( "(Use Default Configuration)\n" );
     }    
-    // PIC ¸ğµå Áö¿ø ¿©ºÎ Ãâ·Â
+    // PIC ëª¨ë“œ ì§€ì› ì—¬ë¶€ ì¶œë ¥
     kPrintf( "Feature Byte 2 : 0x%X ", pstMPFloatingPointer->vbMPFeatureByte[ 1 ] );
     if( pstMPFloatingPointer->vbMPFeatureByte[ 2 ] & 
             MP_FLOATINGPOINTER_FEATUREBYTE2_PICMODE )
@@ -267,7 +267,7 @@ void kPrintMPConfigurationTable( void )
     }
     
     //==========================================================================
-    // MP ¼³Á¤ Å×ÀÌºí Çì´õ Á¤º¸¸¦ Ãâ·Â
+    // MP ì„¤ì • í…Œì´ë¸” í—¤ë” ì •ë³´ë¥¼ ì¶œë ¥
     //==========================================================================
     kPrintf( "\n=============== MP Configuration Table Header ===============\n" );
     pstMPTableHeader = pstMPConfigurationManager->pstMPConfigurationTableHeader;
@@ -303,7 +303,7 @@ void kPrintMPConfigurationTable( void )
     kPrintf( "\n" );
     
     //==========================================================================
-    // ±âº» MP ¼³Á¤ Å×ÀÌºí ¿£Æ®¸® Á¤º¸¸¦ Ãâ·Â
+    // ê¸°ë³¸ MP ì„¤ì • í…Œì´ë¸” ì—”íŠ¸ë¦¬ ì •ë³´ë¥¼ ì¶œë ¥
     //==========================================================================
     kPrintf( "\n============= Base MP Configuration Table Entry =============\n" );
     qwBaseEntryAddress = pstMPFloatingPointer->dwMPConfigurationTableAddress + 
@@ -313,14 +313,14 @@ void kPrintMPConfigurationTable( void )
         bEntryType = *( BYTE* ) qwBaseEntryAddress;
         switch( bEntryType )
         {
-            // ÇÁ·Î¼¼½º ¿£Æ®¸® Á¤º¸ Ãâ·Â
+            // í”„ë¡œì„¸ìŠ¤ ì—”íŠ¸ë¦¬ ì •ë³´ ì¶œë ¥
         case MP_ENTRYTYPE_PROCESSOR:
             pstProcessorEntry = ( PROCESSORENTRY* ) qwBaseEntryAddress;
             kPrintf( "Entry Type : Processor\n" );
             kPrintf( "Local APIC ID : %d\n", pstProcessorEntry->bLocalAPICID );
             kPrintf( "Local APIC Version : 0x%X\n", pstProcessorEntry->bLocalAPICVersion );
             kPrintf( "CPU Flags : 0x%X ", pstProcessorEntry->bCPUFlags );
-            // Enable/Disable Ãâ·Â
+            // Enable/Disable ì¶œë ¥
             if( pstProcessorEntry->bCPUFlags & MP_PROCESSOR_CPUFLAGS_ENABLE )
             {
                 kPrintf( "(Enable, " );
@@ -329,7 +329,7 @@ void kPrintMPConfigurationTable( void )
             {
                 kPrintf( "(Disable, " );
             }
-            // BSP/AP Ãâ·Â
+            // BSP/AP ì¶œë ¥
             if( pstProcessorEntry->bCPUFlags & MP_PROCESSOR_CPUFLAGS_BSP )
             {
                 kPrintf( "BSP)\n" );
@@ -341,11 +341,11 @@ void kPrintMPConfigurationTable( void )
             kPrintf( "CPU Signature : 0x%X\n", pstProcessorEntry->vbCPUSignature );
             kPrintf( "Feature Flags : 0x%X\n\n", pstProcessorEntry->dwFeatureFlags );
 
-            // ÇÁ·Î¼¼½º ¿£Æ®¸®ÀÇ Å©±â¸¸Å­ ¾îµå·¹½º¸¦ Áõ°¡½ÃÄÑ ´ÙÀ½ ¿£Æ®¸®·Î ÀÌµ¿
+            // í”„ë¡œì„¸ìŠ¤ ì—”íŠ¸ë¦¬ì˜ í¬ê¸°ë§Œí¼ ì–´ë“œë ˆìŠ¤ë¥¼ ì¦ê°€ì‹œì¼œ ë‹¤ìŒ ì—”íŠ¸ë¦¬ë¡œ ì´ë™
             qwBaseEntryAddress += sizeof( PROCESSORENTRY );
             break;
 
-            // ¹ö½º ¿£Æ®¸® Á¤º¸ Ãâ·Â
+            // ë²„ìŠ¤ ì—”íŠ¸ë¦¬ ì •ë³´ ì¶œë ¥
         case MP_ENTRYTYPE_BUS:
             pstBusEntry = ( BUSENTRY* ) qwBaseEntryAddress;
             kPrintf( "Entry Type : Bus\n" );
@@ -354,18 +354,18 @@ void kPrintMPConfigurationTable( void )
             vcStringBuffer[ 6 ] = '\0';
             kPrintf( "Bus Type String : %s\n\n", vcStringBuffer );
             
-            // ¹ö½º ¿£Æ®¸®ÀÇ Å©±â¸¸Å­ ¾îµå·¹½º¸¦ Áõ°¡½ÃÄÑ ´ÙÀ½ ¿£Æ®¸®·Î ÀÌµ¿
+            // ë²„ìŠ¤ ì—”íŠ¸ë¦¬ì˜ í¬ê¸°ë§Œí¼ ì–´ë“œë ˆìŠ¤ë¥¼ ì¦ê°€ì‹œì¼œ ë‹¤ìŒ ì—”íŠ¸ë¦¬ë¡œ ì´ë™
             qwBaseEntryAddress += sizeof( BUSENTRY );
             break;
             
-            // I/O APIC ¿£Æ®¸®
+            // I/O APIC ì—”íŠ¸ë¦¬
         case MP_ENTRYTYPE_IOAPIC:
             pstIOAPICEntry = ( IOAPICENTRY* ) qwBaseEntryAddress;
             kPrintf( "Entry Type : I/O APIC\n" );
             kPrintf( "I/O APIC ID : %d\n", pstIOAPICEntry->bIOAPICID );
             kPrintf( "I/O APIC Version : 0x%X\n", pstIOAPICEntry->bIOAPICVersion );
             kPrintf( "I/O APIC Flags : 0x%X ", pstIOAPICEntry->bIOAPICFlags );
-            // Enable/Disable Ãâ·Â
+            // Enable/Disable ì¶œë ¥
             if( pstIOAPICEntry->bIOAPICFlags == 1 )
             {
                 kPrintf( "(Enable)\n" );
@@ -377,20 +377,20 @@ void kPrintMPConfigurationTable( void )
             kPrintf( "Memory Mapped I/O Address : 0x%X\n\n", 
                     pstIOAPICEntry->dwMemoryMapAddress );
 
-            // I/O APIC ¿£Æ®¸®ÀÇ Å©±â¸¸Å­ ¾îµå·¹½º¸¦ Áõ°¡½ÃÄÑ ´ÙÀ½ ¿£Æ®¸®·Î ÀÌµ¿
+            // I/O APIC ì—”íŠ¸ë¦¬ì˜ í¬ê¸°ë§Œí¼ ì–´ë“œë ˆìŠ¤ë¥¼ ì¦ê°€ì‹œì¼œ ë‹¤ìŒ ì—”íŠ¸ë¦¬ë¡œ ì´ë™
             qwBaseEntryAddress += sizeof( IOAPICENTRY );
             break;
             
-            // I/O ÀÎÅÍ·´Æ® ÁöÁ¤ ¿£Æ®¸®
+            // I/O ì¸í„°ëŸ½íŠ¸ ì§€ì • ì—”íŠ¸ë¦¬
         case MP_ENTRYTYPE_IOINTERRUPTASSIGNMENT:
             pstIOAssignmentEntry = ( IOINTERRUPTASSIGNMENTENTRY* ) 
                 qwBaseEntryAddress;
             kPrintf( "Entry Type : I/O Interrupt Assignment\n" );
             kPrintf( "Interrupt Type : 0x%X ", pstIOAssignmentEntry->bInterruptType );
-            // ÀÎÅÍ·´Æ® Å¸ÀÔ Ãâ·Â
+            // ì¸í„°ëŸ½íŠ¸ íƒ€ì… ì¶œë ¥
             kPrintf( "(%s)\n", vpcInterruptType[ pstIOAssignmentEntry->bInterruptType ] );
             kPrintf( "I/O Interrupt Flags : 0x%X ", pstIOAssignmentEntry->wInterruptFlags );
-            // ±Ø¼º°ú Æ®¸®°Å ¸ğµå Ãâ·Â
+            // ê·¹ì„±ê³¼ íŠ¸ë¦¬ê±° ëª¨ë“œ ì¶œë ¥
             kPrintf( "(%s, %s)\n", vpcInterruptFlagsPO[ pstIOAssignmentEntry->wInterruptFlags & 0x03 ], 
                     vpcInterruptFlagsEL[ ( pstIOAssignmentEntry->wInterruptFlags >> 2 ) & 0x03 ] );
             kPrintf( "Source BUS ID : %d\n", pstIOAssignmentEntry->bSourceBUSID );
@@ -400,20 +400,20 @@ void kPrintMPConfigurationTable( void )
             kPrintf( "Destination I/O APIC INTIN : %d\n\n", 
                      pstIOAssignmentEntry->bDestinationIOAPICINTIN );
 
-            // I/O ÀÎÅÍ·´Æ® ÁöÁ¤ ¿£Æ®¸®ÀÇ Å©±â¸¸Å­ ¾îµå·¹½º¸¦ Áõ°¡½ÃÄÑ ´ÙÀ½ ¿£Æ®¸®·Î ÀÌµ¿
+            // I/O ì¸í„°ëŸ½íŠ¸ ì§€ì • ì—”íŠ¸ë¦¬ì˜ í¬ê¸°ë§Œí¼ ì–´ë“œë ˆìŠ¤ë¥¼ ì¦ê°€ì‹œì¼œ ë‹¤ìŒ ì—”íŠ¸ë¦¬ë¡œ ì´ë™
             qwBaseEntryAddress += sizeof( IOINTERRUPTASSIGNMENTENTRY );
             break;
             
-            // ·ÎÄÃ ÀÎÅÍ·´Æ® ÁöÁ¤ ¿£Æ®¸®
+            // ë¡œì»¬ ì¸í„°ëŸ½íŠ¸ ì§€ì • ì—”íŠ¸ë¦¬
         case MP_ENTRYTYPE_LOCALINTERRUPTASSIGNMENT:
             pstLocalAssignmentEntry = ( LOCALINTERRUPTASSIGNMENTENTRY* )
                 qwBaseEntryAddress;
             kPrintf( "Entry Type : Local Interrupt Assignment\n" );
             kPrintf( "Interrupt Type : 0x%X ", pstLocalAssignmentEntry->bInterruptType );
-            // ÀÎÅÍ·´Æ® Å¸ÀÔ Ãâ·Â
+            // ì¸í„°ëŸ½íŠ¸ íƒ€ì… ì¶œë ¥
             kPrintf( "(%s)\n", vpcInterruptType[ pstLocalAssignmentEntry->bInterruptType ] );
             kPrintf( "I/O Interrupt Flags : 0x%X ", pstLocalAssignmentEntry->wInterruptFlags );
-            // ±Ø¼º°ú Æ®¸®°Å ¸ğµå Ãâ·Â
+            // ê·¹ì„±ê³¼ íŠ¸ë¦¬ê±° ëª¨ë“œ ì¶œë ¥
             kPrintf( "(%s, %s)\n", vpcInterruptFlagsPO[ pstLocalAssignmentEntry->wInterruptFlags & 0x03 ], 
                     vpcInterruptFlagsEL[ ( pstLocalAssignmentEntry->wInterruptFlags >> 2 ) & 0x03 ] );
             kPrintf( "Source BUS ID : %d\n", pstLocalAssignmentEntry->bSourceBUSID );
@@ -423,7 +423,7 @@ void kPrintMPConfigurationTable( void )
             kPrintf( "Destination Local APIC LINTIN : %d\n\n", 
                      pstLocalAssignmentEntry->bDestinationLocalAPICLINTIN );
             
-            // ·ÎÄÃ ÀÎÅÍ·´Æ® ÁöÁ¤ ¿£Æ®¸®ÀÇ Å©±â¸¸Å­ ¾îµå·¹½º¸¦ Áõ°¡½ÃÄÑ ´ÙÀ½ ¿£Æ®¸®·Î ÀÌµ¿
+            // ë¡œì»¬ ì¸í„°ëŸ½íŠ¸ ì§€ì • ì—”íŠ¸ë¦¬ì˜ í¬ê¸°ë§Œí¼ ì–´ë“œë ˆìŠ¤ë¥¼ ì¦ê°€ì‹œì¼œ ë‹¤ìŒ ì—”íŠ¸ë¦¬ë¡œ ì´ë™
             qwBaseEntryAddress += sizeof( LOCALINTERRUPTASSIGNMENTENTRY );
             break;
             
@@ -432,7 +432,7 @@ void kPrintMPConfigurationTable( void )
             break;
         }
 
-        // 3°³¸¦ Ãâ·ÂÇÏ°í ³ª¸é Å° ÀÔ·ÂÀ» ´ë±â
+        // 3ê°œë¥¼ ì¶œë ¥í•˜ê³  ë‚˜ë©´ í‚¤ ì…ë ¥ì„ ëŒ€ê¸°
         if( ( i != 0 ) && ( ( ( i + 1 ) % 3 ) == 0 ) )
         {
             kPrintf( "Press any key to continue... ('q' is exit) : " );
@@ -447,11 +447,11 @@ void kPrintMPConfigurationTable( void )
 }
 
 /**
- *  ÇÁ·Î¼¼¼­ ¶Ç´Â ÄÚ¾îÀÇ °³¼ö¸¦ ¹İÈ¯
+ *  í”„ë¡œì„¸ì„œ ë˜ëŠ” ì½”ì–´ì˜ ê°œìˆ˜ë¥¼ ë°˜í™˜
  */
 int kGetProcessorCount( void )
 {
-    // MP ¼³Á¤ Å×ÀÌºíÀÌ ¾øÀ» ¼öµµ ÀÖÀ¸¹Ç·Î, 0À¸·Î ¼³Á¤µÈ °æ¿ì 1À» ¹İÈ¯
+    // MP ì„¤ì • í…Œì´ë¸”ì´ ì—†ì„ ìˆ˜ë„ ìˆìœ¼ë¯€ë¡œ, 0ìœ¼ë¡œ ì„¤ì •ëœ ê²½ìš° 1ì„ ë°˜í™˜
     if( gs_stMPConfigurationManager.iProcessorCount == 0 )
     {
         return 1;

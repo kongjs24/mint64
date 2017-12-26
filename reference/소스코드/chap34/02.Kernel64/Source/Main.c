@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    Main.c
  *  date    2009/01/02
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   C ¾ð¾î·Î ÀÛ¼ºµÈ Ä¿³ÎÀÇ ¿£Æ®¸® Æ÷ÀÎÆ® ÆÄÀÏ
+ *  brief   C ì–¸ì–´ë¡œ ìž‘ì„±ëœ ì»¤ë„ì˜ ì—”íŠ¸ë¦¬ í¬ì¸íŠ¸ íŒŒì¼
  */
 
 #include "Types.h"
@@ -21,37 +21,37 @@
 #include "MultiProcessor.h"
 #include "VBE.h"
 
-// Application Processor¸¦ À§ÇÑ Main ÇÔ¼ö
+// Application Processorë¥¼ ìœ„í•œ Main í•¨ìˆ˜
 void MainForApplicationProcessor( void );
-// ±×·¡ÇÈ ¸ðµå¸¦ Å×½ºÆ®ÇÏ´Â ÇÔ¼ö
+// ê·¸ëž˜í”½ ëª¨ë“œë¥¼ í…ŒìŠ¤íŠ¸í•˜ëŠ” í•¨ìˆ˜
 void kStartGraphicModeTest();
 
 /**
- *  Bootstrap Processor¿ë C ¾ð¾î Ä¿³Î ¿£Æ®¸® Æ÷ÀÎÆ®
- *      ¾Æ·¡ ÇÔ¼ö´Â C ¾ð¾î Ä¿³ÎÀÇ ½ÃÀÛ ºÎºÐÀÓ
+ *  Bootstrap Processorìš© C ì–¸ì–´ ì»¤ë„ ì—”íŠ¸ë¦¬ í¬ì¸íŠ¸
+ *      ì•„ëž˜ í•¨ìˆ˜ëŠ” C ì–¸ì–´ ì»¤ë„ì˜ ì‹œìž‘ ë¶€ë¶„ìž„
  */
 void Main( void )
 {
     int iCursorX, iCursorY;
     
-    // ºÎÆ® ·Î´õ¿¡ ÀÖ´Â BSP ÇÃ·¡±×¸¦ ÀÐ¾î¼­ Application ProcessorÀÌ¸é 
-    // ÇØ´ç ÄÚ¾î¿ë ÃÊ±âÈ­ ÇÔ¼ö·Î ÀÌµ¿
+    // ë¶€íŠ¸ ë¡œë”ì— ìžˆëŠ” BSP í”Œëž˜ê·¸ë¥¼ ì½ì–´ì„œ Application Processorì´ë©´ 
+    // í•´ë‹¹ ì½”ì–´ìš© ì´ˆê¸°í™” í•¨ìˆ˜ë¡œ ì´ë™
     if( *( ( BYTE* ) BOOTSTRAPPROCESSOR_FLAGADDRESS ) == 0 )
     {
         MainForApplicationProcessor();
     }
     
-    // Bootstrap Processor°¡ ºÎÆÃÀ» ¿Ï·áÇßÀ¸¹Ç·Î, 0x7C09¿¡ ÀÖ´Â Bootstrap Processor¸¦
-    // ³ªÅ¸³»´Â ÇÃ·¡±×¸¦ 0À¸·Î ¼³Á¤ÇÏ¿© Application Processor¿ëÀ¸·Î ÄÚµå ½ÇÇà °æ·Î¸¦ º¯°æ
+    // Bootstrap Processorê°€ ë¶€íŒ…ì„ ì™„ë£Œí–ˆìœ¼ë¯€ë¡œ, 0x7C09ì— ìžˆëŠ” Bootstrap Processorë¥¼
+    // ë‚˜íƒ€ë‚´ëŠ” í”Œëž˜ê·¸ë¥¼ 0ìœ¼ë¡œ ì„¤ì •í•˜ì—¬ Application Processorìš©ìœ¼ë¡œ ì½”ë“œ ì‹¤í–‰ ê²½ë¡œë¥¼ ë³€ê²½
     *( ( BYTE* ) BOOTSTRAPPROCESSOR_FLAGADDRESS ) = 0;
 
-    // ÄÜ¼ÖÀ» ¸ÕÀú ÃÊ±âÈ­ÇÑ ÈÄ, ´ÙÀ½ ÀÛ¾÷À» ¼öÇà
+    // ì½˜ì†”ì„ ë¨¼ì € ì´ˆê¸°í™”í•œ í›„, ë‹¤ìŒ ìž‘ì—…ì„ ìˆ˜í–‰
     kInitializeConsole( 0, 10 );    
     kPrintf( "Switch To IA-32e Mode Success~!!\n" );
     kPrintf( "IA-32e C Language Kernel Start..............[Pass]\n" );
     kPrintf( "Initialize Console..........................[Pass]\n" );
     
-    // ºÎÆÃ »óÈ²À» È­¸é¿¡ Ãâ·Â
+    // ë¶€íŒ… ìƒí™©ì„ í™”ë©´ì— ì¶œë ¥
     kGetCursor( &iCursorX, &iCursorY );
     kPrintf( "GDT Initialize And Switch For IA-32e Mode...[    ]" );
     kInitializeGDTTableAndTSS();
@@ -79,16 +79,16 @@ void Main( void )
     iCursorY++;
     kInitializeScheduler();
     
-    // µ¿Àû ¸Þ¸ð¸® ÃÊ±âÈ­
+    // ë™ì  ë©”ëª¨ë¦¬ ì´ˆê¸°í™”
     kPrintf( "Dynamic Memory Initialize...................[Pass]\n" );
     iCursorY++;
     kInitializeDynamicMemory();
     
-    // 1ms´ç ÇÑ¹ø¾¿ ÀÎÅÍ·´Æ®°¡ ¹ß»ýÇÏµµ·Ï ¼³Á¤
+    // 1msë‹¹ í•œë²ˆì”© ì¸í„°ëŸ½íŠ¸ê°€ ë°œìƒí•˜ë„ë¡ ì„¤ì •
     kInitializePIT( MSTOCOUNT( 1 ), 1 );
     
     kPrintf( "Keyboard Activate And Queue Initialize......[    ]" );
-    // Å°º¸µå¸¦ È°¼ºÈ­
+    // í‚¤ë³´ë“œë¥¼ í™œì„±í™”
     if( kInitializeKeyboard() == TRUE )
     {
         kSetCursor( 45, iCursorY++ );
@@ -103,14 +103,14 @@ void Main( void )
     }
     
     kPrintf( "PIC Controller And Interrupt Initialize.....[    ]" );
-    // PIC ÄÁÆ®·Ñ·¯ ÃÊ±âÈ­ ¹× ¸ðµç ÀÎÅÍ·´Æ® È°¼ºÈ­
+    // PIC ì»¨íŠ¸ë¡¤ëŸ¬ ì´ˆê¸°í™” ë° ëª¨ë“  ì¸í„°ëŸ½íŠ¸ í™œì„±í™”
     kInitializePIC();
     kMaskPICInterrupt( 0 );
     kEnableInterrupt();
     kSetCursor( 45, iCursorY++ );
     kPrintf( "Pass\n" );
     
-    // ÆÄÀÏ ½Ã½ºÅÛÀ» ÃÊ±âÈ­
+    // íŒŒì¼ ì‹œìŠ¤í…œì„ ì´ˆê¸°í™”
     kPrintf( "File System Initialize......................[    ]" );
     if( kInitializeFileSystem() == TRUE )
     {
@@ -123,21 +123,21 @@ void Main( void )
         kPrintf( "Fail\n" );
     }
 
-    // ½Ã¸®¾ó Æ÷Æ®¸¦ ÃÊ±âÈ­    
+    // ì‹œë¦¬ì–¼ í¬íŠ¸ë¥¼ ì´ˆê¸°í™”    
     kPrintf( "Serial Port Initialize......................[Pass]\n" );
     iCursorY++;
     kInitializeSerialPort();
 
-    // À¯ÈÞ ÅÂ½ºÅ©¸¦ ½Ã½ºÅÛ ½º·¹µå·Î »ý¼ºÇÏ°í ¼ÐÀ» ½ÃÀÛ
+    // ìœ íœ´ íƒœìŠ¤í¬ë¥¼ ì‹œìŠ¤í…œ ìŠ¤ë ˆë“œë¡œ ìƒì„±í•˜ê³  ì…¸ì„ ì‹œìž‘
     kCreateTask( TASK_FLAGS_LOWEST | TASK_FLAGS_THREAD | TASK_FLAGS_SYSTEM | TASK_FLAGS_IDLE, 0, 0, 
             ( QWORD ) kIdleTask, kGetAPICID() );
 
-    // ±×·¡ÇÈ ¸ðµå°¡ ¾Æ´Ï¸é ÄÜ¼Ö ¼Ð ½ÇÇà
+    // ê·¸ëž˜í”½ ëª¨ë“œê°€ ì•„ë‹ˆë©´ ì½˜ì†” ì…¸ ì‹¤í–‰
     if( *( BYTE* ) VBE_STARTGRAPHICMODEFLAGADDRESS == 0 )
     {
         kStartConsoleShell();
     }
-    // ±×·¡ÇÈ ¸ðµåÀÌ¸é ±×·¡ÇÈ ¸ðµå Å×½ºÆ® ÇÔ¼ö ½ÇÇà
+    // ê·¸ëž˜í”½ ëª¨ë“œì´ë©´ ê·¸ëž˜í”½ ëª¨ë“œ í…ŒìŠ¤íŠ¸ í•¨ìˆ˜ ì‹¤í–‰
     else
     {
         kStartGraphicModeTest();
@@ -145,49 +145,49 @@ void Main( void )
 }
 
 /**
- *  Application Processor¿ë C ¾ð¾î Ä¿³Î ¿£Æ®¸® Æ÷ÀÎÆ®
- *      ´ëºÎºÐÀÇ ÀÚ·á±¸Á¶´Â Bootstrap Processor°¡ »ý¼ºÇØ ³õ¾ÒÀ¸¹Ç·Î ÄÚ¾î¿¡ ¼³Á¤ÇÏ´Â
- *      ÀÛ¾÷¸¸ ÇÔ
+ *  Application Processorìš© C ì–¸ì–´ ì»¤ë„ ì—”íŠ¸ë¦¬ í¬ì¸íŠ¸
+ *      ëŒ€ë¶€ë¶„ì˜ ìžë£Œêµ¬ì¡°ëŠ” Bootstrap Processorê°€ ìƒì„±í•´ ë†“ì•˜ìœ¼ë¯€ë¡œ ì½”ì–´ì— ì„¤ì •í•˜ëŠ”
+ *      ìž‘ì—…ë§Œ í•¨
  */
 void MainForApplicationProcessor( void )
 {
     QWORD qwTickCount;
 
-    // GDT Å×ÀÌºíÀ» ¼³Á¤
+    // GDT í…Œì´ë¸”ì„ ì„¤ì •
     kLoadGDTR( GDTR_STARTADDRESS );
 
-    // TSS µð½ºÅ©¸³ÅÍ¸¦ ¼³Á¤. TSS ¼¼±×¸ÕÆ®¿Í µð½ºÅ©¸³ÅÍ¸¦ Application ProcessorÀÇ 
-    // ¼ö¸¸Å­ »ý¼ºÇßÀ¸¹Ç·Î, APIC ID¸¦ ÀÌ¿ëÇÏ¿© TSS µð½ºÅ©¸³ÅÍ¸¦ ÇÒ´ç
+    // TSS ë””ìŠ¤í¬ë¦½í„°ë¥¼ ì„¤ì •. TSS ì„¸ê·¸ë¨¼íŠ¸ì™€ ë””ìŠ¤í¬ë¦½í„°ë¥¼ Application Processorì˜ 
+    // ìˆ˜ë§Œí¼ ìƒì„±í–ˆìœ¼ë¯€ë¡œ, APIC IDë¥¼ ì´ìš©í•˜ì—¬ TSS ë””ìŠ¤í¬ë¦½í„°ë¥¼ í• ë‹¹
     kLoadTR( GDT_TSSSEGMENT + ( kGetAPICID() * sizeof( GDTENTRY16 ) ) );
 
-    // IDT Å×ÀÌºíÀ» ¼³Á¤
+    // IDT í…Œì´ë¸”ì„ ì„¤ì •
     kLoadIDTR( IDTR_STARTADDRESS );
     
-    // ½ºÄÉÁÙ·¯ ÃÊ±âÈ­
+    // ìŠ¤ì¼€ì¤„ëŸ¬ ì´ˆê¸°í™”
     kInitializeScheduler();
     
-    // ÇöÀç ÄÚ¾îÀÇ ·ÎÄÃ APIC¸¦ È°¼ºÈ­
+    // í˜„ìž¬ ì½”ì–´ì˜ ë¡œì»¬ APICë¥¼ í™œì„±í™”
     kEnableSoftwareLocalAPIC();
 
-    // ¸ðµç ÀÎÅÍ·´Æ®¸¦ ¼ö½ÅÇÒ ¼ö ÀÖµµ·Ï ÅÂ½ºÅ© ¿ì¼± ¼øÀ§ ·¹Áö½ºÅÍ¸¦ 0À¸·Î ¼³Á¤
+    // ëª¨ë“  ì¸í„°ëŸ½íŠ¸ë¥¼ ìˆ˜ì‹ í•  ìˆ˜ ìžˆë„ë¡ íƒœìŠ¤í¬ ìš°ì„  ìˆœìœ„ ë ˆì§€ìŠ¤í„°ë¥¼ 0ìœ¼ë¡œ ì„¤ì •
     kSetTaskPriority( 0 );
 
-    // ·ÎÄÃ APICÀÇ ·ÎÄÃ º¤ÅÍ Å×ÀÌºíÀ» ÃÊ±âÈ­
+    // ë¡œì»¬ APICì˜ ë¡œì»¬ ë²¡í„° í…Œì´ë¸”ì„ ì´ˆê¸°í™”
     kInitializeLocalVectorTable();
 
-    // ÀÎÅÍ·´Æ®¸¦ È°¼ºÈ­
+    // ì¸í„°ëŸ½íŠ¸ë¥¼ í™œì„±í™”
     kEnableInterrupt();    
 
-    // ´ëÄª I/O ¸ðµå Å×½ºÆ®¸¦ À§ÇØ Application Processor°¡ ½ÃÀÛÇÑ ÈÄ ÇÑ¹ø¸¸ Ãâ·Â
+    // ëŒ€ì¹­ I/O ëª¨ë“œ í…ŒìŠ¤íŠ¸ë¥¼ ìœ„í•´ Application Processorê°€ ì‹œìž‘í•œ í›„ í•œë²ˆë§Œ ì¶œë ¥
     kPrintf( "Application Processor[APIC ID: %d] Is Activated\n",
             kGetAPICID() );
 
-    // À¯ÈÞ ÅÂ½ºÅ© ½ÇÇà
+    // ìœ íœ´ íƒœìŠ¤í¬ ì‹¤í–‰
     kIdleTask();
 }
 
 /**
- *  ±×·¡ÇÈ ¸ðµå¸¦ Å×½ºÆ®ÇÏ´Â ÇÔ¼ö
+ *  ê·¸ëž˜í”½ ëª¨ë“œë¥¼ í…ŒìŠ¤íŠ¸í•˜ëŠ” í•¨ìˆ˜
  */
 void kStartGraphicModeTest()
 {
@@ -198,37 +198,37 @@ void kStartGraphicModeTest()
     int i;
     int j;
 
-    // Å° ÀÔ·ÂÀ» ´ë±â
+    // í‚¤ ìž…ë ¥ì„ ëŒ€ê¸°
     kGetCh();
     
-    // VBE ¸ðµå Á¤º¸ ºí·ÏÀ» ¹ÝÈ¯ÇÏ°í ¼±Çü ÇÁ·¹ÀÓ ¹öÆÛÀÇ ½ÃÀÛ ¾îµå·¹½º¸¦ ÀúÀå
+    // VBE ëª¨ë“œ ì •ë³´ ë¸”ë¡ì„ ë°˜í™˜í•˜ê³  ì„ í˜• í”„ë ˆìž„ ë²„í¼ì˜ ì‹œìž‘ ì–´ë“œë ˆìŠ¤ë¥¼ ì €ìž¥
     pstVBEMode = kGetVBEModeInfoBlock();
     pwFrameBufferAddress = ( WORD* ) ( ( QWORD ) pstVBEMode->dwPhysicalBasePointer );
    
-    // È­¸éÀ» ¼¼·Î·Î 32 µîºÐÇÏ¿© »öÀ» Ä¥ÇÔ
+    // í™”ë©´ì„ ì„¸ë¡œë¡œ 32 ë“±ë¶„í•˜ì—¬ ìƒ‰ì„ ì¹ í•¨
     iBandHeight = pstVBEMode->wYResolution / 32;
     while( 1 )
     {
         for( j = 0 ; j < pstVBEMode->wYResolution ; j++ )
         {
-            // X ÃàÀÇ Å©±â¸¸Å­ ÇÁ·¹ÀÓ ¹öÆÛ¿¡ »öÀ» ÀúÀå
+            // X ì¶•ì˜ í¬ê¸°ë§Œí¼ í”„ë ˆìž„ ë²„í¼ì— ìƒ‰ì„ ì €ìž¥
             for( i = 0 ; i < pstVBEMode->wXResolution ; i++ )
             {
-                // ºñµð¿À ¸Þ¸ð¸® ¿ÀÇÁ¼ÂÀ» °è»êÇÏ´Â ºÎºÐ
-                // Y ÃàÀÇ ÇöÀç À§Ä¡(j)¿¡ X ÃàÀÇ Å©±â¸¦ °öÇÏ¸é Y ÃàÀÇ ½ÃÀÛ ¾îµå·¹½º¸¦
-                // °è»êÇÒ ¼ö ÀÖ°í, ¿©±â¿¡ X ÃàÀÇ ¿ÀÇÁ¼Â(i)À» ´õÇÏ¸é ÇöÀç ÇÈ¼¿À» Ãâ·ÂÇÒ
-                // ¾îµå·¹½º¸¦ ±¸ÇÒ ¼ö ÀÖÀ½
+                // ë¹„ë””ì˜¤ ë©”ëª¨ë¦¬ ì˜¤í”„ì…‹ì„ ê³„ì‚°í•˜ëŠ” ë¶€ë¶„
+                // Y ì¶•ì˜ í˜„ìž¬ ìœ„ì¹˜(j)ì— X ì¶•ì˜ í¬ê¸°ë¥¼ ê³±í•˜ë©´ Y ì¶•ì˜ ì‹œìž‘ ì–´ë“œë ˆìŠ¤ë¥¼
+                // ê³„ì‚°í•  ìˆ˜ ìžˆê³ , ì—¬ê¸°ì— X ì¶•ì˜ ì˜¤í”„ì…‹(i)ì„ ë”í•˜ë©´ í˜„ìž¬ í”½ì…€ì„ ì¶œë ¥í• 
+                // ì–´ë“œë ˆìŠ¤ë¥¼ êµ¬í•  ìˆ˜ ìžˆìŒ
                 pwFrameBufferAddress[ ( j * pstVBEMode->wXResolution ) + i ] = 
                     wColor;
             }
 
-            // Y À§Ä¡°¡ 32 µîºÐÇÑ ´ÜÀ§·Î ³ª´©¾î ¶³¾îÁö¸é »öÀ» ¹Ù²Þ
+            // Y ìœ„ì¹˜ê°€ 32 ë“±ë¶„í•œ ë‹¨ìœ„ë¡œ ë‚˜ëˆ„ì–´ ë–¨ì–´ì§€ë©´ ìƒ‰ì„ ë°”ê¿ˆ
             if( ( j % iBandHeight ) == 0 )
             {
                 wColor = kRandom() & 0xFFFF;
             }
         }
-        // Å° ÀÔ·ÂÀ» ´ë±â
+        // í‚¤ ìž…ë ¥ì„ ëŒ€ê¸°
         kGetCh();
     }
 }

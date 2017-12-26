@@ -1,4 +1,4 @@
-// FontMaker.cpp : Defines the class behaviors for the application.
+﻿// FontMaker.cpp : Defines the class behaviors for the application.
 //
 
 #include "stdafx.h"

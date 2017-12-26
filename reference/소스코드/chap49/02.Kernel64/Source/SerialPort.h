@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    SerialPort.h
  *  date    2009/06/06
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   ½Ã¸®¾ó Æ÷Æ® ÄÁÆ®·Ñ·¯¿¡ °ü·ÃµÈ Çì´õ ÆÄÀÏ
+ *  brief   ì‹œë¦¬ì–¼ í¬íŠ¸ ì»¨íŠ¸ë¡¤ëŸ¬ì— ê´€ë ¨ëœ í—¤ë” íŒŒì¼
  */
 
 #ifndef __SERIALPORT_H__
@@ -15,16 +15,16 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ¸ÅÅ©·Î
+// ë§¤í¬ë¡œ
 //
 ////////////////////////////////////////////////////////////////////////////////
-// ½Ã¸®¾ó Æ÷Æ®ÀÇ I/O Æ÷Æ® ±âÁØ ¾îµå·¹½º
+// ì‹œë¦¬ì–¼ í¬íŠ¸ì˜ I/O í¬íŠ¸ ê¸°ì¤€ ì–´ë“œë ˆìŠ¤
 #define SERIAL_PORT_COM1                            0x3F8
 #define SERIAL_PORT_COM2                            0x2F8
 #define SERIAL_PORT_COM3                            0x3E8
 #define SERIAL_PORT_COM4                            0x2E8
 
-// °¢ ·¹Áö½ºÅÍÀÇ ¿ÀÇÁ¼Â
+// ê° ë ˆì§€ìŠ¤í„°ì˜ ì˜¤í”„ì…‹
 #define SERIAL_PORT_INDEX_RECEIVEBUFFER             0x00
 #define SERIAL_PORT_INDEX_TRANSMITBUFFER            0x00
 #define SERIAL_PORT_INDEX_INTERRUPTENABLE           0x01
@@ -37,13 +37,13 @@
 #define SERIAL_PORT_INDEX_LINESTATUS                0x05
 #define SERIAL_PORT_INDEX_MODEMSTATUS               0x06
 
-// ÀÎÅÍ·´Æ® È°¼ºÈ­ ·¹Áö½ºÅÍ¿¡ °ü·ÃµÈ ¸ÅÅ©·Î
+// ì¸í„°ëŸ½íŠ¸ í™œì„±í™” ë ˆì§€ìŠ¤í„°ì— ê´€ë ¨ëœ ë§¤í¬ë¡œ
 #define SERIAL_INTERRUPTENABLE_RECEIVEBUFFERFULL        0x01
 #define SERIAL_INTERRUPTENABLE_TRANSMITTERBUFFEREMPTY   0x02
 #define SERIAL_INTERRUPTENABLE_LINESTATUS               0x04
 #define SERIAL_INTERRUPTENABLE_DELTASTATUS              0x08
 
-// FIFO Á¦¾î ·¹Áö½ºÅÍ¿¡ °ü·ÃµÈ ¸ÅÅ©·Î
+// FIFO ì œì–´ ë ˆì§€ìŠ¤í„°ì— ê´€ë ¨ëœ ë§¤í¬ë¡œ
 #define SERIAL_FIFOCONTROL_FIFOENABLE               0x01
 #define SERIAL_FIFOCONTROL_CLEARRECEIVEFIFO         0x02
 #define SERIAL_FIFOCONTROL_CLEARTRANSMITFIFO        0x04
@@ -53,7 +53,7 @@
 #define SERIAL_FIFOCONTROL_8BYTEFIFO                0x80
 #define SERIAL_FIFOCONTROL_14BYTEFIFO               0xC0
 
-// ¶óÀÎ Á¦¾î ·¹Áö½ºÅÍ¿¡ °ü·ÃµÈ ¸ÅÅ©·Î
+// ë¼ì¸ ì œì–´ ë ˆì§€ìŠ¤í„°ì— ê´€ë ¨ëœ ë§¤í¬ë¡œ
 #define SERIAL_LINECONTROL_8BIT                     0x03
 #define SERIAL_LINECONTROL_1BITSTOP                 0x00
 #define SERIAL_LINECONTROL_NOPARITY                 0x00
@@ -63,7 +63,7 @@
 #define SERIAL_LINECONTROL_SPACEPARITY              0x38
 #define SERIAL_LINECONTROL_DLAB                     0x80
 
-// ¶óÀÎ »óÅÂ ·¹Áö½ºÅÍ¿¡ °ü·ÃµÈ ¸ÅÅ©·Î
+// ë¼ì¸ ìƒíƒœ ë ˆì§€ìŠ¤í„°ì— ê´€ë ¨ëœ ë§¤í¬ë¡œ
 #define SERIAL_LINESTATUS_RECEIVEDDATAREADY         0x01
 #define SERIAL_LINESTATUS_OVERRUNERROR              0x02
 #define SERIAL_LINESTATUS_PARITYERROR               0x04
@@ -73,7 +73,7 @@
 #define SERIAL_LINESTATUS_TRANSMITEMPTY             0x40
 #define SERIAL_LINESTATUS_RECEIVEDCHARACTORERROR    0x80
 
-// Á¦¼ö ·¡Ä¡ ·¹Áö½ºÅÍ¿¡ °ü·ÃµÈ ¸ÅÅ©·Î
+// ì œìˆ˜ ëž˜ì¹˜ ë ˆì§€ìŠ¤í„°ì— ê´€ë ¨ëœ ë§¤í¬ë¡œ
 #define SERIAL_DIVISORLATCH_115200                  1
 #define SERIAL_DIVISORLATCH_57600                   2
 #define SERIAL_DIVISORLATCH_38400                   3
@@ -82,25 +82,25 @@
 #define SERIAL_DIVISORLATCH_4800                    24
 #define SERIAL_DIVISORLATCH_2400                    48
 
-// FIFOÀÇ ÃÖ´ë Å©±â
+// FIFOì˜ ìµœëŒ€ í¬ê¸°
 #define SERIAL_FIFOMAXSIZE                          16
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ±¸Á¶Ã¼
+// êµ¬ì¡°ì²´
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-// ½Ã¸®¾ó Æ÷Æ®¸¦ ´ã´çÇÏ´Â ÀÚ·á±¸Á¶
+// ì‹œë¦¬ì–¼ í¬íŠ¸ë¥¼ ë‹´ë‹¹í•˜ëŠ” ìžë£Œêµ¬ì¡°
 typedef struct kSerialPortManager
 {
-    // µ¿±âÈ­ °´Ã¼
+    // ë™ê¸°í™” ê°ì²´
     MUTEX stLock;
 } SERIALMANAGER;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ÇÔ¼ö
+// í•¨ìˆ˜
 //
 ////////////////////////////////////////////////////////////////////////////////
 void kInitializeSerialPort( void );

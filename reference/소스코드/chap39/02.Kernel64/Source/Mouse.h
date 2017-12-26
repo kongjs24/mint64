@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    Mouse.h
  *  date    2009/09/26
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   ¸¶¿ì½º µð¹ÙÀÌ½º µå¶óÀÌ¹ö¿¡ °ü·ÃµÈ Çì´õ ÆÄÀÏ
+ *  brief   ë§ˆìš°ìŠ¤ ë””ë°”ì´ìŠ¤ ë“œë¼ì´ë²„ì— ê´€ë ¨ëœ í—¤ë” íŒŒì¼
  */
 
 #ifndef __MOUSE_H__
@@ -14,52 +14,52 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ¸ÅÅ©·Î
+// ë§¤í¬ë¡œ
 //
 ////////////////////////////////////////////////////////////////////////////////
-// ¸¶¿ì½º Å¥¿¡ ´ëÇÑ ¸ÅÅ©·Î
+// ë§ˆìš°ìŠ¤ íì— ëŒ€í•œ ë§¤í¬ë¡œ
 #define MOUSE_MAXQUEUECOUNT 100
 
-// ¹öÆ°ÀÇ »óÅÂ¸¦ ³ªÅ¸³»´Â ¸ÅÅ©·Î
+// ë²„íŠ¼ì˜ ìƒíƒœë¥¼ ë‚˜íƒ€ë‚´ëŠ” ë§¤í¬ë¡œ
 #define MOUSE_LBUTTONDOWN   0x01
 #define MOUSE_RBUTTONDOWN   0x02
 #define MOUSE_MBUTTONDOWN   0x04
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ±¸Á¶Ã¼
+// êµ¬ì¡°ì²´
 //
 ////////////////////////////////////////////////////////////////////////////////
-// 1¹ÙÀÌÆ®·Î Á¤·Ä
+// 1ë°”ì´íŠ¸ë¡œ ì •ë ¬
 #pragma pack( push, 1 )
 
-// PS/2 ¸¶¿ì½º ÆÐÅ¶À» ÀúÀåÇÏ´Â ÀÚ·á±¸Á¶, ¸¶¿ì½º Å¥¿¡ »ðÀÔÇÏ´Â µ¥ÀÌÅÍ
+// PS/2 ë§ˆìš°ìŠ¤ íŒ¨í‚·ì„ ì €ìž¥í•˜ëŠ” ìžë£Œêµ¬ì¡°, ë§ˆìš°ìŠ¤ íì— ì‚½ìž…í•˜ëŠ” ë°ì´í„°
 typedef struct kMousePacketStruct
 {
-    // ¹öÆ° »óÅÂ¿Í X, Y °ª¿¡ °ü·ÃµÈ ÇÃ·¡±×
+    // ë²„íŠ¼ ìƒíƒœì™€ X, Y ê°’ì— ê´€ë ¨ëœ í”Œëž˜ê·¸
     BYTE bButtonStatusAndFlag;    
-    // XÃà ÀÌµ¿°Å¸®
+    // Xì¶• ì´ë™ê±°ë¦¬
     BYTE bXMovement;    
-    // YÃà ÀÌµ¿°Å¸®
+    // Yì¶• ì´ë™ê±°ë¦¬
     BYTE bYMovement;
 } MOUSEDATA;
 
 #pragma pack( pop )
 
-// ¸¶¿ì½ºÀÇ »óÅÂ¸¦ °ü¸®ÇÏ´Â ÀÚ·á±¸Á¶
+// ë§ˆìš°ìŠ¤ì˜ ìƒíƒœë¥¼ ê´€ë¦¬í•˜ëŠ” ìžë£Œêµ¬ì¡°
 typedef struct kMouseManagerStruct
 {
-    // ÀÚ·á±¸Á¶ µ¿±âÈ­¸¦ À§ÇÑ ½ºÇÉ¶ô
+    // ìžë£Œêµ¬ì¡° ë™ê¸°í™”ë¥¼ ìœ„í•œ ìŠ¤í•€ë½
     SPINLOCK stSpinLock;    
-    // ÇöÀç ¼ö½ÅµÈ µ¥ÀÌÅÍÀÇ °³¼ö, ¸¶¿ì½º µ¥ÀÌÅÍ°¡ 3°³ÀÌ¹Ç·Î 0~2ÀÇ ¹üÀ§¸¦ °è¼Ó ¹Ýº¹ÇÔ
+    // í˜„ìž¬ ìˆ˜ì‹ ëœ ë°ì´í„°ì˜ ê°œìˆ˜, ë§ˆìš°ìŠ¤ ë°ì´í„°ê°€ 3ê°œì´ë¯€ë¡œ 0~2ì˜ ë²”ìœ„ë¥¼ ê³„ì† ë°˜ë³µí•¨
     int iByteCount;
-    // ÇöÀç ¼ö½Å ÁßÀÎ ¸¶¿ì½º µ¥ÀÌÅÍ
+    // í˜„ìž¬ ìˆ˜ì‹  ì¤‘ì¸ ë§ˆìš°ìŠ¤ ë°ì´í„°
     MOUSEDATA stCurrentData;
 } MOUSEMANAGER;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-//  ÇÔ¼ö
+//  í•¨ìˆ˜
 //
 ////////////////////////////////////////////////////////////////////////////////
 BOOL kInitializeMouse( void );

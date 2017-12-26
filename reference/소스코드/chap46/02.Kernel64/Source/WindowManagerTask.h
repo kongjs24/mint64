@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    WindowManager.h
  *  date    2009/10/04
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   À©µµ¿ì ¸Å´ÏÀú¿¡ °ü·ÃµÈ ÇÔ¼ö¸¦ Á¤ÀÇÇÑ Çì´õ ÆÄÀÏ
+ *  brief   ìœˆë„ìš° ë§¤ë‹ˆì €ì— ê´€ë ¨ëœ í•¨ìˆ˜ë¥¼ ì •ì˜í•œ í—¤ë” íŒŒì¼
  */
 
 #ifndef __WINDOWMANAGER_H__
@@ -11,21 +11,21 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ¸ÅÅ©·Î
+// ë§¤í¬ë¡œ
 //
 ////////////////////////////////////////////////////////////////////////////////
-// À©µµ¿ì ¸Å´ÏÀú ÅÂ½ºÅ©°¡ Ã³¸®ÇÒ µ¥ÀÌÅÍ³ª ÀÌº¥Æ®¸¦ ÅëÇÕÇÏ´Â ÃÖ´ë °³¼ö
+// ìœˆë„ìš° ë§¤ë‹ˆì € íƒœìŠ¤í¬ê°€ ì²˜ë¦¬í•  ë°ì´í„°ë‚˜ ì´ë²¤íŠ¸ë¥¼ í†µí•©í•˜ëŠ” ìµœëŒ€ ê°œìˆ˜
 #define WINDOWMANAGER_DATAACCUMULATECOUNT    20
-// À©µµ¿ì Å©±â º¯°æ Ç¥½ÄÀÇ Å©±â
+// ìœˆë„ìš° í¬ê¸° ë³€ê²½ í‘œì‹ì˜ í¬ê¸°
 #define WINDOWMANAGER_RESIZEMARKERSIZE       20
-// À©µµ¿ì Å©±â º¯°æ Ç¥½ÄÀÇ »ö±ò
+// ìœˆë„ìš° í¬ê¸° ë³€ê²½ í‘œì‹ì˜ ìƒ‰ê¹”
 #define WINDOWMANAGER_COLOR_RESIZEMARKER    RGB( 210, 20, 20 )
-// À©µµ¿ì Å©±â º¯°æ Ç¥½ÄÀÇ µÎ²²
+// ìœˆë„ìš° í¬ê¸° ë³€ê²½ í‘œì‹ì˜ ë‘ê»˜
 #define WINDOWMANAGER_THICK_RESIZEMARKER    4
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ÇÔ¼ö
+// í•¨ìˆ˜
 //
 ////////////////////////////////////////////////////////////////////////////////
 void kStartWindowManager( void );

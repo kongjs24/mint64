@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    Main.c
  *  date    2009/01/02
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   C ¾ğ¾î·Î ÀÛ¼ºµÈ Ä¿³ÎÀÇ ¿£Æ®¸® Æ÷ÀÎÆ® ÆÄÀÏ
+ *  brief   C ì–¸ì–´ë¡œ ì‘ì„±ëœ ì»¤ë„ì˜ ì—”íŠ¸ë¦¬ í¬ì¸íŠ¸ íŒŒì¼
  */
 
 #include "Types.h"
@@ -22,37 +22,37 @@
 #include "VBE.h"
 #include "2DGraphics.h"
 
-// Application Processor¸¦ À§ÇÑ Main ÇÔ¼ö
+// Application Processorë¥¼ ìœ„í•œ Main í•¨ìˆ˜
 void MainForApplicationProcessor( void );
-// ±×·¡ÇÈ ¸ğµå¸¦ Å×½ºÆ®ÇÏ´Â ÇÔ¼ö
+// ê·¸ë˜í”½ ëª¨ë“œë¥¼ í…ŒìŠ¤íŠ¸í•˜ëŠ” í•¨ìˆ˜
 void kStartGraphicModeTest();
 
 /**
- *  Bootstrap Processor¿ë C ¾ğ¾î Ä¿³Î ¿£Æ®¸® Æ÷ÀÎÆ®
- *      ¾Æ·¡ ÇÔ¼ö´Â C ¾ğ¾î Ä¿³ÎÀÇ ½ÃÀÛ ºÎºĞÀÓ
+ *  Bootstrap Processorìš© C ì–¸ì–´ ì»¤ë„ ì—”íŠ¸ë¦¬ í¬ì¸íŠ¸
+ *      ì•„ë˜ í•¨ìˆ˜ëŠ” C ì–¸ì–´ ì»¤ë„ì˜ ì‹œì‘ ë¶€ë¶„ì„
  */
 void Main( void )
 {
     int iCursorX, iCursorY;
     
-    // ºÎÆ® ·Î´õ¿¡ ÀÖ´Â BSP ÇÃ·¡±×¸¦ ÀĞ¾î¼­ Application ProcessorÀÌ¸é 
-    // ÇØ´ç ÄÚ¾î¿ë ÃÊ±âÈ­ ÇÔ¼ö·Î ÀÌµ¿
+    // ë¶€íŠ¸ ë¡œë”ì— ìˆëŠ” BSP í”Œë˜ê·¸ë¥¼ ì½ì–´ì„œ Application Processorì´ë©´ 
+    // í•´ë‹¹ ì½”ì–´ìš© ì´ˆê¸°í™” í•¨ìˆ˜ë¡œ ì´ë™
     if( *( ( BYTE* ) BOOTSTRAPPROCESSOR_FLAGADDRESS ) == 0 )
     {
         MainForApplicationProcessor();
     }
     
-    // Bootstrap Processor°¡ ºÎÆÃÀ» ¿Ï·áÇßÀ¸¹Ç·Î, 0x7C09¿¡ ÀÖ´Â Bootstrap Processor¸¦
-    // ³ªÅ¸³»´Â ÇÃ·¡±×¸¦ 0À¸·Î ¼³Á¤ÇÏ¿© Application Processor¿ëÀ¸·Î ÄÚµå ½ÇÇà °æ·Î¸¦ º¯°æ
+    // Bootstrap Processorê°€ ë¶€íŒ…ì„ ì™„ë£Œí–ˆìœ¼ë¯€ë¡œ, 0x7C09ì— ìˆëŠ” Bootstrap Processorë¥¼
+    // ë‚˜íƒ€ë‚´ëŠ” í”Œë˜ê·¸ë¥¼ 0ìœ¼ë¡œ ì„¤ì •í•˜ì—¬ Application Processorìš©ìœ¼ë¡œ ì½”ë“œ ì‹¤í–‰ ê²½ë¡œë¥¼ ë³€ê²½
     *( ( BYTE* ) BOOTSTRAPPROCESSOR_FLAGADDRESS ) = 0;
 
-    // ÄÜ¼ÖÀ» ¸ÕÀú ÃÊ±âÈ­ÇÑ ÈÄ, ´ÙÀ½ ÀÛ¾÷À» ¼öÇà
+    // ì½˜ì†”ì„ ë¨¼ì € ì´ˆê¸°í™”í•œ í›„, ë‹¤ìŒ ì‘ì—…ì„ ìˆ˜í–‰
     kInitializeConsole( 0, 10 );    
     kPrintf( "Switch To IA-32e Mode Success~!!\n" );
     kPrintf( "IA-32e C Language Kernel Start..............[Pass]\n" );
     kPrintf( "Initialize Console..........................[Pass]\n" );
     
-    // ºÎÆÃ »óÈ²À» È­¸é¿¡ Ãâ·Â
+    // ë¶€íŒ… ìƒí™©ì„ í™”ë©´ì— ì¶œë ¥
     kGetCursor( &iCursorX, &iCursorY );
     kPrintf( "GDT Initialize And Switch For IA-32e Mode...[    ]" );
     kInitializeGDTTableAndTSS();
@@ -80,16 +80,16 @@ void Main( void )
     iCursorY++;
     kInitializeScheduler();
     
-    // µ¿Àû ¸Ş¸ğ¸® ÃÊ±âÈ­
+    // ë™ì  ë©”ëª¨ë¦¬ ì´ˆê¸°í™”
     kPrintf( "Dynamic Memory Initialize...................[Pass]\n" );
     iCursorY++;
     kInitializeDynamicMemory();
     
-    // 1ms´ç ÇÑ¹ø¾¿ ÀÎÅÍ·´Æ®°¡ ¹ß»ıÇÏµµ·Ï ¼³Á¤
+    // 1msë‹¹ í•œë²ˆì”© ì¸í„°ëŸ½íŠ¸ê°€ ë°œìƒí•˜ë„ë¡ ì„¤ì •
     kInitializePIT( MSTOCOUNT( 1 ), 1 );
     
     kPrintf( "Keyboard Activate And Queue Initialize......[    ]" );
-    // Å°º¸µå¸¦ È°¼ºÈ­
+    // í‚¤ë³´ë“œë¥¼ í™œì„±í™”
     if( kInitializeKeyboard() == TRUE )
     {
         kSetCursor( 45, iCursorY++ );
@@ -104,14 +104,14 @@ void Main( void )
     }
     
     kPrintf( "PIC Controller And Interrupt Initialize.....[    ]" );
-    // PIC ÄÁÆ®·Ñ·¯ ÃÊ±âÈ­ ¹× ¸ğµç ÀÎÅÍ·´Æ® È°¼ºÈ­
+    // PIC ì»¨íŠ¸ë¡¤ëŸ¬ ì´ˆê¸°í™” ë° ëª¨ë“  ì¸í„°ëŸ½íŠ¸ í™œì„±í™”
     kInitializePIC();
     kMaskPICInterrupt( 0 );
     kEnableInterrupt();
     kSetCursor( 45, iCursorY++ );
     kPrintf( "Pass\n" );
     
-    // ÆÄÀÏ ½Ã½ºÅÛÀ» ÃÊ±âÈ­
+    // íŒŒì¼ ì‹œìŠ¤í…œì„ ì´ˆê¸°í™”
     kPrintf( "File System Initialize......................[    ]" );
     if( kInitializeFileSystem() == TRUE )
     {
@@ -124,21 +124,21 @@ void Main( void )
         kPrintf( "Fail\n" );
     }
 
-    // ½Ã¸®¾ó Æ÷Æ®¸¦ ÃÊ±âÈ­    
+    // ì‹œë¦¬ì–¼ í¬íŠ¸ë¥¼ ì´ˆê¸°í™”    
     kPrintf( "Serial Port Initialize......................[Pass]\n" );
     iCursorY++;
     kInitializeSerialPort();
 
-    // À¯ÈŞ ÅÂ½ºÅ©¸¦ ½Ã½ºÅÛ ½º·¹µå·Î »ı¼ºÇÏ°í ¼ĞÀ» ½ÃÀÛ
+    // ìœ íœ´ íƒœìŠ¤í¬ë¥¼ ì‹œìŠ¤í…œ ìŠ¤ë ˆë“œë¡œ ìƒì„±í•˜ê³  ì…¸ì„ ì‹œì‘
     kCreateTask( TASK_FLAGS_LOWEST | TASK_FLAGS_THREAD | TASK_FLAGS_SYSTEM | TASK_FLAGS_IDLE, 0, 0, 
             ( QWORD ) kIdleTask, kGetAPICID() );
 
-    // ±×·¡ÇÈ ¸ğµå°¡ ¾Æ´Ï¸é ÄÜ¼Ö ¼Ğ ½ÇÇà
+    // ê·¸ë˜í”½ ëª¨ë“œê°€ ì•„ë‹ˆë©´ ì½˜ì†” ì…¸ ì‹¤í–‰
     if( *( BYTE* ) VBE_STARTGRAPHICMODEFLAGADDRESS == 0 )
     {
         kStartConsoleShell();
     }
-    // ±×·¡ÇÈ ¸ğµåÀÌ¸é ±×·¡ÇÈ ¸ğµå Å×½ºÆ® ÇÔ¼ö ½ÇÇà
+    // ê·¸ë˜í”½ ëª¨ë“œì´ë©´ ê·¸ë˜í”½ ëª¨ë“œ í…ŒìŠ¤íŠ¸ í•¨ìˆ˜ ì‹¤í–‰
     else
     {
         kStartGraphicModeTest();
@@ -146,68 +146,68 @@ void Main( void )
 }
 
 /**
- *  Application Processor¿ë C ¾ğ¾î Ä¿³Î ¿£Æ®¸® Æ÷ÀÎÆ®
- *      ´ëºÎºĞÀÇ ÀÚ·á±¸Á¶´Â Bootstrap Processor°¡ »ı¼ºÇØ ³õ¾ÒÀ¸¹Ç·Î ÄÚ¾î¿¡ ¼³Á¤ÇÏ´Â
- *      ÀÛ¾÷¸¸ ÇÔ
+ *  Application Processorìš© C ì–¸ì–´ ì»¤ë„ ì—”íŠ¸ë¦¬ í¬ì¸íŠ¸
+ *      ëŒ€ë¶€ë¶„ì˜ ìë£Œêµ¬ì¡°ëŠ” Bootstrap Processorê°€ ìƒì„±í•´ ë†“ì•˜ìœ¼ë¯€ë¡œ ì½”ì–´ì— ì„¤ì •í•˜ëŠ”
+ *      ì‘ì—…ë§Œ í•¨
  */
 void MainForApplicationProcessor( void )
 {
     QWORD qwTickCount;
 
-    // GDT Å×ÀÌºíÀ» ¼³Á¤
+    // GDT í…Œì´ë¸”ì„ ì„¤ì •
     kLoadGDTR( GDTR_STARTADDRESS );
 
-    // TSS µğ½ºÅ©¸³ÅÍ¸¦ ¼³Á¤. TSS ¼¼±×¸ÕÆ®¿Í µğ½ºÅ©¸³ÅÍ¸¦ Application ProcessorÀÇ 
-    // ¼ö¸¸Å­ »ı¼ºÇßÀ¸¹Ç·Î, APIC ID¸¦ ÀÌ¿ëÇÏ¿© TSS µğ½ºÅ©¸³ÅÍ¸¦ ÇÒ´ç
+    // TSS ë””ìŠ¤í¬ë¦½í„°ë¥¼ ì„¤ì •. TSS ì„¸ê·¸ë¨¼íŠ¸ì™€ ë””ìŠ¤í¬ë¦½í„°ë¥¼ Application Processorì˜ 
+    // ìˆ˜ë§Œí¼ ìƒì„±í–ˆìœ¼ë¯€ë¡œ, APIC IDë¥¼ ì´ìš©í•˜ì—¬ TSS ë””ìŠ¤í¬ë¦½í„°ë¥¼ í• ë‹¹
     kLoadTR( GDT_TSSSEGMENT + ( kGetAPICID() * sizeof( GDTENTRY16 ) ) );
 
-    // IDT Å×ÀÌºíÀ» ¼³Á¤
+    // IDT í…Œì´ë¸”ì„ ì„¤ì •
     kLoadIDTR( IDTR_STARTADDRESS );
     
-    // ½ºÄÉÁÙ·¯ ÃÊ±âÈ­
+    // ìŠ¤ì¼€ì¤„ëŸ¬ ì´ˆê¸°í™”
     kInitializeScheduler();
     
-    // ÇöÀç ÄÚ¾îÀÇ ·ÎÄÃ APIC¸¦ È°¼ºÈ­
+    // í˜„ì¬ ì½”ì–´ì˜ ë¡œì»¬ APICë¥¼ í™œì„±í™”
     kEnableSoftwareLocalAPIC();
 
-    // ¸ğµç ÀÎÅÍ·´Æ®¸¦ ¼ö½ÅÇÒ ¼ö ÀÖµµ·Ï ÅÂ½ºÅ© ¿ì¼± ¼øÀ§ ·¹Áö½ºÅÍ¸¦ 0À¸·Î ¼³Á¤
+    // ëª¨ë“  ì¸í„°ëŸ½íŠ¸ë¥¼ ìˆ˜ì‹ í•  ìˆ˜ ìˆë„ë¡ íƒœìŠ¤í¬ ìš°ì„  ìˆœìœ„ ë ˆì§€ìŠ¤í„°ë¥¼ 0ìœ¼ë¡œ ì„¤ì •
     kSetTaskPriority( 0 );
 
-    // ·ÎÄÃ APICÀÇ ·ÎÄÃ º¤ÅÍ Å×ÀÌºíÀ» ÃÊ±âÈ­
+    // ë¡œì»¬ APICì˜ ë¡œì»¬ ë²¡í„° í…Œì´ë¸”ì„ ì´ˆê¸°í™”
     kInitializeLocalVectorTable();
 
-    // ÀÎÅÍ·´Æ®¸¦ È°¼ºÈ­
+    // ì¸í„°ëŸ½íŠ¸ë¥¼ í™œì„±í™”
     kEnableInterrupt();    
 
-    // ´ëÄª I/O ¸ğµå Å×½ºÆ®¸¦ À§ÇØ Application Processor°¡ ½ÃÀÛÇÑ ÈÄ ÇÑ¹ø¸¸ Ãâ·Â
+    // ëŒ€ì¹­ I/O ëª¨ë“œ í…ŒìŠ¤íŠ¸ë¥¼ ìœ„í•´ Application Processorê°€ ì‹œì‘í•œ í›„ í•œë²ˆë§Œ ì¶œë ¥
     kPrintf( "Application Processor[APIC ID: %d] Is Activated\n",
             kGetAPICID() );
 
-    // À¯ÈŞ ÅÂ½ºÅ© ½ÇÇà
+    // ìœ íœ´ íƒœìŠ¤í¬ ì‹¤í–‰
     kIdleTask();
 }
 
-// x¸¦ Àı´ë°ªÀ¸·Î º¯È¯ÇÏ´Â ¸ÅÅ©·Î
+// xë¥¼ ì ˆëŒ€ê°’ìœ¼ë¡œ ë³€í™˜í•˜ëŠ” ë§¤í¬ë¡œ
 #define ABS( x )    ( ( ( x ) >= 0 ) ? ( x ) : -( x ) )
 
 /**
- *  ÀÓÀÇÀÇ X, Y ÁÂÇ¥¸¦ ¹İÈ¯
+ *  ì„ì˜ì˜ X, Y ì¢Œí‘œë¥¼ ë°˜í™˜
  */
 void kGetRandomXY( int* piX, int* piY )
 {
     int iRandom;
     
-    // XÁÂÇ¥¸¦ °è»ê
+    // Xì¢Œí‘œë¥¼ ê³„ì‚°
     iRandom = kRandom();
     *piX = ABS( iRandom ) % 1000;
     
-    // YÁÂÇ¥¸¦ °è»ê
+    // Yì¢Œí‘œë¥¼ ê³„ì‚°
     iRandom = kRandom();
     *piY = ABS( iRandom ) % 700;
 }
 
 /**
- *  ÀÓÀÇÀÇ »öÀ» ¹İÈ¯
+ *  ì„ì˜ì˜ ìƒ‰ì„ ë°˜í™˜
  */
 COLOR kGetRandomColor( void )
 {
@@ -227,7 +227,7 @@ COLOR kGetRandomColor( void )
 }
 
 /**
- *  À©µµ¿ì ÇÁ·¹ÀÓÀ» ±×¸²
+ *  ìœˆë„ìš° í”„ë ˆì„ì„ ê·¸ë¦¼
  */
 void kDrawWindowFrame( int iX, int iY, int iWidth, int iHeight, const char* pcTitle )
 {
@@ -237,35 +237,35 @@ void kDrawWindowFrame( int iX, int iY, int iWidth, int iHeight, const char* pcTi
     COLOR* pstVideoMemory;
     RECT stScreenArea;
 
-    // VBE ¸ğµå Á¤º¸ ºí·ÏÀ» ¹İÈ¯
+    // VBE ëª¨ë“œ ì •ë³´ ë¸”ë¡ì„ ë°˜í™˜
     pstVBEMode = kGetVBEModeInfoBlock();
     
-    // È­¸é ¿µ¿ª ¼³Á¤
+    // í™”ë©´ ì˜ì—­ ì„¤ì •
     stScreenArea.iX1 = 0;
     stScreenArea.iY1 = 0;
     stScreenArea.iX2 = pstVBEMode->wXResolution - 1;
     stScreenArea.iY2 = pstVBEMode->wYResolution - 1;
     
-    // ±×·¡ÇÈ ¸Ş¸ğ¸® ¾îµå·¹½º ¼³Á¤
+    // ê·¸ë˜í”½ ë©”ëª¨ë¦¬ ì–´ë“œë ˆìŠ¤ ì„¤ì •
     pstVideoMemory = ( COLOR* ) ( ( QWORD )pstVBEMode->dwPhysicalBasePointer & 0xFFFFFFFF );
     
-    // À©µµ¿ì ÇÁ·¹ÀÓÀÇ °¡ÀåÀÚ¸®¸¦ ±×¸², 2 ÇÈ¼¿ µÎ²²
+    // ìœˆë„ìš° í”„ë ˆì„ì˜ ê°€ì¥ìë¦¬ë¥¼ ê·¸ë¦¼, 2 í”½ì…€ ë‘ê»˜
     kInternalDrawRect( &stScreenArea, pstVideoMemory, 
             iX, iY, iX + iWidth, iY + iHeight, RGB( 109, 218, 22 ), FALSE );
     kInternalDrawRect( &stScreenArea, pstVideoMemory, 
             iX + 1, iY + 1, iX + iWidth - 1, iY + iHeight - 1, RGB( 109, 218, 22 ),
             FALSE );
 
-    // Á¦¸ñ Ç¥½ÃÁÙÀ» Ã¤¿ò
+    // ì œëª© í‘œì‹œì¤„ì„ ì±„ì›€
     kInternalDrawRect( &stScreenArea, pstVideoMemory, 
             iX, iY + 3, iX + iWidth - 1, iY + 21, RGB( 79, 204, 11 ), TRUE );
 
-    // À©µµ¿ì Á¦¸ñÀ» Ç¥½Ã
+    // ìœˆë„ìš° ì œëª©ì„ í‘œì‹œ
     kInternalDrawText( &stScreenArea, pstVideoMemory, 
             iX + 6, iY + 3, RGB( 255, 255, 255 ), RGB( 79, 204, 11 ),
             pcTitle, kStrLen( pcTitle ) );
     
-    // Á¦¸ñ Ç¥½ÃÁÙÀ» ÀÔÃ¼·Î º¸ÀÌ°Ô À§ÂÊÀÇ ¼±À» ±×¸², 2 ÇÈ¼¿ µÎ²²
+    // ì œëª© í‘œì‹œì¤„ì„ ì…ì²´ë¡œ ë³´ì´ê²Œ ìœ„ìª½ì˜ ì„ ì„ ê·¸ë¦¼, 2 í”½ì…€ ë‘ê»˜
     kInternalDrawLine( &stScreenArea, pstVideoMemory, 
             iX + 1, iY + 1, iX + iWidth - 1, iY + 1, RGB( 183, 249, 171 ) );
     kInternalDrawLine( &stScreenArea, pstVideoMemory, 
@@ -276,18 +276,18 @@ void kDrawWindowFrame( int iX, int iY, int iWidth, int iHeight, const char* pcTi
     kInternalDrawLine( &stScreenArea, pstVideoMemory, 
             iX + 2, iY + 2, iX + 2, iY + 20, RGB( 150, 210, 140 ) );
     
-    // Á¦¸ñ Ç¥½ÃÁÙÀÇ ¾Æ·¡ÂÊ¿¡ ¼±À» ±×¸²
+    // ì œëª© í‘œì‹œì¤„ì˜ ì•„ë˜ìª½ì— ì„ ì„ ê·¸ë¦¼
     kInternalDrawLine( &stScreenArea, pstVideoMemory, 
             iX + 2, iY + 19, iX + iWidth - 2, iY + 19, RGB( 46, 59, 30 ) );
     kInternalDrawLine( &stScreenArea, pstVideoMemory, 
             iX + 2, iY + 20, iX + iWidth - 2, iY + 20, RGB( 46, 59, 30 ) );
 
-    // ´İ±â ¹öÆ°À» ±×¸², ¿À¸¥ÂÊ »ó´Ü¿¡ Ç¥½Ã
+    // ë‹«ê¸° ë²„íŠ¼ì„ ê·¸ë¦¼, ì˜¤ë¥¸ìª½ ìƒë‹¨ì— í‘œì‹œ
     kInternalDrawRect( &stScreenArea, pstVideoMemory, 
             iX + iWidth - 2 - 18, iY + 1, iX + iWidth - 2, iY + 19,
             RGB( 255, 255, 255 ), TRUE );
 
-    // ´İ±â ¹öÆ°À» ÀÔÃ¼·Î º¸ÀÌ°Ô ¼±À» ±×¸², 2 ÇÈ¼¿ µÎ²²·Î ±×¸²
+    // ë‹«ê¸° ë²„íŠ¼ì„ ì…ì²´ë¡œ ë³´ì´ê²Œ ì„ ì„ ê·¸ë¦¼, 2 í”½ì…€ ë‘ê»˜ë¡œ ê·¸ë¦¼
     kInternalDrawRect( &stScreenArea, pstVideoMemory, 
             iX + iWidth - 2, iY + 1, iX + iWidth - 2, iY + 19 - 1,
             RGB( 86, 86, 86 ), TRUE );
@@ -314,7 +314,7 @@ void kDrawWindowFrame( int iX, int iY, int iWidth, int iHeight, const char* pcTi
             iX + iWidth - 2 - 18 + 1, iY + 1, iX + iWidth - 2 - 18 + 1, iY + 19 - 1,
             RGB( 229, 229, 229 ) );
     
-    // ´ë°¢¼± X¸¦ ±×¸², 3 ÇÈ¼¿·Î ±×¸²
+    // ëŒ€ê°ì„  Xë¥¼ ê·¸ë¦¼, 3 í”½ì…€ë¡œ ê·¸ë¦¼
     kInternalDrawLine( &stScreenArea, pstVideoMemory, 
             iX + iWidth - 2 - 18 + 4, iY + 1 + 4, iX + iWidth - 2 - 4, iY + 19 - 4, 
             RGB( 71, 199, 21 ) );
@@ -336,12 +336,12 @@ void kDrawWindowFrame( int iX, int iY, int iWidth, int iHeight, const char* pcTi
             RGB( 71, 199, 21 ) );
 
 
-    // ³»ºÎ¸¦ ±×¸²
+    // ë‚´ë¶€ë¥¼ ê·¸ë¦¼
     kInternalDrawRect( &stScreenArea, pstVideoMemory, 
             iX + 2, iY + 21, iX + iWidth - 2, iY + iHeight - 2, 
             RGB( 255, 255, 255 ), TRUE );
     
-    // Å×½ºÆ® ¹®ÀÚ Ãâ·Â
+    // í…ŒìŠ¤íŠ¸ ë¬¸ì ì¶œë ¥
     kInternalDrawText( &stScreenArea, pstVideoMemory, 
             iX + 10, iY + 30, RGB( 0, 0, 0 ), RGB( 255, 255, 255 ), pcTestString1,
             kStrLen( pcTestString1 ) );
@@ -351,7 +351,7 @@ void kDrawWindowFrame( int iX, int iY, int iWidth, int iHeight, const char* pcTi
 }
 
 /**
- *  ±×·¡ÇÈ ¸ğµå¸¦ Å×½ºÆ®ÇÏ´Â ÇÔ¼ö
+ *  ê·¸ë˜í”½ ëª¨ë“œë¥¼ í…ŒìŠ¤íŠ¸í•˜ëŠ” í•¨ìˆ˜
  */
 void kStartGraphicModeTest()
 {
@@ -363,127 +363,127 @@ void kStartGraphicModeTest()
     COLOR* pstVideoMemory;
     RECT stScreenArea;
 
-    // VBE ¸ğµå Á¤º¸ ºí·ÏÀ» ¹İÈ¯
+    // VBE ëª¨ë“œ ì •ë³´ ë¸”ë¡ì„ ë°˜í™˜
     pstVBEMode = kGetVBEModeInfoBlock();
     
-    // È­¸é ¿µ¿ª ¼³Á¤
+    // í™”ë©´ ì˜ì—­ ì„¤ì •
     stScreenArea.iX1 = 0;
     stScreenArea.iY1 = 0;
     stScreenArea.iX2 = pstVBEMode->wXResolution - 1;
     stScreenArea.iY2 = pstVBEMode->wYResolution - 1;
     
-    // ±×·¡ÇÈ ¸Ş¸ğ¸® ¾îµå·¹½º ¼³Á¤
+    // ê·¸ë˜í”½ ë©”ëª¨ë¦¬ ì–´ë“œë ˆìŠ¤ ì„¤ì •
     pstVideoMemory = ( COLOR* ) ( ( QWORD )pstVBEMode->dwPhysicalBasePointer & 0xFFFFFFFF );
     
     //==========================================================================
-    // Á¡, ¼±, »ç°¢Çü, ¿ø, ±×¸®°í ¹®ÀÚ¸¦ °£´ÜÈ÷ Ãâ·Â
+    // ì , ì„ , ì‚¬ê°í˜•, ì›, ê·¸ë¦¬ê³  ë¬¸ìë¥¼ ê°„ë‹¨íˆ ì¶œë ¥
     //==========================================================================
-    // (0, 0)¿¡ PixelÀÌ¶õ ¹®ÀÚ¿­À» °ËÀº»ö ¹ÙÅÁ¿¡ Èò»öÀ¸·Î Ãâ·Â
+    // (0, 0)ì— Pixelì´ë€ ë¬¸ìì—´ì„ ê²€ì€ìƒ‰ ë°”íƒ•ì— í°ìƒ‰ìœ¼ë¡œ ì¶œë ¥
     kInternalDrawText( &stScreenArea, pstVideoMemory, 
             0, 0, RGB( 255, 255, 255), RGB( 0, 0, 0 ), vpcString[ 0 ], 
             kStrLen( vpcString[ 0 ] ) );
-    // ÇÈ¼¿À» (1, 20), (2, 20)¿¡ Èò»öÀ¸·Î Ãâ·Â
+    // í”½ì…€ì„ (1, 20), (2, 20)ì— í°ìƒ‰ìœ¼ë¡œ ì¶œë ¥
     kInternalDrawPixel( &stScreenArea, pstVideoMemory, 1, 20, RGB( 255, 255, 255 ) );
     kInternalDrawPixel( &stScreenArea, pstVideoMemory, 2, 20, RGB( 255, 255, 255 ) );
     
-    // (0, 25)¿¡ LineÀÌ¶õ ¹®ÀÚ¿­À» °ËÀº»ö ¹ÙÅÁ¿¡ »¡°£»öÀ¸·Î Ãâ·Â
+    // (0, 25)ì— Lineì´ë€ ë¬¸ìì—´ì„ ê²€ì€ìƒ‰ ë°”íƒ•ì— ë¹¨ê°„ìƒ‰ìœ¼ë¡œ ì¶œë ¥
     kInternalDrawText( &stScreenArea, pstVideoMemory, 
             0, 25, RGB( 255, 0, 0), RGB( 0, 0, 0 ), vpcString[ 1 ], 
             kStrLen( vpcString[ 1 ] ) );
-    // (20, 50)À» Áß½ÉÀ¸·Î (1000, 50) (1000, 100), (1000, 150), (1000, 200), 
-    // (1000, 250)±îÁö »¡°£»öÀ¸·Î Ãâ·Â
+    // (20, 50)ì„ ì¤‘ì‹¬ìœ¼ë¡œ (1000, 50) (1000, 100), (1000, 150), (1000, 200), 
+    // (1000, 250)ê¹Œì§€ ë¹¨ê°„ìƒ‰ìœ¼ë¡œ ì¶œë ¥
     kInternalDrawLine( &stScreenArea, pstVideoMemory, 20, 50, 1000, 50, RGB( 255, 0, 0 ) );
     kInternalDrawLine( &stScreenArea, pstVideoMemory, 20, 50, 1000, 100, RGB( 255, 0, 0 ) );
     kInternalDrawLine( &stScreenArea, pstVideoMemory, 20, 50, 1000, 150, RGB( 255, 0, 0 ) );
     kInternalDrawLine( &stScreenArea, pstVideoMemory, 20, 50, 1000, 200, RGB( 255, 0, 0 ) );
     kInternalDrawLine( &stScreenArea, pstVideoMemory, 20, 50, 1000, 250, RGB( 255, 0, 0 ) );
     
-    // (0, 180)¿¡ RectangleÀÌ¶õ ¹®ÀÚ¿­À» °ËÀº»ö ¹ÙÅÁ¿¡ ³ì»öÀ¸·Î Ãâ·Â
+    // (0, 180)ì— Rectangleì´ë€ ë¬¸ìì—´ì„ ê²€ì€ìƒ‰ ë°”íƒ•ì— ë…¹ìƒ‰ìœ¼ë¡œ ì¶œë ¥
     kInternalDrawText( &stScreenArea, pstVideoMemory, 
             0, 180, RGB( 0, 255, 0), RGB( 0, 0, 0 ), vpcString[ 2 ], 
             kStrLen( vpcString[ 2 ] ) );
-    // (20, 200)¿¡¼­ ½ÃÀÛÇÏ¿© ±æÀÌ°¡ °¢°¢ 50, 100, 150, 200ÀÎ »ç°¢ÇüÀ» ³ì»öÀ¸·Î Ãâ·Â
+    // (20, 200)ì—ì„œ ì‹œì‘í•˜ì—¬ ê¸¸ì´ê°€ ê°ê° 50, 100, 150, 200ì¸ ì‚¬ê°í˜•ì„ ë…¹ìƒ‰ìœ¼ë¡œ ì¶œë ¥
     kInternalDrawRect( &stScreenArea, pstVideoMemory, 20, 200, 70, 250, RGB( 0, 255, 0 ), FALSE );
     kInternalDrawRect( &stScreenArea, pstVideoMemory, 120, 200, 220, 300, RGB( 0, 255, 0 ), TRUE );
     kInternalDrawRect( &stScreenArea, pstVideoMemory, 270, 200, 420, 350, RGB( 0, 255, 0 ), FALSE );
     kInternalDrawRect( &stScreenArea, pstVideoMemory, 470, 200, 670, 400, RGB( 0, 255, 0 ), TRUE );
     
-    // (0, 550)¿¡ CircleÀÌ¶õ ¹®ÀÚ¿­À» °ËÀº»ö ¹ÙÅÁ¿¡ ÆÄ¶õ»öÀ¸·Î Ãâ·Â
+    // (0, 550)ì— Circleì´ë€ ë¬¸ìì—´ì„ ê²€ì€ìƒ‰ ë°”íƒ•ì— íŒŒë€ìƒ‰ìœ¼ë¡œ ì¶œë ¥
     kInternalDrawText( &stScreenArea, pstVideoMemory, 
             0, 550, RGB( 0, 0, 255), RGB( 0, 0, 0 ), vpcString[ 3 ], 
             kStrLen( vpcString[ 3 ] ) );
-    // (45, 600)¿¡¼­ ½ÃÀÛÇÏ¿© ¹İÁö¸§ÀÌ 25, 50, 75, 100ÀÎ ¿øÀ» ÆÄ¶õ»öÀ¸·Î Ãâ·Â
+    // (45, 600)ì—ì„œ ì‹œì‘í•˜ì—¬ ë°˜ì§€ë¦„ì´ 25, 50, 75, 100ì¸ ì›ì„ íŒŒë€ìƒ‰ìœ¼ë¡œ ì¶œë ¥
     kInternalDrawCircle( &stScreenArea, pstVideoMemory, 45, 600, 25, RGB( 0, 0, 255 ), FALSE ) ;
     kInternalDrawCircle( &stScreenArea, pstVideoMemory, 170, 600, 50, RGB( 0, 0, 255 ), TRUE ) ;
     kInternalDrawCircle( &stScreenArea, pstVideoMemory, 345, 600, 75, RGB( 0, 0, 255 ), FALSE ) ;
     kInternalDrawCircle( &stScreenArea, pstVideoMemory, 570, 600, 100, RGB( 0, 0, 255 ), TRUE ) ;
     
-    // Å° ÀÔ·Â ´ë±â
+    // í‚¤ ì…ë ¥ ëŒ€ê¸°
     kGetCh();
     
     //==========================================================================
-    // Á¡, ¼±, »ç°¢Çü, ¿ø, ±×¸®°í ¹®ÀÚ¸¦ ¹«ÀÛÀ§·Î Ãâ·Â
+    // ì , ì„ , ì‚¬ê°í˜•, ì›, ê·¸ë¦¬ê³  ë¬¸ìë¥¼ ë¬´ì‘ìœ„ë¡œ ì¶œë ¥
     //==========================================================================
-    // q Å°°¡ ÀÔ·ÂµÉ ¶§±îÁö ¾Æ·¡¸¦ ¹İº¹
+    // q í‚¤ê°€ ì…ë ¥ë  ë•Œê¹Œì§€ ì•„ë˜ë¥¼ ë°˜ë³µ
     do
     {
-        // Á¡ ±×¸®±â
+        // ì  ê·¸ë¦¬ê¸°
         for( i = 0 ; i < 100 ; i++ )
         {
-            // ÀÓÀÇÀÇ XÁÂÇ¥¿Í »öÀ» ¹İÈ¯
+            // ì„ì˜ì˜ Xì¢Œí‘œì™€ ìƒ‰ì„ ë°˜í™˜
             kGetRandomXY( &iX1, &iY1 );
             stColor1 = kGetRandomColor();
             
-            // Á¡ ±×¸®±â
+            // ì  ê·¸ë¦¬ê¸°
             kInternalDrawPixel( &stScreenArea, pstVideoMemory, iX1, iY1, stColor1 );
         }        
         
-        // ¼± ±×¸®±â
+        // ì„  ê·¸ë¦¬ê¸°
         for( i = 0 ; i < 100 ; i++ )
         {
-            // ÀÓÀÇÀÇ XÁÂÇ¥¿Í »öÀ» ¹İÈ¯
+            // ì„ì˜ì˜ Xì¢Œí‘œì™€ ìƒ‰ì„ ë°˜í™˜
             kGetRandomXY( &iX1, &iY1 );
             kGetRandomXY( &iX2, &iY2 );
             stColor1 = kGetRandomColor();
             
-            // ¼± ±×¸®±â
+            // ì„  ê·¸ë¦¬ê¸°
             kInternalDrawLine( &stScreenArea, pstVideoMemory, iX1, iY1, iX2, iY2, stColor1 );
         }
 
-        // »ç°¢Çü ±×¸®±â
+        // ì‚¬ê°í˜• ê·¸ë¦¬ê¸°
         for( i = 0 ; i < 20 ; i++ )
         {
-            // ÀÓÀÇÀÇ XÁÂÇ¥¿Í »öÀ» ¹İÈ¯
+            // ì„ì˜ì˜ Xì¢Œí‘œì™€ ìƒ‰ì„ ë°˜í™˜
             kGetRandomXY( &iX1, &iY1 );
             kGetRandomXY( &iX2, &iY2 );
             stColor1 = kGetRandomColor();
 
-            // »ç°¢Çü ±×¸®±â
+            // ì‚¬ê°í˜• ê·¸ë¦¬ê¸°
             kInternalDrawRect( &stScreenArea, pstVideoMemory, 
                     iX1, iY1, iX2, iY2, stColor1, kRandom() % 2 );
         }
         
-        // ¿ø ±×¸®±â
+        // ì› ê·¸ë¦¬ê¸°
         for( i = 0 ; i < 100 ; i++ )
         {
-            // ÀÓÀÇÀÇ XÁÂÇ¥¿Í »öÀ» ¹İÈ¯
+            // ì„ì˜ì˜ Xì¢Œí‘œì™€ ìƒ‰ì„ ë°˜í™˜
             kGetRandomXY( &iX1, &iY1 );
             stColor1 = kGetRandomColor();
 
-            // ¿ø ±×¸®±â
+            // ì› ê·¸ë¦¬ê¸°
             kInternalDrawCircle( &stScreenArea, pstVideoMemory, 
                     iX1, iY1, ABS( kRandom() % 50 + 1 ), stColor1, kRandom() % 2 );
         }
         
-        // ÅØ½ºÆ® Ç¥½Ã
+        // í…ìŠ¤íŠ¸ í‘œì‹œ
         for( i = 0 ; i < 100 ; i++ )
         {
-            // ÀÓÀÇÀÇ XÁÂÇ¥¿Í »öÀ» ¹İÈ¯
+            // ì„ì˜ì˜ Xì¢Œí‘œì™€ ìƒ‰ì„ ë°˜í™˜
             kGetRandomXY( &iX1, &iY1 );
             stColor1 = kGetRandomColor();
             stColor2 = kGetRandomColor();
             
-            // ÅØ½ºÆ® Ãâ·Â
+            // í…ìŠ¤íŠ¸ ì¶œë ¥
             kInternalDrawText( &stScreenArea, pstVideoMemory, 
                     iX1, iY1, stColor1, stColor2, vpcString[ 4 ], 
                     kStrLen( vpcString[ 4 ] ) );
@@ -491,17 +491,17 @@ void kStartGraphicModeTest()
     } while( kGetCh() != 'q' );
     
     //==========================================================================
-    // À©µµ¿ì ÇÁ·ÎÅäÅ¸ÀÔÀ» Ãâ·Â
+    // ìœˆë„ìš° í”„ë¡œí† íƒ€ì…ì„ ì¶œë ¥
     //==========================================================================
-    // q Å°¸¦ ´­·¯¼­ ºüÁ® ³ª¿Ô´Ù¸é À©µµ¿ì ÇÁ·ÎÅäÅ¸ÀÔÀ» Ç¥½ÃÇÔ
+    // q í‚¤ë¥¼ ëˆŒëŸ¬ì„œ ë¹ ì ¸ ë‚˜ì™”ë‹¤ë©´ ìœˆë„ìš° í”„ë¡œí† íƒ€ì…ì„ í‘œì‹œí•¨
     while( 1 )
     {
-        // ¹è°æÀ» Ãâ·Â
+        // ë°°ê²½ì„ ì¶œë ¥
         kInternalDrawRect( &stScreenArea, pstVideoMemory, 
                 stScreenArea.iX1, stScreenArea.iY1, stScreenArea.iX2,
                 stScreenArea.iY2, RGB( 232, 255, 232 ), TRUE );
 
-        // À©µµ¿ì ÇÁ·¹ÀÓÀ» 3°³ ±×¸²
+        // ìœˆë„ìš° í”„ë ˆì„ì„ 3ê°œ ê·¸ë¦¼
         for( i = 0 ; i < 3 ; i++ )
         {
             kGetRandomXY( &iX1, &iY1 );

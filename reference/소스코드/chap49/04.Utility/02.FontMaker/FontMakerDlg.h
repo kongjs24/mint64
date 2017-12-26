@@ -1,4 +1,4 @@
-// FontMakerDlg.h : header file
+﻿// FontMakerDlg.h : header file
 //
 
 #if !defined(AFX_FONTMAKERDLG_H__F770EBC1_37BA_46EA_8517_E2A4D4479403__INCLUDED_)

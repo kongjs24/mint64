@@ -1,16 +1,16 @@
-/**
+ï»¿/**
  *  file    Utility.h
  *  date    2009/01/17
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   OS¿¡¼­ »ç¿ëÇÒ À¯Æ¿¸®Æ¼ ÇÔ¼ö¿¡ °ü·ÃµÈ ÆÄÀÏ
+ *  brief   OSì—ì„œ ì‚¬ìš©í•  ìœ í‹¸ë¦¬í‹° í•¨ìˆ˜ì— ê´€ë ¨ëœ íŒŒì¼
  */
 
 #include "Utility.h"
 #include "AssemblyUtility.h"
 
 /**
- *  ¸Ş¸ğ¸®¸¦ Æ¯Á¤ °ªÀ¸·Î Ã¤¿ò
+ *  ë©”ëª¨ë¦¬ë¥¼ íŠ¹ì • ê°’ìœ¼ë¡œ ì±„ì›€
  */
 void kMemSet( void* pvDestination, BYTE bData, int iSize )
 {
@@ -23,7 +23,7 @@ void kMemSet( void* pvDestination, BYTE bData, int iSize )
 }
 
 /**
- *  ¸Ş¸ğ¸® º¹»ç
+ *  ë©”ëª¨ë¦¬ ë³µì‚¬
  */
 int kMemCpy( void* pvDestination, const void* pvSource, int iSize )
 {
@@ -38,7 +38,7 @@ int kMemCpy( void* pvDestination, const void* pvSource, int iSize )
 }
 
 /**
- *  ¸Ş¸ğ¸® ºñ±³
+ *  ë©”ëª¨ë¦¬ ë¹„êµ
  */
 int kMemCmp( const void* pvDestination, const void* pvSource, int iSize )
 {
@@ -57,13 +57,13 @@ int kMemCmp( const void* pvDestination, const void* pvSource, int iSize )
 }
 
 /**
- *  RFLAGS ·¹Áö½ºÅÍÀÇ ÀÎÅÍ·´Æ® ÇÃ·¡±×¸¦ º¯°æÇÏ°í ÀÌÀü ÀÎÅÍ·´Æ® ÇÃ·¡±×ÀÇ »óÅÂ¸¦ ¹İÈ¯
+ *  RFLAGS ë ˆì§€ìŠ¤í„°ì˜ ì¸í„°ëŸ½íŠ¸ í”Œë˜ê·¸ë¥¼ ë³€ê²½í•˜ê³  ì´ì „ ì¸í„°ëŸ½íŠ¸ í”Œë˜ê·¸ì˜ ìƒíƒœë¥¼ ë°˜í™˜
  */
 BOOL kSetInterruptFlag( BOOL bEnableInterrupt )
 {
     QWORD qwRFLAGS;
 
-    // ÀÌÀüÀÇ RFLAGS ·¹Áö½ºÅÍ °ªÀ» ÀĞÀº µÚ¿¡ ÀÎÅÍ·´Æ® °¡´É/ºÒ°¡ Ã³¸®
+    // ì´ì „ì˜ RFLAGS ë ˆì§€ìŠ¤í„° ê°’ì„ ì½ì€ ë’¤ì— ì¸í„°ëŸ½íŠ¸ ê°€ëŠ¥/ë¶ˆê°€ ì²˜ë¦¬
     qwRFLAGS = kReadRFLAGS();
     if( bEnableInterrupt == TRUE )
     {
@@ -74,7 +74,7 @@ BOOL kSetInterruptFlag( BOOL bEnableInterrupt )
         kDisableInterrupt();
     }
 
-    // ÀÌÀü RFLAGS ·¹Áö½ºÅÍÀÇ IF ºñÆ®(ºñÆ® 9)¸¦ È®ÀÎÇÏ¿© ÀÌÀüÀÇ ÀÎÅÍ·´Æ® »óÅÂ¸¦ ¹İÈ¯
+    // ì´ì „ RFLAGS ë ˆì§€ìŠ¤í„°ì˜ IF ë¹„íŠ¸(ë¹„íŠ¸ 9)ë¥¼ í™•ì¸í•˜ì—¬ ì´ì „ì˜ ì¸í„°ëŸ½íŠ¸ ìƒíƒœë¥¼ ë°˜í™˜
     if( qwRFLAGS & 0x0200 )
     {
         return TRUE;

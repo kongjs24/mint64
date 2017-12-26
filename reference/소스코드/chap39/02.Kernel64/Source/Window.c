@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    Window.c
  *  date    2009/09/28
  *  author  kkamagui
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   GUI ½Ã½ºÅÛ¿¡ °ü·ÃµÈ ÇÔ¼ö¸¦ Á¤ÀÇÇÑ ¼Ò½º ÆÄÀÏ
+ *  brief   GUI ì‹œìŠ¤í…œì— ê´€ë ¨ëœ í•¨ìˆ˜ë¥¼ ì •ì˜í•œ ì†ŒìŠ¤ íŒŒì¼
  */
 #include "Window.h"
 #include "VBE.h"
@@ -11,26 +11,26 @@
 #include "Font.h"
 #include "DynamicMemory.h"
 
-// GUI ½Ã½ºÅÛ °ü·Ã ÀÚ·á±¸Á¶
+// GUI ì‹œìŠ¤í…œ ê´€ë ¨ ìë£Œêµ¬ì¡°
 static WINDOWPOOLMANAGER gs_stWindowPoolManager;
-// À©µµ¿ì ¸Å´ÏÀú °ü·Ã ÀÚ·á±¸Á¶
+// ìœˆë„ìš° ë§¤ë‹ˆì € ê´€ë ¨ ìë£Œêµ¬ì¡°
 static WINDOWMANAGER gs_stWindowManager;
 
 //==============================================================================
-//  À©µµ¿ì Ç® °ü·Ã
+//  ìœˆë„ìš° í’€ ê´€ë ¨
 //==============================================================================
 /**
- *  À©µµ¿ì Ç®À» ÃÊ±âÈ­
+ *  ìœˆë„ìš° í’€ì„ ì´ˆê¸°í™”
  */
 static void kInitializeWindowPool( void )
 {
     int i;
     void* pvWindowPoolAddress;
     
-    // ÀÚ·á±¸Á¶ ÃÊ±âÈ­
+    // ìë£Œêµ¬ì¡° ì´ˆê¸°í™”
     kMemSet( &gs_stWindowPoolManager, 0, sizeof( gs_stWindowPoolManager ) );
     
-    // À©µµ¿ì Ç®ÀÇ ¸Ş¸ğ¸®¸¦ ÇÒ´ç
+    // ìœˆë„ìš° í’€ì˜ ë©”ëª¨ë¦¬ë¥¼ í• ë‹¹
     pvWindowPoolAddress = ( void* ) kAllocateMemory( sizeof( WINDOW ) * WINDOW_MAXCOUNT );
     if( pvWindowPoolAddress == NULL )
     {
@@ -41,48 +41,48 @@ static void kInitializeWindowPool( void )
         }
     }
     
-    // À©µµ¿ì Ç®ÀÇ ¾îµå·¹½º¸¦ ÁöÁ¤ÇÏ°í ÃÊ±âÈ­
+    // ìœˆë„ìš° í’€ì˜ ì–´ë“œë ˆìŠ¤ë¥¼ ì§€ì •í•˜ê³  ì´ˆê¸°í™”
     gs_stWindowPoolManager.pstStartAddress = ( WINDOW* ) pvWindowPoolAddress;
     kMemSet( pvWindowPoolAddress, 0, sizeof( WINDOW ) * WINDOW_MAXCOUNT );
 
-    // À©µµ¿ì Ç®¿¡ ID¸¦ ÇÒ´ç
+    // ìœˆë„ìš° í’€ì— IDë¥¼ í• ë‹¹
     for( i = 0 ; i < WINDOW_MAXCOUNT ; i++ )
     {
         gs_stWindowPoolManager.pstStartAddress[ i ].stLink.qwID = i;
     }
     
-    // À©µµ¿ìÀÇ ÃÖ´ë °³¼ö¿Í ÇÒ´çµÈ È½¼ö¸¦ ÃÊ±âÈ­
+    // ìœˆë„ìš°ì˜ ìµœëŒ€ ê°œìˆ˜ì™€ í• ë‹¹ëœ íšŸìˆ˜ë¥¼ ì´ˆê¸°í™”
     gs_stWindowPoolManager.iMaxCount = WINDOW_MAXCOUNT;
     gs_stWindowPoolManager.iAllocatedCount = 1;
     
-    // ¹ÂÅØ½º ÃÊ±âÈ­
+    // ë®¤í…ìŠ¤ ì´ˆê¸°í™”
     kInitializeMutex( &( gs_stWindowPoolManager.stLock ) );
 }
 
 
 /**
- *  À©µµ¿ì ÀÚ·á±¸Á¶¸¦ ÇÒ´ç
+ *  ìœˆë„ìš° ìë£Œêµ¬ì¡°ë¥¼ í• ë‹¹
  */
 static WINDOW* kAllocateWindow( void )
 {
     WINDOW* pstEmptyWindow;
     int i;
 
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kLock( &( gs_stWindowPoolManager.stLock ) );
 
-    // À©µµ¿ì°¡ ¸ğµÎ ÇÒ´çµÇ¾úÀ¸¸é ½ÇÆĞ
+    // ìœˆë„ìš°ê°€ ëª¨ë‘ í• ë‹¹ë˜ì—ˆìœ¼ë©´ ì‹¤íŒ¨
     if( gs_stWindowPoolManager.iUseCount == gs_stWindowPoolManager.iMaxCount )
     {
-        // µ¿±âÈ­ Ã³¸®
+        // ë™ê¸°í™” ì²˜ë¦¬
         kUnlock( &gs_stWindowPoolManager.stLock );
         return NULL;
     }
 
-    // À©µµ¿ì Ç®À» ¸ğµÎ µ¹¸é¼­ ºó ¿µ¿ªÀ» °Ë»ö
+    // ìœˆë„ìš° í’€ì„ ëª¨ë‘ ëŒë©´ì„œ ë¹ˆ ì˜ì—­ì„ ê²€ìƒ‰
     for( i = 0 ; i < gs_stWindowPoolManager.iMaxCount ; i++ )
     {
-        // IDÀÇ »óÀ§ 32ºñÆ®°¡ 0ÀÌ¸é ºñ¾îÀÖ´Â À©µµ¿ì ÀÚ·á±¸Á¶ÀÓ
+        // IDì˜ ìƒìœ„ 32ë¹„íŠ¸ê°€ 0ì´ë©´ ë¹„ì–´ìˆëŠ” ìœˆë„ìš° ìë£Œêµ¬ì¡°ì„
         if( ( gs_stWindowPoolManager.pstStartAddress[ i ].stLink.qwID >> 32 ) == 0 )
         {
             pstEmptyWindow = &( gs_stWindowPoolManager.pstStartAddress[ i ] );
@@ -90,11 +90,11 @@ static WINDOW* kAllocateWindow( void )
         }
     }
 
-    // »óÀ§ 32ºñÆ®¸¦ 0ÀÌ ¾Æ´Ñ °ªÀ¸·Î ¼³Á¤ÇØ¼­ ÇÒ´çµÈ À©µµ¿ì·Î ¼³Á¤
+    // ìƒìœ„ 32ë¹„íŠ¸ë¥¼ 0ì´ ì•„ë‹Œ ê°’ìœ¼ë¡œ ì„¤ì •í•´ì„œ í• ë‹¹ëœ ìœˆë„ìš°ë¡œ ì„¤ì •
     pstEmptyWindow->stLink.qwID =
         ( ( QWORD ) gs_stWindowPoolManager.iAllocatedCount << 32 ) | i;
 
-    // ÀÚ·á±¸Á¶°¡ »ç¿ë ÁßÀÎ °³¼ö¿Í ÇÒ´çµÈ È½¼ö¸¦ Áõ°¡
+    // ìë£Œêµ¬ì¡°ê°€ ì‚¬ìš© ì¤‘ì¸ ê°œìˆ˜ì™€ í• ë‹¹ëœ íšŸìˆ˜ë¥¼ ì¦ê°€
     gs_stWindowPoolManager.iUseCount++;
     gs_stWindowPoolManager.iAllocatedCount++;
     if( gs_stWindowPoolManager.iAllocatedCount == 0 )
@@ -102,44 +102,44 @@ static WINDOW* kAllocateWindow( void )
         gs_stWindowPoolManager.iAllocatedCount = 1;
     }
 
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kUnlock( &( gs_stWindowPoolManager.stLock ) );
 
-    // À©µµ¿ìÀÇ ¹ÂÅØ½º ÃÊ±âÈ­
+    // ìœˆë„ìš°ì˜ ë®¤í…ìŠ¤ ì´ˆê¸°í™”
     kInitializeMutex( &( pstEmptyWindow->stLock ) );
 
     return pstEmptyWindow;
 }
 
 /**
- *  À©µµ¿ì ÀÚ·á±¸Á¶¸¦ ÇØÁ¦
+ *  ìœˆë„ìš° ìë£Œêµ¬ì¡°ë¥¼ í•´ì œ
  */
 static void kFreeWindow( QWORD qwID )
 {
     int i;
 
-    // À©µµ¿ì ID·Î À©µµ¿ì Ç®ÀÇ ¿ÀÇÁ¼ÂÀ» °è»ê, À©µµ¿ì IDÀÇ ÇÏÀ§ 32ºñÆ®°¡ ÀÎµ¦½º ¿ªÇÒÀ» ÇÔ
+    // ìœˆë„ìš° IDë¡œ ìœˆë„ìš° í’€ì˜ ì˜¤í”„ì…‹ì„ ê³„ì‚°, ìœˆë„ìš° IDì˜ í•˜ìœ„ 32ë¹„íŠ¸ê°€ ì¸ë±ìŠ¤ ì—­í• ì„ í•¨
     i = GETWINDOWOFFSET( qwID );
 
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kLock( &( gs_stWindowPoolManager.stLock ) );
     
-    // À©µµ¿ì ÀÚ·á±¸Á¶¸¦ ÃÊ±âÈ­ÇÏ°í ID ¼³Á¤
+    // ìœˆë„ìš° ìë£Œêµ¬ì¡°ë¥¼ ì´ˆê¸°í™”í•˜ê³  ID ì„¤ì •
     kMemSet( &( gs_stWindowPoolManager.pstStartAddress[ i ] ), 0, sizeof( WINDOW ) );
     gs_stWindowPoolManager.pstStartAddress[ i ].stLink.qwID = i;
 
-    // »ç¿ë ÁßÀÎ ÀÚ·á±¸Á¶ÀÇ °³¼ö¸¦ °¨¼Ò
+    // ì‚¬ìš© ì¤‘ì¸ ìë£Œêµ¬ì¡°ì˜ ê°œìˆ˜ë¥¼ ê°ì†Œ
     gs_stWindowPoolManager.iUseCount--;
 
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kUnlock( &( gs_stWindowPoolManager.stLock ) );
 }
 
 //==============================================================================
-//  À©µµ¿ì¿Í À©µµ¿ì ¸Å´ÏÀú °ü·Ã
+//  ìœˆë„ìš°ì™€ ìœˆë„ìš° ë§¤ë‹ˆì € ê´€ë ¨
 //==============================================================================
 /**
- *  GUI ½Ã½ºÅÛÀ» ÃÊ±âÈ­
+ *  GUI ì‹œìŠ¤í…œì„ ì´ˆê¸°í™”
  */
 void kInitializeGUISystem( void )
 {
@@ -147,33 +147,33 @@ void kInitializeGUISystem( void )
     QWORD qwBackgroundWindowID;
     EVENT* pstEventBuffer;
 
-    // À©µµ¿ì Ç®À» ÃÊ±âÈ­
+    // ìœˆë„ìš° í’€ì„ ì´ˆê¸°í™”
     kInitializeWindowPool();
 
-    // VBE ¸ğµå Á¤º¸ ºí·ÏÀ» ¹İÈ¯
+    // VBE ëª¨ë“œ ì •ë³´ ë¸”ë¡ì„ ë°˜í™˜
     pstModeInfo = kGetVBEModeInfoBlock();
 
-    // ºñµğ¿À ¸Ş¸ğ¸® ¾îµå·¹½º ¼³Á¤
+    // ë¹„ë””ì˜¤ ë©”ëª¨ë¦¬ ì–´ë“œë ˆìŠ¤ ì„¤ì •
     gs_stWindowManager.pstVideoMemory = ( COLOR* )
         ( ( QWORD ) pstModeInfo->dwPhysicalBasePointer & 0xFFFFFFFF );
 
-    // ¸¶¿ì½º Ä¿¼­ÀÇ ÃÊ±â À§Ä¡ ¼³Á¤
+    // ë§ˆìš°ìŠ¤ ì»¤ì„œì˜ ì´ˆê¸° ìœ„ì¹˜ ì„¤ì •
     gs_stWindowManager.iMouseX = pstModeInfo->wXResolution / 2;
     gs_stWindowManager.iMouseY = pstModeInfo->wYResolution / 2;
 
-    // È­¸é ¿µ¿ªÀÇ ¹üÀ§ ¼³Á¤
+    // í™”ë©´ ì˜ì—­ì˜ ë²”ìœ„ ì„¤ì •
     gs_stWindowManager.stScreenArea.iX1 = 0;
     gs_stWindowManager.stScreenArea.iY1 = 0;
     gs_stWindowManager.stScreenArea.iX2 = pstModeInfo->wXResolution - 1;
     gs_stWindowManager.stScreenArea.iY2 = pstModeInfo->wYResolution - 1;
 
-    // ¹ÂÅØ½º ÃÊ±âÈ­
+    // ë®¤í…ìŠ¤ ì´ˆê¸°í™”
     kInitializeMutex( &( gs_stWindowManager.stLock ) );
 
-    // À©µµ¿ì ¸®½ºÆ® ÃÊ±âÈ­
+    // ìœˆë„ìš° ë¦¬ìŠ¤íŠ¸ ì´ˆê¸°í™”
     kInitializeList( &( gs_stWindowManager.stWindowList ) );
     
-    // ÀÌº¥Æ® Å¥¿¡¼­ »ç¿ëÇÒ ÀÌº¥Æ® ÀÚ·á±¸Á¶ Ç®À» »ı¼º
+    // ì´ë²¤íŠ¸ íì—ì„œ ì‚¬ìš©í•  ì´ë²¤íŠ¸ ìë£Œêµ¬ì¡° í’€ì„ ìƒì„±
     pstEventBuffer = ( EVENT* ) kAllocateMemory( sizeof( EVENT ) * 
         EVENTQUEUE_WNIDOWMANAGERMAXCOUNT );
     if( pstEventBuffer == NULL )
@@ -184,32 +184,32 @@ void kInitializeGUISystem( void )
             ;
         }
     }
-    // ÀÌº¥Æ® Å¥¸¦ ÃÊ±âÈ­
+    // ì´ë²¤íŠ¸ íë¥¼ ì´ˆê¸°í™”
     kInitializeQueue( &( gs_stWindowManager.stEventQueue ), pstEventBuffer, 
             EVENTQUEUE_WNIDOWMANAGERMAXCOUNT, sizeof( EVENT ) );
     
-    // ¸¶¿ì½º ¹öÆ°ÀÇ »óÅÂ¿Í À©µµ¿ì ÀÌµ¿ ¿©ºÎ¸¦ ÃÊ±âÈ­
+    // ë§ˆìš°ìŠ¤ ë²„íŠ¼ì˜ ìƒíƒœì™€ ìœˆë„ìš° ì´ë™ ì—¬ë¶€ë¥¼ ì´ˆê¸°í™”
     gs_stWindowManager.bPreviousButtonStatus = 0;
     gs_stWindowManager.bWindowMoveMode = FALSE;
     gs_stWindowManager.qwMovingWindowID = WINDOW_INVALIDID;
 
     //--------------------------------------------------------------------------
-    // ¹è°æ À©µµ¿ì »ı¼º
+    // ë°°ê²½ ìœˆë„ìš° ìƒì„±
     //--------------------------------------------------------------------------
-    // ÇÃ·¡±×¿¡ 0À» ³Ñ°Ü¼­ È­¸é¿¡ À©µµ¿ì¸¦ ±×¸®Áö ¾Êµµ·Ï ÇÔ. ¹è°æ À©µµ¿ì´Â À©µµ¿ì ³»¿¡ 
-    // ¹è°æ»öÀ» ¸ğµÎ Ä¥ÇÑ µÚ ³ªÅ¸³¿
+    // í”Œë˜ê·¸ì— 0ì„ ë„˜ê²¨ì„œ í™”ë©´ì— ìœˆë„ìš°ë¥¼ ê·¸ë¦¬ì§€ ì•Šë„ë¡ í•¨. ë°°ê²½ ìœˆë„ìš°ëŠ” ìœˆë„ìš° ë‚´ì— 
+    // ë°°ê²½ìƒ‰ì„ ëª¨ë‘ ì¹ í•œ ë’¤ ë‚˜íƒ€ëƒ„
     qwBackgroundWindowID = kCreateWindow( 0, 0, pstModeInfo->wXResolution, 
             pstModeInfo->wYResolution, 0, WINDOW_BACKGROUNDWINDOWTITLE );
     gs_stWindowManager.qwBackgoundWindowID = qwBackgroundWindowID; 
-    // ¹è°æ À©µµ¿ì ³»ºÎ¿¡ ¹è°æ»öÀ» Ã¤¿ò
+    // ë°°ê²½ ìœˆë„ìš° ë‚´ë¶€ì— ë°°ê²½ìƒ‰ì„ ì±„ì›€
     kDrawRect( qwBackgroundWindowID, 0, 0, pstModeInfo->wXResolution - 1, 
             pstModeInfo->wYResolution - 1, WINDOW_COLOR_SYSTEMBACKGROUND, TRUE );
-    // ¹è°æ À©µµ¿ì¸¦ È­¸é¿¡ ³ªÅ¸³¿
+    // ë°°ê²½ ìœˆë„ìš°ë¥¼ í™”ë©´ì— ë‚˜íƒ€ëƒ„
     kShowWindow( qwBackgroundWindowID, TRUE );
 }
 
 /**
- *  À©µµ¿ì ¸Å´ÏÀú¸¦ ¹İÈ¯
+ *  ìœˆë„ìš° ë§¤ë‹ˆì €ë¥¼ ë°˜í™˜
  */
 WINDOWMANAGER* kGetWindowManager( void )
 {
@@ -217,7 +217,7 @@ WINDOWMANAGER* kGetWindowManager( void )
 }
 
 /**
- *  ¹è°æ À©µµ¿ìÀÇ ID¸¦ ¹İÈ¯
+ *  ë°°ê²½ ìœˆë„ìš°ì˜ IDë¥¼ ë°˜í™˜
  */
 QWORD kGetBackgroundWindowID( void )
 {
@@ -225,7 +225,7 @@ QWORD kGetBackgroundWindowID( void )
 }
 
 /**
- *  È­¸é ¿µ¿ªÀÇ Å©±â¸¦ ¹İÈ¯
+ *  í™”ë©´ ì˜ì—­ì˜ í¬ê¸°ë¥¼ ë°˜í™˜
  */
 void kGetScreenArea( RECT* pstScreenArea )
 {
@@ -233,8 +233,8 @@ void kGetScreenArea( RECT* pstScreenArea )
 }
 
 /**
- *  À©µµ¿ì¸¦ »ı¼º
- *      À©µµ¿ì ¼±ÅÃ°ú ¼±ÅÃ ÇØÁ¦ ÀÌº¥Æ®µµ °°ÀÌ Àü¼Û
+ *  ìœˆë„ìš°ë¥¼ ìƒì„±
+ *      ìœˆë„ìš° ì„ íƒê³¼ ì„ íƒ í•´ì œ ì´ë²¤íŠ¸ë„ ê°™ì´ ì „ì†¡
  */
 QWORD kCreateWindow( int iX, int iY, int iWidth, int iHeight, DWORD dwFlags,
         const char* pcTitle )
@@ -244,30 +244,30 @@ QWORD kCreateWindow( int iX, int iY, int iWidth, int iHeight, DWORD dwFlags,
     QWORD qwActiveWindowID;
     EVENT stEvent;
 
-    // Å©±â°¡ 0ÀÎ À©µµ¿ì´Â ¸¸µé ¼ö ¾øÀ½
+    // í¬ê¸°ê°€ 0ì¸ ìœˆë„ìš°ëŠ” ë§Œë“¤ ìˆ˜ ì—†ìŒ
     if( ( iWidth <= 0 ) || ( iHeight <= 0 ) )
     {
         return WINDOW_INVALIDID;
     }
 
-    // À©µµ¿ì ÀÚ·á±¸Á¶¸¦ ÇÒ´ç
+    // ìœˆë„ìš° ìë£Œêµ¬ì¡°ë¥¼ í• ë‹¹
     pstWindow = kAllocateWindow();
     if( pstWindow == NULL )
     {
         return WINDOW_INVALIDID;
     }
 
-    // À©µµ¿ì ¿µ¿ª ¼³Á¤
+    // ìœˆë„ìš° ì˜ì—­ ì„¤ì •
     pstWindow->stArea.iX1 = iX;
     pstWindow->stArea.iY1 = iY;
     pstWindow->stArea.iX2 = iX + iWidth - 1;
     pstWindow->stArea.iY2 = iY + iHeight - 1;
     
-    // À©µµ¿ì Á¦¸ñ ÀúÀå
+    // ìœˆë„ìš° ì œëª© ì €ì¥
     kMemCpy( pstWindow->vcWindowTitle, pcTitle, WINDOW_TITLEMAXLENGTH );
     pstWindow->vcWindowTitle[ WINDOW_TITLEMAXLENGTH ] = '\0';
 
-    // À©µµ¿ì È­¸é ¹öÆÛ¿Í ÀÌº¥Æ® Å¥¿¡¼­ »ç¿ëÇÒ ÀÌº¥Æ® ÀÚ·á±¸Á¶ Ç®À» »ı¼º
+    // ìœˆë„ìš° í™”ë©´ ë²„í¼ì™€ ì´ë²¤íŠ¸ íì—ì„œ ì‚¬ìš©í•  ì´ë²¤íŠ¸ ìë£Œêµ¬ì¡° í’€ì„ ìƒì„±
     pstWindow->pstWindowBuffer = ( COLOR* ) kAllocateMemory( iWidth * iHeight *
             sizeof( COLOR ) );
     pstWindow->pstEventBuffer = ( EVENT* ) kAllocateMemory(
@@ -275,63 +275,63 @@ QWORD kCreateWindow( int iX, int iY, int iWidth, int iHeight, DWORD dwFlags,
     if( ( pstWindow->pstWindowBuffer == NULL ) ||
         ( pstWindow->pstEventBuffer == NULL ) )
     {
-        // À©µµ¿ì ¹öÆÛ¿Í ÀÌº¥Æ® ÀÚ·á±¸Á¶ Ç®µµ ¸ğµÎ ¹İÈ¯
+        // ìœˆë„ìš° ë²„í¼ì™€ ì´ë²¤íŠ¸ ìë£Œêµ¬ì¡° í’€ë„ ëª¨ë‘ ë°˜í™˜
         kFreeMemory( pstWindow->pstWindowBuffer );
         kFreeMemory( pstWindow->pstEventBuffer );
 
-        // ¸Ş¸ğ¸® ÇÒ´ç¿¡ ½ÇÆĞÇÏ¸é À©µµ¿ì ÀÚ·á±¸Á¶ ¹İÈ¯
+        // ë©”ëª¨ë¦¬ í• ë‹¹ì— ì‹¤íŒ¨í•˜ë©´ ìœˆë„ìš° ìë£Œêµ¬ì¡° ë°˜í™˜
         kFreeWindow( pstWindow->stLink.qwID );
         return WINDOW_INVALIDID;
     }
 
-    // ÀÌº¥Æ® Å¥¸¦ ÃÊ±âÈ­
+    // ì´ë²¤íŠ¸ íë¥¼ ì´ˆê¸°í™”
     kInitializeQueue( &( pstWindow->stEventQueue ), pstWindow->pstEventBuffer,
             EVENTQUEUE_WINDOWMAXCOUNT, sizeof( EVENT ) );
 
-    // À©µµ¿ì¸¦ »ı¼ºÇÑ ÅÂ½ºÅ©ÀÇ ID¸¦ ÀúÀå
+    // ìœˆë„ìš°ë¥¼ ìƒì„±í•œ íƒœìŠ¤í¬ì˜ IDë¥¼ ì €ì¥
     pstTask = kGetRunningTask( kGetAPICID() );
     pstWindow->qwTaskID =  pstTask->stLink.qwID;
 
-    // À©µµ¿ì ¼Ó¼º ¼³Á¤
+    // ìœˆë„ìš° ì†ì„± ì„¤ì •
     pstWindow->dwFlags = dwFlags;
 
-    // À©µµ¿ì ¹è°æ ±×¸®±â
+    // ìœˆë„ìš° ë°°ê²½ ê·¸ë¦¬ê¸°
     kDrawWindowBackground( pstWindow->stLink.qwID );
 
-    // À©µµ¿ì Å×µÎ¸® ±×¸®±â
+    // ìœˆë„ìš° í…Œë‘ë¦¬ ê·¸ë¦¬ê¸°
     if( dwFlags & WINDOW_FLAGS_DRAWFRAME )
     {
         kDrawWindowFrame( pstWindow->stLink.qwID );
     }
 
-    // À©µµ¿ì Á¦¸ñ Ç¥½ÃÁÙ ±×¸®±â
+    // ìœˆë„ìš° ì œëª© í‘œì‹œì¤„ ê·¸ë¦¬ê¸°
     if( dwFlags & WINDOW_FLAGS_DRAWTITLE )
     {
         kDrawWindowTitle( pstWindow->stLink.qwID, pcTitle, TRUE );
     }
 
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kLock( &( gs_stWindowManager.stLock ) );
 
-    // ÇöÀç ÃÖ»óÀ§¿¡ ÀÖ´Â À©µµ¿ì¸¦ ¹İÈ¯
+    // í˜„ì¬ ìµœìƒìœ„ì— ìˆëŠ” ìœˆë„ìš°ë¥¼ ë°˜í™˜
     qwActiveWindowID = kGetTopWindowID();
     
-    // À©µµ¿ì ¸®½ºÆ®ÀÇ °¡Àå ¸¶Áö¸·¿¡ Ãß°¡ÇÏ¿© ÃÖ»óÀ§ À©µµ¿ì·Î ¼³Á¤
+    // ìœˆë„ìš° ë¦¬ìŠ¤íŠ¸ì˜ ê°€ì¥ ë§ˆì§€ë§‰ì— ì¶”ê°€í•˜ì—¬ ìµœìƒìœ„ ìœˆë„ìš°ë¡œ ì„¤ì •
     kAddListToTail( &gs_stWindowManager.stWindowList, pstWindow );
 
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kUnlock( &( gs_stWindowManager.stLock ) );
 
     //--------------------------------------------------------------------------
-    // À©µµ¿ì ÀÌº¥Æ® Àü¼Û
+    // ìœˆë„ìš° ì´ë²¤íŠ¸ ì „ì†¡
     //--------------------------------------------------------------------------
-    // À©µµ¿ì ¿µ¿ª¸¸Å­ È­¸é¿¡ ¾÷µ¥ÀÌÆ®ÇÏ°í ¼±ÅÃµÇ¾ú´Ù´Â ÀÌº¥Æ®¸¦ Àü¼Û
+    // ìœˆë„ìš° ì˜ì—­ë§Œí¼ í™”ë©´ì— ì—…ë°ì´íŠ¸í•˜ê³  ì„ íƒë˜ì—ˆë‹¤ëŠ” ì´ë²¤íŠ¸ë¥¼ ì „ì†¡
     kUpdateScreenByID( pstWindow->stLink.qwID );
     kSetWindowEvent( pstWindow->stLink.qwID, EVENT_WINDOW_SELECT, &stEvent );
     kSendEventToWindow( pstWindow->stLink.qwID, &stEvent );
     
-    // ÀÌÀü¿¡ ÃÖ»óÀ§ À©µµ¿ì°¡ ¹è°æ À©µµ¿ì°¡ ¾Æ´Ï¸é ÀÌÀü ÃÖ»óÀ§ À©µµ¿ìÀÇ Á¦¸ñ Ç¥½ÃÁÙÀ»
-    // ¼±ÅÃµÇÁö ¾ÊÀº °ÍÀ¸·Î ¾÷µ¥ÀÌÆ®ÇÏ°í ¼±ÅÃ ÇØÁ¦µÇ¾ú´Ù´Â ÀÌº¥Æ®¸¦ Àü¼Û
+    // ì´ì „ì— ìµœìƒìœ„ ìœˆë„ìš°ê°€ ë°°ê²½ ìœˆë„ìš°ê°€ ì•„ë‹ˆë©´ ì´ì „ ìµœìƒìœ„ ìœˆë„ìš°ì˜ ì œëª© í‘œì‹œì¤„ì„
+    // ì„ íƒë˜ì§€ ì•Šì€ ê²ƒìœ¼ë¡œ ì—…ë°ì´íŠ¸í•˜ê³  ì„ íƒ í•´ì œë˜ì—ˆë‹¤ëŠ” ì´ë²¤íŠ¸ë¥¼ ì „ì†¡
     if( qwActiveWindowID != gs_stWindowManager.qwBackgoundWindowID )
     {
         kUpdateWindowTitle( qwActiveWindowID, FALSE );
@@ -342,8 +342,8 @@ QWORD kCreateWindow( int iX, int iY, int iWidth, int iHeight, DWORD dwFlags,
 }
 
 /**
- *  À©µµ¿ì¸¦ »èÁ¦
- *      À©µµ¿ì ¼±ÅÃ ÀÌº¥Æ®µµ °°ÀÌ Àü¼Û
+ *  ìœˆë„ìš°ë¥¼ ì‚­ì œ
+ *      ìœˆë„ìš° ì„ íƒ ì´ë²¤íŠ¸ë„ ê°™ì´ ì „ì†¡
  */
 BOOL kDeleteWindow( QWORD qwWindowID )
 {
@@ -353,25 +353,25 @@ BOOL kDeleteWindow( QWORD qwWindowID )
     BOOL bActiveWindow;
     EVENT stEvent;
 
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kLock( &( gs_stWindowManager.stLock ) );
     
-    // À©µµ¿ì °Ë»ö
+    // ìœˆë„ìš° ê²€ìƒ‰
     pstWindow = kGetWindowWithWindowLock( qwWindowID );
     if( pstWindow == NULL )
     {
-        // µ¿±âÈ­ Ã³¸®
+        // ë™ê¸°í™” ì²˜ë¦¬
         kUnlock( &( gs_stWindowManager.stLock ) );
         return FALSE;
     }
 
-    // À©µµ¿ì¸¦ »èÁ¦ÇÏ±â Àü¿¡ ¿µ¿ªÀ» ÀúÀåÇØµÒ
+    // ìœˆë„ìš°ë¥¼ ì‚­ì œí•˜ê¸° ì „ì— ì˜ì—­ì„ ì €ì¥í•´ë‘ 
     kMemCpy( &stArea, &( pstWindow->stArea ), sizeof( RECT ) );
 
-    // À©µµ¿ì ¸®½ºÆ®¿¡¼­ ¸¶Áö¸· À©µµ¿ì, Áï ÃÖ»óÀ§ À©µµ¿ì¸¦ ¹İÈ¯
+    // ìœˆë„ìš° ë¦¬ìŠ¤íŠ¸ì—ì„œ ë§ˆì§€ë§‰ ìœˆë„ìš°, ì¦‰ ìµœìƒìœ„ ìœˆë„ìš°ë¥¼ ë°˜í™˜
     qwActiveWindowID = kGetTopWindowID();
 
-    // ÃÖ»óÀ§ À©µµ¿ì°¡ Áö¿öÁö´Â °æ¿ì ÇÃ·¡±×¸¦ ¼³Á¤
+    // ìµœìƒìœ„ ìœˆë„ìš°ê°€ ì§€ì›Œì§€ëŠ” ê²½ìš° í”Œë˜ê·¸ë¥¼ ì„¤ì •
     if( qwActiveWindowID == qwWindowID )
     {
         bActiveWindow = TRUE;
@@ -381,48 +381,48 @@ BOOL kDeleteWindow( QWORD qwWindowID )
         bActiveWindow = FALSE;
     }
     
-    // À©µµ¿ì ¸®½ºÆ®¿¡¼­ À©µµ¿ì »èÁ¦
+    // ìœˆë„ìš° ë¦¬ìŠ¤íŠ¸ì—ì„œ ìœˆë„ìš° ì‚­ì œ
     if( kRemoveList( &( gs_stWindowManager.stWindowList ), qwWindowID ) == NULL )
     {
-        // µ¿±âÈ­ Ã³¸®
+        // ë™ê¸°í™” ì²˜ë¦¬
         kUnlock( &( pstWindow->stLock ) );
         kUnlock( &( gs_stWindowManager.stLock ) );
         return FALSE;
     }
 
     //--------------------------------------------------------------------------
-    // À©µµ¿ì È­¸é ¹öÆÛ¿Í ÀÌº¥Æ® Å¥ ¹öÆÛ¸¦ ¹İÈ¯
+    // ìœˆë„ìš° í™”ë©´ ë²„í¼ì™€ ì´ë²¤íŠ¸ í ë²„í¼ë¥¼ ë°˜í™˜
     //--------------------------------------------------------------------------
-    // À©µµ¿ì È­¸é ¹öÆÛ¸¦ ¹İÈ¯
+    // ìœˆë„ìš° í™”ë©´ ë²„í¼ë¥¼ ë°˜í™˜
     kFreeMemory( pstWindow->pstWindowBuffer );
     pstWindow->pstWindowBuffer = NULL;
     
-    // À©µµ¿ì ÀÌº¥Æ® Å¥ ¹öÆÛ¸¦ ¹İÈ¯
+    // ìœˆë„ìš° ì´ë²¤íŠ¸ í ë²„í¼ë¥¼ ë°˜í™˜
     kFreeMemory( pstWindow->pstEventBuffer );
     pstWindow->pstEventBuffer = NULL;
 
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kUnlock( &( pstWindow->stLock ) );
 
-    // À©µµ¿ì ÀÚ·á±¸Á¶¸¦ ¹İÈ¯
+    // ìœˆë„ìš° ìë£Œêµ¬ì¡°ë¥¼ ë°˜í™˜
     kFreeWindow( qwWindowID );
 
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kUnlock( &( gs_stWindowManager.stLock ) );
 
-    // »èÁ¦µÇ±â Àü¿¡ À©µµ¿ì°¡ ÀÖ´ø ¿µ¿ªÀ» È­¸é¿¡ ´Ù½Ã ¾÷µ¥ÀÌÆ®
+    // ì‚­ì œë˜ê¸° ì „ì— ìœˆë„ìš°ê°€ ìˆë˜ ì˜ì—­ì„ í™”ë©´ì— ë‹¤ì‹œ ì—…ë°ì´íŠ¸
     kUpdateScreenByScreenArea( &stArea );
     
     //--------------------------------------------------------------------------
-    // ÃÖ»óÀ§ À©µµ¿ì°¡ Áö¿öÁ³´Ù¸é ÇöÀç ¸®½ºÆ®¿¡¼­ ÃÖ»óÀ§¿¡ ÀÖ´Â À©µµ¿ì¸¦ È°¼ºÈ­ÇÏ°í
-    // ¼±ÅÃµÇ¾ú´Ù´Â À©µµ¿ì ÀÌº¥Æ®¸¦ Àü¼Û
+    // ìµœìƒìœ„ ìœˆë„ìš°ê°€ ì§€ì›Œì¡Œë‹¤ë©´ í˜„ì¬ ë¦¬ìŠ¤íŠ¸ì—ì„œ ìµœìƒìœ„ì— ìˆëŠ” ìœˆë„ìš°ë¥¼ í™œì„±í™”í•˜ê³ 
+    // ì„ íƒë˜ì—ˆë‹¤ëŠ” ìœˆë„ìš° ì´ë²¤íŠ¸ë¥¼ ì „ì†¡
     //--------------------------------------------------------------------------
     if( bActiveWindow == TRUE )
     {
-        // À©µµ¿ì ¸®½ºÆ®¿¡¼­ ¸¶Áö¸· À©µµ¿ì, Áï ÃÖ»óÀ§ À©µµ¿ì¸¦ ¹İÈ¯
+        // ìœˆë„ìš° ë¦¬ìŠ¤íŠ¸ì—ì„œ ë§ˆì§€ë§‰ ìœˆë„ìš°, ì¦‰ ìµœìƒìœ„ ìœˆë„ìš°ë¥¼ ë°˜í™˜
         qwActiveWindowID = kGetTopWindowID();
         
-        // ÃÖ»óÀ§ À©µµ¿ìÀÇ Á¦¸ñ Ç¥½ÃÁÙÀ» È°¼ºÈ­µÈ »óÅÂ·Î Ç¥½Ã
+        // ìµœìƒìœ„ ìœˆë„ìš°ì˜ ì œëª© í‘œì‹œì¤„ì„ í™œì„±í™”ëœ ìƒíƒœë¡œ í‘œì‹œ
         if( qwActiveWindowID != WINDOW_INVALIDID )
         {
             kUpdateWindowTitle( qwActiveWindowID, TRUE );
@@ -435,53 +435,53 @@ BOOL kDeleteWindow( QWORD qwWindowID )
 }
 
 /**
- *  ÅÂ½ºÅ© ID°¡ ÀÏÄ¡ÇÏ´Â ¸ğµç À©µµ¿ì¸¦ »èÁ¦
+ *  íƒœìŠ¤í¬ IDê°€ ì¼ì¹˜í•˜ëŠ” ëª¨ë“  ìœˆë„ìš°ë¥¼ ì‚­ì œ
  */
 BOOL kDeleteAllWindowInTaskID( QWORD qwTaskID )
 {
     WINDOW* pstWindow;
     WINDOW* pstNextWindow;
 
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kLock( &( gs_stWindowManager.stLock ) );
 
-    // ¸®½ºÆ®¿¡¼­ Ã¹ ¹øÂ° À©µµ¿ì¸¦ ¹İÈ¯
+    // ë¦¬ìŠ¤íŠ¸ì—ì„œ ì²« ë²ˆì§¸ ìœˆë„ìš°ë¥¼ ë°˜í™˜
     pstWindow = kGetHeaderFromList( &( gs_stWindowManager.stWindowList ) );
     while( pstWindow != NULL )
     {
-        // ´ÙÀ½ À©µµ¿ì¸¦ ¹Ì¸® ±¸ÇÔ
+        // ë‹¤ìŒ ìœˆë„ìš°ë¥¼ ë¯¸ë¦¬ êµ¬í•¨
         pstNextWindow = kGetNextFromList( &( gs_stWindowManager.stWindowList ),
                 pstWindow );
 
-        // ¹è°æ À©µµ¿ì°¡ ¾Æ´Ï°í ÅÂ½ºÅ© ID°¡ ÀÏÄ¡ÇÏ¸é À©µµ¿ì »èÁ¦
+        // ë°°ê²½ ìœˆë„ìš°ê°€ ì•„ë‹ˆê³  íƒœìŠ¤í¬ IDê°€ ì¼ì¹˜í•˜ë©´ ìœˆë„ìš° ì‚­ì œ
         if( ( pstWindow->stLink.qwID != gs_stWindowManager.qwBackgoundWindowID ) &&
             ( pstWindow->qwTaskID == qwTaskID ) )
         {
             kDeleteWindow( pstWindow->stLink.qwID );
         }
 
-        // ¹Ì¸® ±¸ÇØµĞ ´ÙÀ½ À©µµ¿ìÀÇ °ªÀ» ¼³Á¤
+        // ë¯¸ë¦¬ êµ¬í•´ë‘” ë‹¤ìŒ ìœˆë„ìš°ì˜ ê°’ì„ ì„¤ì •
         pstWindow = pstNextWindow;
     }
 
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kUnlock( &( gs_stWindowManager.stLock ) );
 }
 
 /**
- *  À©µµ¿ì ID·Î À©µµ¿ì Æ÷ÀÎÅÍ¸¦ ¹İÈ¯
+ *  ìœˆë„ìš° IDë¡œ ìœˆë„ìš° í¬ì¸í„°ë¥¼ ë°˜í™˜
  */
 WINDOW* kGetWindow( QWORD qwWindowID )
 {
     WINDOW* pstWindow;
 
-    // À©µµ¿ì IDÀÇ À¯È¿ ¹üÀ§ °Ë»ç
+    // ìœˆë„ìš° IDì˜ ìœ íš¨ ë²”ìœ„ ê²€ì‚¬
     if( GETWINDOWOFFSET( qwWindowID ) >= WINDOW_MAXCOUNT )
     {
         return NULL;
     }
 
-    // ID·Î À©µµ¿ì Æ÷ÀÎÅÍ¸¦ Ã£Àº µÚ ID°¡ ÀÏÄ¡ÇÏ¸é ¹İÈ¯
+    // IDë¡œ ìœˆë„ìš° í¬ì¸í„°ë¥¼ ì°¾ì€ ë’¤ IDê°€ ì¼ì¹˜í•˜ë©´ ë°˜í™˜
     pstWindow = &gs_stWindowPoolManager.pstStartAddress[ GETWINDOWOFFSET( qwWindowID )];
     if( pstWindow->stLink.qwID == qwWindowID )
     {
@@ -492,29 +492,29 @@ WINDOW* kGetWindow( QWORD qwWindowID )
 }
 
 /**
- *  À©µµ¿ì ID·Î À©µµ¿ì Æ÷ÀÎÅÍ¸¦ Ã£¾Æ À©µµ¿ì ¹ÂÅØ½º¸¦ Àá±Ù µÚ ¹İÈ¯
+ *  ìœˆë„ìš° IDë¡œ ìœˆë„ìš° í¬ì¸í„°ë¥¼ ì°¾ì•„ ìœˆë„ìš° ë®¤í…ìŠ¤ë¥¼ ì ê·¼ ë’¤ ë°˜í™˜
  */
 WINDOW* kGetWindowWithWindowLock( QWORD qwWindowID )
 {
     WINDOW* pstWindow;
     BOOL bResult;
 
-    // À©µµ¿ì¸¦ °Ë»ö
+    // ìœˆë„ìš°ë¥¼ ê²€ìƒ‰
     pstWindow = kGetWindow( qwWindowID );
     if( pstWindow == NULL )
     {
         return NULL;
     }
     
-    // µ¿±âÈ­ Ã³¸®ÇÑ µÚ ´Ù½Ã À©µµ¿ì ID·Î À©µµ¿ì °Ë»ö
+    // ë™ê¸°í™” ì²˜ë¦¬í•œ ë’¤ ë‹¤ì‹œ ìœˆë„ìš° IDë¡œ ìœˆë„ìš° ê²€ìƒ‰
     kLock( &(pstWindow->stLock ) );
-    // À©µµ¿ì µ¿±âÈ­¸¦ ÇÑ µÚ¿¡ À©µµ¿ì ID·Î À©µµ¿ì¸¦ °Ë»öÇÒ ¼ö ¾ø´Ù¸é µµÁß¿¡ À©µµ¿ì°¡
-    // ¹Ù²ï °ÍÀÌ¹Ç·Î NULL ¹İÈ¯
+    // ìœˆë„ìš° ë™ê¸°í™”ë¥¼ í•œ ë’¤ì— ìœˆë„ìš° IDë¡œ ìœˆë„ìš°ë¥¼ ê²€ìƒ‰í•  ìˆ˜ ì—†ë‹¤ë©´ ë„ì¤‘ì— ìœˆë„ìš°ê°€
+    // ë°”ë€ ê²ƒì´ë¯€ë¡œ NULL ë°˜í™˜
     pstWindow = kGetWindow( qwWindowID );
     if( ( pstWindow == NULL ) || ( pstWindow->pstEventBuffer == NULL ) ||
         ( pstWindow->pstWindowBuffer == NULL ) )                
     {
-        // µ¿±âÈ­ Ã³¸®
+        // ë™ê¸°í™” ì²˜ë¦¬
         kUnlock( &(pstWindow->stLock ) );
         return NULL;
     }
@@ -523,21 +523,21 @@ WINDOW* kGetWindowWithWindowLock( QWORD qwWindowID )
 }
 
 /**
- *  À©µµ¿ì¸¦ È­¸é¿¡ ³ªÅ¸³»°Å³ª ¼û±è
+ *  ìœˆë„ìš°ë¥¼ í™”ë©´ì— ë‚˜íƒ€ë‚´ê±°ë‚˜ ìˆ¨ê¹€
  */
 BOOL kShowWindow( QWORD qwWindowID, BOOL bShow )
 {
     WINDOW* pstWindow;
     RECT stWindowArea;
 
-    // À©µµ¿ì °Ë»ö°ú µ¿±âÈ­ Ã³¸®
+    // ìœˆë„ìš° ê²€ìƒ‰ê³¼ ë™ê¸°í™” ì²˜ë¦¬
     pstWindow = kGetWindowWithWindowLock( qwWindowID );
     if( pstWindow == NULL )
     {
         return FALSE;
     }
     
-    // À©µµ¿ì ¼Ó¼º ¼³Á¤
+    // ìœˆë„ìš° ì†ì„± ì„¤ì •
     if( bShow == TRUE )
     {
         pstWindow->dwFlags |= WINDOW_FLAGS_SHOW;
@@ -547,10 +547,10 @@ BOOL kShowWindow( QWORD qwWindowID, BOOL bShow )
         pstWindow->dwFlags &= ~WINDOW_FLAGS_SHOW;
     }
 
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kUnlock( &( pstWindow->stLock ) );
     
-    // À©µµ¿ì°¡ ÀÖ´ø ¿µ¿ªÀ» ´Ù½Ã ¾÷µ¥ÀÌÆ®ÇÔÀ¸·Î½á À©µµ¿ì¸¦ ³ªÅ¸³»°Å³ª ¼û±è
+    // ìœˆë„ìš°ê°€ ìˆë˜ ì˜ì—­ì„ ë‹¤ì‹œ ì—…ë°ì´íŠ¸í•¨ìœ¼ë¡œì¨ ìœˆë„ìš°ë¥¼ ë‚˜íƒ€ë‚´ê±°ë‚˜ ìˆ¨ê¹€
     if( bShow == TRUE )
     {
         kUpdateScreenByID( qwWindowID );
@@ -564,8 +564,8 @@ BOOL kShowWindow( QWORD qwWindowID, BOOL bShow )
 }
 
 /**
- *  Æ¯Á¤ ¿µ¿ªÀ» Æ÷ÇÔÇÏ´Â À©µµ¿ì´Â ¸ğµÎ ±×¸²
- *      À©µµ¿ì ¸Å´ÏÀú°¡ È£ÃâÇÏ´Â ÇÔ¼ö, À¯Àú´Â kUpdateScreen()·ù ÇÔ¼ö¸¦ »ç¿ë
+ *  íŠ¹ì • ì˜ì—­ì„ í¬í•¨í•˜ëŠ” ìœˆë„ìš°ëŠ” ëª¨ë‘ ê·¸ë¦¼
+ *      ìœˆë„ìš° ë§¤ë‹ˆì €ê°€ í˜¸ì¶œí•˜ëŠ” í•¨ìˆ˜, ìœ ì €ëŠ” kUpdateScreen()ë¥˜ í•¨ìˆ˜ë¥¼ ì‚¬ìš©
  */
 BOOL kRedrawWindowByArea( const RECT* pstArea )
 {
@@ -574,7 +574,7 @@ BOOL kRedrawWindowByArea( const RECT* pstArea )
     RECT stOverlappedArea;
     RECT stCursorArea;
 
-    // È­¸é ¿µ¿ª°ú °ãÄ¡´Â ¿µ¿ªÀÌ ¾øÀ¸¸é ±×¸± ÇÊ¿ä°¡ ¾øÀ½
+    // í™”ë©´ ì˜ì—­ê³¼ ê²¹ì¹˜ëŠ” ì˜ì—­ì´ ì—†ìœ¼ë©´ ê·¸ë¦´ í•„ìš”ê°€ ì—†ìŒ
     if( kGetOverlappedRectangle( &( gs_stWindowManager.stScreenArea ), pstArea,
             &stOverlappedArea ) == FALSE )
     {
@@ -582,52 +582,52 @@ BOOL kRedrawWindowByArea( const RECT* pstArea )
     }
 
     //--------------------------------------------------------------------------
-    // Z ¼ø¼­ÀÇ ÃÖÇÏÀ§, Áï À©µµ¿ì ¸®½ºÆ®ÀÇ Ã¹ ¹øÂ°ºÎÅÍ ¸¶Áö¸·±îÁö ·çÇÁ¸¦ µ¹¸é¼­ 
-    // ¾÷µ¥ÀÌÆ®ÇÒ ¿µ¿ª°ú °ãÄ¡´Â À©µµ¿ì¸¦ Ã£¾Æ ºñµğ¿À ¸Ş¸ğ¸®·Î Àü¼Û
+    // Z ìˆœì„œì˜ ìµœí•˜ìœ„, ì¦‰ ìœˆë„ìš° ë¦¬ìŠ¤íŠ¸ì˜ ì²« ë²ˆì§¸ë¶€í„° ë§ˆì§€ë§‰ê¹Œì§€ ë£¨í”„ë¥¼ ëŒë©´ì„œ 
+    // ì—…ë°ì´íŠ¸í•  ì˜ì—­ê³¼ ê²¹ì¹˜ëŠ” ìœˆë„ìš°ë¥¼ ì°¾ì•„ ë¹„ë””ì˜¤ ë©”ëª¨ë¦¬ë¡œ ì „ì†¡
     //--------------------------------------------------------------------------
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kLock( &( gs_stWindowManager.stLock ) );
 
-    // ÇöÀç À©µµ¿ì ¸®½ºÆ®´Â Z ¼ø¼­ÀÇ ¿ª¹æÇâ, Áï Ã³À½¿¡ ÀÖ´Â À©µµ¿ì°¡ Z ¼ø¼­ÀÇ ÃÖÇÏÀ§
-    // À©µµ¿ì°¡ µÇ°í ¸¶Áö¸· À©µµ¿ì°¡ ÃÖ»óÀ§ À©µµ¿ì°¡ µÇµµ·Ï Á¤·ÄµÇ¾î ÀÖÀ½ 
-    // µû¶ó¼­ À©µµ¿ì ¸®½ºÆ®¸¦ Ã³À½ºÎÅÍ µû¶ó°¡¸é¼­ ±×¸± ¿µ¿ªÀ» Æ÷ÇÔÇÏ´Â À©µµ¿ì¸¦ Ã£°í 
-    // ±× À©µµ¿ìºÎÅÍ ÃÖ»óÀ§ À©µµ¿ì±îÁö È­¸é¿¡ Àü¼ÛÇÏ¸é µÊ
+    // í˜„ì¬ ìœˆë„ìš° ë¦¬ìŠ¤íŠ¸ëŠ” Z ìˆœì„œì˜ ì—­ë°©í–¥, ì¦‰ ì²˜ìŒì— ìˆëŠ” ìœˆë„ìš°ê°€ Z ìˆœì„œì˜ ìµœí•˜ìœ„
+    // ìœˆë„ìš°ê°€ ë˜ê³  ë§ˆì§€ë§‰ ìœˆë„ìš°ê°€ ìµœìƒìœ„ ìœˆë„ìš°ê°€ ë˜ë„ë¡ ì •ë ¬ë˜ì–´ ìˆìŒ 
+    // ë”°ë¼ì„œ ìœˆë„ìš° ë¦¬ìŠ¤íŠ¸ë¥¼ ì²˜ìŒë¶€í„° ë”°ë¼ê°€ë©´ì„œ ê·¸ë¦´ ì˜ì—­ì„ í¬í•¨í•˜ëŠ” ìœˆë„ìš°ë¥¼ ì°¾ê³  
+    // ê·¸ ìœˆë„ìš°ë¶€í„° ìµœìƒìœ„ ìœˆë„ìš°ê¹Œì§€ í™”ë©´ì— ì „ì†¡í•˜ë©´ ë¨
     pstWindow = kGetHeaderFromList( &( gs_stWindowManager.stWindowList ) );
     while( pstWindow != NULL )
     {
-        // À©µµ¿ì¸¦ È­¸é¿¡ ³ªÅ¸³»´Â ¿É¼ÇÀÌ ¼³Á¤µÇ¾îÀÖÀ¸¸ç,
-        // ¾÷µ¥ÀÌÆ®ÇÒ ºÎºĞ°ú À©µµ¿ì°¡ Â÷ÁöÇÏ´Â ¿µ¿ªÀÌ °ãÄ¡¸é °ãÄ¡´Â ¸¸Å­À» È­¸é¿¡ Àü¼Û
+        // ìœˆë„ìš°ë¥¼ í™”ë©´ì— ë‚˜íƒ€ë‚´ëŠ” ì˜µì…˜ì´ ì„¤ì •ë˜ì–´ìˆìœ¼ë©°,
+        // ì—…ë°ì´íŠ¸í•  ë¶€ë¶„ê³¼ ìœˆë„ìš°ê°€ ì°¨ì§€í•˜ëŠ” ì˜ì—­ì´ ê²¹ì¹˜ë©´ ê²¹ì¹˜ëŠ” ë§Œí¼ì„ í™”ë©´ì— ì „ì†¡
         if( ( pstWindow->dwFlags & WINDOW_FLAGS_SHOW ) &&
             ( kIsRectangleOverlapped( &( pstWindow->stArea ), &stOverlappedArea )
                 == TRUE ) )
         {
-            // µ¿±âÈ­ Ã³¸®
+            // ë™ê¸°í™” ì²˜ë¦¬
             kLock( &( pstWindow->stLock ) );
 
-            // ½ÇÁ¦·Î ºñµğ¿À ¸Ş¸ğ¸®·Î Àü¼ÛÇÏ´Â ÇÔ¼ö
+            // ì‹¤ì œë¡œ ë¹„ë””ì˜¤ ë©”ëª¨ë¦¬ë¡œ ì „ì†¡í•˜ëŠ” í•¨ìˆ˜
             kCopyWindowBufferToFrameBuffer( pstWindow, &stOverlappedArea );
 
-            // µ¿±âÈ­ Ã³¸®
+            // ë™ê¸°í™” ì²˜ë¦¬
             kUnlock( &( pstWindow->stLock ) );
         }
 
-        // ´ÙÀ½ À©µµ¿ì¸¦ Ã£À½
+        // ë‹¤ìŒ ìœˆë„ìš°ë¥¼ ì°¾ìŒ
         pstWindow = kGetNextFromList( &( gs_stWindowManager.stWindowList ),
                 pstWindow );
     }
 
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kUnlock( &( gs_stWindowManager.stLock ) );
 
     //--------------------------------------------------------------------------
-    // ¸¶¿ì½º Ä¿¼­ ¿µ¿ªÀÌ Æ÷ÇÔµÇ¸é ¸¶¿ì½º Ä¿¼­µµ °°ÀÌ ±×¸²
+    // ë§ˆìš°ìŠ¤ ì»¤ì„œ ì˜ì—­ì´ í¬í•¨ë˜ë©´ ë§ˆìš°ìŠ¤ ì»¤ì„œë„ ê°™ì´ ê·¸ë¦¼
     //--------------------------------------------------------------------------
-    // ¸¶¿ì½º ¿µ¿ªÀ» RECT ÀÚ·á±¸Á¶¿¡ ¼³Á¤
+    // ë§ˆìš°ìŠ¤ ì˜ì—­ì„ RECT ìë£Œêµ¬ì¡°ì— ì„¤ì •
     kSetRectangleData( gs_stWindowManager.iMouseX, gs_stWindowManager.iMouseY,
             gs_stWindowManager.iMouseX + MOUSE_CURSOR_WIDTH,
             gs_stWindowManager.iMouseY + MOUSE_CURSOR_HEIGHT, &stCursorArea );
     
-    // °ãÄ¡´ÂÁö È®ÀÎÇÏ¿© °ãÄ£´Ù¸é ¸¶¿ì½º Ä¿¼­µµ ±×¸²
+    // ê²¹ì¹˜ëŠ”ì§€ í™•ì¸í•˜ì—¬ ê²¹ì¹œë‹¤ë©´ ë§ˆìš°ìŠ¤ ì»¤ì„œë„ ê·¸ë¦¼
     if( kIsRectangleOverlapped( &stOverlappedArea, &stCursorArea ) == TRUE )
     {
         kDrawCursor( gs_stWindowManager.iMouseX, gs_stWindowManager.iMouseY );
@@ -635,7 +635,7 @@ BOOL kRedrawWindowByArea( const RECT* pstArea )
 }
 
 /**
- *  À©µµ¿ì È­¸é ¹öÆÛÀÇ ÀÏºÎ ¶Ç´Â ÀüÃ¼¸¦ ÇÁ·¹ÀÓ ¹öÆÛ·Î º¹»ç
+ *  ìœˆë„ìš° í™”ë©´ ë²„í¼ì˜ ì¼ë¶€ ë˜ëŠ” ì „ì²´ë¥¼ í”„ë ˆì„ ë²„í¼ë¡œ ë³µì‚¬
  */
 static void kCopyWindowBufferToFrameBuffer( const WINDOW* pstWindow,
         const RECT* pstCopyArea )
@@ -650,72 +650,72 @@ static void kCopyWindowBufferToFrameBuffer( const WINDOW* pstWindow,
     COLOR* pstCurrentVideoMemoryAddress;
     COLOR* pstCurrentWindowBufferAddress;
 
-    // Àü¼ÛÇØ¾ß ÇÏ´Â ¿µ¿ª°ú È­¸é ¿µ¿ªÀÌ °ãÄ¡´Â ºÎºĞÀ» ÀÓ½Ã·Î °è»ê
+    // ì „ì†¡í•´ì•¼ í•˜ëŠ” ì˜ì—­ê³¼ í™”ë©´ ì˜ì—­ì´ ê²¹ì¹˜ëŠ” ë¶€ë¶„ì„ ì„ì‹œë¡œ ê³„ì‚°
     if( kGetOverlappedRectangle( &( gs_stWindowManager.stScreenArea ), pstCopyArea,
             &stTempArea ) == FALSE )
     {
         return ;
     }
 
-    // À©µµ¿ì ¿µ¿ª°ú ÀÓ½Ã·Î °è»êÇÑ ¿µ¿ªÀÌ °ãÄ¡´Â ºÎºĞÀ» ´Ù½Ã °è»ê
-    // µÎ ¿µ¿ªÀÌ °ãÄ¡Áö ¾Ê´Â´Ù¸é ºñµğ¿À ¸Ş¸ğ¸®·Î Àü¼ÛÇÒ ÇÊ¿ä ¾øÀ½
+    // ìœˆë„ìš° ì˜ì—­ê³¼ ì„ì‹œë¡œ ê³„ì‚°í•œ ì˜ì—­ì´ ê²¹ì¹˜ëŠ” ë¶€ë¶„ì„ ë‹¤ì‹œ ê³„ì‚°
+    // ë‘ ì˜ì—­ì´ ê²¹ì¹˜ì§€ ì•ŠëŠ”ë‹¤ë©´ ë¹„ë””ì˜¤ ë©”ëª¨ë¦¬ë¡œ ì „ì†¡í•  í•„ìš” ì—†ìŒ
     if( kGetOverlappedRectangle( &stTempArea, &( pstWindow->stArea ),
             &stOverlappedArea ) == FALSE )
     {
         return ;
     }
 
-    // °¢ ¿µ¿ªÀÇ ³Êºñ¿Í ³ôÀÌ¸¦ °è»ê
+    // ê° ì˜ì—­ì˜ ë„ˆë¹„ì™€ ë†’ì´ë¥¼ ê³„ì‚°
     iScreenWidth = kGetRectangleWidth( &( gs_stWindowManager.stScreenArea ) );
     iWindowWidth = kGetRectangleWidth( &( pstWindow->stArea ) );
     iOverlappedWidth = kGetRectangleWidth( &stOverlappedArea );
     iOverlappedHeight = kGetRectangleHeight( &stOverlappedArea );
 
-    // Àü¼ÛÀ» ½ÃÀÛÇÒ ºñµğ¿À ¸Ş¸ğ¸® ¾îµå·¹½º¿Í À©µµ¿ì È­¸é ¹öÆÛÀÇ ¾îµå·¹½º¸¦ °è»ê
+    // ì „ì†¡ì„ ì‹œì‘í•  ë¹„ë””ì˜¤ ë©”ëª¨ë¦¬ ì–´ë“œë ˆìŠ¤ì™€ ìœˆë„ìš° í™”ë©´ ë²„í¼ì˜ ì–´ë“œë ˆìŠ¤ë¥¼ ê³„ì‚°
     pstCurrentVideoMemoryAddress = gs_stWindowManager.pstVideoMemory +
         stOverlappedArea.iY1 * iScreenWidth + stOverlappedArea.iX1;
 
-    // À©µµ¿ì È­¸é ¹öÆÛ´Â È­¸é ÀüÃ¼°¡ ¾Æ´Ñ À©µµ¿ì¸¦ ±âÁØÀ¸·Î ÇÑ ÁÂÇ¥ÀÌ¹Ç·Î,
-    // °ãÄ¡´Â ¿µ¿ªÀ» À©µµ¿ì ³»ºÎ ÁÂÇ¥¸¦ ±âÁØÀ¸·Î º¯È¯
+    // ìœˆë„ìš° í™”ë©´ ë²„í¼ëŠ” í™”ë©´ ì „ì²´ê°€ ì•„ë‹Œ ìœˆë„ìš°ë¥¼ ê¸°ì¤€ìœ¼ë¡œ í•œ ì¢Œí‘œì´ë¯€ë¡œ,
+    // ê²¹ì¹˜ëŠ” ì˜ì—­ì„ ìœˆë„ìš° ë‚´ë¶€ ì¢Œí‘œë¥¼ ê¸°ì¤€ìœ¼ë¡œ ë³€í™˜
     pstCurrentWindowBufferAddress = pstWindow->pstWindowBuffer +
         ( stOverlappedArea.iY1 - pstWindow->stArea.iY1 ) * iWindowWidth +
         ( stOverlappedArea.iX1 - pstWindow->stArea.iX1 );
 
-    // ·çÇÁ¸¦ µ¹¸é¼­ À©µµ¿ì È­¸é ¹öÆÛÀÇ ³»¿ëÀ» ºñµğ¿À ¸Ş¸ğ¸®·Î º¹»ç
+    // ë£¨í”„ë¥¼ ëŒë©´ì„œ ìœˆë„ìš° í™”ë©´ ë²„í¼ì˜ ë‚´ìš©ì„ ë¹„ë””ì˜¤ ë©”ëª¨ë¦¬ë¡œ ë³µì‚¬
     for( i = 0 ; i < iOverlappedHeight ; i++ )
     {
-        // ¶óÀÎ º°·Î ÇÑ¹ø¿¡ Àü¼Û
+        // ë¼ì¸ ë³„ë¡œ í•œë²ˆì— ì „ì†¡
         kMemCpy( pstCurrentVideoMemoryAddress, pstCurrentWindowBufferAddress,
                 iOverlappedWidth * sizeof( COLOR ) );
 
-        // ´ÙÀ½ ¶óÀÎÀ¸·Î ¸Ş¸ğ¸® ¾îµå·¹½º ÀÌµ¿
+        // ë‹¤ìŒ ë¼ì¸ìœ¼ë¡œ ë©”ëª¨ë¦¬ ì–´ë“œë ˆìŠ¤ ì´ë™
         pstCurrentVideoMemoryAddress += iScreenWidth;
         pstCurrentWindowBufferAddress += iWindowWidth;
     }
 }
 
 /**
- *  Æ¯Á¤ À§Ä¡¸¦ Æ÷ÇÔÇÏ´Â À©µµ¿ì Áß¿¡¼­ °¡Àå À§¿¡ ÀÖ´Â À©µµ¿ì¸¦ ¹İÈ¯
+ *  íŠ¹ì • ìœ„ì¹˜ë¥¼ í¬í•¨í•˜ëŠ” ìœˆë„ìš° ì¤‘ì—ì„œ ê°€ì¥ ìœ„ì— ìˆëŠ” ìœˆë„ìš°ë¥¼ ë°˜í™˜
  */
 QWORD kFindWindowByPoint( int iX, int iY )
 {
     QWORD qwWindowID;
     WINDOW* pstWindow;
     
-    // ¸¶¿ì½º´Â ¹è°æ À©µµ¿ì¸¦ ¹ş¾î³ªÁö ¸øÇÏ¹Ç·Î, ±âº» °ªÀ» ¹è°æ À©µµ¿ì·Î ¼³Á¤
+    // ë§ˆìš°ìŠ¤ëŠ” ë°°ê²½ ìœˆë„ìš°ë¥¼ ë²—ì–´ë‚˜ì§€ ëª»í•˜ë¯€ë¡œ, ê¸°ë³¸ ê°’ì„ ë°°ê²½ ìœˆë„ìš°ë¡œ ì„¤ì •
     qwWindowID = gs_stWindowManager.qwBackgoundWindowID;
     
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kLock( &( gs_stWindowManager.stLock ) );
     
-    // ¹è°æ À©µµ¿ì ´ÙÀ½ºÎÅÍ °Ë»ö ½ÃÀÛ
+    // ë°°ê²½ ìœˆë„ìš° ë‹¤ìŒë¶€í„° ê²€ìƒ‰ ì‹œì‘
     pstWindow = kGetHeaderFromList( &( gs_stWindowManager.stWindowList ) );
     do
     {
-        // ´ÙÀ½ À©µµ¿ì¸¦ ¹İÈ¯
+        // ë‹¤ìŒ ìœˆë„ìš°ë¥¼ ë°˜í™˜
         pstWindow = kGetNextFromList( &( gs_stWindowManager.stWindowList ), pstWindow );
         
-        // À©µµ¿ì°¡ È­¸é¿¡ º¸ÀÌ°í À©µµ¿ì°¡ X, Y ÁÂÇ¥¸¦ Æ÷ÇÔÇÑ´Ù¸é À©µµ¿ì ID ¾÷µ¥ÀÌÆ®
+        // ìœˆë„ìš°ê°€ í™”ë©´ì— ë³´ì´ê³  ìœˆë„ìš°ê°€ X, Y ì¢Œí‘œë¥¼ í¬í•¨í•œë‹¤ë©´ ìœˆë„ìš° ID ì—…ë°ì´íŠ¸
         if( ( pstWindow != NULL ) &&
             ( pstWindow->dwFlags & WINDOW_FLAGS_SHOW ) &&
             ( kIsInRectangle( &( pstWindow->stArea ), iX, iY ) == TRUE ) )
@@ -725,13 +725,13 @@ QWORD kFindWindowByPoint( int iX, int iY )
         
     } while( pstWindow != NULL );
     
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kUnlock( &( gs_stWindowManager.stLock ) );
     return qwWindowID;
 }
 
 /**
- *  À©µµ¿ì Á¦¸ñÀÌ ÀÏÄ¡ÇÏ´Â À©µµ¿ì¸¦ ¹İÈ¯
+ *  ìœˆë„ìš° ì œëª©ì´ ì¼ì¹˜í•˜ëŠ” ìœˆë„ìš°ë¥¼ ë°˜í™˜
  */
 QWORD kFindWindowByTitle( const char* pcTitle )
 {
@@ -742,14 +742,14 @@ QWORD kFindWindowByTitle( const char* pcTitle )
     qwWindowID = WINDOW_INVALIDID;
     iTitleLength = kStrLen( pcTitle );
     
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kLock( &( gs_stWindowManager.stLock ) );
     
-    // ¹è°æ À©µµ¿ìºÎÅÍ °Ë»ö ½ÃÀÛ
+    // ë°°ê²½ ìœˆë„ìš°ë¶€í„° ê²€ìƒ‰ ì‹œì‘
     pstWindow = kGetHeaderFromList( &( gs_stWindowManager.stWindowList ) );
     while( pstWindow != NULL )
     {
-        // À©µµ¿ì Á¦¸ñÀÌ ÀÏÄ¡ÇÏ¸é ·çÇÁ¸¦ ³ª°¡¼­ ÀÏÄ¡ÇÏ´Â À©µµ¿ìÀÇ ID¸¦ ¹İÈ¯
+        // ìœˆë„ìš° ì œëª©ì´ ì¼ì¹˜í•˜ë©´ ë£¨í”„ë¥¼ ë‚˜ê°€ì„œ ì¼ì¹˜í•˜ëŠ” ìœˆë„ìš°ì˜ IDë¥¼ ë°˜í™˜
         if( ( kStrLen( pstWindow->vcWindowTitle ) == iTitleLength ) &&
             ( kMemCmp( pstWindow->vcWindowTitle, pcTitle, iTitleLength ) == 0 ) )
         {
@@ -757,22 +757,22 @@ QWORD kFindWindowByTitle( const char* pcTitle )
             break;
         }
         
-        // ´ÙÀ½ À©µµ¿ì¸¦ ¹İÈ¯
+        // ë‹¤ìŒ ìœˆë„ìš°ë¥¼ ë°˜í™˜
         pstWindow = kGetNextFromList( &( gs_stWindowManager.stWindowList ), 
                                       pstWindow );
     }
     
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kUnlock( &( gs_stWindowManager.stLock ) );
     return qwWindowID;
 }
 
 /**
- *  À©µµ¿ì°¡ Á¸ÀçÇÏ´ÂÁö ¿©ºÎ¸¦ ¹İÈ¯
+ *  ìœˆë„ìš°ê°€ ì¡´ì¬í•˜ëŠ”ì§€ ì—¬ë¶€ë¥¼ ë°˜í™˜
  */
 BOOL kIsWindowExist( QWORD qwWindowID )
 {
-    // À©µµ¿ì¸¦ °Ë»öÇÑ °á°ú°¡ NULLÀÌ¶ó¸é À©µµ¿ì°¡ Á¸ÀçÇÏÁö ¾ÊÀ½
+    // ìœˆë„ìš°ë¥¼ ê²€ìƒ‰í•œ ê²°ê³¼ê°€ NULLì´ë¼ë©´ ìœˆë„ìš°ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŒ
     if( kGetWindow( qwWindowID ) == NULL )
     {
         return FALSE;
@@ -781,17 +781,17 @@ BOOL kIsWindowExist( QWORD qwWindowID )
 }
 
 /**
- *  ÃÖ»óÀ§ À©µµ¿ìÀÇ ID¸¦ ¹İÈ¯
+ *  ìµœìƒìœ„ ìœˆë„ìš°ì˜ IDë¥¼ ë°˜í™˜
  */
 QWORD kGetTopWindowID( void )
 {
     WINDOW* pstActiveWindow;
     QWORD qwActiveWindowID;
     
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kLock( &( gs_stWindowManager.stLock ) );
     
-    // À©µµ¿ì ¸®½ºÆ®ÀÇ °¡Àå ¸¶Áö¸·¿¡ ÀÖ´Â À©µµ¿ì¸¦ ¹İÈ¯
+    // ìœˆë„ìš° ë¦¬ìŠ¤íŠ¸ì˜ ê°€ì¥ ë§ˆì§€ë§‰ì— ìˆëŠ” ìœˆë„ìš°ë¥¼ ë°˜í™˜
     pstActiveWindow = ( WINDOW* ) kGetTailFromList( &( gs_stWindowManager.stWindowList ) );
     if( pstActiveWindow != NULL )
     {
@@ -802,15 +802,15 @@ QWORD kGetTopWindowID( void )
         qwActiveWindowID = WINDOW_INVALIDID;
     }
     
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kUnlock( &( gs_stWindowManager.stLock ) );
     
     return qwActiveWindowID;
 }
 
 /**
- *  À©µµ¿ìÀÇ Z ¼ø¼­¸¦ ÃÖ»óÀ§·Î ¸¸µê
- *      À©µµ¿ì¸¦ ÃÖ»óÀ§·Î ÀÌµ¿½ÃÅ´°ú µ¿½Ã¿¡ À©µµ¿ì ¼±ÅÃ°ú ¼±ÅÃ ÇØÁ¦ ÀÌº¥Æ®¸¦ Àü¼Û
+ *  ìœˆë„ìš°ì˜ Z ìˆœì„œë¥¼ ìµœìƒìœ„ë¡œ ë§Œë“¦
+ *      ìœˆë„ìš°ë¥¼ ìµœìƒìœ„ë¡œ ì´ë™ì‹œí‚´ê³¼ ë™ì‹œì— ìœˆë„ìš° ì„ íƒê³¼ ì„ íƒ í•´ì œ ì´ë²¤íŠ¸ë¥¼ ì „ì†¡
  */
 BOOL kMoveWindowToTop( QWORD qwWindowID )
 {
@@ -820,67 +820,67 @@ BOOL kMoveWindowToTop( QWORD qwWindowID )
     QWORD qwTopWindowID;
     EVENT stEvent;
     
-    // ÇöÀç À©µµ¿ì ¸®½ºÆ®¿¡¼­ ÃÖ»óÀ§ À©µµ¿ì, Áï ¼±ÅÃµÈ À©µµ¿ìÀÇ ID¸¦ ¹İÈ¯
+    // í˜„ì¬ ìœˆë„ìš° ë¦¬ìŠ¤íŠ¸ì—ì„œ ìµœìƒìœ„ ìœˆë„ìš°, ì¦‰ ì„ íƒëœ ìœˆë„ìš°ì˜ IDë¥¼ ë°˜í™˜
     qwTopWindowID = kGetTopWindowID();    
-    // ÃÖ»óÀ§ À©µµ¿ì°¡ ÀÚ½ÅÀÌ¸é ´õ ¼öÇàÇÒ ÇÊ¿ä ¾øÀ½
+    // ìµœìƒìœ„ ìœˆë„ìš°ê°€ ìì‹ ì´ë©´ ë” ìˆ˜í–‰í•  í•„ìš” ì—†ìŒ
     if( qwTopWindowID == qwWindowID )
     {
         return TRUE;
     }
     
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kLock( &( gs_stWindowManager.stLock ) );
     
-    // À©µµ¿ì ¸®½ºÆ®¿¡¼­ Á¦°ÅÇÏ¿© À©µµ¿ì ¸®½ºÆ®ÀÇ ¸¶Áö¸·À¸·Î ÀÌµ¿
+    // ìœˆë„ìš° ë¦¬ìŠ¤íŠ¸ì—ì„œ ì œê±°í•˜ì—¬ ìœˆë„ìš° ë¦¬ìŠ¤íŠ¸ì˜ ë§ˆì§€ë§‰ìœ¼ë¡œ ì´ë™
     pstWindow = kRemoveList( &( gs_stWindowManager.stWindowList ), qwWindowID );
     if( pstWindow != NULL )
     {
         kAddListToTail( &( gs_stWindowManager.stWindowList ), pstWindow );
         
-        // À©µµ¿ìÀÇ ¿µ¿ªÀ» À©µµ¿ì ³»ºÎ ÁÂÇ¥·Î º¯È¯ÇÏ¿© ÇÃ·¡±×¿Í ÇÔ²² ÀúÀåÇØµÒ
-        // ¾Æ·¡¿¡¼­ À©µµ¿ì È­¸éÀ» ¾÷µ¥ÀÌÆ®ÇÒ ¶§ »ç¿ë
+        // ìœˆë„ìš°ì˜ ì˜ì—­ì„ ìœˆë„ìš° ë‚´ë¶€ ì¢Œí‘œë¡œ ë³€í™˜í•˜ì—¬ í”Œë˜ê·¸ì™€ í•¨ê»˜ ì €ì¥í•´ë‘ 
+        // ì•„ë˜ì—ì„œ ìœˆë„ìš° í™”ë©´ì„ ì—…ë°ì´íŠ¸í•  ë•Œ ì‚¬ìš©
         kConvertRectScreenToClient( qwWindowID, &( pstWindow->stArea ), &stArea );
         dwFlags = pstWindow->dwFlags;
     }
     
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kUnlock( &( gs_stWindowManager.stLock ) );
     
-    // À©µµ¿ì°¡ ÃÖ»óÀ§·Î ÀÌµ¿Çß´Ù¸é À©µµ¿ì Á¦¸ñ Ç¥½ÃÁÙÀ» È­¸é¿¡ ¾÷µ¥ÀÌÆ®ÇÏ°í
-    // ¼±ÅÃ/¼±ÅÃ ÇØÁ¦ À©µµ¿ì ÀÌº¥Æ®¸¦ °¢°¢ Àü¼Û
+    // ìœˆë„ìš°ê°€ ìµœìƒìœ„ë¡œ ì´ë™í–ˆë‹¤ë©´ ìœˆë„ìš° ì œëª© í‘œì‹œì¤„ì„ í™”ë©´ì— ì—…ë°ì´íŠ¸í•˜ê³ 
+    // ì„ íƒ/ì„ íƒ í•´ì œ ìœˆë„ìš° ì´ë²¤íŠ¸ë¥¼ ê°ê° ì „ì†¡
     if( pstWindow != NULL )
     {
         //----------------------------------------------------------------------
-        // ¼±ÅÃµÈ À©µµ¿ìÀÇ È­¸éÀ» ¾÷µ¥ÀÌÆ®ÇÏ°í À©µµ¿ì ÀÌº¥Æ® Àü¼Û
+        // ì„ íƒëœ ìœˆë„ìš°ì˜ í™”ë©´ì„ ì—…ë°ì´íŠ¸í•˜ê³  ìœˆë„ìš° ì´ë²¤íŠ¸ ì „ì†¡
         //----------------------------------------------------------------------
-        // ¼±ÅÃµÇ¾ú´Ù´Â ÀÌº¥Æ®¸¦ Àü¼Û
+        // ì„ íƒë˜ì—ˆë‹¤ëŠ” ì´ë²¤íŠ¸ë¥¼ ì „ì†¡
         kSetWindowEvent( qwWindowID, EVENT_WINDOW_SELECT, &stEvent );
         kSendEventToWindow( qwWindowID, &stEvent );   
-        // Á¦¸ñ Ç¥½ÃÁÙÀÌ ÀÖ´Ù¸é ÇöÀç À©µµ¿ìÀÇ Á¦¸ñ Ç¥½ÃÁÙÀº ¼±ÅÃµÈ °ÍÀ¸·Î ¸¸µé°í 
-        // È­¸é ¾÷µ¥ÀÌÆ®
+        // ì œëª© í‘œì‹œì¤„ì´ ìˆë‹¤ë©´ í˜„ì¬ ìœˆë„ìš°ì˜ ì œëª© í‘œì‹œì¤„ì€ ì„ íƒëœ ê²ƒìœ¼ë¡œ ë§Œë“¤ê³  
+        // í™”ë©´ ì—…ë°ì´íŠ¸
         if( dwFlags & WINDOW_FLAGS_DRAWTITLE )
         {
-            // À©µµ¿ì Á¦¸ñ Ç¥½ÃÁÙÀ» ¼±ÅÃµÈ »óÅÂ·Î ¾÷µ¥ÀÌÆ®
+            // ìœˆë„ìš° ì œëª© í‘œì‹œì¤„ì„ ì„ íƒëœ ìƒíƒœë¡œ ì—…ë°ì´íŠ¸
             kUpdateWindowTitle( qwWindowID, TRUE );
-            // Á¦¸ñ Ç¥½ÃÁÙÀº À§¿¡¼­ ´Ù½Ã ±×·ÈÀ¸¹Ç·Î Á¦¸ñ Ç¥½ÃÁÙÀ» Á¦¿ÜÇÑ ³ª¸ÓÁö ºÎºĞ¸¸
-            // È­¸é ¾÷µ¥ÀÌÆ® ¼öÇà
+            // ì œëª© í‘œì‹œì¤„ì€ ìœ„ì—ì„œ ë‹¤ì‹œ ê·¸ë ¸ìœ¼ë¯€ë¡œ ì œëª© í‘œì‹œì¤„ì„ ì œì™¸í•œ ë‚˜ë¨¸ì§€ ë¶€ë¶„ë§Œ
+            // í™”ë©´ ì—…ë°ì´íŠ¸ ìˆ˜í–‰
             stArea.iY1 += WINDOW_TITLEBAR_HEIGHT;
             kUpdateScreenByWindowArea( qwWindowID, &stArea );
         }
-        // Á¦¸ñ Ç¥½ÃÁÙÀÌ ¾ø´Ù¸é À©µµ¿ì ¿µ¿ª ÀüÃ¼¸¦ ¾÷µ¥ÀÌÆ®
+        // ì œëª© í‘œì‹œì¤„ì´ ì—†ë‹¤ë©´ ìœˆë„ìš° ì˜ì—­ ì „ì²´ë¥¼ ì—…ë°ì´íŠ¸
         else
         {
             kUpdateScreenByID( qwWindowID );
         }
         
         //----------------------------------------------------------------------
-        // ÀÌÀü¿¡ È°¼ºÈ­µÇ¾ú´ø À©µµ¿ì´Â Á¦¸ñ Ç¥½ÃÁÙÀ» ºñÈ°¼ºÈ­·Î ¸¸µé°í ¼±ÅÃ ÇØÁ¦µÇ¾ú´Ù´Â
-        // ÀÌº¥Æ®¸¦ Àü¼Û
+        // ì´ì „ì— í™œì„±í™”ë˜ì—ˆë˜ ìœˆë„ìš°ëŠ” ì œëª© í‘œì‹œì¤„ì„ ë¹„í™œì„±í™”ë¡œ ë§Œë“¤ê³  ì„ íƒ í•´ì œë˜ì—ˆë‹¤ëŠ”
+        // ì´ë²¤íŠ¸ë¥¼ ì „ì†¡
         //----------------------------------------------------------------------
-        // ¼±ÅÃ ÇØÁ¦µÇ¾ú´Ù´Â ÀÌº¥Æ®¸¦ Àü¼Û
+        // ì„ íƒ í•´ì œë˜ì—ˆë‹¤ëŠ” ì´ë²¤íŠ¸ë¥¼ ì „ì†¡
         kSetWindowEvent( qwTopWindowID, EVENT_WINDOW_DESELECT, &stEvent );
         kSendEventToWindow( qwTopWindowID, &stEvent );   
-        // Á¦¸ñ Ç¥½ÃÁÙÀ» ¼±ÅÃµÇÁö ¾ÊÀº »óÅÂ·Î ¾÷µ¥ÀÌÆ®
+        // ì œëª© í‘œì‹œì¤„ì„ ì„ íƒë˜ì§€ ì•Šì€ ìƒíƒœë¡œ ì—…ë°ì´íŠ¸
         kUpdateWindowTitle( qwTopWindowID, FALSE );
         return TRUE;
     }
@@ -889,23 +889,23 @@ BOOL kMoveWindowToTop( QWORD qwWindowID )
 }
 
 /**
- *  X, YÁÂÇ¥°¡ À©µµ¿ìÀÇ Á¦¸ñ Ç¥½ÃÁÙ À§Ä¡¿¡ ÀÖ´ÂÁö¸¦ ¹İÈ¯
+ *  X, Yì¢Œí‘œê°€ ìœˆë„ìš°ì˜ ì œëª© í‘œì‹œì¤„ ìœ„ì¹˜ì— ìˆëŠ”ì§€ë¥¼ ë°˜í™˜
  */
 BOOL kIsInTitleBar( QWORD qwWindowID, int iX, int iY )
 {
     WINDOW* pstWindow;
     
-    // À©µµ¿ì °Ë»ö
+    // ìœˆë„ìš° ê²€ìƒ‰
     pstWindow = kGetWindow( qwWindowID );
     
-    // À©µµ¿ì°¡ ¾ø°Å³ª À©µµ¿ì°¡ Á¦¸ñ Ç¥½ÃÁÙÀ» °¡Áö°í ÀÖÁö ¾ÊÀ¸¸é Ã³¸®ÇÒ ÇÊ¿ä°¡ ¾øÀ½
+    // ìœˆë„ìš°ê°€ ì—†ê±°ë‚˜ ìœˆë„ìš°ê°€ ì œëª© í‘œì‹œì¤„ì„ ê°€ì§€ê³  ìˆì§€ ì•Šìœ¼ë©´ ì²˜ë¦¬í•  í•„ìš”ê°€ ì—†ìŒ
     if( ( pstWindow == NULL ) ||
         ( ( pstWindow->dwFlags & WINDOW_FLAGS_DRAWTITLE ) == 0 ) )
     {
         return FALSE;
     }
     
-    // ÁÂÇ¥°¡ Á¦¸ñ Ç¥½ÃÁÙ ¿µ¿ª¿¡ ÀÖ´ÂÁö¸¦ ºñ±³
+    // ì¢Œí‘œê°€ ì œëª© í‘œì‹œì¤„ ì˜ì—­ì— ìˆëŠ”ì§€ë¥¼ ë¹„êµ
     if( ( pstWindow->stArea.iX1 <= iX ) && ( iX <= pstWindow->stArea.iX2 ) &&
         ( pstWindow->stArea.iY1 <= iY ) && 
         ( iY <= pstWindow->stArea.iY1 + WINDOW_TITLEBAR_HEIGHT ) )
@@ -917,23 +917,23 @@ BOOL kIsInTitleBar( QWORD qwWindowID, int iX, int iY )
 }
 
 /**
- *  X, YÁÂÇ¥°¡ À©µµ¿ìÀÇ ´İ±â ¹öÆ° À§Ä¡¿¡ ÀÖ´ÂÁö¸¦ ¹İÈ¯
+ *  X, Yì¢Œí‘œê°€ ìœˆë„ìš°ì˜ ë‹«ê¸° ë²„íŠ¼ ìœ„ì¹˜ì— ìˆëŠ”ì§€ë¥¼ ë°˜í™˜
  */
 BOOL kIsInCloseButton( QWORD qwWindowID, int iX, int iY )
 {
     WINDOW* pstWindow;
     
-    // À©µµ¿ì¸¦ °Ë»ö
+    // ìœˆë„ìš°ë¥¼ ê²€ìƒ‰
     pstWindow = kGetWindow( qwWindowID );
     
-    // À©µµ¿ì°¡ ¾ø°Å³ª À©µµ¿ì°¡ Á¦¸ñ Ç¥½ÃÁÙÀ» °¡Áö°í ÀÖÁö ¾ÊÀ¸¸é Ã³¸®ÇÒ ÇÊ¿ä°¡ ¾øÀ½
+    // ìœˆë„ìš°ê°€ ì—†ê±°ë‚˜ ìœˆë„ìš°ê°€ ì œëª© í‘œì‹œì¤„ì„ ê°€ì§€ê³  ìˆì§€ ì•Šìœ¼ë©´ ì²˜ë¦¬í•  í•„ìš”ê°€ ì—†ìŒ
     if( ( pstWindow == NULL ) &&
         ( ( pstWindow->dwFlags & WINDOW_FLAGS_DRAWTITLE ) == 0 ) )
     {
         return FALSE;
     }
     
-    // ÁÂÇ¥°¡ ´İ±â ¹öÆ° ¿µ¿ª¿¡ ÀÖ´ÂÁö¸¦ ºñ±³
+    // ì¢Œí‘œê°€ ë‹«ê¸° ë²„íŠ¼ ì˜ì—­ì— ìˆëŠ”ì§€ë¥¼ ë¹„êµ
     if( ( ( pstWindow->stArea.iX2 - WINDOW_XBUTTON_SIZE - 1 ) <= iX ) && 
           ( iX <= ( pstWindow->stArea.iX2 - 1 ) ) &&
           ( ( pstWindow->stArea.iY1 + 1 ) <= iY ) && 
@@ -946,7 +946,7 @@ BOOL kIsInCloseButton( QWORD qwWindowID, int iX, int iY )
 }
 
 /**
- *  À©µµ¿ì¸¦ ÇØ´ç À§Ä¡·Î ÀÌµ¿
+ *  ìœˆë„ìš°ë¥¼ í•´ë‹¹ ìœ„ì¹˜ë¡œ ì´ë™
  */
 BOOL kMoveWindow( QWORD qwWindowID, int iX, int iY )
 {
@@ -956,32 +956,32 @@ BOOL kMoveWindow( QWORD qwWindowID, int iX, int iY )
     int iHeight;
     EVENT stEvent;
     
-    // À©µµ¿ì °Ë»ö°ú µ¿±âÈ­ Ã³¸®
+    // ìœˆë„ìš° ê²€ìƒ‰ê³¼ ë™ê¸°í™” ì²˜ë¦¬
     pstWindow = kGetWindowWithWindowLock( qwWindowID );
     if( pstWindow == NULL )
     {
         return FALSE;
     }
     
-    // ÀÌÀü¿¡ À©µµ¿ì°¡ ÀÖ´ø °÷À» ÀúÀå
+    // ì´ì „ì— ìœˆë„ìš°ê°€ ìˆë˜ ê³³ì„ ì €ì¥
     kMemCpy( &stPreviousArea, &( pstWindow->stArea ), sizeof( RECT ) );
 
-    // ³ôÀÌ¿Í ³Êºñ °è»êÇÏ¿© ÇöÀç À©µµ¿ì À§Ä¡¸¦ º¯°æ
+    // ë†’ì´ì™€ ë„ˆë¹„ ê³„ì‚°í•˜ì—¬ í˜„ì¬ ìœˆë„ìš° ìœ„ì¹˜ë¥¼ ë³€ê²½
     iWidth = kGetRectangleWidth( &stPreviousArea );
     iHeight = kGetRectangleHeight( &stPreviousArea );
     kSetRectangleData( iX, iY, iX + iWidth - 1, iY + iHeight - 1, 
             &( pstWindow->stArea ) );
 
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kUnlock( &( pstWindow->stLock ) );
     
-    // ÀÌÀü À©µµ¿ì°¡ ÀÖ´ø È­¸é ¿µ¿ªÀ» ¾÷µ¥ÀÌÆ®
+    // ì´ì „ ìœˆë„ìš°ê°€ ìˆë˜ í™”ë©´ ì˜ì—­ì„ ì—…ë°ì´íŠ¸
     kUpdateScreenByScreenArea( &stPreviousArea );
 
-    // ÇöÀç À©µµ¿ì ¿µ¿ªÀ» È­¸é¿¡ ¾÷µ¥ÀÌÆ®
+    // í˜„ì¬ ìœˆë„ìš° ì˜ì—­ì„ í™”ë©´ì— ì—…ë°ì´íŠ¸
     kUpdateScreenByID( qwWindowID );
     
-    // À©µµ¿ì ÀÌµ¿ ¸Ş½ÃÁö¸¦ Àü¼Û
+    // ìœˆë„ìš° ì´ë™ ë©”ì‹œì§€ë¥¼ ì „ì†¡
     kSetWindowEvent( qwWindowID, EVENT_WINDOW_MOVE, &stEvent );
     kSendEventToWindow( qwWindowID, &stEvent );
 
@@ -989,30 +989,30 @@ BOOL kMoveWindow( QWORD qwWindowID, int iX, int iY )
 }
 
 /**
- *  À©µµ¿ì Á¦¸ñ Ç¥½ÃÁÙÀ» »õ·Î ±×¸²
+ *  ìœˆë„ìš° ì œëª© í‘œì‹œì¤„ì„ ìƒˆë¡œ ê·¸ë¦¼
  */
 static BOOL kUpdateWindowTitle( QWORD qwWindowID, BOOL bSelectedTitle )
 {
     WINDOW* pstWindow;
     RECT stTitleBarArea;
     
-    // À©µµ¿ì¸¦ °Ë»ö
+    // ìœˆë„ìš°ë¥¼ ê²€ìƒ‰
     pstWindow = kGetWindow( qwWindowID );
 
-    // À©µµ¿ì°¡ Á¸ÀçÇÏ¸é À©µµ¿ìÀÇ Á¦¸ñ Ç¥½ÃÁÙÀ» ´Ù½Ã ±×·Á¼­ È­¸é¿¡ ¾÷µ¥ÀÌÆ®    
+    // ìœˆë„ìš°ê°€ ì¡´ì¬í•˜ë©´ ìœˆë„ìš°ì˜ ì œëª© í‘œì‹œì¤„ì„ ë‹¤ì‹œ ê·¸ë ¤ì„œ í™”ë©´ì— ì—…ë°ì´íŠ¸    
     if( ( pstWindow != NULL ) &&
         ( pstWindow->dwFlags & WINDOW_FLAGS_DRAWTITLE ) )
     {
-        // ¼±ÅÃ/¼±ÅÃ ÇØÁ¦ ¿©ºÎ¿¡ µû¶ó À©µµ¿ì Á¦¸ñ Ç¥½ÃÁÙÀ» ´Ù½Ã ±×¸²
+        // ì„ íƒ/ì„ íƒ í•´ì œ ì—¬ë¶€ì— ë”°ë¼ ìœˆë„ìš° ì œëª© í‘œì‹œì¤„ì„ ë‹¤ì‹œ ê·¸ë¦¼
         kDrawWindowTitle( pstWindow->stLink.qwID, pstWindow->vcWindowTitle,
                           bSelectedTitle );
-        // À©µµ¿ì Á¦¸ñ Ç¥½ÃÁÙÀÇ À§Ä¡¸¦ À©µµ¿ì ³»ºÎ ÁÂÇ¥·Î ÀúÀå
+        // ìœˆë„ìš° ì œëª© í‘œì‹œì¤„ì˜ ìœ„ì¹˜ë¥¼ ìœˆë„ìš° ë‚´ë¶€ ì¢Œí‘œë¡œ ì €ì¥
         stTitleBarArea.iX1 = 0;
         stTitleBarArea.iY1 = 0;
         stTitleBarArea.iX2 = kGetRectangleWidth( &( pstWindow->stArea ) ) - 1;
         stTitleBarArea.iY2 = WINDOW_TITLEBAR_HEIGHT;
 
-        // À©µµ¿ì ¿µ¿ª¸¸Å­ È­¸é¿¡ ¾÷µ¥ÀÌÆ®
+        // ìœˆë„ìš° ì˜ì—­ë§Œí¼ í™”ë©´ì— ì—…ë°ì´íŠ¸
         kUpdateScreenByWindowArea( qwWindowID, &stTitleBarArea );
         
         return TRUE;
@@ -1022,39 +1022,39 @@ static BOOL kUpdateWindowTitle( QWORD qwWindowID, BOOL bSelectedTitle )
 }
 
 //==============================================================================
-//  È­¸é ÁÂÇ¥ <--> À©µµ¿ì ÁÂÇ¥ º¯È¯ °ü·Ã ÇÔ¼ö
+//  í™”ë©´ ì¢Œí‘œ <--> ìœˆë„ìš° ì¢Œí‘œ ë³€í™˜ ê´€ë ¨ í•¨ìˆ˜
 //==============================================================================
 /**
- *  À©µµ¿ì ¿µ¿ªÀ» ¹İÈ¯
+ *  ìœˆë„ìš° ì˜ì—­ì„ ë°˜í™˜
  */
 BOOL kGetWindowArea( QWORD qwWindowID, RECT* pstArea )
 {
     WINDOW* pstWindow;
     
-    // À©µµ¿ì °Ë»ö°ú µ¿±âÈ­ Ã³¸®
+    // ìœˆë„ìš° ê²€ìƒ‰ê³¼ ë™ê¸°í™” ì²˜ë¦¬
     pstWindow = kGetWindowWithWindowLock( qwWindowID );
     if( pstWindow == NULL )
     {
         return FALSE;
     }
 
-    // À©µµ¿ì ¿µ¿ªÀ» º¹»çÇØ¼­ ¹İÈ¯
+    // ìœˆë„ìš° ì˜ì—­ì„ ë³µì‚¬í•´ì„œ ë°˜í™˜
     kMemCpy( pstArea, &( pstWindow->stArea ), sizeof( RECT ) );
     
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kUnlock( &( pstWindow->stLock ) );
     return TRUE;
 }
 
 /**
- *  ÀüÃ¼ È­¸éÀ» ±âÁØÀ¸·Î ÇÑ X,Y ÁÂÇ¥¸¦ À©µµ¿ì ³»ºÎ ÁÂÇ¥·Î º¯È¯
+ *  ì „ì²´ í™”ë©´ì„ ê¸°ì¤€ìœ¼ë¡œ í•œ X,Y ì¢Œí‘œë¥¼ ìœˆë„ìš° ë‚´ë¶€ ì¢Œí‘œë¡œ ë³€í™˜
  */
 BOOL kConvertPointScreenToClient( QWORD qwWindowID, const POINT* pstXY, 
         POINT* pstXYInWindow )
 {
     RECT stArea;
     
-    // À©µµ¿ì ¿µ¿ªÀ» ¹İÈ¯
+    // ìœˆë„ìš° ì˜ì—­ì„ ë°˜í™˜
     if( kGetWindowArea( qwWindowID, &stArea ) == FALSE )
     {
         return FALSE;
@@ -1066,14 +1066,14 @@ BOOL kConvertPointScreenToClient( QWORD qwWindowID, const POINT* pstXY,
 }
 
 /**
- *  À©µµ¿ì ³»ºÎ¸¦ ±âÁØÀ¸·Î ÇÑ X,Y ÁÂÇ¥¸¦ È­¸é ÁÂÇ¥·Î º¯È¯
+ *  ìœˆë„ìš° ë‚´ë¶€ë¥¼ ê¸°ì¤€ìœ¼ë¡œ í•œ X,Y ì¢Œí‘œë¥¼ í™”ë©´ ì¢Œí‘œë¡œ ë³€í™˜
  */
 BOOL kConvertPointClientToScreen( QWORD qwWindowID, const POINT* pstXY, 
         POINT* pstXYInScreen )
 {
     RECT stArea;
     
-    // À©µµ¿ì ¿µ¿ªÀ» ¹İÈ¯
+    // ìœˆë„ìš° ì˜ì—­ì„ ë°˜í™˜
     if( kGetWindowArea( qwWindowID, &stArea ) == FALSE )
     {
         return FALSE;
@@ -1085,14 +1085,14 @@ BOOL kConvertPointClientToScreen( QWORD qwWindowID, const POINT* pstXY,
 }
 
 /**
- *  ÀüÃ¼ È­¸éÀ» ±âÁØÀ¸·Î ÇÑ »ç°¢Çü ÁÂÇ¥¸¦ À©µµ¿ì ³»ºÎ ÁÂÇ¥·Î º¯È¯
+ *  ì „ì²´ í™”ë©´ì„ ê¸°ì¤€ìœ¼ë¡œ í•œ ì‚¬ê°í˜• ì¢Œí‘œë¥¼ ìœˆë„ìš° ë‚´ë¶€ ì¢Œí‘œë¡œ ë³€í™˜
  */
 BOOL kConvertRectScreenToClient( QWORD qwWindowID, const RECT* pstArea, 
         RECT* pstAreaInWindow )
 {
     RECT stWindowArea;
     
-    // À©µµ¿ì ¿µ¿ªÀ» ¹İÈ¯
+    // ìœˆë„ìš° ì˜ì—­ì„ ë°˜í™˜
     if( kGetWindowArea( qwWindowID, &stWindowArea ) == FALSE )
     {
         return FALSE;
@@ -1106,14 +1106,14 @@ BOOL kConvertRectScreenToClient( QWORD qwWindowID, const RECT* pstArea,
 }
 
 /**
- *  À©µµ¿ì ³»ºÎ¸¦ ±âÁØÀ¸·Î ÇÑ »ç°¢Çü ÁÂÇ¥¸¦ È­¸é ÁÂÇ¥·Î º¯È¯
+ *  ìœˆë„ìš° ë‚´ë¶€ë¥¼ ê¸°ì¤€ìœ¼ë¡œ í•œ ì‚¬ê°í˜• ì¢Œí‘œë¥¼ í™”ë©´ ì¢Œí‘œë¡œ ë³€í™˜
  */
 BOOL kConvertRectClientToScreen( QWORD qwWindowID, const RECT* pstArea, 
         RECT* pstAreaInScreen )
 {
     RECT stWindowArea;
     
-    // À©µµ¿ì ¿µ¿ªÀ» ¹İÈ¯
+    // ìœˆë„ìš° ì˜ì—­ì„ ë°˜í™˜
     if( kGetWindowArea( qwWindowID, &stWindowArea ) == FALSE )
     {
         return FALSE;
@@ -1127,27 +1127,27 @@ BOOL kConvertRectClientToScreen( QWORD qwWindowID, const RECT* pstArea,
 }
 
 //==============================================================================
-//  ÅÂ½ºÅ©°¡ »ç¿ëÇÏ´Â È­¸é ¾÷µ¥ÀÌÆ® ÇÔ¼ö
+//  íƒœìŠ¤í¬ê°€ ì‚¬ìš©í•˜ëŠ” í™”ë©´ ì—…ë°ì´íŠ¸ í•¨ìˆ˜
 //==============================================================================
 /**
- *  À©µµ¿ì¸¦ È­¸é¿¡ ¾÷µ¥ÀÌÆ®
- *      ÅÂ½ºÅ©¿¡¼­ »ç¿ëÇÏ´Â ÇÔ¼ö
+ *  ìœˆë„ìš°ë¥¼ í™”ë©´ì— ì—…ë°ì´íŠ¸
+ *      íƒœìŠ¤í¬ì—ì„œ ì‚¬ìš©í•˜ëŠ” í•¨ìˆ˜
  */
 BOOL kUpdateScreenByID( QWORD qwWindowID )
 {
     EVENT stEvent;
     WINDOW* pstWindow;
     
-    // À©µµ¿ì¸¦ °Ë»ö
+    // ìœˆë„ìš°ë¥¼ ê²€ìƒ‰
     pstWindow = kGetWindow( qwWindowID );
-    // À©µµ¿ì°¡ ¾ø°Å³ª È­¸é¿¡ º¸ÀÌÁö ¾ÊÀ¸¸é ÀÌº¥Æ®¸¦ À©µµ¿ì ¸Å´ÏÀú·Î Àü´ŞÇÒ ÇÊ¿ä ¾øÀ½
+    // ìœˆë„ìš°ê°€ ì—†ê±°ë‚˜ í™”ë©´ì— ë³´ì´ì§€ ì•Šìœ¼ë©´ ì´ë²¤íŠ¸ë¥¼ ìœˆë„ìš° ë§¤ë‹ˆì €ë¡œ ì „ë‹¬í•  í•„ìš” ì—†ìŒ
     if( ( pstWindow == NULL ) &&
         ( ( pstWindow->dwFlags & WINDOW_FLAGS_SHOW ) == 0 ) )
     {
         return FALSE; 
     }
     
-    // ÀÌº¥Æ® ÀÚ·á±¸Á¶¸¦ Ã¤¿ò. À©µµ¿ì ID¸¦ ÀúÀå
+    // ì´ë²¤íŠ¸ ìë£Œêµ¬ì¡°ë¥¼ ì±„ì›€. ìœˆë„ìš° IDë¥¼ ì €ì¥
     stEvent.qwType = EVENT_WINDOWMANAGER_UPDATESCREENBYID;
     stEvent.stWindowEvent.qwWindowID = qwWindowID;
     
@@ -1155,24 +1155,24 @@ BOOL kUpdateScreenByID( QWORD qwWindowID )
 }
 
 /**
- *  À©µµ¿ìÀÇ ³»ºÎ¸¦ È­¸é¿¡ ¾÷µ¥ÀÌÆ®
- *      ÅÂ½ºÅ©¿¡¼­ »ç¿ëÇÏ´Â ÇÔ¼ö
+ *  ìœˆë„ìš°ì˜ ë‚´ë¶€ë¥¼ í™”ë©´ì— ì—…ë°ì´íŠ¸
+ *      íƒœìŠ¤í¬ì—ì„œ ì‚¬ìš©í•˜ëŠ” í•¨ìˆ˜
  */
 BOOL kUpdateScreenByWindowArea( QWORD qwWindowID, const RECT* pstArea )
 {
     EVENT stEvent;
     WINDOW* pstWindow;
     
-    // À©µµ¿ì¸¦ °Ë»ö
+    // ìœˆë„ìš°ë¥¼ ê²€ìƒ‰
     pstWindow = kGetWindow( qwWindowID );
-    // À©µµ¿ì°¡ ¾ø°Å³ª È­¸é¿¡ º¸ÀÌÁö ¾ÊÀ¸¸é ÀÌº¥Æ®¸¦ À©µµ¿ì ¸Å´ÏÀú·Î Àü´ŞÇÒ ÇÊ¿ä ¾øÀ½
+    // ìœˆë„ìš°ê°€ ì—†ê±°ë‚˜ í™”ë©´ì— ë³´ì´ì§€ ì•Šìœ¼ë©´ ì´ë²¤íŠ¸ë¥¼ ìœˆë„ìš° ë§¤ë‹ˆì €ë¡œ ì „ë‹¬í•  í•„ìš” ì—†ìŒ
     if( ( pstWindow == NULL ) &&
         ( ( pstWindow->dwFlags & WINDOW_FLAGS_SHOW ) == 0 ) )
     {
         return FALSE; 
     }
     
-    // ÀÌº¥Æ® ÀÚ·á±¸Á¶¸¦ Ã¤¿ò. À©µµ¿ì ID¿Í À©µµ¿ì ³»ºÎ ¿µ¿ªÀ» ÀúÀå
+    // ì´ë²¤íŠ¸ ìë£Œêµ¬ì¡°ë¥¼ ì±„ì›€. ìœˆë„ìš° IDì™€ ìœˆë„ìš° ë‚´ë¶€ ì˜ì—­ì„ ì €ì¥
     stEvent.qwType = EVENT_WINDOWMANAGER_UPDATESCREENBYWINDOWAREA;
     stEvent.stWindowEvent.qwWindowID = qwWindowID;
     kMemCpy( &( stEvent.stWindowEvent.stArea ), pstArea, sizeof( RECT ) );
@@ -1181,14 +1181,14 @@ BOOL kUpdateScreenByWindowArea( QWORD qwWindowID, const RECT* pstArea )
 }
 
 /**
- *  È­¸é ÁÂÇ¥·Î È­¸éÀ» ¾÷µ¥ÀÌÆ®
- *      ÅÂ½ºÅ©¿¡¼­ »ç¿ëÇÏ´Â ÇÔ¼ö
+ *  í™”ë©´ ì¢Œí‘œë¡œ í™”ë©´ì„ ì—…ë°ì´íŠ¸
+ *      íƒœìŠ¤í¬ì—ì„œ ì‚¬ìš©í•˜ëŠ” í•¨ìˆ˜
  */
 BOOL kUpdateScreenByScreenArea( const RECT* pstArea )
 {
     EVENT stEvent;
     
-    // ÀÌº¥Æ® ÀÚ·á±¸Á¶¸¦ Ã¤¿ò. À©µµ¿ì ID¿Í È­¸é ¿µ¿ªÀ» ÀúÀå
+    // ì´ë²¤íŠ¸ ìë£Œêµ¬ì¡°ë¥¼ ì±„ì›€. ìœˆë„ìš° IDì™€ í™”ë©´ ì˜ì—­ì„ ì €ì¥
     stEvent.qwType = EVENT_WINDOWMANAGER_UPDATESCREENBYSCREENAREA;
     stEvent.stWindowEvent.qwWindowID = WINDOW_INVALIDID;
     kMemCpy( &( stEvent.stWindowEvent.stArea ), pstArea, sizeof( RECT ) );
@@ -1197,17 +1197,17 @@ BOOL kUpdateScreenByScreenArea( const RECT* pstArea )
 }
 
 //==============================================================================
-//  ÀÌº¥Æ® Å¥ °ü·Ã ÇÔ¼ö
+//  ì´ë²¤íŠ¸ í ê´€ë ¨ í•¨ìˆ˜
 //==============================================================================
 /**
- *  À©µµ¿ì·Î ÀÌº¥Æ®¸¦ Àü¼Û
+ *  ìœˆë„ìš°ë¡œ ì´ë²¤íŠ¸ë¥¼ ì „ì†¡
  */
 BOOL kSendEventToWindow( QWORD qwWindowID, const EVENT* pstEvent )
 {
     WINDOW* pstWindow;
     BOOL bResult;
     
-    // À©µµ¿ì °Ë»ö°ú µ¿±âÈ­ Ã³¸®
+    // ìœˆë„ìš° ê²€ìƒ‰ê³¼ ë™ê¸°í™” ì²˜ë¦¬
     pstWindow = kGetWindowWithWindowLock( qwWindowID );
     if( pstWindow == NULL )
     {
@@ -1216,21 +1216,21 @@ BOOL kSendEventToWindow( QWORD qwWindowID, const EVENT* pstEvent )
 
     bResult = kPutQueue( &( pstWindow->stEventQueue ), pstEvent );
     
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kUnlock( &( pstWindow->stLock ) );
 
     return bResult;
 }
 
 /**
- *  À©µµ¿ìÀÇ ÀÌº¥Æ® Å¥¿¡ ÀúÀåµÈ ÀÌº¥Æ®¸¦ ¼ö½Å
+ *  ìœˆë„ìš°ì˜ ì´ë²¤íŠ¸ íì— ì €ì¥ëœ ì´ë²¤íŠ¸ë¥¼ ìˆ˜ì‹ 
  */
 BOOL kReceiveEventFromWindowQueue( QWORD qwWindowID, EVENT* pstEvent )
 {
     WINDOW* pstWindow;
     BOOL bResult;
 
-    // À©µµ¿ì °Ë»ö°ú µ¿±âÈ­ Ã³¸®
+    // ìœˆë„ìš° ê²€ìƒ‰ê³¼ ë™ê¸°í™” ì²˜ë¦¬
     pstWindow = kGetWindowWithWindowLock( qwWindowID );
     if( pstWindow == NULL )
     {
@@ -1239,56 +1239,56 @@ BOOL kReceiveEventFromWindowQueue( QWORD qwWindowID, EVENT* pstEvent )
     
     bResult = kGetQueue( &( pstWindow->stEventQueue ), pstEvent );
     
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kUnlock( &( pstWindow->stLock ) );
     
     return bResult;
 }
 
 /**
- *  À©µµ¿ì ¸Å´ÏÀú·Î ÀÌº¥Æ®¸¦ Àü¼Û
+ *  ìœˆë„ìš° ë§¤ë‹ˆì €ë¡œ ì´ë²¤íŠ¸ë¥¼ ì „ì†¡
  */
 BOOL kSendEventToWindowManager( const EVENT* pstEvent )
 {
     BOOL bResult = FALSE;
     
-    // Å¥°¡ °¡µæ Â÷ ÀÖÁö ¾ÊÀ¸¸é µ¥ÀÌÅÍ¸¦ ³ÖÀ» ¼ö ÀÖÀ½
+    // íê°€ ê°€ë“ ì°¨ ìˆì§€ ì•Šìœ¼ë©´ ë°ì´í„°ë¥¼ ë„£ì„ ìˆ˜ ìˆìŒ
     if( kIsQueueFull( &( gs_stWindowManager.stEventQueue ) ) == FALSE )
     {
-        // µ¿±âÈ­ Ã³¸®
+        // ë™ê¸°í™” ì²˜ë¦¬
         kLock( &( gs_stWindowManager.stLock ) );
     
         bResult = kPutQueue( &( gs_stWindowManager.stEventQueue ), pstEvent );
         
-        // µ¿±âÈ­ Ã³¸®
+        // ë™ê¸°í™” ì²˜ë¦¬
         kUnlock( &( gs_stWindowManager.stLock ) );
     }
     return bResult;    
 }
 
 /**
- *  À©µµ¿ì ¸Å´ÏÀúÀÇ ÀÌº¥Æ® Å¥¿¡ ÀúÀåµÈ ÀÌº¥Æ®¸¦ ¼ö½Å
+ *  ìœˆë„ìš° ë§¤ë‹ˆì €ì˜ ì´ë²¤íŠ¸ íì— ì €ì¥ëœ ì´ë²¤íŠ¸ë¥¼ ìˆ˜ì‹ 
  */
 BOOL kReceiveEventFromWindowManagerQueue( EVENT* pstEvent )
 {
     BOOL bResult = FALSE;
     
-    // Å¥°¡ ºñ¾îÀÖÁö ¾ÊÀ¸¸é µ¥ÀÌÅÍ¸¦ ²¨³¾ ¼ö ÀÖÀ½
+    // íê°€ ë¹„ì–´ìˆì§€ ì•Šìœ¼ë©´ ë°ì´í„°ë¥¼ êº¼ë‚¼ ìˆ˜ ìˆìŒ
     if( kIsQueueEmpty( &( gs_stWindowManager.stEventQueue ) ) == FALSE )
     {
-        // µ¿±âÈ­ Ã³¸®
+        // ë™ê¸°í™” ì²˜ë¦¬
         kLock( &( gs_stWindowManager.stLock ) );
 
         bResult = kGetQueue( &( gs_stWindowManager.stEventQueue ), pstEvent );
 
-        // µ¿±âÈ­ Ã³¸®
+        // ë™ê¸°í™” ì²˜ë¦¬
         kUnlock( &( gs_stWindowManager.stLock ) );
     }    
     return bResult;
 }
 
 /**
- *  ¸¶¿ì½º ÀÌº¥Æ® ÀÚ·á±¸Á¶¸¦ ¼³Á¤
+ *  ë§ˆìš°ìŠ¤ ì´ë²¤íŠ¸ ìë£Œêµ¬ì¡°ë¥¼ ì„¤ì •
  */
 BOOL kSetMouseEvent( QWORD qwWindowID, QWORD qwEventType, int iMouseX, int iMouseY, 
         BYTE bButtonStatus, EVENT* pstEvent )
@@ -1296,10 +1296,10 @@ BOOL kSetMouseEvent( QWORD qwWindowID, QWORD qwEventType, int iMouseX, int iMous
     POINT stMouseXYInWindow;
     POINT stMouseXY;
     
-    // ÀÌº¥Æ® Á¾·ù¸¦ È®ÀÎÇÏ¿© ¸¶¿ì½º ÀÌº¥Æ® »ı¼º
+    // ì´ë²¤íŠ¸ ì¢…ë¥˜ë¥¼ í™•ì¸í•˜ì—¬ ë§ˆìš°ìŠ¤ ì´ë²¤íŠ¸ ìƒì„±
     switch( qwEventType )
     {
-        // ¸¶¿ì½º ÀÌº¥Æ® Ã³¸®
+        // ë§ˆìš°ìŠ¤ ì´ë²¤íŠ¸ ì²˜ë¦¬
     case EVENT_MOUSE_MOVE:
     case EVENT_MOUSE_LBUTTONDOWN:
     case EVENT_MOUSE_LBUTTONUP:            
@@ -1307,24 +1307,24 @@ BOOL kSetMouseEvent( QWORD qwWindowID, QWORD qwEventType, int iMouseX, int iMous
     case EVENT_MOUSE_RBUTTONUP:
     case EVENT_MOUSE_MBUTTONDOWN:
     case EVENT_MOUSE_MBUTTONUP:
-        // ¸¶¿ì½ºÀÇ X, YÁÂÇ¥¸¦ ¼³Á¤
+        // ë§ˆìš°ìŠ¤ì˜ X, Yì¢Œí‘œë¥¼ ì„¤ì •
         stMouseXY.iX = iMouseX;
         stMouseXY.iY = iMouseY;
         
-        // ¸¶¿ì½º X, YÁÂÇ¥¸¦ À©µµ¿ì ³»ºÎ ÁÂÇ¥·Î º¯È¯
+        // ë§ˆìš°ìŠ¤ X, Yì¢Œí‘œë¥¼ ìœˆë„ìš° ë‚´ë¶€ ì¢Œí‘œë¡œ ë³€í™˜
         if( kConvertPointScreenToClient( qwWindowID, &stMouseXY, &stMouseXYInWindow ) 
                 == FALSE )
         {
             return FALSE;
         }
 
-        // ÀÌº¥Æ® Å¸ÀÔ ¼³Á¤
+        // ì´ë²¤íŠ¸ íƒ€ì… ì„¤ì •
         pstEvent->qwType = qwEventType;
-        // À©µµ¿ì ID ¼³Á¤
+        // ìœˆë„ìš° ID ì„¤ì •
         pstEvent->stMouseEvent.qwWindowID = qwWindowID;    
-        // ¸¶¿ì½º ¹öÆ°ÀÇ »óÅÂ ¼³Á¤
+        // ë§ˆìš°ìŠ¤ ë²„íŠ¼ì˜ ìƒíƒœ ì„¤ì •
         pstEvent->stMouseEvent.bButtonStatus = bButtonStatus;
-        // ¸¶¿ì½º Ä¿¼­ÀÇ ÁÂÇ¥¸¦ À©µµ¿ì ³»ºÎ ÁÂÇ¥·Î º¯È¯ÇÑ °ªÀ» ¼³Á¤
+        // ë§ˆìš°ìŠ¤ ì»¤ì„œì˜ ì¢Œí‘œë¥¼ ìœˆë„ìš° ë‚´ë¶€ ì¢Œí‘œë¡œ ë³€í™˜í•œ ê°’ì„ ì„¤ì •
         kMemCpy( &( pstEvent->stMouseEvent.stPoint ), &stMouseXYInWindow, 
                 sizeof( POINT ) );
         break;
@@ -1337,32 +1337,32 @@ BOOL kSetMouseEvent( QWORD qwWindowID, QWORD qwEventType, int iMouseX, int iMous
 }
 
 /**
- *  À©µµ¿ì ÀÌº¥Æ® ÀÚ·á±¸Á¶¸¦ ¼³Á¤
+ *  ìœˆë„ìš° ì´ë²¤íŠ¸ ìë£Œêµ¬ì¡°ë¥¼ ì„¤ì •
  */
 BOOL kSetWindowEvent( QWORD qwWindowID, QWORD qwEventType, EVENT* pstEvent )
 {
     RECT stArea;
     
-    // ÀÌº¥Æ® Á¾·ù¸¦ È®ÀÎÇÏ¿© À©µµ¿ì ÀÌº¥Æ® »ı¼º
+    // ì´ë²¤íŠ¸ ì¢…ë¥˜ë¥¼ í™•ì¸í•˜ì—¬ ìœˆë„ìš° ì´ë²¤íŠ¸ ìƒì„±
     switch( qwEventType )
     {
-        // À©µµ¿ì ÀÌº¥Æ® Ã³¸®
+        // ìœˆë„ìš° ì´ë²¤íŠ¸ ì²˜ë¦¬
     case EVENT_WINDOW_SELECT:
     case EVENT_WINDOW_DESELECT:
     case EVENT_WINDOW_MOVE:
     case EVENT_WINDOW_RESIZE:
     case EVENT_WINDOW_CLOSE:
-        // ÀÌº¥Æ® Å¸ÀÔ ¼³Á¤
+        // ì´ë²¤íŠ¸ íƒ€ì… ì„¤ì •
         pstEvent->qwType = qwEventType;
-        // À©µµ¿ì ID ¼³Á¤
+        // ìœˆë„ìš° ID ì„¤ì •
         pstEvent->stWindowEvent.qwWindowID = qwWindowID;
-        // À©µµ¿ì ¿µ¿ªÀ» ¹İÈ¯
+        // ìœˆë„ìš° ì˜ì—­ì„ ë°˜í™˜
         if( kGetWindowArea( qwWindowID, &stArea ) == FALSE )
         {
             return FALSE;
         }
         
-        // À©µµ¿ìÀÇ ÇöÀç ÁÂÇ¥¸¦ ¼³Á¤
+        // ìœˆë„ìš°ì˜ í˜„ì¬ ì¢Œí‘œë¥¼ ì„¤ì •
         kMemCpy( &( pstEvent->stWindowEvent.stArea ), &stArea, sizeof( RECT ) );
         break;
         
@@ -1374,11 +1374,11 @@ BOOL kSetWindowEvent( QWORD qwWindowID, QWORD qwEventType, EVENT* pstEvent )
 }
 
 /**
- *  Å° ÀÌº¥Æ® ÀÚ·á±¸Á¶¸¦ ¼³Á¤
+ *  í‚¤ ì´ë²¤íŠ¸ ìë£Œêµ¬ì¡°ë¥¼ ì„¤ì •
  */
 void kSetKeyEvent( QWORD qwWindow, const KEYDATA* pstKeyData, EVENT* pstEvent )
 {
-    // ´­¸² ¶Ç´Â ¶³¾îÁü Ã³¸®
+    // ëˆŒë¦¼ ë˜ëŠ” ë–¨ì–´ì§ ì²˜ë¦¬
     if( pstKeyData->bFlags & KEY_FLAGS_DOWN )
     {
         pstEvent->qwType = EVENT_KEY_DOWN;
@@ -1388,17 +1388,17 @@ void kSetKeyEvent( QWORD qwWindow, const KEYDATA* pstKeyData, EVENT* pstEvent )
         pstEvent->qwType = EVENT_KEY_UP;
     }
     
-    // Å°ÀÇ °¢ Á¤º¸¸¦ ¼³Á¤
+    // í‚¤ì˜ ê° ì •ë³´ë¥¼ ì„¤ì •
     pstEvent->stKeyEvent.bASCIICode = pstKeyData->bASCIICode;
     pstEvent->stKeyEvent.bScanCode = pstKeyData->bScanCode;
     pstEvent->stKeyEvent.bFlags = pstKeyData->bFlags;
 }
 
 //==============================================================================
-//  À©µµ¿ì ³»ºÎ¿¡ ±×¸®´Â ÇÔ¼ö¿Í ¸¶¿ì½º Ä¿¼­ °ü·Ã
+//  ìœˆë„ìš° ë‚´ë¶€ì— ê·¸ë¦¬ëŠ” í•¨ìˆ˜ì™€ ë§ˆìš°ìŠ¤ ì»¤ì„œ ê´€ë ¨
 //==============================================================================
 /**
- *  À©µµ¿ì È­¸é ¹öÆÛ¿¡ À©µµ¿ì Å×µÎ¸® ±×¸®±â
+ *  ìœˆë„ìš° í™”ë©´ ë²„í¼ì— ìœˆë„ìš° í…Œë‘ë¦¬ ê·¸ë¦¬ê¸°
  */
 BOOL kDrawWindowFrame( QWORD qwWindowID )
 {
@@ -1407,27 +1407,27 @@ BOOL kDrawWindowFrame( QWORD qwWindowID )
     int iWidth;
     int iHeight;
 
-    // À©µµ¿ì °Ë»ö°ú µ¿±âÈ­ Ã³¸®
+    // ìœˆë„ìš° ê²€ìƒ‰ê³¼ ë™ê¸°í™” ì²˜ë¦¬
     pstWindow = kGetWindowWithWindowLock( qwWindowID );
     if( pstWindow == NULL )
     {
         return FALSE;
     }
     
-    // À©µµ¿ìÀÇ ³Êºñ¿Í ³ôÀÌ¸¦ °è»ê
+    // ìœˆë„ìš°ì˜ ë„ˆë¹„ì™€ ë†’ì´ë¥¼ ê³„ì‚°
     iWidth = kGetRectangleWidth( &( pstWindow->stArea ) );
     iHeight = kGetRectangleHeight( &( pstWindow->stArea ) );
-    // Å¬¸®ÇÎ ¿µ¿ª ¼³Á¤
+    // í´ë¦¬í•‘ ì˜ì—­ ì„¤ì •
     kSetRectangleData( 0, 0, iWidth - 1, iHeight - 1, &stArea );
 
-    // À©µµ¿ì ÇÁ·¹ÀÓÀÇ °¡ÀåÀÚ¸®¸¦ ±×¸², 2 ÇÈ¼¿ µÎ²²
+    // ìœˆë„ìš° í”„ë ˆì„ì˜ ê°€ì¥ìë¦¬ë¥¼ ê·¸ë¦¼, 2 í”½ì…€ ë‘ê»˜
     kInternalDrawRect( &stArea, pstWindow->pstWindowBuffer,
             0, 0, iWidth - 1, iHeight - 1, WINDOW_COLOR_FRAME, FALSE );
 
     kInternalDrawRect( &stArea, pstWindow->pstWindowBuffer,
             1, 1, iWidth - 2, iHeight - 2, WINDOW_COLOR_FRAME, FALSE );
 
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kUnlock( &( pstWindow->stLock ) );
 
     return TRUE;
@@ -1435,7 +1435,7 @@ BOOL kDrawWindowFrame( QWORD qwWindowID )
 
 
 /**
- *  À©µµ¿ì È­¸é ¹öÆÛ¿¡ ¹è°æ ±×¸®±â
+ *  ìœˆë„ìš° í™”ë©´ ë²„í¼ì— ë°°ê²½ ê·¸ë¦¬ê¸°
  */
 BOOL kDrawWindowBackground( QWORD qwWindowID )
 {
@@ -1446,20 +1446,20 @@ BOOL kDrawWindowBackground( QWORD qwWindowID )
     int iX;
     int iY;
 
-    // À©µµ¿ì °Ë»ö°ú µ¿±âÈ­ Ã³¸®
+    // ìœˆë„ìš° ê²€ìƒ‰ê³¼ ë™ê¸°í™” ì²˜ë¦¬
     pstWindow = kGetWindowWithWindowLock( qwWindowID );
     if( pstWindow == NULL )
     {
         return FALSE;
     }
 
-    // À©µµ¿ìÀÇ ³Êºñ¿Í ³ôÀÌ¸¦ °è»ê
+    // ìœˆë„ìš°ì˜ ë„ˆë¹„ì™€ ë†’ì´ë¥¼ ê³„ì‚°
     iWidth = kGetRectangleWidth( &( pstWindow->stArea ) );
     iHeight = kGetRectangleHeight( &( pstWindow->stArea ) );
-    // Å¬¸®ÇÎ ¿µ¿ª ¼³Á¤
+    // í´ë¦¬í•‘ ì˜ì—­ ì„¤ì •
     kSetRectangleData( 0, 0, iWidth - 1, iHeight - 1, &stArea );
 
-    // À©µµ¿ì¿¡ Á¦¸ñ Ç¥½ÃÁÙÀÌ ÀÖÀ¸¸é ±× ¾Æ·¡ºÎÅÍ Ã¤¿ò
+    // ìœˆë„ìš°ì— ì œëª© í‘œì‹œì¤„ì´ ìˆìœ¼ë©´ ê·¸ ì•„ë˜ë¶€í„° ì±„ì›€
     if( pstWindow->dwFlags & WINDOW_FLAGS_DRAWTITLE )
     {
         iY = WINDOW_TITLEBAR_HEIGHT;
@@ -1469,7 +1469,7 @@ BOOL kDrawWindowBackground( QWORD qwWindowID )
         iY = 0;
     }
 
-    // À©µµ¿ì Å×µÎ¸®¸¦ ±×¸®´Â ¿É¼ÇÀÌ ¼³Á¤µÇ¾î ÀÖÀ¸¸é Å×µÎ¸®¸¦ Á¦¿ÜÇÑ ¿µ¿ªÀ» Ã¤¿ò
+    // ìœˆë„ìš° í…Œë‘ë¦¬ë¥¼ ê·¸ë¦¬ëŠ” ì˜µì…˜ì´ ì„¤ì •ë˜ì–´ ìˆìœ¼ë©´ í…Œë‘ë¦¬ë¥¼ ì œì™¸í•œ ì˜ì—­ì„ ì±„ì›€
     if( pstWindow->dwFlags & WINDOW_FLAGS_DRAWFRAME )
     {
         iX = 2;
@@ -1479,19 +1479,19 @@ BOOL kDrawWindowBackground( QWORD qwWindowID )
         iX = 0;
     }
 
-    // À©µµ¿ìÀÇ ³»ºÎ¸¦ Ã¤¿ò
+    // ìœˆë„ìš°ì˜ ë‚´ë¶€ë¥¼ ì±„ì›€
     kInternalDrawRect( &stArea, pstWindow->pstWindowBuffer,
             iX, iY, iWidth - 1 - iX, iHeight - 1 - iX, WINDOW_COLOR_BACKGROUND, 
             TRUE );
     
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kUnlock( &( pstWindow->stLock ) );
 
     return TRUE;
 }
 
 /**
- *  À©µµ¿ì È­¸é ¹öÆÛ¿¡ À©µµ¿ì Á¦¸ñ Ç¥½ÃÁÙ ±×¸®±â
+ *  ìœˆë„ìš° í™”ë©´ ë²„í¼ì— ìœˆë„ìš° ì œëª© í‘œì‹œì¤„ ê·¸ë¦¬ê¸°
  */
 BOOL kDrawWindowTitle( QWORD qwWindowID, const char* pcTitle, BOOL bSelectedTitle )
 {
@@ -1504,23 +1504,23 @@ BOOL kDrawWindowTitle( QWORD qwWindowID, const char* pcTitle, BOOL bSelectedTitl
     RECT stButtonArea;
     COLOR stTitleBarColor;
 
-    // À©µµ¿ì °Ë»ö°ú µ¿±âÈ­ Ã³¸®
+    // ìœˆë„ìš° ê²€ìƒ‰ê³¼ ë™ê¸°í™” ì²˜ë¦¬
     pstWindow = kGetWindowWithWindowLock( qwWindowID );
     if( pstWindow == NULL )
     {
         return FALSE;
     }
     
-    // À©µµ¿ìÀÇ ³Êºñ¿Í ³ôÀÌ¸¦ °è»ê
+    // ìœˆë„ìš°ì˜ ë„ˆë¹„ì™€ ë†’ì´ë¥¼ ê³„ì‚°
     iWidth = kGetRectangleWidth( &( pstWindow->stArea ) );
     iHeight = kGetRectangleHeight( &( pstWindow->stArea ) );
-    // Å¬¸®ÇÎ ¿µ¿ª ¼³Á¤
+    // í´ë¦¬í•‘ ì˜ì—­ ì„¤ì •
     kSetRectangleData( 0, 0, iWidth - 1, iHeight - 1, &stArea );
 
     //--------------------------------------------------------------------------
-    // Á¦¸ñ Ç¥½ÃÁÙ ±×¸®±â
+    // ì œëª© í‘œì‹œì¤„ ê·¸ë¦¬ê¸°
     //--------------------------------------------------------------------------
-    // Á¦¸ñ Ç¥½ÃÁÙÀ» Ã¤¿ò
+    // ì œëª© í‘œì‹œì¤„ì„ ì±„ì›€
     if( bSelectedTitle == TRUE )
     {
         stTitleBarColor = WINDOW_COLOR_TITLEBARACTIVEBACKGROUND;
@@ -1532,12 +1532,12 @@ BOOL kDrawWindowTitle( QWORD qwWindowID, const char* pcTitle, BOOL bSelectedTitl
     kInternalDrawRect( &stArea, pstWindow->pstWindowBuffer,
             0, 3, iWidth - 1, WINDOW_TITLEBAR_HEIGHT - 1, stTitleBarColor, TRUE );
 
-    // À©µµ¿ì Á¦¸ñÀ» Ç¥½Ã
+    // ìœˆë„ìš° ì œëª©ì„ í‘œì‹œ
     kInternalDrawText( &stArea, pstWindow->pstWindowBuffer,
             6, 3, WINDOW_COLOR_TITLEBARTEXT, stTitleBarColor, pcTitle, 
             kStrLen( pcTitle ) );
 
-    // Á¦¸ñ Ç¥½ÃÁÙÀ» ÀÔÃ¼·Î º¸ÀÌ°Ô À§ÂÊÀÇ ¼±À» ±×¸², 2 ÇÈ¼¿ µÎ²²
+    // ì œëª© í‘œì‹œì¤„ì„ ì…ì²´ë¡œ ë³´ì´ê²Œ ìœ„ìª½ì˜ ì„ ì„ ê·¸ë¦¼, 2 í”½ì…€ ë‘ê»˜
     kInternalDrawLine( &stArea, pstWindow->pstWindowBuffer,
             1, 1, iWidth - 1, 1, WINDOW_COLOR_TITLEBARBRIGHT1 );
     kInternalDrawLine( &stArea, pstWindow->pstWindowBuffer,
@@ -1548,7 +1548,7 @@ BOOL kDrawWindowTitle( QWORD qwWindowID, const char* pcTitle, BOOL bSelectedTitl
     kInternalDrawLine( &stArea, pstWindow->pstWindowBuffer,
             2, 2, 2, WINDOW_TITLEBAR_HEIGHT - 1, WINDOW_COLOR_TITLEBARBRIGHT2 );
 
-    // Á¦¸ñ Ç¥½ÃÁÙÀÇ ¾Æ·¡ÂÊ¿¡ ¼±À» ±×¸²
+    // ì œëª© í‘œì‹œì¤„ì˜ ì•„ë˜ìª½ì— ì„ ì„ ê·¸ë¦¼
     kInternalDrawLine( &stArea, pstWindow->pstWindowBuffer,
             2, WINDOW_TITLEBAR_HEIGHT - 2, iWidth - 2, WINDOW_TITLEBAR_HEIGHT - 2,
             WINDOW_COLOR_TITLEBARUNDERLINE );
@@ -1556,13 +1556,13 @@ BOOL kDrawWindowTitle( QWORD qwWindowID, const char* pcTitle, BOOL bSelectedTitl
             2, WINDOW_TITLEBAR_HEIGHT - 1, iWidth - 2, WINDOW_TITLEBAR_HEIGHT - 1,
             WINDOW_COLOR_TITLEBARUNDERLINE );
 
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kUnlock( &( pstWindow->stLock ) );
 
     //--------------------------------------------------------------------------
-    // ´İ±â ¹öÆ° ±×¸®±â
+    // ë‹«ê¸° ë²„íŠ¼ ê·¸ë¦¬ê¸°
     //--------------------------------------------------------------------------
-    // ´İ±â ¹öÆ°À» ±×¸², ¿À¸¥ÂÊ À§¿¡ Ç¥½Ã
+    // ë‹«ê¸° ë²„íŠ¼ì„ ê·¸ë¦¼, ì˜¤ë¥¸ìª½ ìœ„ì— í‘œì‹œ
     stButtonArea.iX1 = iWidth - WINDOW_XBUTTON_SIZE - 1;
     stButtonArea.iY1 = 1;
     stButtonArea.iX2 = iWidth - 2;
@@ -1570,14 +1570,14 @@ BOOL kDrawWindowTitle( QWORD qwWindowID, const char* pcTitle, BOOL bSelectedTitl
     kDrawButton( qwWindowID, &stButtonArea, WINDOW_COLOR_BACKGROUND, "", 
             WINDOW_COLOR_BACKGROUND );
 
-    // À©µµ¿ì °Ë»ö°ú µ¿±âÈ­ Ã³¸®
+    // ìœˆë„ìš° ê²€ìƒ‰ê³¼ ë™ê¸°í™” ì²˜ë¦¬
     pstWindow = kGetWindowWithWindowLock( qwWindowID );
     if( pstWindow == NULL )
     {
         return FALSE;
     }
     
-    // ´İ±â ¹öÆ° ³»ºÎ¿¡ ´ë°¢¼± X¸¦ 3 ÇÈ¼¿·Î ±×¸²
+    // ë‹«ê¸° ë²„íŠ¼ ë‚´ë¶€ì— ëŒ€ê°ì„  Xë¥¼ 3 í”½ì…€ë¡œ ê·¸ë¦¼
     kInternalDrawLine( &stArea, pstWindow->pstWindowBuffer,
             iWidth - 2 - 18 + 4, 1 + 4, iWidth - 2 - 4,
             WINDOW_TITLEBAR_HEIGHT - 6, WINDOW_COLOR_XBUTTONLINECOLOR );
@@ -1598,14 +1598,14 @@ BOOL kDrawWindowTitle( QWORD qwWindowID, const char* pcTitle, BOOL bSelectedTitl
             iWidth - 2 - 18 + 4, 19 - 5, iWidth - 2 - 5, 1 + 4,
             WINDOW_COLOR_XBUTTONLINECOLOR );
 
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kUnlock( &( pstWindow->stLock ) );
     
     return TRUE;
 }
 
 /**
- *  À©µµ¿ì ³»ºÎ¿¡ ¹öÆ° ±×¸®±â
+ *  ìœˆë„ìš° ë‚´ë¶€ì— ë²„íŠ¼ ê·¸ë¦¬ê¸°
  */
 BOOL kDrawButton( QWORD qwWindowID, RECT* pstButtonArea, COLOR stBackgroundColor,
         const char* pcText, COLOR stTextColor )
@@ -1621,38 +1621,38 @@ BOOL kDrawButton( QWORD qwWindowID, RECT* pstButtonArea, COLOR stBackgroundColor
     int iTextX;
     int iTextY;
 
-    // À©µµ¿ì °Ë»ö°ú µ¿±âÈ­ Ã³¸®
+    // ìœˆë„ìš° ê²€ìƒ‰ê³¼ ë™ê¸°í™” ì²˜ë¦¬
     pstWindow = kGetWindowWithWindowLock( qwWindowID );
     if( pstWindow == NULL )
     {
         return FALSE;
     }
     
-    // À©µµ¿ìÀÇ ³Êºñ¿Í ³ôÀÌ¸¦ °è»ê
+    // ìœˆë„ìš°ì˜ ë„ˆë¹„ì™€ ë†’ì´ë¥¼ ê³„ì‚°
     iWindowWidth = kGetRectangleWidth( &( pstWindow->stArea ) );
     iWindowHeight = kGetRectangleHeight( &( pstWindow->stArea ) );
-    // Å¬¸®ÇÎ ¿µ¿ª ¼³Á¤
+    // í´ë¦¬í•‘ ì˜ì—­ ì„¤ì •
     kSetRectangleData( 0, 0, iWindowWidth - 1, iWindowHeight - 1, &stArea );
 
-    // ¹öÆ°ÀÇ ¹è°æ»öÀ» Ç¥½Ã
+    // ë²„íŠ¼ì˜ ë°°ê²½ìƒ‰ì„ í‘œì‹œ
     kInternalDrawRect( &stArea, pstWindow->pstWindowBuffer,
             pstButtonArea->iX1, pstButtonArea->iY1, pstButtonArea->iX2,
             pstButtonArea->iY2, stBackgroundColor, TRUE );
 
-    // ¹öÆ°°ú ÅØ½ºÆ®ÀÇ ³Êºñ¿Í ³ôÀÌ¸¦ °è»ê
+    // ë²„íŠ¼ê³¼ í…ìŠ¤íŠ¸ì˜ ë„ˆë¹„ì™€ ë†’ì´ë¥¼ ê³„ì‚°
     iButtonWidth = kGetRectangleWidth( pstButtonArea );
     iButtonHeight = kGetRectangleHeight( pstButtonArea );
     iTextLength = kStrLen( pcText );
     iTextWidth = iTextLength * FONT_ENGLISHWIDTH;
     
-    // ÅØ½ºÆ®°¡ ¹öÆ°ÀÇ °¡¿îµ¥¿¡ À§Ä¡ÇÏµµ·Ï Ãâ·ÂÇÔ
+    // í…ìŠ¤íŠ¸ê°€ ë²„íŠ¼ì˜ ê°€ìš´ë°ì— ìœ„ì¹˜í•˜ë„ë¡ ì¶œë ¥í•¨
     iTextX = ( pstButtonArea->iX1 + iButtonWidth / 2 ) - iTextWidth / 2;
     iTextY = ( pstButtonArea->iY1 + iButtonHeight / 2 ) - FONT_ENGLISHHEIGHT / 2;
     kInternalDrawText( &stArea, pstWindow->pstWindowBuffer, iTextX, iTextY, 
             stTextColor, stBackgroundColor, pcText, iTextLength );      
     
-    // ¹öÆ°À» ÀÔÃ¼·Î º¸ÀÌ°Ô Å×µÎ¸®¸¦ ±×¸², 2 ÇÈ¼¿ µÎ²²·Î ±×¸²
-    // ¹öÆ°ÀÇ ¿ŞÂÊ°ú À§´Â ¹à°Ô Ç¥½Ã
+    // ë²„íŠ¼ì„ ì…ì²´ë¡œ ë³´ì´ê²Œ í…Œë‘ë¦¬ë¥¼ ê·¸ë¦¼, 2 í”½ì…€ ë‘ê»˜ë¡œ ê·¸ë¦¼
+    // ë²„íŠ¼ì˜ ì™¼ìª½ê³¼ ìœ„ëŠ” ë°ê²Œ í‘œì‹œ
     kInternalDrawLine( &stArea, pstWindow->pstWindowBuffer,
             pstButtonArea->iX1, pstButtonArea->iY1, pstButtonArea->iX2,
             pstButtonArea->iY1, WINDOW_COLOR_BUTTONBRIGHT );
@@ -1666,7 +1666,7 @@ BOOL kDrawButton( QWORD qwWindowID, RECT* pstButtonArea, COLOR stBackgroundColor
             pstButtonArea->iX1 + 1, pstButtonArea->iY1, pstButtonArea->iX1 + 1,
             pstButtonArea->iY2 - 1, WINDOW_COLOR_BUTTONBRIGHT );
 
-    // ¹öÆ°ÀÇ ¿À¸¥ÂÊ°ú ¾Æ·¡´Â ¾îµÓ°Ô Ç¥½Ã
+    // ë²„íŠ¼ì˜ ì˜¤ë¥¸ìª½ê³¼ ì•„ë˜ëŠ” ì–´ë‘¡ê²Œ í‘œì‹œ
     kInternalDrawLine( &stArea, pstWindow->pstWindowBuffer,
             pstButtonArea->iX1 + 1, pstButtonArea->iY2, pstButtonArea->iX2,
             pstButtonArea->iY2, WINDOW_COLOR_BUTTONDARK );
@@ -1680,13 +1680,13 @@ BOOL kDrawButton( QWORD qwWindowID, RECT* pstButtonArea, COLOR stBackgroundColor
             pstButtonArea->iX2 - 1, pstButtonArea->iY1 + 2, pstButtonArea->iX2 -1,
             pstButtonArea->iY2, WINDOW_COLOR_BUTTONDARK );
     
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kUnlock( &( pstWindow->stLock ) );
 
     return TRUE;
 }
 
-// ¸¶¿ì½º Ä¿¼­ÀÇ ÀÌ¹ÌÁö¸¦ ÀúÀåÇÏ´Â µ¥ÀÌÅÍ
+// ë§ˆìš°ìŠ¤ ì»¤ì„œì˜ ì´ë¯¸ì§€ë¥¼ ì €ì¥í•˜ëŠ” ë°ì´í„°
 static BYTE gs_vwMouseBuffer[ MOUSE_CURSOR_WIDTH * MOUSE_CURSOR_HEIGHT ] =
 {
     1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1712,7 +1712,7 @@ static BYTE gs_vwMouseBuffer[ MOUSE_CURSOR_WIDTH * MOUSE_CURSOR_HEIGHT ] =
 };
 
 /**
- *  X, Y À§Ä¡¿¡ ¸¶¿ì½º Ä¿¼­¸¦ Ãâ·Â
+ *  X, Y ìœ„ì¹˜ì— ë§ˆìš°ìŠ¤ ì»¤ì„œë¥¼ ì¶œë ¥
  */
 static void kDrawCursor( int iX, int iY )
 {
@@ -1720,36 +1720,36 @@ static void kDrawCursor( int iX, int iY )
     int j;
     BYTE* pbCurrentPos;
 
-    // Ä¿¼­ µ¥ÀÌÅÍÀÇ ½ÃÀÛ À§Ä¡¸¦ ¼³Á¤
+    // ì»¤ì„œ ë°ì´í„°ì˜ ì‹œì‘ ìœ„ì¹˜ë¥¼ ì„¤ì •
     pbCurrentPos = gs_vwMouseBuffer;
 
-    // Ä¿¼­ÀÇ ³Êºñ¿Í ³ôÀÌ¸¸Å­ ·çÇÁ¸¦ µ¹¸é¼­ ÇÈ¼¿À» È­¸é¿¡ Ãâ·Â
+    // ì»¤ì„œì˜ ë„ˆë¹„ì™€ ë†’ì´ë§Œí¼ ë£¨í”„ë¥¼ ëŒë©´ì„œ í”½ì…€ì„ í™”ë©´ì— ì¶œë ¥
     for( j = 0 ; j < MOUSE_CURSOR_HEIGHT ; j++ )
     {
         for( i = 0 ; i < MOUSE_CURSOR_WIDTH ; i++ )
         {
             switch( *pbCurrentPos )
             {
-                // 0Àº Ãâ·ÂÇÏÁö ¾ÊÀ½
+                // 0ì€ ì¶œë ¥í•˜ì§€ ì•ŠìŒ
             case 0:
                 // nothing
                 break;
 
-                // °¡Àå ¹Ù±ùÂÊ Å×µÎ¸®, °ËÀº»öÀ¸·Î Ãâ·Â
+                // ê°€ì¥ ë°”ê¹¥ìª½ í…Œë‘ë¦¬, ê²€ì€ìƒ‰ìœ¼ë¡œ ì¶œë ¥
             case 1:
                 kInternalDrawPixel( &( gs_stWindowManager.stScreenArea ),
                         gs_stWindowManager.pstVideoMemory, i + iX, j + iY,
                         MOUSE_CURSOR_OUTERLINE );
                 break;
 
-                // ¾ÈÂÊ°ú ¹Ù±ùÂÊÀÇ °æ°è, ¾îµÎ¿î ³ì»öÀ¸·Î Ãâ·Â
+                // ì•ˆìª½ê³¼ ë°”ê¹¥ìª½ì˜ ê²½ê³„, ì–´ë‘ìš´ ë…¹ìƒ‰ìœ¼ë¡œ ì¶œë ¥
             case 2:
                 kInternalDrawPixel( &( gs_stWindowManager.stScreenArea ),
                         gs_stWindowManager.pstVideoMemory, i + iX, j + iY,
                         MOUSE_CURSOR_OUTER );
                 break;
 
-                // Ä¿¼­ÀÇ ¾È, ¹àÀº »öÀ¸·Î Ãâ·Â
+                // ì»¤ì„œì˜ ì•ˆ, ë°ì€ ìƒ‰ìœ¼ë¡œ ì¶œë ¥
             case 3:
                 kInternalDrawPixel( &( gs_stWindowManager.stScreenArea ),
                         gs_stWindowManager.pstVideoMemory, i + iX, j + iY,
@@ -1757,20 +1757,20 @@ static void kDrawCursor( int iX, int iY )
                 break;
             }
 
-            // Ä¿¼­ÀÇ ÇÈ¼¿ÀÌ Ç¥½ÃµÊ¿¡ µû¶ó Ä¿¼­ µ¥ÀÌÅÍÀÇ À§Ä¡µµ °°ÀÌ ÀÌµ¿
+            // ì»¤ì„œì˜ í”½ì…€ì´ í‘œì‹œë¨ì— ë”°ë¼ ì»¤ì„œ ë°ì´í„°ì˜ ìœ„ì¹˜ë„ ê°™ì´ ì´ë™
             pbCurrentPos++;
         }
     }
 }
 
 /**
- *  ¸¶¿ì½º Ä¿¼­¸¦ ÇØ´ç À§Ä¡·Î ÀÌµ¿ÇØ¼­ ±×·ÁÁÜ
+ *  ë§ˆìš°ìŠ¤ ì»¤ì„œë¥¼ í•´ë‹¹ ìœ„ì¹˜ë¡œ ì´ë™í•´ì„œ ê·¸ë ¤ì¤Œ
  */
 void kMoveCursor( int iX, int iY )
 {
     RECT stPreviousArea;
 
-    // ¸¶¿ì½º Ä¿¼­°¡ È­¸éÀ» ¹ş¾î³ªÁö ¸øÇÏµµ·Ï º¸Á¤
+    // ë§ˆìš°ìŠ¤ ì»¤ì„œê°€ í™”ë©´ì„ ë²—ì–´ë‚˜ì§€ ëª»í•˜ë„ë¡ ë³´ì •
     if( iX < gs_stWindowManager.stScreenArea.iX1 )
     {
         iX = gs_stWindowManager.stScreenArea.iX1;
@@ -1789,31 +1789,31 @@ void kMoveCursor( int iX, int iY )
         iY = gs_stWindowManager.stScreenArea.iY2;
     }
 
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kLock( &( gs_stWindowManager.stLock ) );
     
-    // ÀÌÀü¿¡ ¸¶¿ì½º Ä¿¼­°¡ ÀÖ´ø ÀÚ¸®¸¦ ÀúÀå
+    // ì´ì „ì— ë§ˆìš°ìŠ¤ ì»¤ì„œê°€ ìˆë˜ ìë¦¬ë¥¼ ì €ì¥
     stPreviousArea.iX1 = gs_stWindowManager.iMouseX;
     stPreviousArea.iY1 = gs_stWindowManager.iMouseY;
     stPreviousArea.iX2 = gs_stWindowManager.iMouseX + MOUSE_CURSOR_WIDTH - 1;
     stPreviousArea.iY2 = gs_stWindowManager.iMouseY + MOUSE_CURSOR_HEIGHT - 1;
     
-    // ¸¶¿ì½º Ä¿¼­ÀÇ »õ À§Ä¡¸¦ ÀúÀå
+    // ë§ˆìš°ìŠ¤ ì»¤ì„œì˜ ìƒˆ ìœ„ì¹˜ë¥¼ ì €ì¥
     gs_stWindowManager.iMouseX = iX;
     gs_stWindowManager.iMouseY = iY;
 
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kUnlock( &( gs_stWindowManager.stLock ) );
     
-    // ¸¶¿ì½º°¡ ÀÌÀü¿¡ ÀÖ´ø ¿µ¿ªÀ» ´Ù½Ã ±×¸²
+    // ë§ˆìš°ìŠ¤ê°€ ì´ì „ì— ìˆë˜ ì˜ì—­ì„ ë‹¤ì‹œ ê·¸ë¦¼
     kRedrawWindowByArea( &stPreviousArea );
 
-    // »õ·Î¿î À§Ä¡¿¡ ¸¶¿ì½º Ä¿¼­¸¦ Ãâ·Â
+    // ìƒˆë¡œìš´ ìœ„ì¹˜ì— ë§ˆìš°ìŠ¤ ì»¤ì„œë¥¼ ì¶œë ¥
     kDrawCursor( iX, iY );
 }
 
 /**
- *  ÇöÀç ¸¶¿ì½º Ä¿¼­ÀÇ À§Ä¡¸¦ ¹İÈ¯
+ *  í˜„ì¬ ë§ˆìš°ìŠ¤ ì»¤ì„œì˜ ìœ„ì¹˜ë¥¼ ë°˜í™˜
  */
 void kGetCursorPosition( int* piX, int* piY )
 {
@@ -1822,29 +1822,29 @@ void kGetCursorPosition( int* piX, int* piY )
 }
 
 /**
- *  À©µµ¿ì ³»ºÎ¿¡ Á¡ ±×¸®±â
+ *  ìœˆë„ìš° ë‚´ë¶€ì— ì  ê·¸ë¦¬ê¸°
  */
 BOOL kDrawPixel( QWORD qwWindowID, int iX, int iY, COLOR stColor )
 {
     WINDOW* pstWindow;
     RECT stArea;
 
-    // À©µµ¿ì °Ë»ö°ú µ¿±âÈ­ Ã³¸®
+    // ìœˆë„ìš° ê²€ìƒ‰ê³¼ ë™ê¸°í™” ì²˜ë¦¬
     pstWindow = kGetWindowWithWindowLock( qwWindowID );
     if( pstWindow == NULL )
     {
         return FALSE;
     }
     
-    // À©µµ¿ì ½ÃÀÛ ÁÂÇ¥¸¦ 0,0À¸·Î ÇÏ´Â ÁÂÇ¥·Î ¿µ¿ªÀ» º¯È¯
+    // ìœˆë„ìš° ì‹œì‘ ì¢Œí‘œë¥¼ 0,0ìœ¼ë¡œ í•˜ëŠ” ì¢Œí‘œë¡œ ì˜ì—­ì„ ë³€í™˜
     kSetRectangleData( 0, 0, pstWindow->stArea.iX2 - pstWindow->stArea.iX1, 
             pstWindow->stArea.iY2 - pstWindow->stArea.iY1, &stArea );
 
-    // ³»ºÎ ÇÔ¼ö¸¦ È£Ãâ
+    // ë‚´ë¶€ í•¨ìˆ˜ë¥¼ í˜¸ì¶œ
     kInternalDrawPixel( &stArea, pstWindow->pstWindowBuffer, iX, iY,
             stColor );
 
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kUnlock( &pstWindow->stLock );
 
     return TRUE;
@@ -1852,35 +1852,35 @@ BOOL kDrawPixel( QWORD qwWindowID, int iX, int iY, COLOR stColor )
 
 
 /**
- *  À©µµ¿ì ³»ºÎ¿¡ Á÷¼± ±×¸®±â
+ *  ìœˆë„ìš° ë‚´ë¶€ì— ì§ì„  ê·¸ë¦¬ê¸°
  */
 BOOL kDrawLine( QWORD qwWindowID, int iX1, int iY1, int iX2, int iY2, COLOR stColor )
 {
     WINDOW* pstWindow;
     RECT stArea;
 
-    // À©µµ¿ì °Ë»ö°ú µ¿±âÈ­ Ã³¸®
+    // ìœˆë„ìš° ê²€ìƒ‰ê³¼ ë™ê¸°í™” ì²˜ë¦¬
     pstWindow = kGetWindowWithWindowLock( qwWindowID );
     if( pstWindow == NULL )
     {
         return FALSE;
     }
     
-    // À©µµ¿ì ½ÃÀÛ ÁÂÇ¥¸¦ 0,0À¸·Î ÇÏ´Â À©µµ¿ì ±âÁØ ÁÂÇ¥·Î ¿µ¿ªÀ» º¯È¯
+    // ìœˆë„ìš° ì‹œì‘ ì¢Œí‘œë¥¼ 0,0ìœ¼ë¡œ í•˜ëŠ” ìœˆë„ìš° ê¸°ì¤€ ì¢Œí‘œë¡œ ì˜ì—­ì„ ë³€í™˜
     kSetRectangleData( 0, 0, pstWindow->stArea.iX2 - pstWindow->stArea.iX1, 
             pstWindow->stArea.iY2 - pstWindow->stArea.iY1, &stArea );
     
-    // ³»ºÎ ÇÔ¼ö¸¦ È£Ãâ
+    // ë‚´ë¶€ í•¨ìˆ˜ë¥¼ í˜¸ì¶œ
     kInternalDrawLine( &stArea, pstWindow->pstWindowBuffer, iX1, iY1,
             iX2, iY2, stColor );
 
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kUnlock( &pstWindow->stLock );
     return TRUE;
 }
 
 /**
- *  À©µµ¿ì ³»ºÎ¿¡ »ç°¢Çü ±×¸®±â
+ *  ìœˆë„ìš° ë‚´ë¶€ì— ì‚¬ê°í˜• ê·¸ë¦¬ê¸°
  */
 BOOL kDrawRect( QWORD qwWindowID, int iX1, int iY1, int iX2, int iY2,
         COLOR stColor, BOOL bFill )
@@ -1888,28 +1888,28 @@ BOOL kDrawRect( QWORD qwWindowID, int iX1, int iY1, int iX2, int iY2,
     WINDOW* pstWindow;
     RECT stArea;
     
-    // À©µµ¿ì °Ë»ö°ú µ¿±âÈ­ Ã³¸®
+    // ìœˆë„ìš° ê²€ìƒ‰ê³¼ ë™ê¸°í™” ì²˜ë¦¬
     pstWindow = kGetWindowWithWindowLock( qwWindowID );
     if( pstWindow == NULL )
     {
         return FALSE;
     }
 
-    // À©µµ¿ì ½ÃÀÛ ÁÂÇ¥¸¦ 0,0À¸·Î ÇÏ´Â À©µµ¿ì ±âÁØ ÁÂÇ¥·Î ¿µ¿ªÀ» º¯È¯
+    // ìœˆë„ìš° ì‹œì‘ ì¢Œí‘œë¥¼ 0,0ìœ¼ë¡œ í•˜ëŠ” ìœˆë„ìš° ê¸°ì¤€ ì¢Œí‘œë¡œ ì˜ì—­ì„ ë³€í™˜
     kSetRectangleData( 0, 0, pstWindow->stArea.iX2 - pstWindow->stArea.iX1, 
             pstWindow->stArea.iY2 - pstWindow->stArea.iY1, &stArea );
     
-    // ³»ºÎ ÇÔ¼ö¸¦ È£Ãâ
+    // ë‚´ë¶€ í•¨ìˆ˜ë¥¼ í˜¸ì¶œ
     kInternalDrawRect( &stArea, pstWindow->pstWindowBuffer, iX1, iY1,
             iX2, iY2, stColor, bFill );
 
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kUnlock( &pstWindow->stLock );
     return TRUE;
 }
 
 /**
- *  À©µµ¿ì ³»ºÎ¿¡ ¿ø ±×¸®±â
+ *  ìœˆë„ìš° ë‚´ë¶€ì— ì› ê·¸ë¦¬ê¸°
  */
 BOOL kDrawCircle( QWORD qwWindowID, int iX, int iY, int iRadius, COLOR stColor,
         BOOL bFill )
@@ -1917,28 +1917,28 @@ BOOL kDrawCircle( QWORD qwWindowID, int iX, int iY, int iRadius, COLOR stColor,
     WINDOW* pstWindow;
     RECT stArea;
     
-    // À©µµ¿ì °Ë»ö°ú µ¿±âÈ­ Ã³¸®
+    // ìœˆë„ìš° ê²€ìƒ‰ê³¼ ë™ê¸°í™” ì²˜ë¦¬
     pstWindow = kGetWindowWithWindowLock( qwWindowID );
     if( pstWindow == NULL )
     {
         return FALSE;
     }
     
-    // À©µµ¿ì ½ÃÀÛ ÁÂÇ¥¸¦ 0,0À¸·Î ÇÏ´Â À©µµ¿ì ±âÁØ ÁÂÇ¥·Î ¿µ¿ªÀ» º¯È¯
+    // ìœˆë„ìš° ì‹œì‘ ì¢Œí‘œë¥¼ 0,0ìœ¼ë¡œ í•˜ëŠ” ìœˆë„ìš° ê¸°ì¤€ ì¢Œí‘œë¡œ ì˜ì—­ì„ ë³€í™˜
     kSetRectangleData( 0, 0, pstWindow->stArea.iX2 - pstWindow->stArea.iX1, 
             pstWindow->stArea.iY2 - pstWindow->stArea.iY1, &stArea );
     
-    // ³»ºÎ ÇÔ¼ö¸¦ È£Ãâ
+    // ë‚´ë¶€ í•¨ìˆ˜ë¥¼ í˜¸ì¶œ
     kInternalDrawCircle( &stArea, pstWindow->pstWindowBuffer,
             iX, iY, iRadius, stColor, bFill );
 
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kUnlock( &pstWindow->stLock );
     return TRUE;
 }
 
 /**
- *  À©µµ¿ì ³»ºÎ¿¡ ¹®ÀÚ Ãâ·Â
+ *  ìœˆë„ìš° ë‚´ë¶€ì— ë¬¸ì ì¶œë ¥
  */
 BOOL kDrawText( QWORD qwWindowID, int iX, int iY, COLOR stTextColor,
         COLOR stBackgroundColor, const char* pcString, int iLength )
@@ -1946,22 +1946,22 @@ BOOL kDrawText( QWORD qwWindowID, int iX, int iY, COLOR stTextColor,
     WINDOW* pstWindow;
     RECT stArea;
 
-    // À©µµ¿ì °Ë»ö°ú µ¿±âÈ­ Ã³¸®
+    // ìœˆë„ìš° ê²€ìƒ‰ê³¼ ë™ê¸°í™” ì²˜ë¦¬
     pstWindow = kGetWindowWithWindowLock( qwWindowID );
     if( pstWindow == NULL )
     {
         return FALSE;
     }
     
-    // À©µµ¿ì ½ÃÀÛ ÁÂÇ¥¸¦ 0,0À¸·Î ÇÏ´Â À©µµ¿ì ±âÁØ ÁÂÇ¥·Î ¿µ¿ªÀ» º¯È¯
+    // ìœˆë„ìš° ì‹œì‘ ì¢Œí‘œë¥¼ 0,0ìœ¼ë¡œ í•˜ëŠ” ìœˆë„ìš° ê¸°ì¤€ ì¢Œí‘œë¡œ ì˜ì—­ì„ ë³€í™˜
     kSetRectangleData( 0, 0, pstWindow->stArea.iX2 - pstWindow->stArea.iX1, 
             pstWindow->stArea.iY2 - pstWindow->stArea.iY1, &stArea );
     
-    // ³»ºÎ ÇÔ¼ö¸¦ È£Ãâ
+    // ë‚´ë¶€ í•¨ìˆ˜ë¥¼ í˜¸ì¶œ
     kInternalDrawText( &stArea, pstWindow->pstWindowBuffer, iX, iY,
             stTextColor, stBackgroundColor, pcString, iLength );
 
-    // µ¿±âÈ­ Ã³¸®
+    // ë™ê¸°í™” ì²˜ë¦¬
     kUnlock( &pstWindow->stLock );
     return TRUE;
 }

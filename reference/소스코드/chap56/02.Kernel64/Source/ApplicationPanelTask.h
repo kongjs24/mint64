@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    ApplicationPanelTask.h
  *  date    2009/11/03
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui 
- *  brief   ¾ÖÇÃ¸®ÄÉÀÌ¼Ç ÆÐ³Î¿¡ °ü·ÃµÈ Çì´õ ÆÄÀÏ
+ *  brief   ì• í”Œë¦¬ì¼€ì´ì…˜ íŒ¨ë„ì— ê´€ë ¨ëœ í—¤ë” íŒŒì¼
  */
 
 #ifndef __APPLICATIONPANELTASK_H__
@@ -16,23 +16,23 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ¸ÅÅ©·Î
+// ë§¤í¬ë¡œ
 //
 ////////////////////////////////////////////////////////////////////////////////
-// ¾ÖÇÃ¸®ÄÉÀÌ¼Ç ÆÐ³Î À©µµ¿ìÀÇ ³ôÀÌ
+// ì• í”Œë¦¬ì¼€ì´ì…˜ íŒ¨ë„ ìœˆë„ìš°ì˜ ë†’ì´
 #define APPLICATIONPANEL_HEIGHT             31
-// ¾ÖÇÃ¸®ÄÉÀÌ¼Ç ÆÐ³Î À©µµ¿ìÀÇ Á¦¸ñ
+// ì• í”Œë¦¬ì¼€ì´ì…˜ íŒ¨ë„ ìœˆë„ìš°ì˜ ì œëª©
 #define APPLICATIONPANEL_TITLE              "SYS_APPLICATIONPANNEL"
-// ¾ÖÇÃ¸®ÄÉÀÌ¼Ç ÆÐ³Î À©µµ¿ì¿¡ Ç¥½ÃÇÒ ½Ã°èÀÇ ³Êºñ
-// 09:00 AM ÇüÅÂ·Î Ç¥½ÃÇÏ¹Ç·Î 8 * ÆùÆ®ÀÇ ³Êºñ·Î °è»ê
+// ì• í”Œë¦¬ì¼€ì´ì…˜ íŒ¨ë„ ìœˆë„ìš°ì— í‘œì‹œí•  ì‹œê³„ì˜ ë„ˆë¹„
+// 09:00 AM í˜•íƒœë¡œ í‘œì‹œí•˜ë¯€ë¡œ 8 * í°íŠ¸ì˜ ë„ˆë¹„ë¡œ ê³„ì‚°
 #define APPLICATIONPANEL_CLOCKWIDTH         ( 8 * FONT_ENGLISHWIDTH )
 
-// ¾ÖÇÃ¸®ÄÉÀÌ¼Ç ¸®½ºÆ® À©µµ¿ì¿¡ ³ªÅ¸³¾ ¾ÆÀÌÅÛÀÇ ³ôÀÌ
+// ì• í”Œë¦¬ì¼€ì´ì…˜ ë¦¬ìŠ¤íŠ¸ ìœˆë„ìš°ì— ë‚˜íƒ€ë‚¼ ì•„ì´í…œì˜ ë†’ì´
 #define APPLICATIONPANEL_LISTITEMHEIGHT     ( FONT_ENGLISHHEIGHT + 4 )
-// ¾ÖÇÃ¸®ÄÉÀÌ¼Ç ¸®½ºÆ® À©µµ¿ìÀÇ Á¦¸ñ
+// ì• í”Œë¦¬ì¼€ì´ì…˜ ë¦¬ìŠ¤íŠ¸ ìœˆë„ìš°ì˜ ì œëª©
 #define APPLICATIONPANEL_LISTTITLE          "SYS_APPLICATIONLIST"
 
-// ¾ÖÇÃ¸®ÄÉÀÌ¼Ç ÆÐ³Î¿¡¼­ »ç¿ëÇÏ´Â »ö±ò
+// ì• í”Œë¦¬ì¼€ì´ì…˜ íŒ¨ë„ì—ì„œ ì‚¬ìš©í•˜ëŠ” ìƒ‰ê¹”
 #define APPLICATIONPANEL_COLOR_OUTERLINE     RGB( 109, 218, 22 )
 #define APPLICATIONPANEL_COLOR_MIDDLELINE    RGB( 183, 249, 171 )
 #define APPLICATIONPANEL_COLOR_INNERLINE     RGB( 150, 210, 140 )
@@ -41,44 +41,44 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ±¸Á¶Ã¼
+// êµ¬ì¡°ì²´
 //
 ////////////////////////////////////////////////////////////////////////////////
-// ¾ÖÇÃ¸®ÄÉÀÌ¼Ç ÆÐ³ÎÀÌ »ç¿ëÇÏ´Â Á¤º¸¸¦ ÀúÀåÇÏ´Â ÀÚ·á±¸Á¶
+// ì• í”Œë¦¬ì¼€ì´ì…˜ íŒ¨ë„ì´ ì‚¬ìš©í•˜ëŠ” ì •ë³´ë¥¼ ì €ìž¥í•˜ëŠ” ìžë£Œêµ¬ì¡°
 typedef struct kApplicationPanelDataStruct
 {
-    // ¾ÖÇÃ¸®ÄÉÀÌ¼Ç ÆÐ³Î À©µµ¿ìÀÇ ID
+    // ì• í”Œë¦¬ì¼€ì´ì…˜ íŒ¨ë„ ìœˆë„ìš°ì˜ ID
     QWORD qwApplicationPanelID;
     
-    // ¾ÖÇÃ¸®ÄÉÀÌ¼Ç ¸®½ºÆ® À©µµ¿ìÀÇ ID
+    // ì• í”Œë¦¬ì¼€ì´ì…˜ ë¦¬ìŠ¤íŠ¸ ìœˆë„ìš°ì˜ ID
     QWORD qwApplicationListID;
     
-    // ¾ÖÇÃ¸®ÄÉÀÌ¼Ç ÆÐ³ÎÀÇ ¹öÆ° À§Ä¡
+    // ì• í”Œë¦¬ì¼€ì´ì…˜ íŒ¨ë„ì˜ ë²„íŠ¼ ìœ„ì¹˜
     RECT stButtonArea;
     
-    // ¾ÖÇÃ¸®ÄÉÀÌ¼Ç ¸®½ºÆ® À©µµ¿ìÀÇ ³Êºñ
+    // ì• í”Œë¦¬ì¼€ì´ì…˜ ë¦¬ìŠ¤íŠ¸ ìœˆë„ìš°ì˜ ë„ˆë¹„
     int iApplicationListWidth;
     
-    // ¾ÖÇÃ¸®ÄÉÀÌ¼Ç ¸®½ºÆ® À©µµ¿ì¿¡¼­ ÀÌÀü¿¡ ¸¶¿ì½º°¡ À§Ä¡ÇÑ ¾ÆÀÌÅÛÀÇ ÀÎµ¦½º
+    // ì• í”Œë¦¬ì¼€ì´ì…˜ ë¦¬ìŠ¤íŠ¸ ìœˆë„ìš°ì—ì„œ ì´ì „ì— ë§ˆìš°ìŠ¤ê°€ ìœ„ì¹˜í•œ ì•„ì´í…œì˜ ì¸ë±ìŠ¤
     int iPreviousMouseOverIndex;
 
-    // ¾ÖÇÃ¸®ÄÉÀÌ¼Ç ¸®½ºÆ® À©µµ¿ì°¡ È­¸é¿¡ Ç¥½ÃµÇ¾ú´ÂÁö ¿©ºÎ
+    // ì• í”Œë¦¬ì¼€ì´ì…˜ ë¦¬ìŠ¤íŠ¸ ìœˆë„ìš°ê°€ í™”ë©´ì— í‘œì‹œë˜ì—ˆëŠ”ì§€ ì—¬ë¶€
     BOOL bApplicationWindowVisible;    
 } APPLICATIONPANELDATA;
 
-// GUI ÅÂ½ºÅ©ÀÇ Á¤º¸¸¦ ÀúÀåÇÏ´Â ÀÚ·á±¸Á¶
+// GUI íƒœìŠ¤í¬ì˜ ì •ë³´ë¥¼ ì €ìž¥í•˜ëŠ” ìžë£Œêµ¬ì¡°
 typedef struct kApplicationEntryStruct
 {   
-    // GUI ÅÂ½ºÅ©ÀÇ ÀÌ¸§
+    // GUI íƒœìŠ¤í¬ì˜ ì´ë¦„
     char* pcApplicationName;
 
-    // GUI ÅÂ½ºÅ©ÀÇ ¿£Æ®¸® Æ÷ÀÎÆ®   
+    // GUI íƒœìŠ¤í¬ì˜ ì—”íŠ¸ë¦¬ í¬ì¸íŠ¸   
     void* pvEntryPoint;
 } APPLICATIONENTRY;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ÇÔ¼ö
+// í•¨ìˆ˜
 //
 ////////////////////////////////////////////////////////////////////////////////
 void kApplicationPanelGUITask( void );

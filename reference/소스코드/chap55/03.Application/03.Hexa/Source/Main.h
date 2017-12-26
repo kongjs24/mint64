@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    Main.h
  *  date    2010/03/10
  *  author  kkamagui
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   C ¾ð¾î·Î ÀÛ¼ºµÈ ÀÀ¿ëÇÁ·Î±×·¥ÀÇ ¿£Æ®¸® Æ÷ÀÎÆ® ÆÄÀÏ
+ *  brief   C ì–¸ì–´ë¡œ ìž‘ì„±ëœ ì‘ìš©í”„ë¡œê·¸ëž¨ì˜ ì—”íŠ¸ë¦¬ í¬ì¸íŠ¸ íŒŒì¼
  */
 
 #ifndef __MAIN_H__
@@ -11,78 +11,78 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ¸ÅÅ©·Î
+// ë§¤í¬ë¡œ
 //
 ////////////////////////////////////////////////////////////////////////////////
-// °ÔÀÓÆÇÀÇ ³Êºñ¿Í ³ôÀÌ
+// ê²Œìž„íŒì˜ ë„ˆë¹„ì™€ ë†’ì´
 #define BOARDWIDTH      8
 #define BOARDHEIGHT     12
 
-// ºí·Ï ÇÏ³ªÀÇ Å©±â
+// ë¸”ë¡ í•˜ë‚˜ì˜ í¬ê¸°
 #define BLOCKSIZE       32
-// ¿òÁ÷ÀÌ´Â ºí·ÏÀÇ °³¼ö
+// ì›€ì§ì´ëŠ” ë¸”ë¡ì˜ ê°œìˆ˜
 #define BLOCKCOUNT      3
-// ºó ºí·ÏÀ» ³ªÅ¸³»´Â °ª
+// ë¹ˆ ë¸”ë¡ì„ ë‚˜íƒ€ë‚´ëŠ” ê°’
 #define EMPTYBLOCK      0
-// Áö¿ï ºí·ÏÀ» ³ªÅ¸³»´Â °ª
+// ì§€ìš¸ ë¸”ë¡ì„ ë‚˜íƒ€ë‚´ëŠ” ê°’
 #define ERASEBLOCK      0xFF
-// ºí·ÏÀÇ Á¾·ù
+// ë¸”ë¡ì˜ ì¢…ë¥˜
 #define BLOCKKIND       5
 
-// À©µµ¿ìÀÇ ³Êºñ¿Í ³ôÀÌ
+// ìœˆë„ìš°ì˜ ë„ˆë¹„ì™€ ë†’ì´
 #define WINDOW_WIDTH        ( BOARDWIDTH * BLOCKSIZE )
 #define WINDOW_HEIGHT       ( WINDOW_TITLEBAR_HEIGHT + INFORMATION_HEIGHT + \
                               BOARDHEIGHT * BLOCKSIZE )
 
-// °ÔÀÓ Á¤º¸ ¿µ¿ªÀÇ ³ôÀÌ
+// ê²Œìž„ ì •ë³´ ì˜ì—­ì˜ ë†’ì´
 #define INFORMATION_HEIGHT  20
 
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ±¸Á¶Ã¼
+// êµ¬ì¡°ì²´
 //
 ////////////////////////////////////////////////////////////////////////////////
-// °ÔÀÓ Á¤º¸¸¦ ÀúÀåÇÏ´Â ÀÚ·á±¸Á¶
+// ê²Œìž„ ì •ë³´ë¥¼ ì €ìž¥í•˜ëŠ” ìžë£Œêµ¬ì¡°
 typedef struct GameInfoStruct
 {
     //-------------------------------------------------------------------------
-    // ÇöÀç ¿òÁ÷ÀÌ´Â ºí·Ï°ú °ÔÀÓÆÇ¿¡ °íÁ¤µÈ ºí·ÏÀ» °ü¸®ÇÏ´Âµ¥ ÇÊ¿äÇÑ ÇÊµå
+    // í˜„ìž¬ ì›€ì§ì´ëŠ” ë¸”ë¡ê³¼ ê²Œìž„íŒì— ê³ ì •ëœ ë¸”ë¡ì„ ê´€ë¦¬í•˜ëŠ”ë° í•„ìš”í•œ í•„ë“œ
     //-------------------------------------------------------------------------
-    // ºí·Ï Á¾·ù¿¡ µû¸¥ »ö±ò(ºí·Ï ³»ºÎ »ö±ò°ú Å×µÎ¸® »ö±ò)
+    // ë¸”ë¡ ì¢…ë¥˜ì— ë”°ë¥¸ ìƒ‰ê¹”(ë¸”ë¡ ë‚´ë¶€ ìƒ‰ê¹”ê³¼ í…Œë‘ë¦¬ ìƒ‰ê¹”)
     COLOR vstBlockColor[ BLOCKKIND + 1 ];
     COLOR vstEdgeColor[ BLOCKKIND + 1 ];
 
-    // ÇöÀç ¿òÁ÷ÀÌ´Â ºí·ÏÀÇ À§Ä¡
+    // í˜„ìž¬ ì›€ì§ì´ëŠ” ë¸”ë¡ì˜ ìœ„ì¹˜
     int iBlockX;
     int iBlockY;
 
-    // °ÔÀÓÆÇ¿¡ °íÁ¤µÈ ºí·ÏÀÇ »óÅÂ¸¦ °ü¸®ÇÏ´Â ¿µ¿ª
+    // ê²Œìž„íŒì— ê³ ì •ëœ ë¸”ë¡ì˜ ìƒíƒœë¥¼ ê´€ë¦¬í•˜ëŠ” ì˜ì—­
     BYTE vvbBoard[ BOARDHEIGHT ][ BOARDWIDTH ];
 
-    // °ÔÀÓÆÇ¿¡ °íÁ¤µÈ ºí·Ï Áß¿¡¼­ »èÁ¦ÇØ¾ß ÇÒ ºí·ÏÀ» °ü¸®ÇÏ´Â ¿µ¿ª
+    // ê²Œìž„íŒì— ê³ ì •ëœ ë¸”ë¡ ì¤‘ì—ì„œ ì‚­ì œí•´ì•¼ í•  ë¸”ë¡ì„ ê´€ë¦¬í•˜ëŠ” ì˜ì—­
     BYTE vvbEraseBlock[ BOARDHEIGHT ][ BOARDWIDTH ];
 
-    // ÇöÀç ¿òÁ÷ÀÌ´Â ºí·ÏÀÇ ±¸¼ºÀ» ÀúÀåÇÏ´Â ¿µ¿ª
+    // í˜„ìž¬ ì›€ì§ì´ëŠ” ë¸”ë¡ì˜ êµ¬ì„±ì„ ì €ìž¥í•˜ëŠ” ì˜ì—­
     BYTE vbBlock[ BLOCKCOUNT ];
 
     //-------------------------------------------------------------------------
-    // °ÔÀÓÀ» ÁøÇàÇÏ´Âµ¥ ÇÊ¿äÇÑ ÇÊµå
+    // ê²Œìž„ì„ ì§„í–‰í•˜ëŠ”ë° í•„ìš”í•œ í•„ë“œ
     //-------------------------------------------------------------------------
-    // °ÔÀÓÀÇ ½ÃÀÛ ¿©ºÎ
+    // ê²Œìž„ì˜ ì‹œìž‘ ì—¬ë¶€
     BOOL bGameStart;
 
-    // À¯ÀúÀÇ Á¡¼ö
+    // ìœ ì €ì˜ ì ìˆ˜
     QWORD qwScore;
 
-    // °ÔÀÓÀÇ ·¹º§
+    // ê²Œìž„ì˜ ë ˆë²¨
     QWORD qwLevel;
 } GAMEINFO;
 
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ÇÔ¼ö
+// í•¨ìˆ˜
 //
 ////////////////////////////////////////////////////////////////////////////////
 void Initialize( void );

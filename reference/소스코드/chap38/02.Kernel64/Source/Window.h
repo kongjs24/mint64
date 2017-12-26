@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    Window.h
  *  date    2009/09/28
  *  author  kkamagui
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   GUI ½Ã½ºÅÛ¿¡ °ü·ÃµÈ ÇÔ¼ö¸¦ Á¤ÀÇÇÑ Çì´õ ÆÄÀÏ
+ *  brief   GUI ì‹œìŠ¤í…œì— ê´€ë ¨ëœ í•¨ìˆ˜ë¥¼ ì •ì˜í•œ í—¤ë” íŒŒì¼
  */
 
 #ifndef __WINDOW_H__
@@ -16,36 +16,36 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ¸ÅÅ©·Î
+// ë§¤í¬ë¡œ
 //
 ////////////////////////////////////////////////////////////////////////////////
-// À©µµ¿ì¸¦ »ý¼ºÇÒ ¼ö ÀÖ´Â ÃÖ´ë °³¼ö
+// ìœˆë„ìš°ë¥¼ ìƒì„±í•  ìˆ˜ ìžˆëŠ” ìµœëŒ€ ê°œìˆ˜
 #define WINDOW_MAXCOUNT             2048
-// À©µµ¿ì ID·Î À©µµ¿ì Ç® ³»ÀÇ ¿ÀÇÁ¼ÂÀ» °è»êÇÏ´Â ¸ÅÅ©·Î
-// ÇÏÀ§ 32ºñÆ®°¡ Ç® ³»ÀÇ ¿ÀÇÁ¼ÂÀ» ³ªÅ¸³¿
+// ìœˆë„ìš° IDë¡œ ìœˆë„ìš° í’€ ë‚´ì˜ ì˜¤í”„ì…‹ì„ ê³„ì‚°í•˜ëŠ” ë§¤í¬ë¡œ
+// í•˜ìœ„ 32ë¹„íŠ¸ê°€ í’€ ë‚´ì˜ ì˜¤í”„ì…‹ì„ ë‚˜íƒ€ëƒ„
 #define GETWINDOWOFFSET( x )        ( ( x ) & 0xFFFFFFFF )
-// À©µµ¿ì Á¦¸ñÀÇ ÃÖ´ë ±æÀÌ
+// ìœˆë„ìš° ì œëª©ì˜ ìµœëŒ€ ê¸¸ì´
 #define WINDOW_TITLEMAXLENGTH       40
-// À¯È¿ÇÏÁö ¾ÊÀº À©µµ¿ì ID
+// ìœ íš¨í•˜ì§€ ì•Šì€ ìœˆë„ìš° ID
 #define WINDOW_INVALIDID            0xFFFFFFFFFFFFFFFF
 
-// À©µµ¿ìÀÇ ¼Ó¼º
-// À©µµ¿ì¸¦ È­¸é¿¡ ³ªÅ¸³¿
+// ìœˆë„ìš°ì˜ ì†ì„±
+// ìœˆë„ìš°ë¥¼ í™”ë©´ì— ë‚˜íƒ€ëƒ„
 #define WINDOW_FLAGS_SHOW           0x00000001
-// À©µµ¿ì Å×µÎ¸® ±×¸²
+// ìœˆë„ìš° í…Œë‘ë¦¬ ê·¸ë¦¼
 #define WINDOW_FLAGS_DRAWFRAME      0x00000002
-// À©µµ¿ì Á¦¸ñ Ç¥½ÃÁÙ ±×¸²
+// ìœˆë„ìš° ì œëª© í‘œì‹œì¤„ ê·¸ë¦¼
 #define WINDOW_FLAGS_DRAWTITLE      0x00000004
-// À©µµ¿ì ±âº» ¼Ó¼º, Á¦¸ñ Ç¥½ÃÁÙ°ú ÇÁ·¹ÀÓÀ» ¸ðµÎ ±×¸®°í È­¸é¿¡ À©µµ¿ì¸¦ º¸ÀÌ°Ô ¼³Á¤
+// ìœˆë„ìš° ê¸°ë³¸ ì†ì„±, ì œëª© í‘œì‹œì¤„ê³¼ í”„ë ˆìž„ì„ ëª¨ë‘ ê·¸ë¦¬ê³  í™”ë©´ì— ìœˆë„ìš°ë¥¼ ë³´ì´ê²Œ ì„¤ì •
 #define WINDOW_FLAGS_DEFAULT        ( WINDOW_FLAGS_SHOW | WINDOW_FLAGS_DRAWFRAME | \
                                       WINDOW_FLAGS_DRAWTITLE )
 
-// Á¦¸ñ Ç¥½ÃÁÙÀÇ ³ôÀÌ
+// ì œëª© í‘œì‹œì¤„ì˜ ë†’ì´
 #define WINDOW_TITLEBAR_HEIGHT      21
-// À©µµ¿ìÀÇ ´Ý±â ¹öÆ°ÀÇ Å©±â
+// ìœˆë„ìš°ì˜ ë‹«ê¸° ë²„íŠ¼ì˜ í¬ê¸°
 #define WINDOW_XBUTTON_SIZE         19
 
-// À©µµ¿ìÀÇ »ö±ò
+// ìœˆë„ìš°ì˜ ìƒ‰ê¹”
 #define WINDOW_COLOR_FRAME                  RGB( 109, 218, 22 )
 #define WINDOW_COLOR_BACKGROUND             RGB( 255, 255, 255 )
 #define WINDOW_COLOR_TITLEBARTEXT           RGB( 255, 255, 255 )
@@ -58,98 +58,98 @@
 #define WINDOW_COLOR_SYSTEMBACKGROUND       RGB( 232, 255, 232 )
 #define WINDOW_COLOR_XBUTTONLINECOLOR       RGB( 71, 199, 21 )
 
-// ¹è°æ À©µµ¿ìÀÇ Á¦¸ñ
+// ë°°ê²½ ìœˆë„ìš°ì˜ ì œëª©
 #define WINDOW_BACKGROUNDWINDOWTITLE            "SYS_BACKGROUND"
 
-// ¸¶¿ì½º Ä¿¼­ÀÇ ³Êºñ¿Í ³ôÀÌ
+// ë§ˆìš°ìŠ¤ ì»¤ì„œì˜ ë„ˆë¹„ì™€ ë†’ì´
 #define MOUSE_CURSOR_WIDTH                  20
 #define MOUSE_CURSOR_HEIGHT                 20
 
-// Ä¿¼­ ÀÌ¹ÌÁöÀÇ »ö±ò
+// ì»¤ì„œ ì´ë¯¸ì§€ì˜ ìƒ‰ê¹”
 #define MOUSE_CURSOR_OUTERLINE              RGB(0, 0, 0 )
 #define MOUSE_CURSOR_OUTER                  RGB( 79, 204, 11 )
 #define MOUSE_CURSOR_INNER                  RGB( 232, 255, 232 )
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ±¸Á¶Ã¼
+// êµ¬ì¡°ì²´
 //
 ////////////////////////////////////////////////////////////////////////////////
-// À©µµ¿ìÀÇ Á¤º¸¸¦ ÀúÀåÇÏ´Â ÀÚ·á±¸Á¶
+// ìœˆë„ìš°ì˜ ì •ë³´ë¥¼ ì €ìž¥í•˜ëŠ” ìžë£Œêµ¬ì¡°
 typedef struct kWindowStruct
 {
-    // ´ÙÀ½ µ¥ÀÌÅÍÀÇ À§Ä¡¿Í ÇöÀç À©µµ¿ìÀÇ ID
+    // ë‹¤ìŒ ë°ì´í„°ì˜ ìœ„ì¹˜ì™€ í˜„ìž¬ ìœˆë„ìš°ì˜ ID
     LISTLINK stLink;
 
-    // ÀÚ·á±¸Á¶ µ¿±âÈ­¸¦ À§ÇÑ ¹ÂÅØ½º
+    // ìžë£Œêµ¬ì¡° ë™ê¸°í™”ë¥¼ ìœ„í•œ ë®¤í…ìŠ¤
     MUTEX stLock;
 
-    // À©µµ¿ì ¿µ¿ª Á¤º¸
+    // ìœˆë„ìš° ì˜ì—­ ì •ë³´
     RECT stArea;
 
-    // À©µµ¿ìÀÇ È­¸é ¹öÆÛ ¾îµå·¹½º
+    // ìœˆë„ìš°ì˜ í™”ë©´ ë²„í¼ ì–´ë“œë ˆìŠ¤
     COLOR* pstWindowBuffer;
 
-    // À©µµ¿ì¸¦ °¡Áö°í ÀÖ´Â ÅÂ½ºÅ©ÀÇ ID
+    // ìœˆë„ìš°ë¥¼ ê°€ì§€ê³  ìžˆëŠ” íƒœìŠ¤í¬ì˜ ID
     QWORD qwTaskID;
 
-    // À©µµ¿ì ¼Ó¼º
+    // ìœˆë„ìš° ì†ì„±
     DWORD dwFlags;
     
-    // À©µµ¿ì Á¦¸ñ
+    // ìœˆë„ìš° ì œëª©
     char vcWindowTitle[ WINDOW_TITLEMAXLENGTH + 1 ];
 } WINDOW;
 
-// À©µµ¿ì Ç®ÀÇ »óÅÂ¸¦ °ü¸®ÇÏ´Â ÀÚ·á±¸Á¶
+// ìœˆë„ìš° í’€ì˜ ìƒíƒœë¥¼ ê´€ë¦¬í•˜ëŠ” ìžë£Œêµ¬ì¡°
 typedef struct kWindowPoolManagerStruct
 {
-    // ÀÚ·á±¸Á¶ µ¿±âÈ­¸¦ À§ÇÑ ¹ÂÅØ½º
+    // ìžë£Œêµ¬ì¡° ë™ê¸°í™”ë¥¼ ìœ„í•œ ë®¤í…ìŠ¤
     MUTEX stLock;
 
-    // À©µµ¿ì Ç®¿¡ ´ëÇÑ Á¤º¸
+    // ìœˆë„ìš° í’€ì— ëŒ€í•œ ì •ë³´
     WINDOW* pstStartAddress;
     int iMaxCount;
     int iUseCount;
 
-    // À©µµ¿ì°¡ ÇÒ´çµÈ È½¼ö
+    // ìœˆë„ìš°ê°€ í• ë‹¹ëœ íšŸìˆ˜
     int iAllocatedCount;
 } WINDOWPOOLMANAGER;
 
-// À©µµ¿ì ¸Å´ÏÀú ÀÚ·á±¸Á¶
+// ìœˆë„ìš° ë§¤ë‹ˆì € ìžë£Œêµ¬ì¡°
 typedef struct kWindowManagerStruct
 {
-    // ÀÚ·á±¸Á¶ µ¿±âÈ­¸¦ À§ÇÑ ¹ÂÅØ½º
+    // ìžë£Œêµ¬ì¡° ë™ê¸°í™”ë¥¼ ìœ„í•œ ë®¤í…ìŠ¤
     MUTEX stLock;
 
-    // À©µµ¿ì ¸®½ºÆ®
+    // ìœˆë„ìš° ë¦¬ìŠ¤íŠ¸
     LIST stWindowList;
 
-    // ÇöÀç ¸¶¿ì½º Ä¿¼­ÀÇ X, YÁÂÇ¥
+    // í˜„ìž¬ ë§ˆìš°ìŠ¤ ì»¤ì„œì˜ X, Yì¢Œí‘œ
     int iMouseX;
     int iMouseY;
 
-    // È­¸é ¿µ¿ª Á¤º¸
+    // í™”ë©´ ì˜ì—­ ì •ë³´
     RECT stScreenArea;
 
-    // ºñµð¿À ¸Þ¸ð¸®ÀÇ ¾îµå·¹½º
+    // ë¹„ë””ì˜¤ ë©”ëª¨ë¦¬ì˜ ì–´ë“œë ˆìŠ¤
     COLOR* pstVideoMemory;
 
-    // ¹è°æ À©µµ¿ìÀÇ ID
+    // ë°°ê²½ ìœˆë„ìš°ì˜ ID
     QWORD qwBackgoundWindowID;
 
 } WINDOWMANAGER;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ÇÔ¼ö
+// í•¨ìˆ˜
 //
 ////////////////////////////////////////////////////////////////////////////////
-// À©µµ¿ì Ç® °ü·Ã
+// ìœˆë„ìš° í’€ ê´€ë ¨
 static void kInitializeWindowPool( void );
 static WINDOW* kAllocateWindow( void );
 static void kFreeWindow( QWORD qwID );
 
-// À©µµ¿ì¿Í À©µµ¿ì ¸Å´ÏÀú °ü·Ã
+// ìœˆë„ìš°ì™€ ìœˆë„ìš° ë§¤ë‹ˆì € ê´€ë ¨
 void kInitializeGUISystem( void );
 WINDOWMANAGER* kGetWindowManager( void );
 QWORD kGetBackgroundWindowID( void );
@@ -165,7 +165,7 @@ BOOL kRedrawWindowByArea( const RECT* pstArea );
 static void kCopyWindowBufferToFrameBuffer( const WINDOW* pstWindow,
         const RECT* pstCopyArea );
 
-// À©µµ¿ì ³»ºÎ¿¡ ±×¸®´Â ÇÔ¼ö¿Í ¸¶¿ì½º Ä¿¼­ °ü·Ã
+// ìœˆë„ìš° ë‚´ë¶€ì— ê·¸ë¦¬ëŠ” í•¨ìˆ˜ì™€ ë§ˆìš°ìŠ¤ ì»¤ì„œ ê´€ë ¨
 BOOL kDrawWindowFrame( QWORD qwWindowID );
 BOOL kDrawWindowBackground( QWORD qwWindowID );
 BOOL kDrawWindowTitle( QWORD qwWindowID, const char* pcTitle );

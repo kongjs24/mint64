@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    Console.h
  *  date    2009/01/31
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   ÄÜ¼Ö¿¡ °ü·ÃµÈ Çì´õ ÆÄÀÏ
+ *  brief   ì½˜ì†”ì— ê´€ë ¨ëœ í—¤ë” íŒŒì¼
  */
 
 #ifndef __CONSOLE_H__
@@ -16,10 +16,10 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ¸ÅÅ©·Î
+// ë§¤í¬ë¡œ
 //
 ////////////////////////////////////////////////////////////////////////////////
-// ºñµð¿À ¸Þ¸ð¸®ÀÇ ¼Ó¼º(Attribute) °ª ¼³Á¤
+// ë¹„ë””ì˜¤ ë©”ëª¨ë¦¬ì˜ ì†ì„±(Attribute) ê°’ ì„¤ì •
 #define CONSOLE_BACKGROUND_BLACK            0x00
 #define CONSOLE_BACKGROUND_BLUE             0x10
 #define CONSOLE_BACKGROUND_GREEN            0x20
@@ -45,46 +45,46 @@
 #define CONSOLE_FOREGROUND_BRIGHTMAGENTA    0x0D
 #define CONSOLE_FOREGROUND_BRIGHTYELLOW     0x0E
 #define CONSOLE_FOREGROUND_BRIGHTWHITE      0x0F
-// ±âº» ¹®ÀÚ »ö»ó
+// ê¸°ë³¸ ë¬¸ìž ìƒ‰ìƒ
 #define CONSOLE_DEFAULTTEXTCOLOR            ( CONSOLE_BACKGROUND_BLACK | \
         CONSOLE_FOREGROUND_BRIGHTGREEN )
 
-// ÄÜ¼ÖÀÇ ³Êºñ(Width)¿Í ³ôÀÌ(Height),±×¸®°í ºñµð¿À ¸Þ¸ð¸®ÀÇ ½ÃÀÛ ¾îµå·¹½º ¼³Á¤
+// ì½˜ì†”ì˜ ë„ˆë¹„(Width)ì™€ ë†’ì´(Height),ê·¸ë¦¬ê³  ë¹„ë””ì˜¤ ë©”ëª¨ë¦¬ì˜ ì‹œìž‘ ì–´ë“œë ˆìŠ¤ ì„¤ì •
 #define CONSOLE_WIDTH                       80
 #define CONSOLE_HEIGHT                      25
 #define CONSOLE_VIDEOMEMORYADDRESS          0xB8000
 
-// ºñµð¿À ÄÁÆ®·Ñ·¯ÀÇ I/O Æ÷Æ® ¾îµå·¹½º¿Í ·¹Áö½ºÅÍ
+// ë¹„ë””ì˜¤ ì»¨íŠ¸ë¡¤ëŸ¬ì˜ I/O í¬íŠ¸ ì–´ë“œë ˆìŠ¤ì™€ ë ˆì§€ìŠ¤í„°
 #define VGA_PORT_INDEX                      0x3D4
 #define VGA_PORT_DATA                       0x3D5
 #define VGA_INDEX_UPPERCURSOR               0x0E
 #define VGA_INDEX_LOWERCURSOR               0x0F
 
-// ±×·¡ÇÈ ¸ðµå¿¡¼­ »ç¿ëÇÏ´Â Å° Å¥¿¡ ÀúÀåÇÒ ¼ö ÀÖ´Â ÃÖ´ë °³¼ö
+// ê·¸ëž˜í”½ ëª¨ë“œì—ì„œ ì‚¬ìš©í•˜ëŠ” í‚¤ íì— ì €ìž¥í•  ìˆ˜ ìžˆëŠ” ìµœëŒ€ ê°œìˆ˜
 #define CONSOLE_GUIKEYQUEUE_MAXCOUNT        100     
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ±¸Á¶Ã¼
+// êµ¬ì¡°ì²´
 //
 ////////////////////////////////////////////////////////////////////////////////
-// 1¹ÙÀÌÆ®·Î Á¤·Ä
+// 1ë°”ì´íŠ¸ë¡œ ì •ë ¬
 #pragma pack( push, 1 )
 
-// ÄÜ¼Ö¿¡ ´ëÇÑ Á¤º¸¸¦ ÀúÀåÇÏ´Â ÀÚ·á±¸Á¶
+// ì½˜ì†”ì— ëŒ€í•œ ì •ë³´ë¥¼ ì €ìž¥í•˜ëŠ” ìžë£Œêµ¬ì¡°
 typedef struct kConsoleManagerStruct
 {
-    // ÇöÀç Ãâ·ÂÇÒ °÷ÀÇ ¿ÀÇÁ¼Â
+    // í˜„ìž¬ ì¶œë ¥í•  ê³³ì˜ ì˜¤í”„ì…‹
     int iCurrentPrintOffset;
 
-    // Ãâ·ÂÇÒ È­¸é ¹öÆÛÀÇ ¾îµå·¹½º
+    // ì¶œë ¥í•  í™”ë©´ ë²„í¼ì˜ ì–´ë“œë ˆìŠ¤
     CHARACTER* pstScreenBuffer;
     
-    // ±×·¡ÇÈ ¸ðµå¿¡¼­ »ç¿ëÇÒ Å° Å¥¿Í ¹ÂÅØ½º
+    // ê·¸ëž˜í”½ ëª¨ë“œì—ì„œ ì‚¬ìš©í•  í‚¤ íì™€ ë®¤í…ìŠ¤
     QUEUE stKeyQueueForGUI;
     MUTEX stLock;
 
-    // ¼Ð ÅÂ½ºÅ©¸¦ Á¾·áÇÒÁö ¿©ºÎ
+    // ì…¸ íƒœìŠ¤í¬ë¥¼ ì¢…ë£Œí• ì§€ ì—¬ë¶€
     volatile BOOL bExit;
 } CONSOLEMANAGER;
 
@@ -92,7 +92,7 @@ typedef struct kConsoleManagerStruct
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ÇÔ¼ö
+// í•¨ìˆ˜
 //
 ////////////////////////////////////////////////////////////////////////////////
 void kInitializeConsole( int iX, int iY );

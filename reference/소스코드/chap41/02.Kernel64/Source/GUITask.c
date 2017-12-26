@@ -1,19 +1,19 @@
-/**
+ï»¿/**
  *  file    GUITask.c
  *  date    2009/10/20
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   GUI ÅÂ½ºÅ©¿¡ °ü·ÃµÈ ÇÔ¼ö¸¦ Á¤ÀÇÇÑ ¼Ò½º ÆÄÀÏ
+ *  brief   GUI íƒœìŠ¤í¬ì— ê´€ë ¨ëœ í•¨ìˆ˜ë¥¼ ì •ì˜í•œ ì†ŒìŠ¤ íŒŒì¼
  */
 #include "GUITask.h"
 #include "Window.h"
 
 //------------------------------------------------------------------------------
-//  ±âº» GUI ÅÂ½ºÅ©
+//  ê¸°ë³¸ GUI íƒœìŠ¤í¬
 //------------------------------------------------------------------------------
 /**
- *  ±âº» GUI ÅÂ½ºÅ©ÀÇ ÄÚµå
- *      GUI ÅÂ½ºÅ©¸¦ ¸¸µé ¶§ º¹»çÇÏ¿© ±âº» ÄÚµå·Î »ç¿ë
+ *  ê¸°ë³¸ GUI íƒœìŠ¤í¬ì˜ ì½”ë“œ
+ *      GUI íƒœìŠ¤í¬ë¥¼ ë§Œë“¤ ë•Œ ë³µì‚¬í•˜ì—¬ ê¸°ë³¸ ì½”ë“œë¡œ ì‚¬ìš©
  */
 void kBaseGUITask( void )
 {
@@ -26,51 +26,51 @@ void kBaseGUITask( void )
     WINDOWEVENT* pstWindowEvent;
 
     //--------------------------------------------------------------------------
-    // ±×·¡ÇÈ ¸ðµå ÆÇ´Ü
+    // ê·¸ëž˜í”½ ëª¨ë“œ íŒë‹¨
     //--------------------------------------------------------------------------
-    // MINT64 OS°¡ ±×·¡ÇÈ ¸ðµå·Î ½ÃÀÛÇß´ÂÁö È®ÀÎ
+    // MINT64 OSê°€ ê·¸ëž˜í”½ ëª¨ë“œë¡œ ì‹œìž‘í–ˆëŠ”ì§€ í™•ì¸
     if( kIsGraphicMode() == FALSE )
     {        
-        // MINT64 OS°¡ ±×·¡ÇÈ ¸ðµå·Î ½ÃÀÛÇÏÁö ¾Ê¾Ò´Ù¸é ½ÇÆÐ
+        // MINT64 OSê°€ ê·¸ëž˜í”½ ëª¨ë“œë¡œ ì‹œìž‘í•˜ì§€ ì•Šì•˜ë‹¤ë©´ ì‹¤íŒ¨
         kPrintf( "This task can run only GUI mode~!!!\n" );
         return ;
     }
     
     //--------------------------------------------------------------------------
-    // À©µµ¿ì¸¦ »ý¼º
+    // ìœˆë„ìš°ë¥¼ ìƒì„±
     //--------------------------------------------------------------------------
-    // ¸¶¿ì½ºÀÇ ÇöÀç À§Ä¡¸¦ ¹ÝÈ¯
+    // ë§ˆìš°ìŠ¤ì˜ í˜„ìž¬ ìœ„ì¹˜ë¥¼ ë°˜í™˜
     kGetCursorPosition( &iMouseX, &iMouseY );
 
-    // À©µµ¿ìÀÇ Å©±â¿Í Á¦¸ñ ¼³Á¤
+    // ìœˆë„ìš°ì˜ í¬ê¸°ì™€ ì œëª© ì„¤ì •
     iWindowWidth = 500;
     iWindowHeight = 200;
     
-    // À©µµ¿ì »ý¼º ÇÔ¼ö È£Ãâ, ¸¶¿ì½º°¡ ÀÖ´ø À§Ä¡¸¦ ±âÁØÀ¸·Î »ý¼º
+    // ìœˆë„ìš° ìƒì„± í•¨ìˆ˜ í˜¸ì¶œ, ë§ˆìš°ìŠ¤ê°€ ìžˆë˜ ìœ„ì¹˜ë¥¼ ê¸°ì¤€ìœ¼ë¡œ ìƒì„±
     qwWindowID = kCreateWindow( iMouseX - 10, iMouseY - WINDOW_TITLEBAR_HEIGHT / 2,
         iWindowWidth, iWindowHeight, WINDOW_FLAGS_DEFAULT, "Hello World Window" );
-    // À©µµ¿ì¸¦ »ý¼ºÇÏÁö ¸øÇßÀ¸¸é ½ÇÆÐ
+    // ìœˆë„ìš°ë¥¼ ìƒì„±í•˜ì§€ ëª»í–ˆìœ¼ë©´ ì‹¤íŒ¨
     if( qwWindowID == WINDOW_INVALIDID )
     {
         return ;
     }
     
     //--------------------------------------------------------------------------
-    // GUI ÅÂ½ºÅ©ÀÇ ÀÌº¥Æ® Ã³¸® ·çÇÁ
+    // GUI íƒœìŠ¤í¬ì˜ ì´ë²¤íŠ¸ ì²˜ë¦¬ ë£¨í”„
     //--------------------------------------------------------------------------
     while( 1 )
     {
-        // ÀÌº¥Æ® Å¥¿¡¼­ ÀÌº¥Æ®¸¦ ¼ö½Å
+        // ì´ë²¤íŠ¸ íì—ì„œ ì´ë²¤íŠ¸ë¥¼ ìˆ˜ì‹ 
         if( kReceiveEventFromWindowQueue( qwWindowID, &stReceivedEvent ) == FALSE )
         {
             kSleep( 0 );
             continue;
         }
         
-        // ¼ö½ÅµÈ ÀÌº¥Æ®¸¦ Å¸ÀÔ¿¡ µû¶ó ³ª´©¾î Ã³¸®
+        // ìˆ˜ì‹ ëœ ì´ë²¤íŠ¸ë¥¼ íƒ€ìž…ì— ë”°ë¼ ë‚˜ëˆ„ì–´ ì²˜ë¦¬
         switch( stReceivedEvent.qwType )
         {
-            // ¸¶¿ì½º ÀÌº¥Æ® Ã³¸®
+            // ë§ˆìš°ìŠ¤ ì´ë²¤íŠ¸ ì²˜ë¦¬
         case EVENT_MOUSE_MOVE:
         case EVENT_MOUSE_LBUTTONDOWN:
         case EVENT_MOUSE_LBUTTONUP:            
@@ -78,50 +78,50 @@ void kBaseGUITask( void )
         case EVENT_MOUSE_RBUTTONUP:
         case EVENT_MOUSE_MBUTTONDOWN:
         case EVENT_MOUSE_MBUTTONUP:
-            // ¿©±â¿¡ ¸¶¿ì½º ÀÌº¥Æ® Ã³¸® ÄÚµå ³Ö±â
+            // ì—¬ê¸°ì— ë§ˆìš°ìŠ¤ ì´ë²¤íŠ¸ ì²˜ë¦¬ ì½”ë“œ ë„£ê¸°
             pstMouseEvent = &( stReceivedEvent.stMouseEvent );
             break;
 
-            // Å° ÀÌº¥Æ® Ã³¸®
+            // í‚¤ ì´ë²¤íŠ¸ ì²˜ë¦¬
         case EVENT_KEY_DOWN:
         case EVENT_KEY_UP:
-            // ¿©±â¿¡ Å°º¸µå ÀÌº¥Æ® Ã³¸® ÄÚµå ³Ö±â
+            // ì—¬ê¸°ì— í‚¤ë³´ë“œ ì´ë²¤íŠ¸ ì²˜ë¦¬ ì½”ë“œ ë„£ê¸°
             pstKeyEvent = &( stReceivedEvent.stKeyEvent );
             break;
 
-            // À©µµ¿ì ÀÌº¥Æ® Ã³¸®
+            // ìœˆë„ìš° ì´ë²¤íŠ¸ ì²˜ë¦¬
         case EVENT_WINDOW_SELECT:
         case EVENT_WINDOW_DESELECT:
         case EVENT_WINDOW_MOVE:
         case EVENT_WINDOW_RESIZE:
         case EVENT_WINDOW_CLOSE:
-            // ¿©±â¿¡ À©µµ¿ì ÀÌº¥Æ® Ã³¸® ÄÚµå ³Ö±â
+            // ì—¬ê¸°ì— ìœˆë„ìš° ì´ë²¤íŠ¸ ì²˜ë¦¬ ì½”ë“œ ë„£ê¸°
             pstWindowEvent = &( stReceivedEvent.stWindowEvent );
 
             //------------------------------------------------------------------
-            // À©µµ¿ì ´Ý±â ÀÌº¥Æ®ÀÌ¸é À©µµ¿ì¸¦ »èÁ¦ÇÏ°í ·çÇÁ¸¦ ºüÁ®³ª°¡ ÅÂ½ºÅ©¸¦ Á¾·á
+            // ìœˆë„ìš° ë‹«ê¸° ì´ë²¤íŠ¸ì´ë©´ ìœˆë„ìš°ë¥¼ ì‚­ì œí•˜ê³  ë£¨í”„ë¥¼ ë¹ ì ¸ë‚˜ê°€ íƒœìŠ¤í¬ë¥¼ ì¢…ë£Œ
             //------------------------------------------------------------------
             if( stReceivedEvent.qwType == EVENT_WINDOW_CLOSE )
             {
-                // À©µµ¿ì »èÁ¦
+                // ìœˆë„ìš° ì‚­ì œ
                 kDeleteWindow( qwWindowID );
                 return ;
             }
             break;
             
-            // ±× ¿Ü Á¤º¸
+            // ê·¸ ì™¸ ì •ë³´
         default:
-            // ¿©±â¿¡ ¾Ë ¼ö ¾ø´Â ÀÌº¥Æ® Ã³¸® ÄÚµå ³Ö±â
+            // ì—¬ê¸°ì— ì•Œ ìˆ˜ ì—†ëŠ” ì´ë²¤íŠ¸ ì²˜ë¦¬ ì½”ë“œ ë„£ê¸°
             break;
         }
     }
 }
 
 //------------------------------------------------------------------------------
-//  Hello World GUI ÅÂ½ºÅ©
+//  Hello World GUI íƒœìŠ¤í¬
 //------------------------------------------------------------------------------
 /**
- *  Hello World GUI ÅÂ½ºÅ©
+ *  Hello World GUI íƒœìŠ¤í¬
  */
 void kHelloWorldGUITask( void )
 {
@@ -135,7 +135,7 @@ void kHelloWorldGUITask( void )
     int iY;
     char vcTempBuffer[ 50 ];
     static int s_iWindowCount = 0;
-    // ÀÌº¥Æ® Å¸ÀÔ ¹®ÀÚ¿­
+    // ì´ë²¤íŠ¸ íƒ€ìž… ë¬¸ìžì—´
     char* vpcEventString[] = { 
             "Unknown",
             "MOUSE_MOVE       ",
@@ -158,44 +158,44 @@ void kHelloWorldGUITask( void )
     int i;
 
     //--------------------------------------------------------------------------
-    // ±×·¡ÇÈ ¸ðµå ÆÇ´Ü
+    // ê·¸ëž˜í”½ ëª¨ë“œ íŒë‹¨
     //--------------------------------------------------------------------------
-    // MINT64 OS°¡ ±×·¡ÇÈ ¸ðµå·Î ½ÃÀÛÇß´ÂÁö È®ÀÎ
+    // MINT64 OSê°€ ê·¸ëž˜í”½ ëª¨ë“œë¡œ ì‹œìž‘í–ˆëŠ”ì§€ í™•ì¸
     if( kIsGraphicMode() == FALSE )
     {        
-        // MINT64 OS°¡ ±×·¡ÇÈ ¸ðµå·Î ½ÃÀÛÇÏÁö ¾Ê¾Ò´Ù¸é ½ÇÆÐ
+        // MINT64 OSê°€ ê·¸ëž˜í”½ ëª¨ë“œë¡œ ì‹œìž‘í•˜ì§€ ì•Šì•˜ë‹¤ë©´ ì‹¤íŒ¨
         kPrintf( "This task can run only GUI mode~!!!\n" );
         return ;
     }
     
     //--------------------------------------------------------------------------
-    // À©µµ¿ì¸¦ »ý¼º
+    // ìœˆë„ìš°ë¥¼ ìƒì„±
     //--------------------------------------------------------------------------
-    // ¸¶¿ì½ºÀÇ ÇöÀç À§Ä¡¸¦ ¹ÝÈ¯
+    // ë§ˆìš°ìŠ¤ì˜ í˜„ìž¬ ìœ„ì¹˜ë¥¼ ë°˜í™˜
     kGetCursorPosition( &iMouseX, &iMouseY );
 
-    // À©µµ¿ìÀÇ Å©±â¿Í Á¦¸ñ ¼³Á¤
+    // ìœˆë„ìš°ì˜ í¬ê¸°ì™€ ì œëª© ì„¤ì •
     iWindowWidth = 500;
     iWindowHeight = 200;
     
-    // À©µµ¿ì »ý¼º ÇÔ¼ö È£Ãâ, ¸¶¿ì½º°¡ ÀÖ´ø À§Ä¡¸¦ ±âÁØÀ¸·Î »ý¼ºÇÏ°í ¹øÈ£¸¦ Ãß°¡ÇÏ¿©
-    // À©µµ¿ì¸¶´Ù °³º°ÀûÀÎ ÀÌ¸§À» ÇÒ´ç
+    // ìœˆë„ìš° ìƒì„± í•¨ìˆ˜ í˜¸ì¶œ, ë§ˆìš°ìŠ¤ê°€ ìžˆë˜ ìœ„ì¹˜ë¥¼ ê¸°ì¤€ìœ¼ë¡œ ìƒì„±í•˜ê³  ë²ˆí˜¸ë¥¼ ì¶”ê°€í•˜ì—¬
+    // ìœˆë„ìš°ë§ˆë‹¤ ê°œë³„ì ì¸ ì´ë¦„ì„ í• ë‹¹
     kSPrintf( vcTempBuffer, "Hello World Window %d", s_iWindowCount++ );
     qwWindowID = kCreateWindow( iMouseX - 10, iMouseY - WINDOW_TITLEBAR_HEIGHT / 2,
         iWindowWidth, iWindowHeight, WINDOW_FLAGS_DEFAULT, vcTempBuffer );
-    // À©µµ¿ì¸¦ »ý¼ºÇÏÁö ¸øÇßÀ¸¸é ½ÇÆÐ
+    // ìœˆë„ìš°ë¥¼ ìƒì„±í•˜ì§€ ëª»í–ˆìœ¼ë©´ ì‹¤íŒ¨
     if( qwWindowID == WINDOW_INVALIDID )
     {
         return ;
     }
     
     //--------------------------------------------------------------------------
-    // À©µµ¿ì ¸Å´ÏÀú°¡ À©µµ¿ì·Î Àü¼ÛÇÏ´Â ÀÌº¥Æ®¸¦ Ç¥½ÃÇÏ´Â ¿µ¿ªÀ» ±×¸²
+    // ìœˆë„ìš° ë§¤ë‹ˆì €ê°€ ìœˆë„ìš°ë¡œ ì „ì†¡í•˜ëŠ” ì´ë²¤íŠ¸ë¥¼ í‘œì‹œí•˜ëŠ” ì˜ì—­ì„ ê·¸ë¦¼
     //--------------------------------------------------------------------------
-    // ÀÌº¥Æ® Á¤º¸¸¦ Ãâ·ÂÇÒ À§Ä¡ ÀúÀå
+    // ì´ë²¤íŠ¸ ì •ë³´ë¥¼ ì¶œë ¥í•  ìœ„ì¹˜ ì €ìž¥
     iY = WINDOW_TITLEBAR_HEIGHT + 10;
     
-    // ÀÌº¥Æ® Á¤º¸¸¦ Ç¥½ÃÇÏ´Â ¿µ¿ªÀÇ Å×µÎ¸®¿Í À©µµ¿ì ID¸¦ Ç¥½Ã
+    // ì´ë²¤íŠ¸ ì •ë³´ë¥¼ í‘œì‹œí•˜ëŠ” ì˜ì—­ì˜ í…Œë‘ë¦¬ì™€ ìœˆë„ìš° IDë¥¼ í‘œì‹œ
     kDrawRect( qwWindowID, 10, iY + 8, iWindowWidth - 10, iY + 70, RGB( 0, 0, 0 ),
             FALSE );
     kSPrintf( vcTempBuffer, "GUI Event Information[Window ID: 0x%Q]", qwWindowID );
@@ -203,38 +203,38 @@ void kHelloWorldGUITask( void )
                vcTempBuffer, kStrLen( vcTempBuffer ) );    
     
     //--------------------------------------------------------------------------
-    // È­¸é ¾Æ·¡¿¡ ÀÌº¥Æ® Àü¼Û ¹öÆ°À» ±×¸²
+    // í™”ë©´ ì•„ëž˜ì— ì´ë²¤íŠ¸ ì „ì†¡ ë²„íŠ¼ì„ ê·¸ë¦¼
     //--------------------------------------------------------------------------
-    // ¹öÆ° ¿µ¿ªÀ» ¼³Á¤
+    // ë²„íŠ¼ ì˜ì—­ì„ ì„¤ì •
     kSetRectangleData( 10, iY + 80, iWindowWidth - 10, iWindowHeight - 10, 
             &stButtonArea );
-    // ¹è°æÀº À©µµ¿ìÀÇ ¹è°æ»öÀ¸·Î ¼³Á¤ÇÏ°í ¹®ÀÚ´Â °ËÀº»öÀ¸·Î ¼³Á¤ÇÏ¿© ¹öÆ°À» ±×¸²
+    // ë°°ê²½ì€ ìœˆë„ìš°ì˜ ë°°ê²½ìƒ‰ìœ¼ë¡œ ì„¤ì •í•˜ê³  ë¬¸ìžëŠ” ê²€ì€ìƒ‰ìœ¼ë¡œ ì„¤ì •í•˜ì—¬ ë²„íŠ¼ì„ ê·¸ë¦¼
     kDrawButton( qwWindowID, &stButtonArea, WINDOW_COLOR_BACKGROUND, 
             "User Message Send Button(Up)", RGB( 0, 0, 0 ) );
-    // À©µµ¿ì¸¦ È­¸é¿¡ Ç¥½Ã
+    // ìœˆë„ìš°ë¥¼ í™”ë©´ì— í‘œì‹œ
     kShowWindow( qwWindowID, TRUE );
     
     //--------------------------------------------------------------------------
-    // GUI ÅÂ½ºÅ©ÀÇ ÀÌº¥Æ® Ã³¸® ·çÇÁ
+    // GUI íƒœìŠ¤í¬ì˜ ì´ë²¤íŠ¸ ì²˜ë¦¬ ë£¨í”„
     //--------------------------------------------------------------------------
     while( 1 )
     {
-        // ÀÌº¥Æ® Å¥¿¡¼­ ÀÌº¥Æ®¸¦ ¼ö½Å
+        // ì´ë²¤íŠ¸ íì—ì„œ ì´ë²¤íŠ¸ë¥¼ ìˆ˜ì‹ 
         if( kReceiveEventFromWindowQueue( qwWindowID, &stReceivedEvent ) == FALSE )
         {
             kSleep( 0 );
             continue;
         }
         
-        // À©µµ¿ì ÀÌº¥Æ® Á¤º¸°¡ Ç¥½ÃµÉ ¿µ¿ªÀ» ¹è°æ»öÀ¸·Î Ä¥ÇÏ¿© ÀÌÀü¿¡ Ç¥½ÃÇÑ µ¥ÀÌÅÍ¸¦
-        // ¸ðµÎ Áö¿ò
+        // ìœˆë„ìš° ì´ë²¤íŠ¸ ì •ë³´ê°€ í‘œì‹œë  ì˜ì—­ì„ ë°°ê²½ìƒ‰ìœ¼ë¡œ ì¹ í•˜ì—¬ ì´ì „ì— í‘œì‹œí•œ ë°ì´í„°ë¥¼
+        // ëª¨ë‘ ì§€ì›€
         kDrawRect( qwWindowID, 11, iY + 20, iWindowWidth - 11, iY + 69, 
                    WINDOW_COLOR_BACKGROUND, TRUE );        
         
-        // ¼ö½ÅµÈ ÀÌº¥Æ®¸¦ Å¸ÀÔ¿¡ µû¶ó ³ª´©¾î Ã³¸®
+        // ìˆ˜ì‹ ëœ ì´ë²¤íŠ¸ë¥¼ íƒ€ìž…ì— ë”°ë¼ ë‚˜ëˆ„ì–´ ì²˜ë¦¬
         switch( stReceivedEvent.qwType )
         {
-            // ¸¶¿ì½º ÀÌº¥Æ® Ã³¸®
+            // ë§ˆìš°ìŠ¤ ì´ë²¤íŠ¸ ì²˜ë¦¬
         case EVENT_MOUSE_MOVE:
         case EVENT_MOUSE_LBUTTONDOWN:
         case EVENT_MOUSE_LBUTTONUP:            
@@ -242,16 +242,16 @@ void kHelloWorldGUITask( void )
         case EVENT_MOUSE_RBUTTONUP:
         case EVENT_MOUSE_MBUTTONDOWN:
         case EVENT_MOUSE_MBUTTONUP:
-            // ¿©±â¿¡ ¸¶¿ì½º ÀÌº¥Æ® Ã³¸® ÄÚµå ³Ö±â
+            // ì—¬ê¸°ì— ë§ˆìš°ìŠ¤ ì´ë²¤íŠ¸ ì²˜ë¦¬ ì½”ë“œ ë„£ê¸°
             pstMouseEvent = &( stReceivedEvent.stMouseEvent );
 
-            // ¸¶¿ì½º ÀÌº¥Æ®ÀÇ Å¸ÀÔÀ» Ãâ·Â
+            // ë§ˆìš°ìŠ¤ ì´ë²¤íŠ¸ì˜ íƒ€ìž…ì„ ì¶œë ¥
             kSPrintf( vcTempBuffer, "Mouse Event: %s", 
                       vpcEventString[ stReceivedEvent.qwType ] );
             kDrawText( qwWindowID, 20, iY + 20, RGB( 0, 0, 0 ), 
                     WINDOW_COLOR_BACKGROUND, vcTempBuffer, kStrLen( vcTempBuffer ) );
             
-            // ¸¶¿ì½º µ¥ÀÌÅÍ¸¦ Ãâ·Â
+            // ë§ˆìš°ìŠ¤ ë°ì´í„°ë¥¼ ì¶œë ¥
             kSPrintf( vcTempBuffer, "Data: X = %d, Y = %d, Button = %X", 
                      pstMouseEvent->stPoint.iX, pstMouseEvent->stPoint.iY,
                      pstMouseEvent->bButtonStatus );
@@ -259,91 +259,91 @@ void kHelloWorldGUITask( void )
                     WINDOW_COLOR_BACKGROUND, vcTempBuffer, kStrLen( vcTempBuffer ) );
 
             //------------------------------------------------------------------
-            // ¸¶¿ì½º ´­¸² ¶Ç´Â ¶³¾îÁü ÀÌº¥Æ®ÀÌ¸é ¹öÆ°ÀÇ »ö±òÀ» ´Ù½Ã ±×¸²
+            // ë§ˆìš°ìŠ¤ ëˆŒë¦¼ ë˜ëŠ” ë–¨ì–´ì§ ì´ë²¤íŠ¸ì´ë©´ ë²„íŠ¼ì˜ ìƒ‰ê¹”ì„ ë‹¤ì‹œ ê·¸ë¦¼
             //------------------------------------------------------------------
-            // ¸¶¿ì½º ¿ÞÂÊ ¹öÆ°ÀÌ ´­·ÈÀ» ¶§ ¹öÆ° Ã³¸®
+            // ë§ˆìš°ìŠ¤ ì™¼ìª½ ë²„íŠ¼ì´ ëˆŒë ¸ì„ ë•Œ ë²„íŠ¼ ì²˜ë¦¬
             if( stReceivedEvent.qwType == EVENT_MOUSE_LBUTTONDOWN )
             {
-                // ¹öÆ° ¿µ¿ª¿¡ ¸¶¿ì½º ¿ÞÂÊ ¹öÆ°ÀÌ ´­·È´ÂÁö¸¦ ÆÇ´Ü
+                // ë²„íŠ¼ ì˜ì—­ì— ë§ˆìš°ìŠ¤ ì™¼ìª½ ë²„íŠ¼ì´ ëˆŒë ¸ëŠ”ì§€ë¥¼ íŒë‹¨
                 if( kIsInRectangle( &stButtonArea, pstMouseEvent->stPoint.iX, 
                                     pstMouseEvent->stPoint.iY ) == TRUE )
                 {
-                    // ¹öÆ°ÀÇ ¹è°æÀ» ¹àÀº ³ì»öÀ¸·Î º¯°æÇÏ¿© ´­·ÈÀ½À» Ç¥½Ã
+                    // ë²„íŠ¼ì˜ ë°°ê²½ì„ ë°ì€ ë…¹ìƒ‰ìœ¼ë¡œ ë³€ê²½í•˜ì—¬ ëˆŒë ¸ìŒì„ í‘œì‹œ
                     kDrawButton( qwWindowID, &stButtonArea, 
                                  RGB( 79, 204, 11 ), "User Message Send Button(Down)",
                                  RGB( 255, 255, 255 ) );
                     kUpdateScreenByID( qwWindowID );
                     
                     //----------------------------------------------------------
-                    // ´Ù¸¥ À©µµ¿ì·Î À¯Àú ÀÌº¥Æ®¸¦ Àü¼Û
+                    // ë‹¤ë¥¸ ìœˆë„ìš°ë¡œ ìœ ì € ì´ë²¤íŠ¸ë¥¼ ì „ì†¡
                     //----------------------------------------------------------
-                    // »ý¼ºµÈ ¸ðµç À©µµ¿ì¸¦ Ã£¾Æ¼­ ÀÌº¥Æ®¸¦ Àü¼Û
+                    // ìƒì„±ëœ ëª¨ë“  ìœˆë„ìš°ë¥¼ ì°¾ì•„ì„œ ì´ë²¤íŠ¸ë¥¼ ì „ì†¡
                     stSendEvent.qwType = EVENT_USER_TESTMESSAGE;
                     stSendEvent.vqwData[ 0 ] = qwWindowID;
                     stSendEvent.vqwData[ 1 ] = 0x1234;
                     stSendEvent.vqwData[ 2 ] = 0x5678;
                     
-                    // »ý¼ºµÈ À©µµ¿ìÀÇ ¼ö ¸¸Å­ ·çÇÁ¸¦ ¼öÇàÇÏ¸é¼­ ÀÌº¥Æ®¸¦ Àü¼Û
+                    // ìƒì„±ëœ ìœˆë„ìš°ì˜ ìˆ˜ ë§Œí¼ ë£¨í”„ë¥¼ ìˆ˜í–‰í•˜ë©´ì„œ ì´ë²¤íŠ¸ë¥¼ ì „ì†¡
                     for( i = 0 ; i < s_iWindowCount ; i++ )
                     {
-                        // À©µµ¿ì Á¦¸ñÀ¸·Î À©µµ¿ì¸¦ °Ë»ö
+                        // ìœˆë„ìš° ì œëª©ìœ¼ë¡œ ìœˆë„ìš°ë¥¼ ê²€ìƒ‰
                         kSPrintf( vcTempBuffer, "Hello World Window %d", i );
                         qwFindWindowID = kFindWindowByTitle( vcTempBuffer );
-                        // À©µµ¿ì°¡ Á¸ÀçÇÏ¸ç À©µµ¿ì ÀÚ½ÅÀÌ ¾Æ´Ñ °æ¿ì´Â ÀÌº¥Æ®¸¦ Àü¼Û
+                        // ìœˆë„ìš°ê°€ ì¡´ìž¬í•˜ë©° ìœˆë„ìš° ìžì‹ ì´ ì•„ë‹Œ ê²½ìš°ëŠ” ì´ë²¤íŠ¸ë¥¼ ì „ì†¡
                         if( ( qwFindWindowID != WINDOW_INVALIDID ) &&
                             ( qwFindWindowID != qwWindowID ) )
                         {
-                            // À©µµ¿ì·Î ÀÌº¥Æ® Àü¼Û
+                            // ìœˆë„ìš°ë¡œ ì´ë²¤íŠ¸ ì „ì†¡
                             kSendEventToWindow( qwFindWindowID, &stSendEvent );
                         }
                     }
                 }
             }
-            // ¸¶¿ì½º ¿ÞÂÊ ¹öÆ°ÀÌ ¶³¾îÁ³À» ¶§ ¹öÆ° Ã³¸®
+            // ë§ˆìš°ìŠ¤ ì™¼ìª½ ë²„íŠ¼ì´ ë–¨ì–´ì¡Œì„ ë•Œ ë²„íŠ¼ ì²˜ë¦¬
             else if( stReceivedEvent.qwType == EVENT_MOUSE_LBUTTONUP )
             {
-                // ¹öÆ°ÀÇ ¹è°æÀ» Èò»öÀ¸·Î º¯°æÇÏ¿© ´­¸®Áö ¾Ê¾ÒÀ½À» Ç¥½Ã
+                // ë²„íŠ¼ì˜ ë°°ê²½ì„ í°ìƒ‰ìœ¼ë¡œ ë³€ê²½í•˜ì—¬ ëˆŒë¦¬ì§€ ì•Šì•˜ìŒì„ í‘œì‹œ
                 kDrawButton( qwWindowID, &stButtonArea, 
                     WINDOW_COLOR_BACKGROUND, "User Message Send Button(Up)", 
                     RGB( 0, 0, 0 ) );
             }            
             break;
 
-            // Å° ÀÌº¥Æ® Ã³¸®
+            // í‚¤ ì´ë²¤íŠ¸ ì²˜ë¦¬
         case EVENT_KEY_DOWN:
         case EVENT_KEY_UP:
-            // ¿©±â¿¡ Å°º¸µå ÀÌº¥Æ® Ã³¸® ÄÚµå ³Ö±â
+            // ì—¬ê¸°ì— í‚¤ë³´ë“œ ì´ë²¤íŠ¸ ì²˜ë¦¬ ì½”ë“œ ë„£ê¸°
             pstKeyEvent = &( stReceivedEvent.stKeyEvent );
 
-            // Å° ÀÌº¥Æ®ÀÇ Å¸ÀÔÀ» Ãâ·Â
+            // í‚¤ ì´ë²¤íŠ¸ì˜ íƒ€ìž…ì„ ì¶œë ¥
             kSPrintf( vcTempBuffer, "Key Event: %s", 
                       vpcEventString[ stReceivedEvent.qwType ] );
             kDrawText( qwWindowID, 20, iY + 20, RGB( 0, 0, 0 ), 
                     WINDOW_COLOR_BACKGROUND, vcTempBuffer, kStrLen( vcTempBuffer ) );
             
-            // Å° µ¥ÀÌÅÍ¸¦ Ãâ·Â
+            // í‚¤ ë°ì´í„°ë¥¼ ì¶œë ¥
             kSPrintf( vcTempBuffer, "Data: Key = %c, Flag = %X", 
                     pstKeyEvent->bASCIICode, pstKeyEvent->bFlags );
             kDrawText( qwWindowID, 20, iY + 40, RGB( 0, 0, 0 ), 
                     WINDOW_COLOR_BACKGROUND, vcTempBuffer, kStrLen( vcTempBuffer ) );
             break;
 
-            // À©µµ¿ì ÀÌº¥Æ® Ã³¸®
+            // ìœˆë„ìš° ì´ë²¤íŠ¸ ì²˜ë¦¬
         case EVENT_WINDOW_SELECT:
         case EVENT_WINDOW_DESELECT:
         case EVENT_WINDOW_MOVE:
         case EVENT_WINDOW_RESIZE:
         case EVENT_WINDOW_CLOSE:
-            // ¿©±â¿¡ À©µµ¿ì ÀÌº¥Æ® Ã³¸® ÄÚµå ³Ö±â
+            // ì—¬ê¸°ì— ìœˆë„ìš° ì´ë²¤íŠ¸ ì²˜ë¦¬ ì½”ë“œ ë„£ê¸°
             pstWindowEvent = &( stReceivedEvent.stWindowEvent );
 
-            // À©µµ¿ì ÀÌº¥Æ®ÀÇ Å¸ÀÔÀ» Ãâ·Â
+            // ìœˆë„ìš° ì´ë²¤íŠ¸ì˜ íƒ€ìž…ì„ ì¶œë ¥
             kSPrintf( vcTempBuffer, "Window Event: %s", 
                       vpcEventString[ stReceivedEvent.qwType ] );
             kDrawText( qwWindowID, 20, iY + 20, RGB( 0, 0, 0 ), 
                     WINDOW_COLOR_BACKGROUND, vcTempBuffer, kStrLen( vcTempBuffer ) );
             
-            // À©µµ¿ì µ¥ÀÌÅÍ¸¦ Ãâ·Â
+            // ìœˆë„ìš° ë°ì´í„°ë¥¼ ì¶œë ¥
             kSPrintf( vcTempBuffer, "Data: X1 = %d, Y1 = %d, X2 = %d, Y2 = %d", 
                     pstWindowEvent->stArea.iX1, pstWindowEvent->stArea.iY1, 
                     pstWindowEvent->stArea.iX2, pstWindowEvent->stArea.iY2 );
@@ -351,25 +351,25 @@ void kHelloWorldGUITask( void )
                     WINDOW_COLOR_BACKGROUND, vcTempBuffer, kStrLen( vcTempBuffer ) );
             
             //------------------------------------------------------------------
-            // À©µµ¿ì ´Ý±â ÀÌº¥Æ®ÀÌ¸é À©µµ¿ì¸¦ »èÁ¦ÇÏ°í ·çÇÁ¸¦ ºüÁ®³ª°¡ ÅÂ½ºÅ©¸¦ Á¾·á
+            // ìœˆë„ìš° ë‹«ê¸° ì´ë²¤íŠ¸ì´ë©´ ìœˆë„ìš°ë¥¼ ì‚­ì œí•˜ê³  ë£¨í”„ë¥¼ ë¹ ì ¸ë‚˜ê°€ íƒœìŠ¤í¬ë¥¼ ì¢…ë£Œ
             //------------------------------------------------------------------
             if( stReceivedEvent.qwType == EVENT_WINDOW_CLOSE )
             {
-                // À©µµ¿ì »èÁ¦
+                // ìœˆë„ìš° ì‚­ì œ
                 kDeleteWindow( qwWindowID );
                 return ;
             }
             break;
             
-            // ±× ¿Ü Á¤º¸
+            // ê·¸ ì™¸ ì •ë³´
         default:
-            // ¿©±â¿¡ ¾Ë ¼ö ¾ø´Â ÀÌº¥Æ® Ã³¸® ÄÚµå ³Ö±â
-            // ¾Ë ¼ö ¾ø´Â ÀÌº¥Æ®¸¦ Ãâ·Â
+            // ì—¬ê¸°ì— ì•Œ ìˆ˜ ì—†ëŠ” ì´ë²¤íŠ¸ ì²˜ë¦¬ ì½”ë“œ ë„£ê¸°
+            // ì•Œ ìˆ˜ ì—†ëŠ” ì´ë²¤íŠ¸ë¥¼ ì¶œë ¥
             kSPrintf( vcTempBuffer, "Unknown Event: 0x%X", stReceivedEvent.qwType );
             kDrawText( qwWindowID, 20, iY + 20, RGB( 0, 0, 0 ), WINDOW_COLOR_BACKGROUND,
                        vcTempBuffer, kStrLen( vcTempBuffer ) );
             
-            // µ¥ÀÌÅÍ¸¦ Ãâ·Â
+            // ë°ì´í„°ë¥¼ ì¶œë ¥
             kSPrintf( vcTempBuffer, "Data0 = 0x%Q, Data1 = 0x%Q, Data2 = 0x%Q",
                       stReceivedEvent.vqwData[ 0 ], stReceivedEvent.vqwData[ 1 ], 
                       stReceivedEvent.vqwData[ 2 ] );
@@ -378,7 +378,7 @@ void kHelloWorldGUITask( void )
             break;
         }
 
-        // À©µµ¿ì¸¦ È­¸é¿¡ ¾÷µ¥ÀÌÆ®
+        // ìœˆë„ìš°ë¥¼ í™”ë©´ì— ì—…ë°ì´íŠ¸
         kShowWindow( qwWindowID, TRUE );
     }
 }

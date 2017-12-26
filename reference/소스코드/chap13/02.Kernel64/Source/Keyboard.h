@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    Keyboard.h
  *  date    2009/01/09
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   Å°º¸µå µğ¹ÙÀÌ½º µå¶óÀÌ¹ö ÇÔ¼öµéÀ» Á¤ÀÇÇÑ ÆÄÀÏ
+ *  brief   í‚¤ë³´ë“œ ë””ë°”ì´ìŠ¤ ë“œë¼ì´ë²„ í•¨ìˆ˜ë“¤ì„ ì •ì˜í•œ íŒŒì¼
  */
 
 #ifndef __KEYBOARD_H__
@@ -13,18 +13,18 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ¸ÅÅ©·Î
+// ë§¤í¬ë¡œ
 //
 ////////////////////////////////////////////////////////////////////////////////
-// Pause Å°¸¦ Ã³¸®ÇÏ±â À§ÇØ ¹«½ÃÇØ¾ß ÇÏ´Â ³ª¸ÓÁö ½ºÄµ ÄÚµåÀÇ ¼ö
+// Pause í‚¤ë¥¼ ì²˜ë¦¬í•˜ê¸° ìœ„í•´ ë¬´ì‹œí•´ì•¼ í•˜ëŠ” ë‚˜ë¨¸ì§€ ìŠ¤ìº” ì½”ë“œì˜ ìˆ˜
 #define KEY_SKIPCOUNTFORPAUSE       2
 
-// Å° »óÅÂ¿¡ ´ëÇÑ ÇÃ·¡±×
+// í‚¤ ìƒíƒœì— ëŒ€í•œ í”Œë˜ê·¸
 #define KEY_FLAGS_UP             0x00
 #define KEY_FLAGS_DOWN           0x01
 #define KEY_FLAGS_EXTENDEDKEY    0x02
 
-// ½ºÄµ ÄÚµå ¸ÅÇÎ Å×ÀÌºí¿¡ ´ëÇÑ ¸ÅÅ©·Î
+// ìŠ¤ìº” ì½”ë“œ ë§¤í•‘ í…Œì´ë¸”ì— ëŒ€í•œ ë§¤í¬ë¡œ
 #define KEY_MAPPINGTABLEMAXCOUNT    89
 
 #define KEY_NONE        0x00
@@ -69,31 +69,31 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ±¸Á¶Ã¼
+// êµ¬ì¡°ì²´
 //
 ////////////////////////////////////////////////////////////////////////////////
 #pragma pack( push, 1 )
 
-// ½ºÄµ ÄÚµå Å×ÀÌºíÀ» ±¸¼ºÇÏ´Â Ç×¸ñ
+// ìŠ¤ìº” ì½”ë“œ í…Œì´ë¸”ì„ êµ¬ì„±í•˜ëŠ” í•­ëª©
 typedef struct kKeyMappingEntryStruct
 {
-    // Shift Å°³ª Caps Lock Å°¿Í Á¶ÇÕµÇÁö ¾Ê´Â ASCII ÄÚµå
+    // Shift í‚¤ë‚˜ Caps Lock í‚¤ì™€ ì¡°í•©ë˜ì§€ ì•ŠëŠ” ASCII ì½”ë“œ
     BYTE bNormalCode;
     
-    // Shift Å°³ª Caps Lock Å°¿Í Á¶ÇÕµÈ ASCII ÄÚµå
+    // Shift í‚¤ë‚˜ Caps Lock í‚¤ì™€ ì¡°í•©ëœ ASCII ì½”ë“œ
     BYTE bCombinedCode;
 } KEYMAPPINGENTRY;
 
-// Å°º¸µåÀÇ »óÅÂ¸¦ °ü¸®ÇÏ´Â ÀÚ·á±¸Á¶
+// í‚¤ë³´ë“œì˜ ìƒíƒœë¥¼ ê´€ë¦¬í•˜ëŠ” ìë£Œêµ¬ì¡°
 typedef struct kKeyboardManagerStruct
 {
-    // Á¶ÇÕ Å° Á¤º¸
+    // ì¡°í•© í‚¤ ì •ë³´
     BOOL bShiftDown;
     BOOL bCapsLockOn;
     BOOL bNumLockOn;
     BOOL bScrollLockOn;
     
-    // È®Àå Å°¸¦ Ã³¸®ÇÏ±â À§ÇÑ Á¤º¸
+    // í™•ì¥ í‚¤ë¥¼ ì²˜ë¦¬í•˜ê¸° ìœ„í•œ ì •ë³´
     BOOL bExtendedCodeIn;
     int iSkipCountForPause;
 } KEYBOARDMANAGER;
@@ -102,7 +102,7 @@ typedef struct kKeyboardManagerStruct
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-//  ÇÔ¼ö
+//  í•¨ìˆ˜
 //
 ////////////////////////////////////////////////////////////////////////////////
 BOOL kIsOutputBufferFull( void );

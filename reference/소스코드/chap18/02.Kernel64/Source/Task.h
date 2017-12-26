@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  *  file    Task.h
  *  date    2009/02/19
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   ÅÂ½ºÅ©¸¦ Ã³¸®ÇÏ´Â ÇÔ¼ö¿¡ °ü·ÃµÈ ÆÄÀÏ
+ *  brief   íƒœìŠ¤í¬ë¥¼ ì²˜ë¦¬í•˜ëŠ” í•¨ìˆ˜ì— ê´€ë ¨ëœ íŒŒì¼
  */
 
 #ifndef __TASK_H__
@@ -14,14 +14,14 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ¸ÅÅ©·Î
+// ë§¤í¬ë¡œ
 //
 ////////////////////////////////////////////////////////////////////////////////
-// SS, RSP, RFLAGS, CS, RIP + ISR¿¡¼­ ÀúÀåÇÏ´Â 19°³ÀÇ ·¹Áö½ºÅÍ
+// SS, RSP, RFLAGS, CS, RIP + ISRì—ì„œ ì €ìž¥í•˜ëŠ” 19ê°œì˜ ë ˆì§€ìŠ¤í„°
 #define TASK_REGISTERCOUNT     ( 5 + 19 )
 #define TASK_REGISTERSIZE       8
 
-// Context ÀÚ·á±¸Á¶ÀÇ ·¹Áö½ºÅÍ ¿ÀÇÁ¼Â
+// Context ìžë£Œêµ¬ì¡°ì˜ ë ˆì§€ìŠ¤í„° ì˜¤í”„ì…‹
 #define TASK_GSOFFSET           0
 #define TASK_FSOFFSET           1
 #define TASK_ESOFFSET           2
@@ -47,74 +47,74 @@
 #define TASK_RSPOFFSET          22
 #define TASK_SSOFFSET           23
 
-// ÅÂ½ºÅ© Ç®ÀÇ ¾îµå·¹½º
+// íƒœìŠ¤í¬ í’€ì˜ ì–´ë“œë ˆìŠ¤
 #define TASK_TCBPOOLADDRESS     0x800000
 #define TASK_MAXCOUNT           1024
 
-// ½ºÅÃ Ç®°ú ½ºÅÃÀÇ Å©±â
+// ìŠ¤íƒ í’€ê³¼ ìŠ¤íƒì˜ í¬ê¸°
 #define TASK_STACKPOOLADDRESS   ( TASK_TCBPOOLADDRESS + sizeof( TCB ) * TASK_MAXCOUNT )
 #define TASK_STACKSIZE          8192
 
-// À¯È¿ÇÏÁö ¾ÊÀº ÅÂ½ºÅ© ID
+// ìœ íš¨í•˜ì§€ ì•Šì€ íƒœìŠ¤í¬ ID
 #define TASK_INVALIDID          0xFFFFFFFFFFFFFFFF
 
-// ÅÂ½ºÅ©°¡ ÃÖ´ë·Î ¾µ ¼ö ÀÖ´Â ÇÁ·Î¼¼¼­ ½Ã°£(5 ms)
+// íƒœìŠ¤í¬ê°€ ìµœëŒ€ë¡œ ì“¸ ìˆ˜ ìžˆëŠ” í”„ë¡œì„¸ì„œ ì‹œê°„(5 ms)
 #define TASK_PROCESSORTIME      5
 
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ±¸Á¶Ã¼
+// êµ¬ì¡°ì²´
 //
 ////////////////////////////////////////////////////////////////////////////////
-// 1¹ÙÀÌÆ®·Î Á¤·Ä
+// 1ë°”ì´íŠ¸ë¡œ ì •ë ¬
 #pragma pack( push, 1 )
 
-// ÄÜÅØ½ºÆ®¿¡ °ü·ÃµÈ ÀÚ·á±¸Á¶
+// ì½˜í…ìŠ¤íŠ¸ì— ê´€ë ¨ëœ ìžë£Œêµ¬ì¡°
 typedef struct kContextStruct
 {
     QWORD vqRegister[ TASK_REGISTERCOUNT ];
 } CONTEXT;
 
-// ÅÂ½ºÅ©ÀÇ »óÅÂ¸¦ °ü¸®ÇÏ´Â ÀÚ·á±¸Á¶
+// íƒœìŠ¤í¬ì˜ ìƒíƒœë¥¼ ê´€ë¦¬í•˜ëŠ” ìžë£Œêµ¬ì¡°
 typedef struct kTaskControlBlockStruct
 {
-    // ´ÙÀ½ µ¥ÀÌÅÍÀÇ À§Ä¡¿Í ID
+    // ë‹¤ìŒ ë°ì´í„°ì˜ ìœ„ì¹˜ì™€ ID
     LISTLINK stLink;
     
-    // ÇÃ·¡±×
+    // í”Œëž˜ê·¸
     QWORD qwFlags;
 
-    // ÄÜÅØ½ºÆ®
+    // ì½˜í…ìŠ¤íŠ¸
     CONTEXT stContext;
 
-    // ½ºÅÃÀÇ ¾îµå·¹½º¿Í Å©±â
+    // ìŠ¤íƒì˜ ì–´ë“œë ˆìŠ¤ì™€ í¬ê¸°
     void* pvStackAddress;
     QWORD qwStackSize;
 } TCB;
 
-// TCB Ç®ÀÇ »óÅÂ¸¦ °ü¸®ÇÏ´Â ÀÚ·á±¸Á¶
+// TCB í’€ì˜ ìƒíƒœë¥¼ ê´€ë¦¬í•˜ëŠ” ìžë£Œêµ¬ì¡°
 typedef struct kTCBPoolManagerStruct
 {
-    // ÅÂ½ºÅ© Ç®¿¡ ´ëÇÑ Á¤º¸
+    // íƒœìŠ¤í¬ í’€ì— ëŒ€í•œ ì •ë³´
     TCB* pstStartAddress;
     int iMaxCount;
     int iUseCount;
     
-    // TCB°¡ ÇÒ´çµÈ È½¼ö
+    // TCBê°€ í• ë‹¹ëœ íšŸìˆ˜
     int iAllocatedCount;
 } TCBPOOLMANAGER;
 
-// ½ºÄÉÁÙ·¯ÀÇ »óÅÂ¸¦ °ü¸®ÇÏ´Â ÀÚ·á±¸Á¶
+// ìŠ¤ì¼€ì¤„ëŸ¬ì˜ ìƒíƒœë¥¼ ê´€ë¦¬í•˜ëŠ” ìžë£Œêµ¬ì¡°
 typedef struct kSchedulerStruct
 {
-    // ÇöÀç ¼öÇà ÁßÀÎ ÅÂ½ºÅ©
+    // í˜„ìž¬ ìˆ˜í–‰ ì¤‘ì¸ íƒœìŠ¤í¬
     TCB* pstRunningTask;
     
-    // ÇöÀç ¼öÇà ÁßÀÎ ÅÂ½ºÅ©°¡ »ç¿ëÇÒ ¼ö ÀÖ´Â ÇÁ·Î¼¼¼­ ½Ã°£
+    // í˜„ìž¬ ìˆ˜í–‰ ì¤‘ì¸ íƒœìŠ¤í¬ê°€ ì‚¬ìš©í•  ìˆ˜ ìžˆëŠ” í”„ë¡œì„¸ì„œ ì‹œê°„
     int iProcessorTime;
     
-    // ½ÇÇàÇÒ ÅÂ½ºÅ©°¡ ÁØºñÁßÀÎ ¸®½ºÆ®
+    // ì‹¤í–‰í•  íƒœìŠ¤í¬ê°€ ì¤€ë¹„ì¤‘ì¸ ë¦¬ìŠ¤íŠ¸
     LIST stReadyList;
 } SCHEDULER;
 
@@ -122,11 +122,11 @@ typedef struct kSchedulerStruct
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ÇÔ¼ö
+// í•¨ìˆ˜
 //
 ////////////////////////////////////////////////////////////////////////////////
 //==============================================================================
-//  ÅÂ½ºÅ© Ç®°ú ÅÂ½ºÅ© °ü·Ã
+//  íƒœìŠ¤í¬ í’€ê³¼ íƒœìŠ¤í¬ ê´€ë ¨
 //==============================================================================
 void kInitializeTCBPool( void );
 TCB* kAllocateTCB( void );
@@ -136,7 +136,7 @@ void kSetUpTask( TCB* pstTCB, QWORD qwFlags, QWORD qwEntryPointAddress,
         void* pvStackAddress, QWORD qwStackSize );
 
 //==============================================================================
-//  ½ºÄÉÁÙ·¯ °ü·Ã
+//  ìŠ¤ì¼€ì¤„ëŸ¬ ê´€ë ¨
 //==============================================================================
 void kInitializeScheduler( void );
 void kSetRunningTask( TCB* pstTask );

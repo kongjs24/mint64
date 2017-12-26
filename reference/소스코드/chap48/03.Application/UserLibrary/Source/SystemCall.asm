@@ -1,24 +1,24 @@
-# file      SystemCall.asm
+ï»¿# file      SystemCall.asm
 # date      2009/12/12
 # author    kkamagui 
 #           Copyright(c)2008 All rights reserved by kkamagui
-# brief     À¯Àú ·¹º§¿¡¼­ ½Ã½ºÅÛ ÄÝÀ» È£ÃâÇÏ´Âµ¥ °ü·ÃµÈ ¼Ò½º ÆÄÀÏ
+# brief     ìœ ì € ë ˆë²¨ì—ì„œ ì‹œìŠ¤í…œ ì½œì„ í˜¸ì¶œí•˜ëŠ”ë° ê´€ë ¨ëœ ì†ŒìŠ¤ íŒŒì¼
 
-[BITS 64]           ; ÀÌÇÏÀÇ ÄÚµå´Â 64ºñÆ® ÄÚµå·Î ¼³Á¤
+[BITS 64]           ; ì´í•˜ì˜ ì½”ë“œëŠ” 64ë¹„íŠ¸ ì½”ë“œë¡œ ì„¤ì •
 
-SECTION .text       ; text ¼½¼Ç(¼¼±×¸ÕÆ®)À» Á¤ÀÇ
+SECTION .text       ; text ì„¹ì…˜(ì„¸ê·¸ë¨¼íŠ¸)ì„ ì •ì˜
 
-; C ¾ð¾î¿¡¼­ È£ÃâÇÒ ¼ö ÀÖµµ·Ï ÀÌ¸§À» ³ëÃâÇÔ(Export)
+; C ì–¸ì–´ì—ì„œ í˜¸ì¶œí•  ìˆ˜ ìžˆë„ë¡ ì´ë¦„ì„ ë…¸ì¶œí•¨(Export)
 global ExecuteSystemCall
 
-; ½Ã½ºÅÛ ÄÝÀ» ½ÇÇà
+; ì‹œìŠ¤í…œ ì½œì„ ì‹¤í–‰
 ;   PARAM: QWORD qwServiceNumber, PARAMETERTABLE* pstParameter
 ExecuteSystemCall:
-    push rcx        ; SYSCALLÀ» È£ÃâÇÒ ¶§ RCX ·¹Áö½ºÅÍ¿¡ RIP ·¹Áö½ºÅÍ°¡ ÀúÀåµÇ°í 
-    push r11        ; R11 ·¹Áö½ºÅÍ¿¡ RFLAGS ·¹Áö½ºÅÍ°¡ ÀúÀåµÇ¹Ç·Î ½ºÅÃ¿¡ º¸°ü
+    push rcx        ; SYSCALLì„ í˜¸ì¶œí•  ë•Œ RCX ë ˆì§€ìŠ¤í„°ì— RIP ë ˆì§€ìŠ¤í„°ê°€ ì €ìž¥ë˜ê³  
+    push r11        ; R11 ë ˆì§€ìŠ¤í„°ì— RFLAGS ë ˆì§€ìŠ¤í„°ê°€ ì €ìž¥ë˜ë¯€ë¡œ ìŠ¤íƒì— ë³´ê´€
     
-    syscall         ; SYSCALL ¼öÇà
+    syscall         ; SYSCALL ìˆ˜í–‰
     
-    pop r11         ; ½ºÅÃ¿¡ ÀúÀåµÈ °ªÀ¸·Î RCX ·¹Áö½ºÅÍ¿Í R11 ·¹Áö½ºÅÍ¸¦ º¹¿ø
+    pop r11         ; ìŠ¤íƒì— ì €ìž¥ëœ ê°’ìœ¼ë¡œ RCX ë ˆì§€ìŠ¤í„°ì™€ R11 ë ˆì§€ìŠ¤í„°ë¥¼ ë³µì›
     pop rcx
     ret
