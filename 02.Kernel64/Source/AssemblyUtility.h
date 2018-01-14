@@ -8,4 +8,4 @@ void kLoadGDTR(QWORD qwGDTRAddress);
 void kLoadTR(WORD wTSSSegmentOffset);
 void kLoadIDTR(QWORD qwIDTRAddress);
 
-#endif //
+#endif
