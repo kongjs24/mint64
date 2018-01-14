@@ -23,6 +23,8 @@
 ```
 소스 경로 /usr/src/
 ## binutils 설치
+version 2.29  
+
 ```commandline
 export TARGET=x86_64-pc-linux
 export PREFIX=/usr/cross
@@ -42,6 +44,8 @@ mbolsrec tekhex binary ihex
 ```
 
 ## gcc 빌드, 설치
+version 5.5.0  
+
 ```commandline
 export TARGET=x86_64-pc-linux
 export PREFIX=/usr/cross
