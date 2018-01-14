@@ -59,6 +59,8 @@ m64/m32
 ```
 
 ## nasm 설치
+version 2.13.02
+
 [NASM사이트](http://www.nasm.us/)
 exe 파일 다운 받아 cygwin/bin에 넣기
 
