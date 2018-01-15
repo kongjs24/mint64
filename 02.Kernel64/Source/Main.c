@@ -51,7 +51,7 @@ void Main(void) {
 
             if (kConvertScanCodeToASCIICode(bTemp, &(vcTemp[0]), &bFlags) == TRUE) {
                 if (bFlags & KEY_FLAGS_DOWN) {
-                    kPrintString(i++, 16, vcTemp);
+                    kPrintString(i++, 17, vcTemp);
                 }
             }
         }
