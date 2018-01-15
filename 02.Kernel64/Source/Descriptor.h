@@ -55,9 +55,7 @@
 #define IDT_FLAGS_USER          ( IDT_FLAGS_DPL3 | IDT_FLAGS_P )
 
 #define IDT_MAXENTRYCOUNT       100
-// IDTR�� ���� ��巹��, TSS ���׸�Ʈ�� ���ʿ� ��ġ
-#define IDTR_STARTADDRESS       ( GDTR_STARTADDRESS + sizeof( GDTR ) + \
-        GDT_TABLESIZE + TSS_SEGMENTSIZE )
+#define IDTR_STARTADDRESS       ( GDTR_STARTADDRESS + sizeof( GDTR ) + GDT_TABLESIZE + TSS_SEGMENTSIZE )
 #define IDT_STARTADDRESS        ( IDTR_STARTADDRESS + sizeof( IDTR ) )
 #define IDT_TABLESIZE           ( IDT_MAXENTRYCOUNT * sizeof( IDTENTRY ) )
 
@@ -130,7 +128,6 @@ void kInitializeTSSSegment(TSSSEGMENT *pstTSS);
 
 void kInitializeIDTTables(void);
 
-void kSetIDTEntry(IDTENTRY *pstEntry, void *pvHandler, WORD wSelector,
-                  BYTE bIST, BYTE bFlags, BYTE bType);
-void kDummyHandler(void);
+void kSetIDTEntry( IDTENTRY* pstEntry, void* pvHandler, WORD wSelector,
+                   BYTE bIST, BYTE bFlags, BYTE bType );
 #endif //MINT64_DESCRIPTOR_H

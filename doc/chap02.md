@@ -23,6 +23,8 @@
 ```
 소스 경로 /usr/src/
 ## binutils 설치
+version 2.29.1
+
 ```commandline
 export TARGET=x86_64-pc-linux
 export PREFIX=/usr/cross
@@ -33,15 +35,12 @@ make install
 
 // 아래는 테스트를 위한 부분 커맨드를 실행했을 때 x86_64 관련 항목이 보이면 제대로 된 것입니다.
 /usr/cross/bin/x86_64-pc-linux-ld --help | grep "supported "
-/usr/cross/bin/x86_64-pc-linux-ld: supported targets: elf64-x86-64 elf32-i386 a.
-out-i386-linux efi-app-ia32 efi-bsdrv-ia32 efi-rtdrv-ia32 efi-app-x86_64 efi-bsd
-rv-x86_64 efi-rtdrv-x86_64 elf64-little elf64-big elf32-little elf32-big srec sy
-mbolsrec tekhex binary ihex
-/usr/cross/bin/x86_64-pc-linux-ld: supported emulations: elf_x86_64 elf_i386 i38
-6linux
+/usr/cross/bin/x86_64-pc-linux-ld: supported targets: elf64-x86-64 elf32-i386 a.out-i386-linux efi-app-ia32 efi-bsdrv-ia32 efi-rtdrv-ia32 efi-app-x86_64 efi-bsdrv-x86_64 efi-rtdrv-x86_64 elf64-little elf64-big elf32-little elf32-big srec symbolsrec tekhex binary ihex/usr/cross/bin/x86_64-pc-linux-ld: supported emulations: elf_x86_64 elf_i386 i386linux
 ```
 
 ## gcc 빌드, 설치
+version 5.5.0  
+
 ```commandline
 export TARGET=x86_64-pc-linux
 export PREFIX=/usr/cross
@@ -60,6 +59,8 @@ m64/m32
 ```
 
 ## nasm 설치
+version 2.13.02
+
 [NASM사이트](http://www.nasm.us/)
 exe 파일 다운 받아 cygwin/bin에 넣기
 
