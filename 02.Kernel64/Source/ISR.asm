@@ -5,15 +5,15 @@ SECTION .text
 extern kCommonExceptionHandler, kCommonInterruptHandler, kKeyboardHandler
 
 ;ISR = interrupt service routine
-;예외처리
+; 예외(Exception) 처리를 위한 ISR
 global kISRDivideError, kISRDebug, kISRNMI, kISRBreakPoint, kISROverflow
-global kISRBoundRangeExceeded, kISRInvalidOpcode, kISRDeviceNotAvailable, kISRDoubleFault
+global kISRBoundRangeExceeded, kISRInvalidOpcode, kISRDeviceNotAvailable, kISRDoubleFault,
 global kISRCoprocessorSegmentOverrun, kISRInvalidTSS, kISRSegmentNotPresent
 global kISRStackSegmentFault, kISRGeneralProtection, kISRPageFault, kISR15
 global kISRFPUError, kISRAlignmentCheck, kISRMachineCheck, kISRSIMDError, kISRETCException
 
-;인터럽트 처리
-global kISRTimer, kISRKeyboard, kISRSlavePIC, kISRSerial2,kISRSerial1, kISRParallel2
+; 인터럽트(Interrupt) 처리를 위한 ISR
+global kISRTimer, kISRKeyboard, kISRSlavePIC, kISRSerial2, kISRSerial1, kISRParallel2
 global kISRFloppy, kISRParallel1, kISRRTC, kISRReserved, kISRNotUsed1, kISRNotUsed2
 global kISRMouse, kISRCoprocessor, kISRHDD1, kISRHDD2, kISRETCInterrupt
 
@@ -84,6 +84,7 @@ kISRDivideError:
     iretq
 
 kISRDebug:
+    KSAVECONTEXT
     mov rdi, 1
     call kCommonExceptionHandler
 
@@ -271,7 +272,7 @@ kISRSIMDError:
 kISRETCException:
     KSAVECONTEXT
 
-    mov rdi,15
+    mov rdi,20
     call kCommonExceptionHandler
 
     KLOADCONTEXT
@@ -423,7 +424,7 @@ kISRHDD2:
     iretq
 
 kISRETCInterrupt:
-       KSAVECONTEXT
+    KSAVECONTEXT
 
     mov rdi, 48
     call kCommonInterruptHandler
